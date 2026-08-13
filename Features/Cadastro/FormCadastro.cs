@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenacQuizApp.Features.Cadastro;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,12 @@ namespace SenacQuizApp.Forms
 {
     public partial class FormCadastro : Form
     {
-        public FormCadastro()
+        private readonly ModelCadastro _modelCadastro;
+
+        public FormCadastro(ModelCadastro modelCadastro)
         {
+            _modelCadastro = modelCadastro;
+
             InitializeComponent();
         }
     }

@@ -61,7 +61,7 @@ values
 create table Usuario(
 	Id Serial primary key,
 	Nome VARCHAR(30) not null,
-	Nickname VARCHAR(30) not null,
+	Nickname VARCHAR(30) unique not null,
 	DataDeNascimento TIMESTAMP not null,
 	Senha VARCHAR(255) not null,
 	NivelUsuarioId INT not null,
@@ -111,5 +111,5 @@ values
 create table ConquistaUsuario(
 	Id SERIAL primary key,
 	UsuarioId INT references Usuario(Id) on delete cascade,
-	ConquistaId INT references Conquista(Id) on delete cascade
+	ConquistaId INT unique references Conquista(Id) on delete cascade
 );
