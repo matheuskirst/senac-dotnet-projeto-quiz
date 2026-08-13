@@ -1,3 +1,4 @@
+using SenacQuizApp.Features.Cadastro;
 using SenacQuizApp.Features.Login;
 using SenacQuizApp.Forms;
 
@@ -13,9 +14,9 @@ namespace SenacQuizApp
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ModelLogin modelLogin = new ModelLogin();
+            ModelCadastro modelCadastro = new ModelCadastro();
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormLogin(modelLogin));
+            Application.Run(new FormCadastro(modelCadastro));
         }
     }
 }

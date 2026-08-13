@@ -13,10 +13,10 @@ namespace SenacQuizApp.Forms
 {
     public partial class FormLogin : Form
     {
-        ModelLogin ModelLogin;
+        private readonly ModelLogin _modelLogin;
         public FormLogin(ModelLogin modelLogin)
         {
-            ModelLogin = modelLogin;
+            _modelLogin = modelLogin;
 
             InitializeComponent();
         }

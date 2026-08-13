@@ -13,7 +13,7 @@ namespace SenacQuizApp.banco.config
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("DB_CONNECTION=Server=localhost;Port=5432;Database=projeto_quiz;Username=postgres;Password=admin;Trust Server Certificate=true");
+            => optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=projeto_quiz;Username=postgres;Password=admin;Trust Server Certificate=true");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

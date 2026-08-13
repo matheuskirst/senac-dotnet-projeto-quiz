@@ -14,6 +14,8 @@ namespace SenacQuizApp.Modelos
         [Required(ErrorMessage = "O Nome é obrigatório.")]
         [StringLength(255, MinimumLength = 3, ErrorMessage = "O Nome deve ter entre 3 e 255 caracteres.")]
         public string Nome { get; set; }
+
+        [StringLength(255, MinimumLength = 3, ErrorMessage = "O Nickname deve ter entre 3 e 255 caracteres.")]
         public string Nickname { get; set; }
         public DateTime DataDeNascimento { get; set; }
 
