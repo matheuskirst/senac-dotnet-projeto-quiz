@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenacQuizApp.Features.Login;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,11 @@ namespace SenacQuizApp.Forms
 {
     public partial class FormLogin : Form
     {
-        public FormLogin()
+        ModelLogin ModelLogin;
+        public FormLogin(ModelLogin modelLogin)
         {
+            ModelLogin = modelLogin;
+
             InitializeComponent();
         }
     }
