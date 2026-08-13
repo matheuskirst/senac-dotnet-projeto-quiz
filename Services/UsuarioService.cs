@@ -1,19 +1,15 @@
-﻿using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
-using SenacQuizApp.banco.repositories;
+﻿using SenacQuizApp.banco.repositories;
 using SenacQuizApp.Modelos;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Features.Cadastro
+namespace SenacQuizApp.Services
 {
-    public class ModelCadastro
+    public class UsuarioService
     {
         public event Action<string>? ErroAoCadastrar;
         public event EventHandler? UsuarioCadastrado;
@@ -52,7 +48,7 @@ namespace SenacQuizApp.Features.Cadastro
 
         }
 
-        public async Task TentarCadastro(
+        public async Task<bool> TentarSignup(
             string nome,
             string nickname,
             DateTime dataDeNascimento,
@@ -76,23 +72,25 @@ namespace SenacQuizApp.Features.Cadastro
 
             if (listaDeErros.Count > 0)
             {
-                foreach(var erro in listaDeErros)
+                foreach (var erro in listaDeErros)
                 {
                     stringBuilder.Append(erro.ErrorMessage + "\n");
                 }
                 string mensagemErro = stringBuilder.ToString();
                 ErroAoCadastrar?.Invoke(mensagemErro);
+                return false;
             }
             else
             {
                 try
                 {
-                    await UsuarioRepository.CadastrarUsuario(usuario);
+                    await UsuarioRepository.RegistrarUsuario(usuario);
                     UsuarioCadastrado?.Invoke(this, EventArgs.Empty);
+                    return true;
                 }
                 catch
                 {
-
+                    return false;
                 }
             }
         }

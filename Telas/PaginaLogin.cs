@@ -1,4 +1,4 @@
-﻿using SenacQuizApp.Features.Cadastro;
+﻿using SenacQuizApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,15 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SenacQuizApp.Forms
+namespace SenacQuizApp.Features.Login
 {
-    public partial class FormCadastro : Form
+    public partial class PaginaLogin : UserControl
     {
-        private readonly ModelCadastro _modelCadastro;
+        private readonly UsuarioService _usuarioService;
 
-        public FormCadastro(ModelCadastro modelCadastro)
+        public PaginaLogin(UsuarioService usuarioService)
         {
-            _modelCadastro = modelCadastro;
+            _usuarioService = usuarioService;
 
             InitializeComponent();
         }

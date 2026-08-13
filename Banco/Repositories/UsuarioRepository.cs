@@ -11,7 +11,7 @@ namespace SenacQuizApp.banco.repositories
 {
     public class UsuarioRepository
     {
-        public static async Task CadastrarUsuario(Usuario usuario)
+        public static async Task RegistrarUsuario(Usuario usuario)
         {
             using (var db = new QuizContexto())
             {
