@@ -9,14 +9,14 @@ namespace SenacQuizApp.Modelos
 {
     public class Conquista
     {
-        public int ConquistaId { get; set; }
-
-        [StringLength(30)]
-        public string Nome { get; set; }
+        public int Id { get; set; }
 
         [StringLength(255)]
+        public string Nome { get; set; }
+
+        [StringLength(1000)]
         public string Descricao { get; set; }
 
-        public List<UsuarioConquista> UsuarioConquistas { get; set; } = new();
+        public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }
 }

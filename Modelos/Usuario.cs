@@ -9,7 +9,7 @@ namespace SenacQuizApp.Modelos
 {
     public class NivelUsuario
     {
-        public int NivelUsuarioId { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public int PontosMin { get; set;}
         public int PontosMax { get; set;}
@@ -17,7 +17,7 @@ namespace SenacQuizApp.Modelos
 
     public class Usuario
     {
-        public int UsuarioId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "O Nome é obrigatório.")]
         [StringLength(255, MinimumLength = 3, ErrorMessage = "O Nome deve ter entre 3 e 255 caracteres.")]
@@ -31,6 +31,7 @@ namespace SenacQuizApp.Modelos
         [Required(ErrorMessage = "É necessário criar uma senha.")]
         public string Senha { get; set; }
 
+        public int NivelUsuarioId { get; set; }
         public NivelUsuario Nivel { get; set; }
 
         public int PontuacaoTotal { get; set; }
@@ -41,7 +42,7 @@ namespace SenacQuizApp.Modelos
 
         public int MaxAcertosConsecutivos { get; set; }
 
-        public List<PerguntaRespondida> PerguntasRespondidas { get; set; } = new();
-        public List<UsuarioConquista> UsuarioConquistas { get; set; } = new();
+        public ICollection<QuizTentativa> QuizTentativas { get; set; } = new List<QuizTentativa>();
+        public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }
 }

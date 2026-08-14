@@ -13,7 +13,7 @@ namespace SenacQuizApp.banco.repositories
     {
         public static async Task CadastrarUsuario(Usuario usuario)
         {
-            using (var db = new QuizContexto())
+            using (var db = new AppContexto())
             {
                 db.Usuarios.Add(usuario);
                 await db.SaveChangesAsync();
@@ -22,10 +22,10 @@ namespace SenacQuizApp.banco.repositories
 
         public static async Task<IEnumerable<Usuario>> ObterTodos()
         {
-            using (var db = new QuizContexto())
+            using (var db = new AppContexto())
             {
                 var usuarios = await db.Usuarios
-                    .OrderBy(u => u.UsuarioId)
+                    .OrderBy(u => u.Id)
                     .ToListAsync();
 
                 return usuarios;
@@ -34,11 +34,11 @@ namespace SenacQuizApp.banco.repositories
 
         public static async Task<IEnumerable<Usuario>> ObterUsuarioPorNick(string nickname)
         {
-            using (var db = new QuizContexto())
+            using (var db = new AppContexto())
             {
                 var usuarios = await db.Usuarios
                     .Where(u => u.Nickname == nickname)
-                    .OrderBy(u => u.UsuarioId)
+                    .OrderBy(u => u.Id)
                     .ToListAsync();
 
                 return usuarios;
