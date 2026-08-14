@@ -3,6 +3,7 @@ using System;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SenacQuizApp.banco.config;
@@ -12,9 +13,11 @@ using SenacQuizApp.banco.config;
 namespace SenacQuizApp.Migrations
 {
     [DbContext(typeof(QuizContexto))]
-    partial class QuizContextoModelSnapshot : ModelSnapshot
+    [Migration("20260814004718_AdicionaTabelasNovas")]
+    partial class AdicionaTabelasNovas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,29 +25,6 @@ namespace SenacQuizApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("SenacQuizApp.Modelos.Conquista", b =>
-                {
-                    b.Property<int>("ConquistaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ConquistaId"));
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
-
-                    b.HasKey("ConquistaId");
-
-                    b.ToTable("Conquistas");
-                });
 
             modelBuilder.Entity("SenacQuizApp.Modelos.NivelPergunta", b =>
                 {
@@ -56,8 +36,7 @@ namespace SenacQuizApp.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Pontos")
                         .HasColumnType("integer");
@@ -100,8 +79,7 @@ namespace SenacQuizApp.Migrations
 
                     b.Property<string>("Enunciado")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<int>("NivelPerguntaId")
                         .HasColumnType("integer");
@@ -126,32 +104,6 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("Perguntas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.PerguntaRespondida", b =>
-                {
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PerguntaId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Acertou")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("DataDeResposta")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<int>("PerguntaRespondidaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UsuarioId", "PerguntaId");
-
-                    b.HasIndex("PerguntaId");
-
-                    b.ToTable("PerguntasRespondidas");
-                });
-
             modelBuilder.Entity("SenacQuizApp.Modelos.TemaPergunta", b =>
                 {
                     b.Property<int>("TemaPerguntaId")
@@ -162,8 +114,7 @@ namespace SenacQuizApp.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("text");
 
                     b.HasKey("TemaPerguntaId");
 
@@ -220,29 +171,6 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.UsuarioConquista", b =>
-                {
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ConquistaId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DataDeAquisicao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<int>("UsuarioConquistaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UsuarioId", "ConquistaId");
-
-                    b.HasIndex("ConquistaId");
-
-                    b.ToTable("UsuarioConquistas");
-                });
-
             modelBuilder.Entity("SenacQuizApp.Modelos.Pergunta", b =>
                 {
                     b.HasOne("SenacQuizApp.Modelos.NivelPergunta", "Nivel")
@@ -262,25 +190,6 @@ namespace SenacQuizApp.Migrations
                     b.Navigation("Tema");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.PerguntaRespondida", b =>
-                {
-                    b.HasOne("SenacQuizApp.Modelos.Pergunta", "Pergunta")
-                        .WithMany("PerguntasRespondidas")
-                        .HasForeignKey("PerguntaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SenacQuizApp.Modelos.Usuario", "Usuario")
-                        .WithMany("PerguntasRespondidas")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Pergunta");
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("SenacQuizApp.Modelos.Usuario", b =>
                 {
                     b.HasOne("SenacQuizApp.Modelos.NivelUsuario", "Nivel")
@@ -290,42 +199,6 @@ namespace SenacQuizApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Nivel");
-                });
-
-            modelBuilder.Entity("SenacQuizApp.Modelos.UsuarioConquista", b =>
-                {
-                    b.HasOne("SenacQuizApp.Modelos.Conquista", "Conquista")
-                        .WithMany("UsuarioConquistas")
-                        .HasForeignKey("ConquistaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SenacQuizApp.Modelos.Usuario", "Usuario")
-                        .WithMany("UsuarioConquistas")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Conquista");
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("SenacQuizApp.Modelos.Conquista", b =>
-                {
-                    b.Navigation("UsuarioConquistas");
-                });
-
-            modelBuilder.Entity("SenacQuizApp.Modelos.Pergunta", b =>
-                {
-                    b.Navigation("PerguntasRespondidas");
-                });
-
-            modelBuilder.Entity("SenacQuizApp.Modelos.Usuario", b =>
-                {
-                    b.Navigation("PerguntasRespondidas");
-
-                    b.Navigation("UsuarioConquistas");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Modelos
 {
+    public class NivelUsuario
+    {
+        public int NivelUsuarioId { get; set; }
+        public string Nome { get; set; }
+        public int PontosMin { get; set;}
+        public int PontosMax { get; set;}
+    }
+
     public class Usuario
     {
         public int UsuarioId { get; set; }
@@ -17,9 +25,23 @@ namespace SenacQuizApp.Modelos
 
         [StringLength(255, MinimumLength = 3, ErrorMessage = "O Nickname deve ter entre 3 e 255 caracteres.")]
         public string Nickname { get; set; }
+
         public DateTime DataDeNascimento { get; set; }
 
         [Required(ErrorMessage = "É necessário criar uma senha.")]
         public string Senha { get; set; }
+
+        public NivelUsuario Nivel { get; set; }
+
+        public int PontuacaoTotal { get; set; }
+
+        public int TotalAcertos { get; set; }
+
+        public int TotalRespondidos { get; set; }
+
+        public int MaxAcertosConsecutivos { get; set; }
+
+        public List<PerguntaRespondida> PerguntasRespondidas { get; set; } = new();
+        public List<UsuarioConquista> UsuarioConquistas { get; set; } = new();
     }
 }
