@@ -13,6 +13,7 @@ namespace SenacQuizApp.banco.config
         public DbSet<Pergunta> Perguntas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Conquista> Conquistas { get; set; }
+        public DbSet<PerguntaRespondida> PerguntasRespondidas { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -77,6 +78,13 @@ namespace SenacQuizApp.banco.config
             modelBuilder.Entity<Usuario>()
                 .HasIndex(u => u.Nickname)
                 .IsUnique();
+
+            modelBuilder.Entity<PerguntaRespondida>()
+                .HasKey(pr => new { pr.UsuarioId, pr.PerguntaId });
+
+            modelBuilder.Entity<PerguntaRespondida>()
+                .Property(pr => pr.DataDeResposta)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             modelBuilder.Entity<UsuarioConquista>()
                 .HasKey(ua => new { ua.UsuarioId, ua.ConquistaId });

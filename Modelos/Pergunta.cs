@@ -41,5 +41,7 @@ namespace SenacQuizApp.Modelos
         public JsonDocument Respostas { get; set; }
         public NivelPergunta Nivel { get; set; }
         public TemaPergunta Tema { get; set; }
+
+        public List<PerguntaRespondida> PerguntasRespondidas { get; set; } = new();
     }
 }
