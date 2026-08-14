@@ -10,16 +10,19 @@ namespace SenacQuizApp.banco.config
 {
     public class AppContexto : DbContext
     {
+        // Tabelas
+        public DbSet<Conquista> Conquistas { get; set; }
+        public DbSet<Pergunta> Perguntas { get; set; }
+        public DbSet<PerguntaRespondida> PerguntasRespondidas { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizTentativa> QuizzesTentativas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
+
+        // Tabelas Lookup
         public DbSet<NivelUsuario> NiveisUsuarios { get; set; }
         public DbSet<NivelPergunta> NiveisPerguntas { get; set; }
         public DbSet<TemaPergunta> TemasPerguntas { get; set; }
-        public DbSet<Pergunta> Perguntas { get; set; }
-        public DbSet<PerguntaRespondida> PerguntasRespondidas { get; set; }
-        public DbSet<Quiz> Quizes { get; set; }
-        public DbSet<QuizPerguntas> QuizPerguntas { get; set; }
-        public DbSet<Conquista> Conquistas { get; set; }
-        public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -101,12 +104,11 @@ namespace SenacQuizApp.banco.config
                     builder.ToJson();
                 });
 
+
             modelBuilder.Entity<Usuario>()
                 .HasIndex(u => u.Nickname)
                 .IsUnique();
 
-            modelBuilder.Entity<QuizPerguntas>()
-                .HasKey(qp => new { qp.QuizId, qp.PerguntaId });
 
             modelBuilder.Entity<Quiz>()
                 .Property(q => q.QuantidadePerguntas)
@@ -117,16 +119,27 @@ namespace SenacQuizApp.banco.config
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
 
+            modelBuilder.Entity<QuizTentativa>()
+                .HasKey(qt => new { qt.UsuarioId, qt.QuizId });
+
+            modelBuilder.Entity<QuizTentativa>()
+                .Property(qt => qt.DataInicio)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+
+            modelBuilder.Entity<PerguntaRespondida>()
+                .HasKey(pr => new { pr.QuizTentativaId, pr.PerguntaId });
+
             modelBuilder.Entity<PerguntaRespondida>()
                 .Property(pr => pr.DataDeResposta)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
 
             modelBuilder.Entity<UsuarioConquista>()
                 .HasKey(ua => new { ua.UsuarioId, ua.ConquistaId });
 
             modelBuilder.Entity<UsuarioConquista>()
-                .Property(ua => ua.DataDeAquisicao)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                .Property(ua => ua.DataDeAquisicao);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SenacQuizApp.banco.repositories
             using (var db = new AppContexto())
             {
                 var usuarios = await db.Usuarios
-                    .OrderBy(u => u.UsuarioId)
+                    .OrderBy(u => u.Id)
                     .ToListAsync();
 
                 return usuarios;
@@ -38,7 +38,7 @@ namespace SenacQuizApp.banco.repositories
             {
                 var usuarios = await db.Usuarios
                     .Where(u => u.Nickname == nickname)
-                    .OrderBy(u => u.UsuarioId)
+                    .OrderBy(u => u.Id)
                     .ToListAsync();
 
                 return usuarios;

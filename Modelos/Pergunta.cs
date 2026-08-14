@@ -20,32 +20,32 @@ namespace SenacQuizApp.Modelos
 
     public class NivelPergunta
     {
-        public int NivelPerguntaId { get; set; }
+        public int Id { get; set; }
 
-        [StringLength(30)]
+        [StringLength(255)]
         public string Nome { get; set; }
         public int Pontos { get; set; }
     }
 
     public class TemaPergunta
     {
-        public int TemaPerguntaId { get; set; }
-        [StringLength(30)]
+        public int Id { get; set; }
+        [StringLength(255)]
         public string Nome { get; set; }
     }
 
     public class Pergunta
     {
-        public int PerguntaId { get; set; }
+        public int Id { get; set; }
 
-        [StringLength(500)]
+        [StringLength(1000)]
         public string Enunciado { get; set; }
         public TipoPergunta Tipo { get; set; }
         public List<OpcaoResposta> Respostas { get; set; } = new List<OpcaoResposta>();
         public NivelPergunta Nivel { get; set; }
         public TemaPergunta Tema { get; set; }
 
-        public ICollection<QuizPerguntas> QuizPerguntas { get; set; } = new List<QuizPerguntas>();
+        public ICollection<Quiz> Quizzes { get; set; } = new List<Quiz>();
         public ICollection<PerguntaRespondida> PerguntasRespondidas { get; set; } = new List<PerguntaRespondida>();
     }
 }
