@@ -28,107 +28,61 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new TableLayoutPanel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            materialButton1 = new MaterialSkin.Controls.MaterialButton();
-            materialButton2 = new MaterialSkin.Controls.MaterialButton();
-            panel1 = new Panel();
-            tableLayoutPanel1.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
+            label1 = new Label();
+            button1 = new Button();
+            button2 = new Button();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // label1
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(854, 480);
-            tableLayoutPanel1.TabIndex = 0;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(347, 56);
+            label1.Name = "label1";
+            label1.Size = new Size(155, 65);
+            label1.TabIndex = 1;
+            label1.Text = "Iniciar";
             // 
-            // flowLayoutPanel1
+            // button1
             // 
-            flowLayoutPanel1.Anchor = AnchorStyles.None;
-            flowLayoutPanel1.AutoSize = true;
-            flowLayoutPanel1.Controls.Add(materialButton1);
-            flowLayoutPanel1.Controls.Add(panel1);
-            flowLayoutPanel1.Controls.Add(materialButton2);
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(344, 184);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(166, 112);
-            flowLayoutPanel1.TabIndex = 0;
+            button1.BackColor = Color.FromArgb(255, 128, 0);
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.Location = new Point(294, 206);
+            button1.Name = "button1";
+            button1.Size = new Size(270, 53);
+            button1.TabIndex = 2;
+            button1.Text = "Realizar login ";
+            button1.UseVisualStyleBackColor = false;
             // 
-            // materialButton1
+            // button2
             // 
-            materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton1.BackColor = SystemColors.Control;
-            materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton1.Depth = 0;
-            materialButton1.HighEmphasis = true;
-            materialButton1.Icon = null;
-            materialButton1.Location = new Point(4, 6);
-            materialButton1.Margin = new Padding(4, 6, 4, 6);
-            materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton1.Name = "materialButton1";
-            materialButton1.NoAccentTextColor = Color.Empty;
-            materialButton1.Size = new Size(158, 36);
-            materialButton1.TabIndex = 0;
-            materialButton1.Text = "Realizar Login";
-            materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton1.UseAccentColor = false;
-            materialButton1.UseVisualStyleBackColor = false;
-            // 
-            // materialButton2
-            // 
-            materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton2.Depth = 0;
-            materialButton2.HighEmphasis = true;
-            materialButton2.Icon = null;
-            materialButton2.Location = new Point(4, 70);
-            materialButton2.Margin = new Padding(4, 6, 4, 6);
-            materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton2.Name = "materialButton2";
-            materialButton2.NoAccentTextColor = Color.Empty;
-            materialButton2.Size = new Size(158, 36);
-            materialButton2.TabIndex = 1;
-            materialButton2.Text = "materialButton2";
-            materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton2.UseAccentColor = false;
-            materialButton2.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(3, 51);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(10, 10);
-            panel1.TabIndex = 2;
+            button2.BackColor = Color.FromArgb(0, 192, 0);
+            button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.Location = new Point(294, 308);
+            button2.Name = "button2";
+            button2.Size = new Size(270, 54);
+            button2.TabIndex = 3;
+            button2.Text = "Criar conta";
+            button2.UseVisualStyleBackColor = false;
             // 
             // PaginaInicial
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            Controls.Add(label1);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "PaginaInicial";
-            Size = new Size(854, 480);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
-            flowLayoutPanel1.ResumeLayout(false);
-            flowLayoutPanel1.PerformLayout();
+            Size = new Size(1220, 800);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private MaterialSkin.Controls.MaterialButton materialButton1;
-        private Panel panel1;
-        private MaterialSkin.Controls.MaterialButton materialButton2;
+        private Label label1;
+        private Button button1;
+        private Button button2;
     }
 }

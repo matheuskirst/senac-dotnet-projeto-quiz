@@ -35,17 +35,20 @@
             // 
             panelContainer.Dock = DockStyle.Fill;
             panelContainer.Location = new Point(0, 0);
+            panelContainer.Margin = new Padding(4, 5, 4, 5);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(838, 480);
+            panelContainer.Size = new Size(1026, 707);
             panelContainer.TabIndex = 0;
+            panelContainer.Paint += panelContainer_Paint;
             // 
             // FormJanelaPrincipal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(838, 480);
+            ClientSize = new Size(1026, 707);
             Controls.Add(panelContainer);
-            MinimumSize = new Size(640, 480);
+            Margin = new Padding(4, 5, 4, 5);
+            MinimumSize = new Size(905, 763);
             Name = "FormJanelaPrincipal";
             Text = "Projeto Quiz";
             Load += FormJanelaPrincipal_Load;

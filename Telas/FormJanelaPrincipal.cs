@@ -64,5 +64,15 @@ namespace SenacQuizApp.Features.TelaPrincipal
 
             MudarPagina(paginaSignup);
         }
+
+        private void panelContainer_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void aloneTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
