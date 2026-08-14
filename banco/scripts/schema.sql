@@ -1,8 +1,7 @@
-create table TipoPergunta(
-	Id Serial primary key,
-	Nome VARCHAR(255) not null
+create type TipoPergunta as enum (
+	'alternativas',
+	'verdadeiro-ou-falso'
 );
-
 
 create table NivelPergunta(
 	Id Serial primary key,
@@ -10,36 +9,20 @@ create table NivelPergunta(
 	Pontos INT not null,
 );
 
-insert into NivelPergunta (Nome, Pontos)
-values 
-	("Iniciante", 10),
-	("Fácil", 20),
-	("Intermediário", 30),
-	("Avançado", 50);
-
 
 create table TemaPergunta(
 	Id Serial primary key,
 	Nome VARCHAR(255) not null
 );
 
-insert into TemaPergunta (Nome)
-values 
-	("Hardware"),
-	("Programação"),
-	("Redes"),
-	("Segurança Digital"),
-	("Sistemas Operacionais"),
-	("Ferramentas de produtividade");
-
 
 create table Pergunta(
 	Id Serial primary key,
 	Enunciado VARCHAR(255) not null,
-	TipoPerguntaId INT not null,
+	Tipo TipoPergunta not null,
+	Alternativas JSONB,
 	NivelPerguntaId INT not null,
 	TemaPerguntaId INT not null,
-	foreign key (TipoPerguntaId) references TipoPergunta(Id),
 	foreign key (NivelPerguntaId) references NivelPergunta(Id),
 	foreign key (TemaPerguntaId) references TemaPergunta(Id)
 );
@@ -73,7 +56,7 @@ create table Usuario(
 );
 
 
-create table RespostaUsuario(
+create table PerguntaRespondida(
 	Id SERIAL primary key,
 	UsuarioId INT not null,
 	PerguntaId INT not null,

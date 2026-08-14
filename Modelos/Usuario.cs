@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Modelos
 {
+    public class NivelUsuario
+    {
+        public int NivelUsuarioId { get; set; }
+        public string Nome { get; set; }
+        public int PontosMin { get; set;}
+        public int PontosMax { get; set;}
+    }
+
     public class Usuario
     {
         public int UsuarioId { get; set; }
@@ -21,5 +29,11 @@ namespace SenacQuizApp.Modelos
 
         [Required(ErrorMessage = "É necessário criar uma senha.")]
         public string Senha { get; set; }
+
+        public NivelUsuario Nivel { get; set; }
+        public int PontuacaoTotal { get; set; }
+        public int TotalAcertos { get; set; }
+        public int TotalRespondidos { get; set; }
+        public int MaxAcertosConsecutivos { get; set; }
     }
 }
