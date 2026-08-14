@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -17,6 +18,8 @@ namespace SenacQuizApp.Modelos
     public class NivelPergunta
     {
         public int NivelPerguntaId { get; set; }
+
+        [StringLength(30)]
         public string Nome { get; set; }
         public int Pontos { get; set; }
     }
@@ -24,12 +27,15 @@ namespace SenacQuizApp.Modelos
     public class TemaPergunta
     {
         public int TemaPerguntaId { get; set; }
+        [StringLength(30)]
         public string Nome { get; set; }
     }
 
     public class Pergunta
     {
         public int PerguntaId { get; set; }
+
+        [StringLength(50)]
         public string Enunciado { get; set; }
         public TipoPergunta Tipo { get; set; }
         public JsonDocument Respostas { get; set; }

@@ -5,14 +5,14 @@ create type TipoPergunta as enum (
 
 create table NivelPergunta(
 	Id Serial primary key,
-	Nome VARCHAR(255) not null,
+	Nome VARCHAR(30) not null,
 	Pontos INT not null,
 );
 
 
 create table TemaPergunta(
 	Id Serial primary key,
-	Nome VARCHAR(255) not null
+	Nome VARCHAR(30) not null
 );
 
 
@@ -95,4 +95,5 @@ create table ConquistaUsuario(
 	Id SERIAL primary key,
 	UsuarioId INT references Usuario(Id) on delete cascade,
 	ConquistaId INT unique references Conquista(Id) on delete cascade
+	DataDeAquisicao TIMESTAMP not null
 );
