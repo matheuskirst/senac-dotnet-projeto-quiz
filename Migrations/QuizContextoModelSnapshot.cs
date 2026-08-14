@@ -11,7 +11,7 @@ using SenacQuizApp.banco.config;
 
 namespace SenacQuizApp.Migrations
 {
-    [DbContext(typeof(QuizContexto))]
+    [DbContext(typeof(AppContexto))]
     partial class QuizContextoModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

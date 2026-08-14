@@ -17,6 +17,6 @@ namespace SenacQuizApp.Modelos
         [StringLength(255)]
         public string Descricao { get; set; }
 
-        public List<UsuarioConquista> UsuarioConquistas { get; set; } = new();
+        public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }
 }

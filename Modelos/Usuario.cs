@@ -41,7 +41,7 @@ namespace SenacQuizApp.Modelos
 
         public int MaxAcertosConsecutivos { get; set; }
 
-        public List<PerguntaRespondida> PerguntasRespondidas { get; set; } = new();
-        public List<UsuarioConquista> UsuarioConquistas { get; set; } = new();
+        public ICollection<PerguntaRespondida> PerguntasRespondidas { get; set; } = new List<PerguntaRespondida>();
+        public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }
 }

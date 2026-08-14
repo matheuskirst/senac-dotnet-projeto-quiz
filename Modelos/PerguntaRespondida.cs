@@ -14,6 +14,6 @@ namespace SenacQuizApp.Modelos
         public int PerguntaId { get; set; }
         public Pergunta Pergunta { get; set; }
         public bool Acertou { get; set; }
-        public DateTime DataDeResposta { get; set; } = DateTime.UtcNow;
+        public DateTime? DataDeResposta { get; set; } = DateTime.UtcNow;
     }
 }

@@ -13,6 +13,6 @@ namespace SenacQuizApp.Modelos
         public Usuario Usuario { get; set; }
         public int ConquistaId { get; set; }
         public Conquista Conquista { get; set; }
-        public DateTime DataDeAquisicao { get; set; } = DateTime.UtcNow;
+        public DateTime? DataDeAquisicao { get; set; } = DateTime.UtcNow;
     }
 }

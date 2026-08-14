@@ -11,7 +11,7 @@ using SenacQuizApp.banco.config;
 
 namespace SenacQuizApp.Migrations
 {
-    [DbContext(typeof(QuizContexto))]
+    [DbContext(typeof(AppContexto))]
     [Migration("20260813011636_AdicionarTabelaInicial")]
     partial class AdicionarTabelaInicial
     {
