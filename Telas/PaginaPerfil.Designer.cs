@@ -1,6 +1,6 @@
 ﻿namespace SenacQuizApp.Telas
 {
-    partial class VerPerfil
+    partial class PaginaPerfil
     {
         /// <summary> 
         /// Variável de designer necessária.

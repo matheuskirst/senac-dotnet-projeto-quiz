@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas
 {
-    public partial class VerPerfil : UserControl
+    public partial class PaginaHistorico : UserControl
     {
-        public VerPerfil()
+        public PaginaHistorico()
         {
             InitializeComponent();
+        }
+
+        private void ConsultarHistóricocs_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

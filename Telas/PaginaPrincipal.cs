@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenacQuizApp.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,11 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaPrincipal : UserControl
     {
-        public PaginaPrincipal()
+        private readonly UsuarioService _usuarioService;
+        public PaginaPrincipal(UsuarioService usuarioService)
         {
+            _usuarioService = usuarioService;
+
             InitializeComponent();
         }
     }

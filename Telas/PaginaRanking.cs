@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas
 {
-    public partial class VerRanking : UserControl
+    public partial class PaginaRanking : UserControl
     {
-        public VerRanking()
+        public PaginaRanking()
         {
             InitializeComponent();
         }

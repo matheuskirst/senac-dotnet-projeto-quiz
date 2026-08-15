@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin.Controls;
 
 namespace SenacQuizApp.Features.PaginaInicial
 {
@@ -19,6 +18,16 @@ namespace SenacQuizApp.Features.PaginaInicial
         public PaginaInicial()
         {
             InitializeComponent();
+        }
+
+        private void ButtonInicialLogin_Click(object sender, EventArgs e)
+        {
+            EscolheuLogin?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ButtonInicialSignup_Click(object sender, EventArgs e)
+        {
+            EscolheuSignup?.Invoke(this, EventArgs.Empty);
         }
     }
 }

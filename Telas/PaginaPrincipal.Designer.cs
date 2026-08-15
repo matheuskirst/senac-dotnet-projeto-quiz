@@ -49,7 +49,7 @@
             // 
             button2.BackColor = Color.Tomato;
             button2.Font = new Font("Segoe UI", 12F);
-            button2.Location = new Point(271, 187);
+            button2.Location = new Point(272, 187);
             button2.Name = "button2";
             button2.Size = new Size(355, 66);
             button2.TabIndex = 1;
@@ -87,9 +87,9 @@
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "PaginaPrincipal";
-            Size = new Size(942, 569);
+            Size = new Size(938, 664);
             ResumeLayout(false);
         }
 

@@ -13,6 +13,7 @@ namespace SenacQuizApp.Features.Login
 {
     public partial class PaginaLogin : UserControl
     {
+        public event EventHandler? EscolheuVoltar;
         private readonly UsuarioService _usuarioService;
 
         public PaginaLogin(UsuarioService usuarioService)
@@ -20,6 +21,16 @@ namespace SenacQuizApp.Features.Login
             _usuarioService = usuarioService;
 
             InitializeComponent();
+        }
+
+        private void PaginaLogin_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonLoginVoltar_Click(object sender, EventArgs e)
+        {
+            EscolheuVoltar?.Invoke(this, EventArgs.Empty);
         }
     }
 }

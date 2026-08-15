@@ -9,32 +9,54 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Services
 {
+    public class MensagemErroEventArgs : EventArgs
+    {
+        public bool OcorreuErro { get; set; } = false;
+        public string? NomeErro { get; set; } = null;
+        public string? NicknameErro { get; set; } = null;
+        public string? DataNascimentoErro { get; set; } = null;
+        public string? SenhaNulaErro { get; set; } = null;
+        public string? SenhaTamanhoErro { get; set; } = null;
+        public string? SenhaRequisitosErro { get; set; } = null;
+        public string? SenhaConfirmarErro { get; set; } = null;
+    }
+
     public class UsuarioService
     {
-        public event Action<string>? ErroAoCadastrar;
         public event EventHandler? UsuarioCadastrado;
+        public event EventHandler<MensagemErroEventArgs>? MensagemErro;
 
-        public static void ValidarNickname(string nickname, List<ValidationResult> listaDeErros)
+        public static void ValidarSenha(string senha, string confirmarSenha, MensagemErroEventArgs mensagemErro)
         {
-
-        }
-
-        public static void ValidarSenha(string senha, List<ValidationResult> listaDeErros)
-        {
-            if (!string.IsNullOrEmpty(senha))
+            if (!string.IsNullOrEmpty(senha) && !string.IsNullOrEmpty(confirmarSenha))
             {
                 int tamanhoSenha = senha.Length;
 
                 if (tamanhoSenha < 6 || tamanhoSenha > 30)
                 {
-                    listaDeErros.Add(new ValidationResult("A senha deve ter entre 6 e 30 caracteres!"));
+                    mensagemErro.SenhaTamanhoErro = "A senha deve ter entre 6 e 30 caracteres!";
                 }
 
                 if (!SenhaAtendeRequisitos(senha))
                 {
-                    listaDeErros.Add(new ValidationResult(
-                        "A senha deve ter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 caractere especial e 1 número!"
-                    ));
+                    mensagemErro.SenhaRequisitosErro = "A senha deve ter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 caractere especial e 1 número!";
+                }
+
+                if (senha != confirmarSenha)
+                {
+                    mensagemErro.SenhaConfirmarErro = "As senhas não são as mesmas!";
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(senha))
+                {
+                    mensagemErro.SenhaNulaErro = "Digite uma senha.";
+                }
+
+                if (string.IsNullOrEmpty(confirmarSenha))
+                {
+                    mensagemErro.SenhaNulaErro = "Confirme a senha.";
                 }
             }
         }
@@ -48,17 +70,17 @@ namespace SenacQuizApp.Services
 
         }
 
-        public async Task<bool> TentarSignup(
+        public async Task TentarSignup(
             string nome,
             string nickname,
             DateTime dataDeNascimento,
-            string senha
+            string senha,
+            string confirmarSenha
             )
         {
-            var stringBuilder = new StringBuilder();
-            var listaDeErros = new List<ValidationResult>();
+            var mensagemErro = new MensagemErroEventArgs();
 
-            ValidarSenha(senha, listaDeErros);
+            ValidarSenha(senha, confirmarSenha, mensagemErro);
 
             string senhaHash = BCrypt.Net.BCrypt.EnhancedHashPassword(senha);
 
@@ -70,15 +92,9 @@ namespace SenacQuizApp.Services
                 Senha = senhaHash
             };
 
-            if (listaDeErros.Count > 0)
+            if (mensagemErro.OcorreuErro)
             {
-                foreach (var erro in listaDeErros)
-                {
-                    stringBuilder.Append(erro.ErrorMessage + "\n");
-                }
-                string mensagemErro = stringBuilder.ToString();
-                ErroAoCadastrar?.Invoke(mensagemErro);
-                return false;
+                MensagemErro?.Invoke(this, mensagemErro);
             }
             else
             {
@@ -86,11 +102,10 @@ namespace SenacQuizApp.Services
                 {
                     await UsuarioRepository.RegistrarUsuario(usuario);
                     UsuarioCadastrado?.Invoke(this, EventArgs.Empty);
-                    return true;
                 }
                 catch
                 {
-                    return false;
+
                 }
             }
         }

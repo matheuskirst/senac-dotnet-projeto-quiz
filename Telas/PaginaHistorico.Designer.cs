@@ -1,6 +1,6 @@
 ﻿namespace SenacQuizApp.Telas
 {
-    partial class VerRanking
+    partial class PaginaHistorico
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -36,30 +36,31 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(202, 93);
+            dataGridView1.Location = new Point(257, 68);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(545, 251);
+            dataGridView1.Size = new Size(439, 229);
             dataGridView1.TabIndex = 0;
             // 
             // button1
             // 
             button1.BackColor = Color.Red;
             button1.Font = new Font("Segoe UI", 12F);
-            button1.Location = new Point(297, 403);
+            button1.Location = new Point(347, 369);
             button1.Name = "button1";
-            button1.Size = new Size(335, 69);
+            button1.Size = new Size(243, 61);
             button1.TabIndex = 1;
-            button1.Text = "Ver perfil";
+            button1.Text = "Consultar";
             button1.UseVisualStyleBackColor = false;
             // 
-            // VerRanking
+            // PaginaHistorico
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(button1);
             Controls.Add(dataGridView1);
-            Name = "VerRanking";
-            Size = new Size(1000, 566);
+            Name = "PaginaHistorico";
+            Size = new Size(968, 621);
+            Load += ConsultarHistóricocs_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }

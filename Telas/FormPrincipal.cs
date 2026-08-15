@@ -11,15 +11,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ReaLTaiizor.Forms;
+using AntdUI;
+using SenacQuizApp.Telas;
 
 namespace SenacQuizApp.Features.TelaPrincipal
 {
-    public partial class FormJanelaPrincipal : Form
+    public partial class FormPrincipal : Window
     {
         private readonly UsuarioService _usuarioService;
 
-        public FormJanelaPrincipal()
+        public FormPrincipal()
         {
             UsuarioService usuarioService = new UsuarioService();
             _usuarioService = usuarioService;
@@ -29,7 +30,7 @@ namespace SenacQuizApp.Features.TelaPrincipal
 
         private void FormJanelaPrincipal_Load(object sender, EventArgs e)
         {
-            AbrirPaginaInicial();
+            AbrirPaginaInicial(null, e);
         }
 
         public void MudarPagina(UserControl pagina)
@@ -41,7 +42,7 @@ namespace SenacQuizApp.Features.TelaPrincipal
             panelContainer.Controls.Add(pagina);
         }
 
-        public void AbrirPaginaInicial()
+        public void AbrirPaginaInicial(object? sender, EventArgs e)
         {
             PaginaInicial.PaginaInicial paginaInicial = new PaginaInicial.PaginaInicial();
 
@@ -55,6 +56,8 @@ namespace SenacQuizApp.Features.TelaPrincipal
         {
             PaginaLogin paginaLogin = new PaginaLogin(_usuarioService);
 
+            paginaLogin.EscolheuVoltar += AbrirPaginaInicial;
+
             MudarPagina(paginaLogin);
         }
 
@@ -62,17 +65,16 @@ namespace SenacQuizApp.Features.TelaPrincipal
         {
             PaginaSignup paginaSignup = new PaginaSignup(_usuarioService);
 
+            paginaSignup.EscolheuVoltar += AbrirPaginaInicial;
+
             MudarPagina(paginaSignup);
         }
 
-        private void panelContainer_Paint(object sender, PaintEventArgs e)
+        public void AbrirPaginaPrincipal(object? sender, EventArgs e)
         {
+            PaginaPrincipal paginaPrincipal = new PaginaPrincipal(_usuarioService);
 
-        }
-
-        private void aloneTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            MudarPagina(paginaPrincipal);
         }
     }
 }
