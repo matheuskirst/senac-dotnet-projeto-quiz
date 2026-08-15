@@ -1,4 +1,4 @@
-﻿using SenacQuizApp.Features.Cadastro;
+﻿using SenacQuizApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,15 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SenacQuizApp.Forms
+namespace SenacQuizApp.Telas
 {
-    public partial class FormCadastro : Form
+    public partial class PaginaPrincipal : UserControl
     {
-        private readonly ModelCadastro _modelCadastro;
-
-        public FormCadastro(ModelCadastro modelCadastro)
+        private readonly UsuarioService _usuarioService;
+        public PaginaPrincipal(UsuarioService usuarioService)
         {
-            _modelCadastro = modelCadastro;
+            _usuarioService = usuarioService;
 
             InitializeComponent();
         }
