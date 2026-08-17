@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json;
 
-namespace SenacQuizApp.Modelos
+namespace SenacQuizApp.Entidades
 {
     public enum TipoPergunta
     {

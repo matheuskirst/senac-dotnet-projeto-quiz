@@ -1,4 +1,4 @@
-﻿namespace SenacQuizApp.Features.Login
+﻿namespace SenacQuizApp.Telas
 {
     partial class PaginaLogin
     {
@@ -28,67 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TableLayoutPanelLogin = new TableLayoutPanel();
-            ButtonLoginVoltar = new AntdUI.Button();
             StackPanelLogin = new AntdUI.StackPanel();
+            StackPanelLoginErro = new AntdUI.StackPanel();
+            LabelLoginErro = new AntdUI.Label();
             ButtonLoginEntrar = new AntdUI.Button();
-            InputSignupSenha = new AntdUI.Input();
+            InputLoginSenha = new AntdUI.Input();
             LabelLoginSenha = new AntdUI.Label();
-            InputSignupNome = new AntdUI.Input();
+            InputLoginNome = new AntdUI.Input();
             LabelLoginNome = new AntdUI.Label();
             LabelLoginTitulo = new AntdUI.Label();
-            TableLayoutPanelLogin.SuspendLayout();
+            ButtonLoginVoltar = new AntdUI.Button();
+            TableLayoutPanelLogin = new TableLayoutPanel();
             StackPanelLogin.SuspendLayout();
+            StackPanelLoginErro.SuspendLayout();
+            TableLayoutPanelLogin.SuspendLayout();
             SuspendLayout();
-            // 
-            // TableLayoutPanelLogin
-            // 
-            TableLayoutPanelLogin.BackColor = Color.Transparent;
-            TableLayoutPanelLogin.ColumnCount = 3;
-            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.Controls.Add(ButtonLoginVoltar, 1, 2);
-            TableLayoutPanelLogin.Controls.Add(StackPanelLogin, 1, 1);
-            TableLayoutPanelLogin.Dock = DockStyle.Fill;
-            TableLayoutPanelLogin.Location = new Point(0, 0);
-            TableLayoutPanelLogin.Name = "TableLayoutPanelLogin";
-            TableLayoutPanelLogin.RowCount = 4;
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.Size = new Size(1024, 720);
-            TableLayoutPanelLogin.TabIndex = 5;
-            // 
-            // ButtonLoginVoltar
-            // 
-            ButtonLoginVoltar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonLoginVoltar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonLoginVoltar.Location = new Point(23, 653);
-            ButtonLoginVoltar.Name = "ButtonLoginVoltar";
-            ButtonLoginVoltar.Radius = 4;
-            ButtonLoginVoltar.Size = new Size(137, 44);
-            ButtonLoginVoltar.TabIndex = 0;
-            ButtonLoginVoltar.Text = "Voltar para Tela Inicial";
-            ButtonLoginVoltar.Click += ButtonLoginVoltar_Click;
             // 
             // StackPanelLogin
             // 
             StackPanelLogin.Anchor = AnchorStyles.None;
+            StackPanelLogin.Controls.Add(StackPanelLoginErro);
             StackPanelLogin.Controls.Add(ButtonLoginEntrar);
-            StackPanelLogin.Controls.Add(InputSignupSenha);
+            StackPanelLogin.Controls.Add(InputLoginSenha);
             StackPanelLogin.Controls.Add(LabelLoginSenha);
-            StackPanelLogin.Controls.Add(InputSignupNome);
+            StackPanelLogin.Controls.Add(InputLoginNome);
             StackPanelLogin.Controls.Add(LabelLoginNome);
             StackPanelLogin.Controls.Add(LabelLoginTitulo);
-            StackPanelLogin.Location = new Point(292, 151);
+            StackPanelLogin.Location = new Point(292, 110);
             StackPanelLogin.Name = "StackPanelLogin";
-            StackPanelLogin.Size = new Size(440, 367);
+            StackPanelLogin.Size = new Size(440, 450);
             StackPanelLogin.TabIndex = 1;
             StackPanelLogin.Text = "stackPanel1";
             StackPanelLogin.Vertical = true;
+            // 
+            // StackPanelLoginErro
+            // 
+            StackPanelLoginErro.BackColor = Color.Transparent;
+            StackPanelLoginErro.BorderColor = Color.Red;
+            StackPanelLoginErro.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            StackPanelLoginErro.BorderWidth = 2F;
+            StackPanelLoginErro.Controls.Add(LabelLoginErro);
+            StackPanelLoginErro.Location = new Point(3, 367);
+            StackPanelLoginErro.Name = "StackPanelLoginErro";
+            StackPanelLoginErro.Radius = 6;
+            StackPanelLoginErro.Size = new Size(434, 50);
+            StackPanelLoginErro.TabIndex = 24;
+            StackPanelLoginErro.Visible = false;
+            // 
+            // LabelLoginErro
+            // 
+            LabelLoginErro.BackColor = Color.Transparent;
+            LabelLoginErro.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelLoginErro.Location = new Point(5, 5);
+            LabelLoginErro.Name = "LabelLoginErro";
+            LabelLoginErro.Size = new Size(428, 40);
+            LabelLoginErro.TabIndex = 1;
+            LabelLoginErro.Text = "O Nome ou a Senha são inválidos!";
+            LabelLoginErro.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ButtonLoginEntrar
             // 
@@ -100,16 +96,22 @@
             ButtonLoginEntrar.Size = new Size(434, 60);
             ButtonLoginEntrar.TabIndex = 23;
             ButtonLoginEntrar.Text = "Entrar";
+            ButtonLoginEntrar.Click += ButtonLoginEntrar_Click;
             // 
-            // InputSignupSenha
+            // InputLoginSenha
             // 
-            InputSignupSenha.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputSignupSenha.Location = new Point(0, 201);
-            InputSignupSenha.Margin = new Padding(0);
-            InputSignupSenha.Name = "InputSignupSenha";
-            InputSignupSenha.Radius = 4;
-            InputSignupSenha.Size = new Size(440, 50);
-            InputSignupSenha.TabIndex = 20;
+            InputLoginSenha.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InputLoginSenha.Location = new Point(0, 201);
+            InputLoginSenha.Margin = new Padding(0);
+            InputLoginSenha.MaxLength = 50;
+            InputLoginSenha.Name = "InputLoginSenha";
+            InputLoginSenha.Radius = 4;
+            InputLoginSenha.Size = new Size(440, 50);
+            InputLoginSenha.SuffixText = "Mostrar";
+            InputLoginSenha.TabIndex = 20;
+            InputLoginSenha.UseSystemPasswordChar = true;
+            InputLoginSenha.SuffixClick += InputLoginSenha_SuffixClick;
+            InputLoginSenha.TextChanged += LimparBorda_TextChanged;
             // 
             // LabelLoginSenha
             // 
@@ -120,15 +122,16 @@
             LabelLoginSenha.TabIndex = 19;
             LabelLoginSenha.Text = "Senha";
             // 
-            // InputSignupNome
+            // InputLoginNome
             // 
-            InputSignupNome.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputSignupNome.Location = new Point(0, 122);
-            InputSignupNome.Margin = new Padding(0);
-            InputSignupNome.Name = "InputSignupNome";
-            InputSignupNome.Radius = 4;
-            InputSignupNome.Size = new Size(440, 50);
-            InputSignupNome.TabIndex = 3;
+            InputLoginNome.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InputLoginNome.Location = new Point(0, 122);
+            InputLoginNome.Margin = new Padding(0);
+            InputLoginNome.Name = "InputLoginNome";
+            InputLoginNome.Radius = 4;
+            InputLoginNome.Size = new Size(440, 50);
+            InputLoginNome.TabIndex = 3;
+            InputLoginNome.TextChanged += LimparBorda_TextChanged;
             // 
             // LabelLoginNome
             // 
@@ -152,6 +155,39 @@
             LabelLoginTitulo.Text = "Realizar Login";
             LabelLoginTitulo.TextAlign = ContentAlignment.TopCenter;
             // 
+            // ButtonLoginVoltar
+            // 
+            ButtonLoginVoltar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonLoginVoltar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonLoginVoltar.Location = new Point(23, 653);
+            ButtonLoginVoltar.Name = "ButtonLoginVoltar";
+            ButtonLoginVoltar.Radius = 4;
+            ButtonLoginVoltar.Size = new Size(137, 44);
+            ButtonLoginVoltar.TabIndex = 0;
+            ButtonLoginVoltar.Text = "Voltar para Tela Inicial";
+            ButtonLoginVoltar.Click += ButtonLoginVoltar_Click;
+            // 
+            // TableLayoutPanelLogin
+            // 
+            TableLayoutPanelLogin.BackColor = Color.Transparent;
+            TableLayoutPanelLogin.ColumnCount = 3;
+            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.Controls.Add(ButtonLoginVoltar, 1, 2);
+            TableLayoutPanelLogin.Controls.Add(StackPanelLogin, 1, 1);
+            TableLayoutPanelLogin.Dock = DockStyle.Fill;
+            TableLayoutPanelLogin.Location = new Point(0, 0);
+            TableLayoutPanelLogin.Name = "TableLayoutPanelLogin";
+            TableLayoutPanelLogin.RowCount = 4;
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.Size = new Size(1024, 720);
+            TableLayoutPanelLogin.TabIndex = 5;
+            // 
             // PaginaLogin
             // 
             AutoScaleDimensions = new SizeF(18F, 45F);
@@ -163,22 +199,25 @@
             Name = "PaginaLogin";
             Size = new Size(1024, 720);
             Load += PaginaLogin_Load;
-            TableLayoutPanelLogin.ResumeLayout(false);
             StackPanelLogin.ResumeLayout(false);
             StackPanelLogin.PerformLayout();
+            StackPanelLoginErro.ResumeLayout(false);
+            TableLayoutPanelLogin.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel TableLayoutPanelLogin;
-        private AntdUI.Button ButtonLoginVoltar;
         private AntdUI.StackPanel StackPanelLogin;
         private AntdUI.Button ButtonLoginEntrar;
-        private AntdUI.Input InputSignupSenha;
+        private AntdUI.Input InputLoginSenha;
         private AntdUI.Label LabelLoginSenha;
-        private AntdUI.Input InputSignupNome;
+        private AntdUI.Input InputLoginNome;
         private AntdUI.Label LabelLoginNome;
         private AntdUI.Label LabelLoginTitulo;
+        private AntdUI.Button ButtonLoginVoltar;
+        private TableLayoutPanel TableLayoutPanelLogin;
+        private AntdUI.StackPanel StackPanelLoginErro;
+        private AntdUI.Label LabelLoginErro;
     }
 }

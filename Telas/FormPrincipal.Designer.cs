@@ -1,4 +1,4 @@
-﻿namespace SenacQuizApp.Features.TelaPrincipal
+﻿namespace SenacQuizApp.Telas
 {
     partial class FormPrincipal
     {
@@ -28,19 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pageHeader1 = new AntdUI.PageHeader();
             panelContainer = new Panel();
+            PageHeader = new AntdUI.PageHeader();
             SuspendLayout();
-            // 
-            // pageHeader1
-            // 
-            pageHeader1.Dock = DockStyle.Top;
-            pageHeader1.Location = new Point(0, 0);
-            pageHeader1.Name = "pageHeader1";
-            pageHeader1.ShowButton = true;
-            pageHeader1.Size = new Size(854, 30);
-            pageHeader1.TabIndex = 2;
-            pageHeader1.Text = "Quiz";
             // 
             // panelContainer
             // 
@@ -50,13 +40,24 @@
             panelContainer.Size = new Size(854, 450);
             panelContainer.TabIndex = 3;
             // 
+            // PageHeader
+            // 
+            PageHeader.BackColor = SystemColors.ControlLight;
+            PageHeader.Dock = DockStyle.Top;
+            PageHeader.Location = new Point(0, 0);
+            PageHeader.Name = "PageHeader";
+            PageHeader.ShowButton = true;
+            PageHeader.Size = new Size(854, 30);
+            PageHeader.TabIndex = 5;
+            PageHeader.Text = "Quiz";
+            // 
             // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(854, 480);
             Controls.Add(panelContainer);
-            Controls.Add(pageHeader1);
+            Controls.Add(PageHeader);
             MinimumSize = new Size(854, 480);
             Name = "FormPrincipal";
             SizeGripStyle = SizeGripStyle.Show;
@@ -68,7 +69,7 @@
         }
 
         #endregion
-        private AntdUI.PageHeader pageHeader1;
         private Panel panelContainer;
+        private AntdUI.PageHeader PageHeader;
     }
 }

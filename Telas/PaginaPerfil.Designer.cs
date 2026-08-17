@@ -82,7 +82,7 @@
             button1.Text = "Buscar perfil";
             button1.UseVisualStyleBackColor = false;
             // 
-            // VerPerfil
+            // PaginaPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -91,8 +91,8 @@
             Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
-            Name = "VerPerfil";
-            Size = new Size(1112, 584);
+            Name = "PaginaPerfil";
+            Size = new Size(1024, 720);
             ResumeLayout(false);
             PerformLayout();
         }

@@ -25,7 +25,7 @@ namespace SenacQuizApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Usuario", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Usuario", b =>
                 {
                     b.Property<int>("UsuarioId")
                         .ValueGeneratedOnAdd()

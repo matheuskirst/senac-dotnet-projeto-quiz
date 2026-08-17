@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SenacQuizApp.Modelos;
+using SenacQuizApp.Entidades;
 
 namespace SenacQuizApp.banco.config
 {
@@ -94,6 +94,8 @@ namespace SenacQuizApp.banco.config
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             modelBuilder.Entity<Pergunta>()
                 .Property(p => p.Tipo)
                 .HasConversion<string>();
@@ -108,6 +110,10 @@ namespace SenacQuizApp.banco.config
             modelBuilder.Entity<Usuario>()
                 .HasIndex(u => u.Nickname)
                 .IsUnique();
+
+            modelBuilder.Entity<Usuario>()
+                .Property(qt => qt.DataDeCadastro)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
 
             modelBuilder.Entity<Quiz>()

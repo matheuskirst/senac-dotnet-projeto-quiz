@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Modelos
+namespace SenacQuizApp.Entidades
 {
     public class Conquista
     {

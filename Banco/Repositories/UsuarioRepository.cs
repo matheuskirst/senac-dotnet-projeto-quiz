@@ -1,5 +1,5 @@
 ﻿using SenacQuizApp.banco.config;
-using SenacQuizApp.Modelos;
+using SenacQuizApp.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,16 +32,14 @@ namespace SenacQuizApp.banco.repositories
             }
         }
 
-        public static async Task<IEnumerable<Usuario>> ObterUsuarioPorNick(string nickname)
+        public static async Task<Usuario?> ObterPorNome(string nome)
         {
             using (var db = new AppContexto())
             {
-                var usuarios = await db.Usuarios
-                    .Where(u => u.Nickname == nickname)
-                    .OrderBy(u => u.Id)
-                    .ToListAsync();
+                var usuario = await db.Usuarios
+                    .FirstOrDefaultAsync(u => u.Nome == nome);
 
-                return usuarios;
+                return usuario;
             }
         }
     }
