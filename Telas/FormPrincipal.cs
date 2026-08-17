@@ -1,4 +1,5 @@
 ﻿using SenacQuizApp.Entidades;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas;
 using SenacQuizApp.Telas.Eventos;
@@ -20,6 +21,7 @@ namespace SenacQuizApp.Telas
     {
         private readonly UsuarioService _usuarioService;
         public Usuario? UsuarioAtual { get; private set; }
+        public QuizDto? QuizAtual { get; private set; }
 
         public FormPrincipal()
         {
@@ -81,6 +83,13 @@ namespace SenacQuizApp.Telas
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
 
             MudarPagina(paginaPrincipal);
+        }
+
+        public void AbrirPaginaQuiz(object? sender, EventArgs e)
+        {
+            //PaginaQuiz paginaQuiz = new PaginaQuiz(UsuarioAtual, QuizAtual);
+
+            //MudarPagina(paginaQuiz);
         }
 
         private async void AoRequisitarLogin(object? sender, LoginEventArgs e)

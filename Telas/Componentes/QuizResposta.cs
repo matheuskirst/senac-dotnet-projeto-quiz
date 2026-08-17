@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SenacQuizApp.Telas
+namespace SenacQuizApp.Telas.Componentes
 {
-    public partial class IniciarQuiz : UserControl
+    public partial class QuizResposta : UserControl
     {
-        public IniciarQuiz()
+        public QuizResposta()
         {
             InitializeComponent();
         }

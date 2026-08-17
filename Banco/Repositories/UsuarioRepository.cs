@@ -1,5 +1,6 @@
 ﻿using SenacQuizApp.banco.config;
 using SenacQuizApp.Entidades;
+using SenacQuizApp.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

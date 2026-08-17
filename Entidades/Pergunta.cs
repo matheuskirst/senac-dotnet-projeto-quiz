@@ -12,12 +12,6 @@ namespace SenacQuizApp.Entidades
         VerdadeiroOuFalso
     }
 
-    public class OpcaoResposta
-    {
-        public string Text { get; set; } = string.Empty;
-        public bool IsCorreta { get; set; }
-    }
-
     public class NivelPergunta
     {
         public int Id { get; set; }
@@ -40,12 +34,12 @@ namespace SenacQuizApp.Entidades
 
         [StringLength(1000)]
         public string Enunciado { get; set; }
-        public TipoPergunta Tipo { get; set; }
-        public List<OpcaoResposta> Respostas { get; set; } = new List<OpcaoResposta>();
-        public NivelPergunta Nivel { get; set; }
         public TemaPergunta Tema { get; set; }
+        public TipoPergunta Tipo { get; set; }
+        public NivelPergunta Nivel { get; set; }
 
-        public ICollection<Quiz> Quizzes { get; set; } = new List<Quiz>();
+        public ICollection<Alternativa> Alternativas { get; set; } = new List<Alternativa>();
+        public ICollection<QuizPergunta> QuizPerguntas { get; set; } = new List<QuizPergunta>();
         public ICollection<PerguntaRespondida> PerguntasRespondidas { get; set; } = new List<PerguntaRespondida>();
     }
 }

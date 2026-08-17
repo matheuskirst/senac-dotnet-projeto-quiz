@@ -34,6 +34,7 @@
             ButtonPrincipalSair = new AntdUI.Button();
             stackPanel2 = new AntdUI.StackPanel();
             button2 = new AntdUI.Button();
+            ButtonJogarQuiz = new AntdUI.Button();
             TableLayoutPanelPrincipal.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             stackPanel1.SuspendLayout();
@@ -48,6 +49,7 @@
             TableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             TableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             TableLayoutPanelPrincipal.Controls.Add(tableLayoutPanel1, 1, 1);
+            TableLayoutPanelPrincipal.Controls.Add(ButtonJogarQuiz, 1, 2);
             TableLayoutPanelPrincipal.Dock = DockStyle.Fill;
             TableLayoutPanelPrincipal.Location = new Point(0, 0);
             TableLayoutPanelPrincipal.Name = "TableLayoutPanelPrincipal";
@@ -122,6 +124,17 @@
             button2.TabIndex = 1;
             button2.Text = "Perfil";
             // 
+            // ButtonJogarQuiz
+            // 
+            ButtonJogarQuiz.Anchor = AnchorStyles.None;
+            ButtonJogarQuiz.Font = new Font("Tahoma", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonJogarQuiz.Location = new Point(392, 323);
+            ButtonJogarQuiz.Name = "ButtonJogarQuiz";
+            ButtonJogarQuiz.Size = new Size(240, 74);
+            ButtonJogarQuiz.TabIndex = 1;
+            ButtonJogarQuiz.Text = "Jogar Quiz";
+            ButtonJogarQuiz.Click += ButtonJogarQuiz_Click;
+            // 
             // PaginaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -146,5 +159,6 @@
         private AntdUI.Button ButtonPrincipalSair;
         private AntdUI.StackPanel stackPanel2;
         private AntdUI.Button button2;
+        private AntdUI.Button ButtonJogarQuiz;
     }
 }

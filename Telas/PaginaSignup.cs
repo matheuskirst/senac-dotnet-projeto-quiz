@@ -1,5 +1,4 @@
 ﻿using AntdUI;
-using AntdUI;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Eventos;
 using SenacQuizApp.Telas.Utils;
@@ -104,7 +103,6 @@ namespace SenacQuizApp.Telas
         {
             LimparBordas();
 
-
             string? nome = InputSignupNome.Text;
             string? nick = InputSignupNick.Text;
             DateTime? dataNascimento = DatePickerSignupDataNascimento.Value;
@@ -183,40 +181,41 @@ namespace SenacQuizApp.Telas
 
         private bool ValidarSenha(string senha, string confirmarSenha)
         {
+            bool validado = false;
+
+            if (string.IsNullOrWhiteSpace(confirmarSenha))
+            {
+                PintarErros.ErroNoCampo(InputSignupConfirmarSenha, mensagem: "Por favor preencha o campo.");
+                validado = false;
+            }
+
             if (string.IsNullOrWhiteSpace(senha))
             {
                 PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "Por favor preencha o campo.");
-                return false;
+                validado = false;
             }
-
-            if (!string.IsNullOrWhiteSpace(senha) && string.IsNullOrWhiteSpace(confirmarSenha))
-            {
-                PintarErros.ErroNoCampo(InputSignupConfirmarSenha, mensagem: "Por favor preencha o campo.");
-                return false;
-            }
-
-            int tamanhoSenha = senha.Length;
-
-            if (tamanhoSenha < 6 || tamanhoSenha > 50)
+            else if (senha.Length < 6 || senha.Length > 50)
             {
                 PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "A senha deve ter entre 6 e 50 caracteres!");
-                return false;
+
+                validado = false;
             }
             else if (!SenhaAtendeRequisitos(senha))
             {
                 PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "A senha deve ter pelo menos 1 letra maiúscula,\n 1 letra minúscula, 1 caractere especial e 1 número!");
-                return false;
+                validado = false;
             }
-            else if (senha != confirmarSenha)
+            else if (!string.IsNullOrWhiteSpace(confirmarSenha) && senha != confirmarSenha)
             {
                 PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "As senhas não são as mesmas!");
                 PintarErros.ErroNoCampo(InputSignupConfirmarSenha, mensagem: "As senhas não são as mesmas!");
-                return false;
+                validado = false;
             }
             else
             {
-                return true;
+                validado = true;
             }
+            return validado;
         }
 
         private static bool SenhaAtendeRequisitos(string senha)

@@ -15,6 +15,7 @@ namespace SenacQuizApp.Entidades
         public Quiz Quiz { get; set; }
         public DateTime? DataInicio { get; set; } = DateTime.UtcNow;
         public DateTime? DataFim { get; set; }
+        public bool Concluido { get; set; }
         public int PontuacaoFinal { get; set; }
 
         public ICollection<PerguntaRespondida> PerguntasRespondidas { get; set; } = new List<PerguntaRespondida>();

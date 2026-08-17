@@ -13,8 +13,10 @@ namespace SenacQuizApp.banco.config
         // Tabelas
         public DbSet<Conquista> Conquistas { get; set; }
         public DbSet<Pergunta> Perguntas { get; set; }
+        public DbSet<Alternativa> Alternativas { get; set; }
         public DbSet<PerguntaRespondida> PerguntasRespondidas { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizPergunta> QuizzesPerguntas { get; set; }
         public DbSet<QuizTentativa> QuizzesTentativas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
@@ -36,7 +38,7 @@ namespace SenacQuizApp.banco.config
                         new NivelPergunta { Nome = "Iniciante", Pontos = 10 },
                         new NivelPergunta { Nome = "Fácil", Pontos = 20 },
                         new NivelPergunta { Nome = "Intermediário", Pontos = 30 },
-                        new NivelPergunta { Nome = "Avançado", Pontos = 40 }
+                        new NivelPergunta { Nome = "Avançado", Pontos = 50 }
                     };
 
                     context.Set<NivelPergunta>().AddRange(niveisPergunta);
@@ -100,11 +102,11 @@ namespace SenacQuizApp.banco.config
                 .Property(p => p.Tipo)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<Pergunta>()
-                .OwnsMany(p => p.Respostas, builder =>
-                {
-                    builder.ToJson();
-                });
+
+            modelBuilder.Entity<Alternativa>()
+                .HasOne(a => a.Pergunta)
+                .WithMany(p => p.Alternativas)
+                .HasForeignKey(a => a.PerguntaId);
 
 
             modelBuilder.Entity<Usuario>()
@@ -125,8 +127,32 @@ namespace SenacQuizApp.banco.config
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
 
+            modelBuilder.Entity<QuizPergunta>()
+                .HasKey(qp => new { qp.QuizId, qp.PerguntaId });
+
+            modelBuilder.Entity<QuizPergunta>()
+                .HasOne(qp => qp.Quiz)
+                .WithMany(q => q.QuizPerguntas)
+                .HasForeignKey(qp => qp.QuizId);
+
+            modelBuilder.Entity<QuizPergunta>()
+                .HasOne(qp => qp.Pergunta)
+                .WithMany(p => p.QuizPerguntas)
+                .HasForeignKey(qp => qp.PerguntaId);
+
+
             modelBuilder.Entity<QuizTentativa>()
                 .HasKey(qt => new { qt.UsuarioId, qt.QuizId });
+
+            modelBuilder.Entity<QuizTentativa>()
+                .HasOne(qt => qt.Usuario)
+                .WithMany(u => u.QuizTentativas)
+                .HasForeignKey(qt => qt.UsuarioId);
+
+            modelBuilder.Entity<QuizTentativa>()
+                .HasOne(qt => qt.Quiz)
+                .WithMany(q => q.QuizTentativas)
+                .HasForeignKey(qt => qt.QuizId);
 
             modelBuilder.Entity<QuizTentativa>()
                 .Property(qt => qt.DataInicio)

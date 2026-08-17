@@ -1,5 +1,6 @@
 ﻿using SenacQuizApp.banco.repositories;
 using SenacQuizApp.Entidades;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Services.Enums;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Services
 {
-    public class ResultadoAuth(bool ehSucesso, Usuario? usuario, MensagemErro? mensagemErro)
+    public class ResultadoAuth(bool ehSucesso, Usuario? usuario=null, MensagemErro? mensagemErro=null)
     {
         public bool EhSucesso { get; set; } = ehSucesso;
         public Usuario? Usuario { get; set; } = usuario;
@@ -38,19 +39,18 @@ namespace SenacQuizApp.Services
 
                 if (ehSenhaValida)
                 {
-
-                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso:true, usuario:usuario, mensagemErro:null);
+                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso:true, usuario:usuario);
                     return resultado;
                 }
                 else
                 {
-                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, usuario: null, mensagemErro: MensagemErro.LoginInvalido);
+                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, mensagemErro: MensagemErro.LoginInvalido);
                     return resultado;
                 }
             }
             catch
             {
-                ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, usuario: null, mensagemErro: MensagemErro.LoginInvalido);
+                ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, mensagemErro: MensagemErro.LoginInvalido);
                 return resultado;
             }
         }

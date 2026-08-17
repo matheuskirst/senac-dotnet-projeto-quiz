@@ -18,29 +18,17 @@ namespace SenacQuizApp.Entidades
     public class Usuario
     {
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "O Nome é obrigatório.")]
-        [StringLength(255, MinimumLength = 3, ErrorMessage = "O Nome deve ter entre 3 e 255 caracteres.")]
         public string Nome { get; set; }
-
-        [StringLength(255, MinimumLength = 3, ErrorMessage = "O Nickname deve ter entre 3 e 255 caracteres.")]
         public string Nickname { get; set; }
-
         public DateTime? DataDeNascimento { get; set; }
-
-        [Required(ErrorMessage = "É necessário criar uma senha.")]
         public string Senha { get; set; }
         public DateTime? DataDeCadastro { get; set; } = DateTime.UtcNow;
-
         public int NivelUsuarioId { get; set; } = 1;
         public NivelUsuario Nivel { get; set; }
-
         public int PontuacaoTotal { get; set; } = 0;
-
         public int TotalAcertos { get; set; } = 0;
-
         public int TotalRespondidos { get; set; } = 0;
-
+        public int AcertosConsecutivos { get; set; } = 0;
         public int MaxAcertosConsecutivos { get; set; } = 0;
 
         public ICollection<QuizTentativa> QuizTentativas { get; set; } = new List<QuizTentativa>();

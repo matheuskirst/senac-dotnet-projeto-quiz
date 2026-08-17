@@ -49,6 +49,7 @@
             // 
             // TableLayoutPanelSignup
             // 
+            TableLayoutPanelSignup.BackColor = Color.Transparent;
             TableLayoutPanelSignup.ColumnCount = 3;
             TableLayoutPanelSignup.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             TableLayoutPanelSignup.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));

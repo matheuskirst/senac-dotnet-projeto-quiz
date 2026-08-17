@@ -16,6 +16,7 @@ namespace SenacQuizApp.Telas
     {
         private readonly Usuario? _usuarioAtual;
         public event EventHandler? RealizarLogout;
+        public event EventHandler? JogarQuiz;
         public PaginaPrincipal(Usuario? usuarioAtual)
         {
             _usuarioAtual = usuarioAtual ?? throw new ArgumentNullException(nameof(usuarioAtual));
@@ -26,6 +27,11 @@ namespace SenacQuizApp.Telas
         private void ButtonPrincipalSair_Click(object sender, EventArgs e)
         {
             RealizarLogout?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ButtonJogarQuiz_Click(object sender, EventArgs e)
+        {
+            JogarQuiz?.Invoke(this, EventArgs.Empty);
         }
     }
 }
