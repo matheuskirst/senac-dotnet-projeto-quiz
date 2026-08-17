@@ -6,6 +6,37 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp
 {
+    public class AntdUIEnLocalizer : AntdUI.ILocalization
+    {
+        public string GetLocalizedString(string key)
+        {
+            return key switch
+            {
+                "ID" => "en-US",
+
+                "MonthFormat" => "MMM",
+                "YearFormat" => "yyyy",
+
+                "ToDay" => "Today",
+                "OK" => "OK",
+                "Cancel" => "Cancel",
+                "Now" => "Now",
+                "Clear" => "Limpar",
+                "NoData" => "No Data",
+
+                "Sun" => "Sun",
+                "Mon" => "Mon",
+                "Tue" => "Tue",
+                "Wed" => "Wed",
+                "Thu" => "Thu",
+                "Fri" => "Fri",
+                "Sat" => "Sat",
+
+                _ => key
+            };
+        }
+    }
+
     public class AntdUIBrLocalizer : AntdUI.ILocalization
     {
         public string GetLocalizedString(string key)

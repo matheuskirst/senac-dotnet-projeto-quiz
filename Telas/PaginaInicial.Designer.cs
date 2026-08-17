@@ -1,4 +1,4 @@
-﻿namespace SenacQuizApp.Features.PaginaInicial
+﻿namespace SenacQuizApp.Telas
 {
     partial class PaginaInicial
     {

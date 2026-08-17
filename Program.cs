@@ -1,7 +1,5 @@
 using AntdUI;
-using SenacQuizApp.Features.Cadastro;
-using SenacQuizApp.Features.Login;
-using SenacQuizApp.Features.TelaPrincipal;
+using SenacQuizApp.Telas;
 
 namespace SenacQuizApp
 {

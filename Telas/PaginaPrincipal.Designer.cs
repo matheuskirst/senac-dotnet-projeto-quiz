@@ -28,76 +28,137 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
+            TableLayoutPanelPrincipal = new TableLayoutPanel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            stackPanel1 = new AntdUI.StackPanel();
+            ButtonPrincipalSair = new AntdUI.Button();
+            stackPanel2 = new AntdUI.StackPanel();
+            button2 = new AntdUI.Button();
+            ButtonJogarQuiz = new AntdUI.Button();
+            TableLayoutPanelPrincipal.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            stackPanel1.SuspendLayout();
+            stackPanel2.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // TableLayoutPanelPrincipal
             // 
-            button1.BackColor = Color.Salmon;
-            button1.Font = new Font("Segoe UI", 12F);
-            button1.Location = new Point(272, 76);
-            button1.Name = "button1";
-            button1.Size = new Size(354, 70);
-            button1.TabIndex = 0;
-            button1.Text = "Iniciar Quiz";
-            button1.UseVisualStyleBackColor = false;
+            TableLayoutPanelPrincipal.BackColor = Color.Transparent;
+            TableLayoutPanelPrincipal.ColumnCount = 3;
+            TableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelPrincipal.Controls.Add(tableLayoutPanel1, 1, 1);
+            TableLayoutPanelPrincipal.Controls.Add(ButtonJogarQuiz, 1, 2);
+            TableLayoutPanelPrincipal.Dock = DockStyle.Fill;
+            TableLayoutPanelPrincipal.Location = new Point(0, 0);
+            TableLayoutPanelPrincipal.Name = "TableLayoutPanelPrincipal";
+            TableLayoutPanelPrincipal.RowCount = 5;
+            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelPrincipal.Size = new Size(1024, 720);
+            TableLayoutPanelPrincipal.TabIndex = 6;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(stackPanel1, 0, 0);
+            tableLayoutPanel1.Controls.Add(stackPanel2, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(20, 20);
+            tableLayoutPanel1.Margin = new Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RightToLeft = RightToLeft.No;
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(984, 50);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // stackPanel1
+            // 
+            stackPanel1.Controls.Add(ButtonPrincipalSair);
+            stackPanel1.Dock = DockStyle.Fill;
+            stackPanel1.Location = new Point(0, 0);
+            stackPanel1.Margin = new Padding(0);
+            stackPanel1.Name = "stackPanel1";
+            stackPanel1.Size = new Size(492, 50);
+            stackPanel1.TabIndex = 0;
+            stackPanel1.Text = "stackPanel1";
+            // 
+            // ButtonPrincipalSair
+            // 
+            ButtonPrincipalSair.DefaultBack = Color.Ivory;
+            ButtonPrincipalSair.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonPrincipalSair.Location = new Point(3, 3);
+            ButtonPrincipalSair.Name = "ButtonPrincipalSair";
+            ButtonPrincipalSair.Radius = 4;
+            ButtonPrincipalSair.Size = new Size(100, 44);
+            ButtonPrincipalSair.TabIndex = 1;
+            ButtonPrincipalSair.Text = "Sair";
+            ButtonPrincipalSair.Click += ButtonPrincipalSair_Click;
+            // 
+            // stackPanel2
+            // 
+            stackPanel2.Controls.Add(button2);
+            stackPanel2.Dock = DockStyle.Fill;
+            stackPanel2.Location = new Point(492, 0);
+            stackPanel2.Margin = new Padding(0);
+            stackPanel2.Name = "stackPanel2";
+            stackPanel2.RightToLeft = RightToLeft.Yes;
+            stackPanel2.Size = new Size(492, 50);
+            stackPanel2.TabIndex = 1;
+            stackPanel2.Text = "stackPanel2";
             // 
             // button2
             // 
-            button2.BackColor = Color.Tomato;
-            button2.Font = new Font("Segoe UI", 12F);
-            button2.Location = new Point(272, 187);
+            button2.DefaultBack = Color.Wheat;
+            button2.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.Location = new Point(389, 3);
             button2.Name = "button2";
-            button2.Size = new Size(355, 66);
+            button2.Size = new Size(100, 44);
             button2.TabIndex = 1;
-            button2.Text = "Ver ranking";
-            button2.UseVisualStyleBackColor = false;
+            button2.Text = "Perfil";
             // 
-            // button3
+            // ButtonJogarQuiz
             // 
-            button3.BackColor = Color.DarkSalmon;
-            button3.Font = new Font("Segoe UI", 12F);
-            button3.Location = new Point(272, 285);
-            button3.Name = "button3";
-            button3.Size = new Size(354, 69);
-            button3.TabIndex = 2;
-            button3.Text = "Consultar histórico";
-            button3.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            button4.BackColor = Color.Coral;
-            button4.Font = new Font("Segoe UI", 12F);
-            button4.Location = new Point(272, 401);
-            button4.Name = "button4";
-            button4.Size = new Size(354, 70);
-            button4.TabIndex = 3;
-            button4.Text = "Ver perfil";
-            button4.UseVisualStyleBackColor = false;
+            ButtonJogarQuiz.Anchor = AnchorStyles.None;
+            ButtonJogarQuiz.Font = new Font("Tahoma", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonJogarQuiz.Location = new Point(392, 323);
+            ButtonJogarQuiz.Name = "ButtonJogarQuiz";
+            ButtonJogarQuiz.Size = new Size(240, 74);
+            ButtonJogarQuiz.TabIndex = 1;
+            ButtonJogarQuiz.Text = "Jogar Quiz";
+            ButtonJogarQuiz.Click += ButtonJogarQuiz_Click;
             // 
             // PaginaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(TableLayoutPanelPrincipal);
             Margin = new Padding(2);
             Name = "PaginaPrincipal";
-            Size = new Size(938, 664);
+            Size = new Size(1024, 720);
+            TableLayoutPanelPrincipal.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            stackPanel1.ResumeLayout(false);
+            stackPanel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
+        private TableLayoutPanel TableLayoutPanelPrincipal;
+        private TableLayoutPanel tableLayoutPanel1;
+        private AntdUI.StackPanel stackPanel1;
+        private AntdUI.Button ButtonPrincipalSair;
+        private AntdUI.StackPanel stackPanel2;
+        private AntdUI.Button button2;
+        private AntdUI.Button ButtonJogarQuiz;
     }
 }

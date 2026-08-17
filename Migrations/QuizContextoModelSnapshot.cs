@@ -22,22 +22,32 @@ namespace SenacQuizApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PerguntaQuiz", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Alternativa", b =>
                 {
-                    b.Property<int>("PerguntasId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    b.Property<int>("QuizzesId")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("EhCorreta")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("PerguntaId")
                         .HasColumnType("integer");
 
-                    b.HasKey("PerguntasId", "QuizzesId");
+                    b.Property<string>("Texto")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasIndex("QuizzesId");
+                    b.HasKey("Id");
 
-                    b.ToTable("PerguntaQuiz");
+                    b.HasIndex("PerguntaId");
+
+                    b.ToTable("Alternativas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Conquista", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Conquista", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +70,7 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("Conquistas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.NivelPergunta", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.NivelPergunta", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +91,7 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("NiveisPerguntas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.NivelUsuario", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.NivelUsuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,7 +114,7 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("NiveisUsuarios");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Pergunta", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Pergunta", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,7 +146,7 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("Perguntas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.PerguntaRespondida", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.PerguntaRespondida", b =>
                 {
                     b.Property<int>("QuizTentativaId")
                         .HasColumnType("integer");
@@ -147,6 +157,9 @@ namespace SenacQuizApp.Migrations
                     b.Property<bool>("Acertou")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("Bonus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("DataDeResposta")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -155,7 +168,7 @@ namespace SenacQuizApp.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Pontuacao")
+                    b.Property<int>("PontuacaoFinal")
                         .HasColumnType("integer");
 
                     b.Property<int>("QuizTentativaQuizId")
@@ -173,7 +186,7 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("PerguntasRespondidas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Quiz", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Quiz", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -186,6 +199,9 @@ namespace SenacQuizApp.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<DateTime?>("DataExibicao")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int?>("QuantidadePerguntas")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
@@ -196,13 +212,31 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("Quizzes");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.QuizTentativa", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.QuizPergunta", b =>
+                {
+                    b.Property<int>("QuizId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PerguntaId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("QuizId", "PerguntaId");
+
+                    b.HasIndex("PerguntaId");
+
+                    b.ToTable("QuizzesPerguntas");
+                });
+
+            modelBuilder.Entity("SenacQuizApp.Entidades.QuizTentativa", b =>
                 {
                     b.Property<int>("UsuarioId")
                         .HasColumnType("integer");
 
                     b.Property<int>("QuizId")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("Concluido")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("DataFim")
                         .HasColumnType("timestamp with time zone");
@@ -225,7 +259,7 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("QuizzesTentativas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.TemaPergunta", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.TemaPergunta", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,7 +277,7 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("TemasPerguntas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Usuario", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,7 +285,15 @@ namespace SenacQuizApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DataDeNascimento")
+                    b.Property<int>("AcertosConsecutivos")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("DataDeCadastro")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTime?>("DataDeNascimento")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("MaxAcertosConsecutivos")
@@ -259,16 +301,14 @@ namespace SenacQuizApp.Migrations
 
                     b.Property<string>("Nickname")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.Property<int>("NivelUsuarioId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.Property<int>("PontuacaoTotal")
                         .HasColumnType("integer");
@@ -293,7 +333,7 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.UsuarioConquista", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.UsuarioConquista", b =>
                 {
                     b.Property<int>("UsuarioId")
                         .HasColumnType("integer");
@@ -314,79 +354,45 @@ namespace SenacQuizApp.Migrations
                     b.ToTable("UsuarioConquistas");
                 });
 
-            modelBuilder.Entity("PerguntaQuiz", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Alternativa", b =>
                 {
-                    b.HasOne("SenacQuizApp.Modelos.Pergunta", null)
-                        .WithMany()
-                        .HasForeignKey("PerguntasId")
+                    b.HasOne("SenacQuizApp.Entidades.Pergunta", "Pergunta")
+                        .WithMany("Alternativas")
+                        .HasForeignKey("PerguntaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SenacQuizApp.Modelos.Quiz", null)
-                        .WithMany()
-                        .HasForeignKey("QuizzesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Pergunta");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Pergunta", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Pergunta", b =>
                 {
-                    b.HasOne("SenacQuizApp.Modelos.NivelPergunta", "Nivel")
+                    b.HasOne("SenacQuizApp.Entidades.NivelPergunta", "Nivel")
                         .WithMany()
                         .HasForeignKey("NivelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SenacQuizApp.Modelos.TemaPergunta", "Tema")
+                    b.HasOne("SenacQuizApp.Entidades.TemaPergunta", "Tema")
                         .WithMany()
                         .HasForeignKey("TemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("SenacQuizApp.Modelos.OpcaoResposta", "Respostas", b1 =>
-                        {
-                            b1.Property<int>("PerguntaId")
-                                .HasColumnType("integer");
-
-                            b1.Property<int>("__synthesizedOrdinal")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer");
-
-                            b1.Property<bool>("IsCorreta")
-                                .HasColumnType("boolean");
-
-                            b1.Property<string>("Text")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("PerguntaId", "__synthesizedOrdinal");
-
-                            b1.ToTable("Perguntas");
-
-                            b1
-                                .ToJson("Respostas")
-                                .HasColumnType("jsonb");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PerguntaId");
-                        });
-
                     b.Navigation("Nivel");
-
-                    b.Navigation("Respostas");
 
                     b.Navigation("Tema");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.PerguntaRespondida", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.PerguntaRespondida", b =>
                 {
-                    b.HasOne("SenacQuizApp.Modelos.Pergunta", "Pergunta")
+                    b.HasOne("SenacQuizApp.Entidades.Pergunta", "Pergunta")
                         .WithMany("PerguntasRespondidas")
                         .HasForeignKey("PerguntaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SenacQuizApp.Modelos.QuizTentativa", "QuizTentativa")
+                    b.HasOne("SenacQuizApp.Entidades.QuizTentativa", "QuizTentativa")
                         .WithMany("PerguntasRespondidas")
                         .HasForeignKey("QuizTentativaUsuarioId", "QuizTentativaQuizId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -397,15 +403,34 @@ namespace SenacQuizApp.Migrations
                     b.Navigation("QuizTentativa");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.QuizTentativa", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.QuizPergunta", b =>
                 {
-                    b.HasOne("SenacQuizApp.Modelos.Quiz", "Quiz")
+                    b.HasOne("SenacQuizApp.Entidades.Pergunta", "Pergunta")
+                        .WithMany("QuizPerguntas")
+                        .HasForeignKey("PerguntaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SenacQuizApp.Entidades.Quiz", "Quiz")
+                        .WithMany("QuizPerguntas")
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pergunta");
+
+                    b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("SenacQuizApp.Entidades.QuizTentativa", b =>
+                {
+                    b.HasOne("SenacQuizApp.Entidades.Quiz", "Quiz")
                         .WithMany("QuizTentativas")
                         .HasForeignKey("QuizId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SenacQuizApp.Modelos.Usuario", "Usuario")
+                    b.HasOne("SenacQuizApp.Entidades.Usuario", "Usuario")
                         .WithMany("QuizTentativas")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -416,9 +441,9 @@ namespace SenacQuizApp.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Usuario", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Usuario", b =>
                 {
-                    b.HasOne("SenacQuizApp.Modelos.NivelUsuario", "Nivel")
+                    b.HasOne("SenacQuizApp.Entidades.NivelUsuario", "Nivel")
                         .WithMany()
                         .HasForeignKey("NivelUsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -427,15 +452,15 @@ namespace SenacQuizApp.Migrations
                     b.Navigation("Nivel");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.UsuarioConquista", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.UsuarioConquista", b =>
                 {
-                    b.HasOne("SenacQuizApp.Modelos.Conquista", "Conquista")
+                    b.HasOne("SenacQuizApp.Entidades.Conquista", "Conquista")
                         .WithMany("UsuarioConquistas")
                         .HasForeignKey("ConquistaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SenacQuizApp.Modelos.Usuario", "Usuario")
+                    b.HasOne("SenacQuizApp.Entidades.Usuario", "Usuario")
                         .WithMany("UsuarioConquistas")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -446,27 +471,33 @@ namespace SenacQuizApp.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Conquista", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Conquista", b =>
                 {
                     b.Navigation("UsuarioConquistas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Pergunta", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Pergunta", b =>
                 {
+                    b.Navigation("Alternativas");
+
                     b.Navigation("PerguntasRespondidas");
+
+                    b.Navigation("QuizPerguntas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Quiz", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Quiz", b =>
                 {
+                    b.Navigation("QuizPerguntas");
+
                     b.Navigation("QuizTentativas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.QuizTentativa", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.QuizTentativa", b =>
                 {
                     b.Navigation("PerguntasRespondidas");
                 });
 
-            modelBuilder.Entity("SenacQuizApp.Modelos.Usuario", b =>
+            modelBuilder.Entity("SenacQuizApp.Entidades.Usuario", b =>
                 {
                     b.Navigation("QuizTentativas");
 

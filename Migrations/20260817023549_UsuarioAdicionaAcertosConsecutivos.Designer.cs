@@ -12,8 +12,8 @@ using SenacQuizApp.banco.config;
 namespace SenacQuizApp.Migrations
 {
     [DbContext(typeof(AppContexto))]
-    [Migration("20260814233442_AtualizaTabelas")]
-    partial class AtualizaTabelas
+    [Migration("20260817023549_UsuarioAdicionaAcertosConsecutivos")]
+    partial class UsuarioAdicionaAcertosConsecutivos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -254,7 +254,15 @@ namespace SenacQuizApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DataDeNascimento")
+                    b.Property<int>("AcertosConsecutivos")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("DataDeCadastro")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTime?>("DataDeNascimento")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("MaxAcertosConsecutivos")

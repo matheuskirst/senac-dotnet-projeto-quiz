@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Modelos
+namespace SenacQuizApp.Entidades
 {
     public class Quiz
     {
         public int Id { get; set; }
         public int? QuantidadePerguntas { get; set; } = 10;
-        public DateTime? DataDeCriacao { get; set; }
+        public DateTime? DataDeCriacao { get; set; } = DateTime.UtcNow;
+        public DateTime? DataExibicao { get; set; } = DateTime.UtcNow;
 
-        public ICollection<Pergunta> Perguntas { get; set; } = new List<Pergunta>();
+        public ICollection<QuizPergunta> QuizPerguntas { get; set; } = new List<QuizPergunta>();
         public ICollection<QuizTentativa> QuizTentativas { get; set; } = new List<QuizTentativa>();
     }
 }

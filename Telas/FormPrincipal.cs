@@ -1,7 +1,8 @@
-﻿using SenacQuizApp.Features.Cadastro;
-using SenacQuizApp.Features.Login;
-using SenacQuizApp.Features.PaginaInicial;
+﻿using SenacQuizApp.Entidades;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
+using SenacQuizApp.Telas;
+using SenacQuizApp.Telas.Eventos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,13 +13,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AntdUI;
-using SenacQuizApp.Telas;
+using SenacQuizApp.Services.Enums;
 
-namespace SenacQuizApp.Features.TelaPrincipal
+namespace SenacQuizApp.Telas
 {
     public partial class FormPrincipal : Window
     {
         private readonly UsuarioService _usuarioService;
+        public Usuario? UsuarioAtual { get; private set; }
+        public QuizDto? QuizAtual { get; private set; }
 
         public FormPrincipal()
         {
@@ -44,7 +47,8 @@ namespace SenacQuizApp.Features.TelaPrincipal
 
         public void AbrirPaginaInicial(object? sender, EventArgs e)
         {
-            PaginaInicial.PaginaInicial paginaInicial = new PaginaInicial.PaginaInicial();
+            UsuarioAtual = null;
+            PaginaInicial paginaInicial = new PaginaInicial();
 
             paginaInicial.EscolheuLogin += AbrirPaginaLogin;
             paginaInicial.EscolheuSignup += AbrirPaginaSignup;
@@ -54,27 +58,90 @@ namespace SenacQuizApp.Features.TelaPrincipal
 
         public void AbrirPaginaLogin(object? sender, EventArgs e)
         {
-            PaginaLogin paginaLogin = new PaginaLogin(_usuarioService);
+            PaginaLogin paginaLogin = new PaginaLogin();
 
             paginaLogin.EscolheuVoltar += AbrirPaginaInicial;
+            paginaLogin.RequesitouLogin += AoRequisitarLogin;
 
             MudarPagina(paginaLogin);
         }
 
         public void AbrirPaginaSignup(object? sender, EventArgs e)
         {
-            PaginaSignup paginaSignup = new PaginaSignup(_usuarioService);
+            PaginaSignup paginaSignup = new PaginaSignup();
 
             paginaSignup.EscolheuVoltar += AbrirPaginaInicial;
+            paginaSignup.RequesitouSignup += AoRequisitarSignup;
 
             MudarPagina(paginaSignup);
         }
 
         public void AbrirPaginaPrincipal(object? sender, EventArgs e)
         {
-            PaginaPrincipal paginaPrincipal = new PaginaPrincipal(_usuarioService);
+            PaginaPrincipal paginaPrincipal = new PaginaPrincipal(UsuarioAtual);
+
+            paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
 
             MudarPagina(paginaPrincipal);
+        }
+
+        public void AbrirPaginaQuiz(object? sender, EventArgs e)
+        {
+            //PaginaQuiz paginaQuiz = new PaginaQuiz(UsuarioAtual, QuizAtual);
+
+            //MudarPagina(paginaQuiz);
+        }
+
+        private async void AoRequisitarLogin(object? sender, LoginEventArgs e)
+        {
+            var paginaLogin = (PaginaLogin?)sender;
+            try
+            {
+                ResultadoAuth resultado = await _usuarioService.RealizarLogin(e.Nome,  e.Senha);
+
+                if (resultado.EhSucesso)
+                {
+                    UsuarioAtual = resultado.Usuario;
+                    AbrirPaginaPrincipal(this, EventArgs.Empty);
+                }
+                else
+                {
+                    if (resultado.MensagemErro == MensagemErro.LoginInvalido)
+                    {
+                        paginaLogin?.ErroNoLogin();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                paginaLogin?.ErroDeConexao(ex.ToString());
+            }
+        }
+
+        private async void AoRequisitarSignup(object? sender, SignupEventArgs e)
+        {
+            var paginaSignup = (PaginaSignup?)sender;
+            try
+            {
+                ResultadoAuth resultado = await _usuarioService.RealizarSignup(e.Nome, e.Nick, e.DataNascimento, e.Senha);
+
+                if (resultado.EhSucesso)
+                {
+                    UsuarioAtual = resultado.Usuario;
+                    AbrirPaginaPrincipal(this, EventArgs.Empty);
+                }
+                else
+                {
+                    if (resultado.MensagemErro == MensagemErro.NomeIndisponivel)
+                    {
+                        paginaSignup?.NomeIndisponivel();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                paginaSignup?.ErroDeConexao(ex.ToString());
+            }
         }
     }
 }

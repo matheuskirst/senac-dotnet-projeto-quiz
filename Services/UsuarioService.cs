@@ -1,112 +1,90 @@
 ﻿using SenacQuizApp.banco.repositories;
+using SenacQuizApp.Entidades;
 using SenacQuizApp.Modelos;
+using SenacQuizApp.Services.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SenacQuizApp.Services
 {
-    public class MensagemErroEventArgs : EventArgs
+    public class ResultadoAuth(bool ehSucesso, Usuario? usuario=null, MensagemErro? mensagemErro=null)
     {
-        public bool OcorreuErro { get; set; } = false;
-        public string? NomeErro { get; set; } = null;
-        public string? NicknameErro { get; set; } = null;
-        public string? DataNascimentoErro { get; set; } = null;
-        public string? SenhaNulaErro { get; set; } = null;
-        public string? SenhaTamanhoErro { get; set; } = null;
-        public string? SenhaRequisitosErro { get; set; } = null;
-        public string? SenhaConfirmarErro { get; set; } = null;
+        public bool EhSucesso { get; set; } = ehSucesso;
+        public Usuario? Usuario { get; set; } = usuario;
+        public MensagemErro? MensagemErro { get; set; } = mensagemErro;
     }
 
     public class UsuarioService
     {
-        public event EventHandler? UsuarioCadastrado;
-        public event EventHandler<MensagemErroEventArgs>? MensagemErro;
-
-        public static void ValidarSenha(string senha, string confirmarSenha, MensagemErroEventArgs mensagemErro)
+        // Determina se o nome já está sendo usado
+        public async Task<bool> VerificarNome(string nome)
         {
-            if (!string.IsNullOrEmpty(senha) && !string.IsNullOrEmpty(confirmarSenha))
+            var usuario = await UsuarioRepository.ObterPorNome(nome);
+            return usuario != null;
+        }
+
+        // Login
+        public async Task<ResultadoAuth> RealizarLogin(string nome, string senha)
+        {
+            try
             {
-                int tamanhoSenha = senha.Length;
+                Usuario? usuario = await UsuarioRepository.ObterPorNome(nome);
+                string senhaSalva = usuario.Senha;
+                bool ehSenhaValida = BCrypt.Net.BCrypt.EnhancedVerify(senha, senhaSalva);
 
-                if (tamanhoSenha < 6 || tamanhoSenha > 30)
+                if (ehSenhaValida)
                 {
-                    mensagemErro.SenhaTamanhoErro = "A senha deve ter entre 6 e 30 caracteres!";
+                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso:true, usuario:usuario);
+                    return resultado;
                 }
-
-                if (!SenhaAtendeRequisitos(senha))
+                else
                 {
-                    mensagemErro.SenhaRequisitosErro = "A senha deve ter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 caractere especial e 1 número!";
-                }
-
-                if (senha != confirmarSenha)
-                {
-                    mensagemErro.SenhaConfirmarErro = "As senhas não são as mesmas!";
+                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, mensagemErro: MensagemErro.LoginInvalido);
+                    return resultado;
                 }
             }
-            else
+            catch
             {
-                if (string.IsNullOrEmpty(senha))
-                {
-                    mensagemErro.SenhaNulaErro = "Digite uma senha.";
-                }
-
-                if (string.IsNullOrEmpty(confirmarSenha))
-                {
-                    mensagemErro.SenhaNulaErro = "Confirme a senha.";
-                }
+                ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, mensagemErro: MensagemErro.LoginInvalido);
+                return resultado;
             }
         }
 
-        public static bool SenhaAtendeRequisitos(string senha)
-        {
-            return senha.Any(char.IsUpper)
-                && senha.Any(char.IsLower)
-                && senha.Any(char.IsNumber)
-                && senha.Any(ch => !char.IsLetterOrDigit(ch));
-
-        }
-
-        public async Task TentarSignup(
+        // Signup
+        public async Task<ResultadoAuth> RealizarSignup(
             string nome,
             string nickname,
-            DateTime dataDeNascimento,
-            string senha,
-            string confirmarSenha
+            DateTime? dataDeNascimento,
+            string senha
             )
         {
-            var mensagemErro = new MensagemErroEventArgs();
+            bool nomeIndisponivel = await VerificarNome(nome);
 
-            ValidarSenha(senha, confirmarSenha, mensagemErro);
-
-            string senhaHash = BCrypt.Net.BCrypt.EnhancedHashPassword(senha);
-
-            var usuario = new Usuario
+            if (nomeIndisponivel)
             {
-                Nome = nome,
-                Nickname = nickname,
-                DataDeNascimento = dataDeNascimento,
-                Senha = senhaHash
-            };
-
-            if (mensagemErro.OcorreuErro)
-            {
-                MensagemErro?.Invoke(this, mensagemErro);
+                ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, usuario: null, mensagemErro: MensagemErro.NomeIndisponivel);
+                return resultado;
             }
             else
             {
-                try
-                {
-                    await UsuarioRepository.RegistrarUsuario(usuario);
-                    UsuarioCadastrado?.Invoke(this, EventArgs.Empty);
-                }
-                catch
-                {
+                string senhaHash = BCrypt.Net.BCrypt.EnhancedHashPassword(senha);
 
-                }
+                var usuario = new Usuario
+                {
+                    Nome = nome,
+                    Nickname = nickname,
+                    DataDeNascimento = dataDeNascimento,
+                    Senha = senhaHash
+                };
+
+                await UsuarioRepository.RegistrarUsuario(usuario);
+                ResultadoAuth resultado = await RealizarLogin(nome, senha);
+                return resultado;
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using SenacQuizApp.Services;
+using SenacQuizApp.Entidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +14,24 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaPrincipal : UserControl
     {
-        private readonly UsuarioService _usuarioService;
-        public PaginaPrincipal(UsuarioService usuarioService)
+        private readonly Usuario? _usuarioAtual;
+        public event EventHandler? RealizarLogout;
+        public event EventHandler? JogarQuiz;
+        public PaginaPrincipal(Usuario? usuarioAtual)
         {
-            _usuarioService = usuarioService;
+            _usuarioAtual = usuarioAtual ?? throw new ArgumentNullException(nameof(usuarioAtual));
 
             InitializeComponent();
+        }
+
+        private void ButtonPrincipalSair_Click(object sender, EventArgs e)
+        {
+            RealizarLogout?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ButtonJogarQuiz_Click(object sender, EventArgs e)
+        {
+            JogarQuiz?.Invoke(this, EventArgs.Empty);
         }
     }
 }
