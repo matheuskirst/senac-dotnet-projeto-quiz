@@ -6,42 +6,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SenacQuizApp.Banco.Entidades;
+using SenacQuizApp.Entidades;
 
 namespace SenacQuizApp.banco.repositories
 {
     public class UsuarioRepository
     {
-        public static async Task RegistrarUsuario(Usuario usuario)
+        private readonly QuizAppContexto _contexto;
+        public UsuarioRepository(QuizAppContexto contexto)
         {
-            using (var db = new AppContexto())
-            {
-                db.Usuarios.Add(usuario);
-                await db.SaveChangesAsync();
-            }
+            _contexto = contexto;
         }
 
-        public static async Task<IEnumerable<Usuario>> ObterTodos()
+        public async Task RegistrarUsuario(Usuario usuario)
         {
-            using (var db = new AppContexto())
-            {
-                var usuarios = await db.Usuarios
-                    .OrderBy(u => u.Id)
-                    .ToListAsync();
-
-                return usuarios;
-            }
+            _contexto.Usuarios.Add(usuario);
+            await _contexto.SaveChangesAsync();
         }
 
-        public static async Task<Usuario?> ObterPorNome(string nome)
+        public async Task<Usuario?> ObterPorNome(string nome)
         {
-            using (var db = new AppContexto())
-            {
-                var usuario = await db.Usuarios
-                    .FirstOrDefaultAsync(u => u.Nome == nome);
+            return await _contexto.Usuarios
+                .FirstOrDefaultAsync(u => u.Nome == nome);
+        }
 
-                return usuario;
-            }
+        public async Task<IEnumerable<Usuario>> ObterTodos()
+        {
+            return await _contexto.Usuarios
+                .OrderBy(u => u.Id)
+                .ToListAsync();
         }
     }
 }

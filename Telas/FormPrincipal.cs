@@ -12,7 +12,8 @@ using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas;
 using SenacQuizApp.Telas.Eventos;
-using SenacQuizApp.Services.Enums;
+using SenacQuizApp.Enums;
+using SenacQuizApp.Banco.Repositories;
 
 namespace SenacQuizApp.Telas
 {
@@ -20,33 +21,35 @@ namespace SenacQuizApp.Telas
     {
         private readonly UsuarioService _usuarioService;
         private readonly QuizService _quizService;
-        public UsuarioDto? UsuarioAtual { get; private set; }
-        public QuizDto? QuizAtual { get; private set; }
+        private readonly PerguntaService _perguntaService;
 
-        public FormPrincipal()
+        public UsuarioLogado? UsuarioAtual { get; private set; }
+        public QuizEncontrado? QuizAtual { get; private set; }
+
+        public FormPrincipal(UsuarioService usuarioService, QuizService quizService, PerguntaService perguntaService)
         {
-            UsuarioService usuarioService = new UsuarioService();
-            QuizService quizService = new QuizService();
             _usuarioService = usuarioService;
             _quizService = quizService;
+            _perguntaService = perguntaService;
 
             InitializeComponent();
         }
 
         private async void FormJanelaPrincipal_Load(object sender, EventArgs e)
         {
-            QuizDto? quiz = await _quizService.ObterQuizDeHoje();
-            if (quiz != null) { QuizAtual = quiz; }
-
             AbrirPaginaInicial(null, e);
         }
 
         public void MudarPagina(UserControl pagina)
         {
-            panelContainer.Controls.Clear();
+            while (panelContainer.Controls.Count > 0)
+            {
+                var controle = panelContainer.Controls[0];
+                panelContainer.Controls.Remove(controle);
+                controle.Dispose();
+            }
 
             pagina.Dock = DockStyle.Fill;
-
             panelContainer.Controls.Add(pagina);
         }
 
@@ -86,6 +89,7 @@ namespace SenacQuizApp.Telas
             PaginaPrincipal paginaPrincipal = new PaginaPrincipal(UsuarioAtual);
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
+            paginaPrincipal.ClicouJogarQuizDiario += AbrirPaginaQuiz;
 
             MudarPagina(paginaPrincipal);
         }
@@ -102,12 +106,14 @@ namespace SenacQuizApp.Telas
             var paginaLogin = (PaginaLogin?)sender;
             try
             {
-                ResultadoAuth resultado = await _usuarioService.RealizarLogin(e.Nome,  e.Senha);
+                LoginInput login = new(Username: e.Username, Senha: e.Senha);
 
-                if (resultado.EhSucesso)
+                LoginResposta resultado = await _usuarioService.RealizarLogin(login);
+
+                if (resultado.IsSucesso == true)
                 {
                     UsuarioAtual = resultado.Usuario;
-                    AbrirPaginaPrincipal(this, EventArgs.Empty);
+                    AoRealizarLogin();
                 }
                 else
                 {
@@ -128,12 +134,12 @@ namespace SenacQuizApp.Telas
             var paginaSignup = (PaginaSignup?)sender;
             try
             {
-                ResultadoAuth resultado = await _usuarioService.RealizarSignup(e.Nome, e.Nick, e.DataNascimento, e.Senha);
+                LoginResposta resultado = await _usuarioService.RealizarSignup(e.Nome, e.Nick, e.DataNascimento, e.Senha);
 
-                if (resultado.EhSucesso)
+                if (resultado.IsSucesso == true && resultado.Usuario != null)
                 {
                     UsuarioAtual = resultado.Usuario;
-                    AbrirPaginaPrincipal(this, EventArgs.Empty);
+                    AoRealizarLogin();
                 }
                 else
                 {
@@ -147,6 +153,17 @@ namespace SenacQuizApp.Telas
             {
                 paginaSignup?.ErroDeConexao(ex.ToString());
             }
+        }
+
+        private async void AoRealizarLogin()
+        {
+
+            AbrirPaginaPrincipal(this, EventArgs.Empty);
+        }
+
+        private async void AoFinalizarQuiz(object? sender, SignupEventArgs e)
+        {
+
         }
     }
 }

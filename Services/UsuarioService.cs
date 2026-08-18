@@ -1,7 +1,7 @@
 ﻿using SenacQuizApp.banco.repositories;
-using SenacQuizApp.Banco.Entidades;
+using SenacQuizApp.Entidades;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos;
-using SenacQuizApp.Services.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,76 +12,62 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Services
 {
-    public class ResultadoAuth(bool ehSucesso, UsuarioDto? usuario=null, MensagemErro? mensagemErro=null)
-    {
-        public bool EhSucesso { get; set; } = ehSucesso;
-        public UsuarioDto? Usuario { get; set; } = usuario;
-        public MensagemErro? MensagemErro { get; set; } = mensagemErro;
-    }
-
     public class UsuarioService
     {
+        private readonly UsuarioRepository _usuarioRepository;
+
+        public UsuarioService(UsuarioRepository usuarioRepository)
+        {
+            _usuarioRepository = usuarioRepository;
+        }
+
         // Determina se o nome já está sendo usado
         public async Task<bool> VerificarNome(string nome)
         {
-            var usuario = await UsuarioRepository.ObterPorNome(nome);
+            var usuario = await _usuarioRepository.ObterPorNome(nome);
             return usuario != null;
         }
 
         // Login
-        public async Task<ResultadoAuth> RealizarLogin(string nome, string senha)
+        public async Task<LoginResposta> RealizarLogin(LoginInput login)
         {
-            try
-            {
-                Usuario? usuario = await UsuarioRepository.ObterPorNome(nome);
-                string senhaSalva = usuario.Senha;
-                bool ehSenhaValida = BCrypt.Net.BCrypt.EnhancedVerify(senha, senhaSalva);
+            Usuario? usuario = await _usuarioRepository.ObterPorNome(login.Username);
 
-                if (ehSenhaValida)
-                {
-                    UsuarioDto? usuarioAtual = new UsuarioDto
-                    {
-                        Id = usuario.Id,
-                        Nome = usuario.Nome,
-                        Nickname = usuario.Nickname,
-                        DataDeNascimento = usuario.DataDeNascimento,
-                        DataDeCadastro = usuario.DataDeCadastro,
-                        Nivel = usuario.Nivel,
-                        PontuacaoTotal = usuario.PontuacaoTotal,
-                        TotalAcertos = usuario.TotalAcertos,
-                        TotalRespondidos = usuario.TotalRespondidos,
-                        AcertosConsecutivos = usuario.AcertosConsecutivos,
-                        MaxAcertosConsecutivos = usuario.MaxAcertosConsecutivos
-                    };
-                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso:true, usuario:usuarioAtual);
-                    return resultado;
-                }
-                else
-                {
-                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, mensagemErro: MensagemErro.LoginInvalido);
-                    return resultado;
-                }
-            }
-            catch
+            if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(login.Senha, usuario.Senha))
             {
-                ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, mensagemErro: MensagemErro.LoginInvalido);
-                return resultado;
+                return new LoginResposta(mensagemErro: MensagemErro.LoginInvalido);
             }
+
+            UsuarioLogado? loginUsuario = new()
+            {
+                Id = usuario.Id,
+                Username = usuario.Username,
+                Nickname = usuario.Nickname,
+                DataDeNascimento = usuario.DataDeNascimento,
+                DataDeCadastro = usuario.DataDeCadastro,
+                Nivel = usuario.Nivel,
+                PontuacaoTotal = usuario.PontuacaoTotal,
+                TotalAcertos = usuario.TotalAcertos,
+                TotalRespondidos = usuario.TotalRespondidos,
+                AcertosConsecutivos = usuario.AcertosConsecutivos,
+                MaxAcertosConsecutivos = usuario.MaxAcertosConsecutivos
+            };
+            return new LoginResposta(usuario: loginUsuario);
         }
 
         // Signup
-        public async Task<ResultadoAuth> RealizarSignup(
-            string nome,
+        public async Task<LoginResposta> RealizarSignup(
+            string username,
             string nickname,
             DateTime? dataDeNascimento,
             string senha
             )
         {
-            bool nomeIndisponivel = await VerificarNome(nome);
+            bool usernameIndisponivel = await VerificarNome(username);
 
-            if (nomeIndisponivel)
+            if (usernameIndisponivel)
             {
-                ResultadoAuth resultado = new ResultadoAuth(ehSucesso: false, usuario: null, mensagemErro: MensagemErro.NomeIndisponivel);
+                LoginResposta resultado = new LoginResposta(mensagemErro: MensagemErro.NomeIndisponivel);
                 return resultado;
             }
             else
@@ -90,14 +76,17 @@ namespace SenacQuizApp.Services
 
                 var usuario = new Usuario
                 {
-                    Nome = nome,
+                    Username = username,
                     Nickname = nickname,
                     DataDeNascimento = dataDeNascimento,
                     Senha = senhaHash
                 };
 
-                await UsuarioRepository.RegistrarUsuario(usuario);
-                ResultadoAuth resultado = await RealizarLogin(nome, senha);
+                await _usuarioRepository.RegistrarUsuario(usuario);
+
+                LoginInput login = new(Username: username, Senha: senha);
+
+                LoginResposta resultado = await RealizarLogin(login);
                 return resultado;
             }
         }

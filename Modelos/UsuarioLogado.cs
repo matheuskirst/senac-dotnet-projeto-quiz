@@ -1,4 +1,4 @@
-﻿using SenacQuizApp.Banco.Entidades;
+﻿using SenacQuizApp.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Modelos
 {
-    public class UsuarioDto
+    public class UsuarioLogado
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public string Username { get; set; }
         public string Nickname { get; set; }
         public DateTime? DataDeNascimento { get; set; }
-        public DateTime? DataDeCadastro { get; set; } = DateTime.UtcNow;
+        public DateTime? DataDeCadastro { get; set; }
         public NivelUsuario Nivel { get; set; }
         public int PontuacaoTotal { get; set; }
         public int TotalAcertos { get; set; }

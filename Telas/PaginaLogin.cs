@@ -1,6 +1,5 @@
 ﻿using SenacQuizApp.banco.repositories;
 using SenacQuizApp.Services;
-using SenacQuizApp.Services.Enums;
 using SenacQuizApp.Telas.Eventos;
 using SenacQuizApp.Telas.Utils;
 using System;

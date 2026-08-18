@@ -12,7 +12,7 @@ using SenacQuizApp.banco.config;
 
 namespace SenacQuizApp.Migrations
 {
-    [DbContext(typeof(AppContexto))]
+    [DbContext(typeof(QuizAppContexto))]
     [Migration("20260814024059_AdicionaTabelasConquista")]
     partial class AdicionaTabelasConquista
     {

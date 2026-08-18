@@ -11,7 +11,7 @@ using SenacQuizApp.banco.config;
 
 namespace SenacQuizApp.Migrations
 {
-    [DbContext(typeof(AppContexto))]
+    [DbContext(typeof(QuizAppContexto))]
     [Migration("20260816184440_AtualizaTabelaUsuario2")]
     partial class AtualizaTabelaUsuario2
     {

@@ -11,7 +11,7 @@ using SenacQuizApp.banco.config;
 
 namespace SenacQuizApp.Migrations
 {
-    [DbContext(typeof(AppContexto))]
+    [DbContext(typeof(QuizAppContexto))]
     [Migration("20260817023549_UsuarioAdicionaAcertosConsecutivos")]
     partial class UsuarioAdicionaAcertosConsecutivos
     {

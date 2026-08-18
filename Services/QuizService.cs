@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
-using SenacQuizApp.Banco.Entidades;
 using SenacQuizApp.Banco.Repositories;
+using SenacQuizApp.Entidades;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos;
-using SenacQuizApp.Services.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,43 +11,40 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Services
 {
-    public class ResultadoResposta(bool ehCorreta, MensagemErro? mensagemErro=null)
-    {
-        public bool EhCorreta { get; set; } = ehCorreta;
-        public MensagemErro? MensagemErro { get; set; } = mensagemErro;
-    }
-
     public class QuizService
     {
-        public async Task<QuizDto?> ObterQuizDiario()
+        private readonly QuizRepository _quizRepository;
+        private readonly PerguntaRepository _perguntaRepository;
+
+        public QuizService(QuizRepository quizRespository, PerguntaRepository perguntaRepository)
         {
-            QuizDto? quiz = await QuizRepository.BuscarQuizDeHoje();
+            _quizRepository = quizRespository;
+            _perguntaRepository = perguntaRepository;
+        }
 
-            if (quiz != null)
+        public async Task<BuscarQuizResposta> BuscarQuizHoje(int usuarioId)
+        {
+            DateTime hoje = DateTime.Today;
+            Quiz? quiz = await _quizRepository.ObterPorData(usuarioId, hoje);
+
+            if (quiz == null)
             {
-                QuizDto quizDto = new QuizDto
-                {
-                    Id = quiz.Id,
-                    QuantidadePerguntas = quiz.QuantidadePerguntas,
-                    Perguntas = quiz.Perguntas
-                };
-
-                return quizDto;
+                await GerarQuizDto(quiz);
             }
-            else
+            else if (quiz != null && quiz.DataConcluido == DateTime.Today)
             {
-                return null;
+                
+
+                return quizEncontrado;
             }
         }
 
-        public async Task CriarQuizDiario()
+        public async Task<QuizEncontrado> GerarQuiz()
         {
             Quiz quiz = new Quiz();
 
-            int quantidadePerguntas = quiz.QuantidadePerguntas - 1;
-
-            IEnumerable<Pergunta> perguntasAleatorias = await QuizRepository.ObterPerguntasAleatorias(quantidade: quantidadePerguntas);
-            IEnumerable<Pergunta> perguntaAvancada = await QuizRepository.ObterPerguntasAleatorias(quantidade: 1, nivelId: 4);
+            IEnumerable<Pergunta> perguntasAleatorias = await _perguntaRepository.ObterAleatorio(quantidade: 9);
+            IEnumerable<Pergunta> perguntaAvancadaAleatoria = await _perguntaRepository.ObterAleatorio(quantidade: 1, nivel: PerguntaNivel.Avancado);
 
             List<QuizPergunta> quizPerguntas = [];
 
@@ -61,62 +58,40 @@ namespace SenacQuizApp.Services
                 quizPerguntas.Add(qp);
             }
             
-            QuizPergunta? quizPerguntaAvancada = new QuizPergunta { Quiz=quiz, Pergunta=perguntaAvancada.FirstOrDefault() };
-            quizPerguntas.Add(quizPerguntaAvancada);
+            Pergunta? perguntaAvancada = perguntaAvancadaAleatoria.FirstOrDefault();
+            if (perguntaAvancada != null)
+            {
+                QuizPergunta? quizPerguntaAvancada = new QuizPergunta { Quiz=quiz, Pergunta=perguntaAvancada };
+                quizPerguntas.Add(quizPerguntaAvancada);
+            }
 
-            await QuizRepository.CriarQuiz(quiz);
-            await QuizRepository.AdicionarQuizPerguntas(quizPerguntas);
-
+            await _quizRepository.AdicionarQuiz(quiz);
         }
 
-        public async Task IniciouQuiz(int usuarioId, int quizId)
+        public async Task<QuizEncontrado> GerarQuizDto(Quiz quiz)
         {
-            QuizTentativa tentativa = new QuizTentativa()
+            return new QuizEncontrado()
             {
-                UsuarioId = usuarioId,
-                QuizId = quizId,
-                Concluido = false,
-                PontuacaoFinal = null
+                Id = quiz.Id,
+                Concluido = quiz.Concluido,
+                Perguntas = quiz.QuizPerguntas
+                    .Select(qp => new PerguntasEncontradas
+                    {
+                        Id = qp.Pergunta.Id,
+                        Enunciado = qp.Pergunta.Enunciado,
+                        Alternativas = qp.Pergunta.Alternativas
+                            .Select(pa => new AlternativaDto
+                            {
+                                Id = pa.Id,
+                                Texto = pa.Texto
+                            }).ToList()
+                    }).ToList()
             };
-            await QuizRepository.SalvarTentativa(tentativa);
         }
 
         public async Task ConcluiuQuiz(int usuarioId, int quizId)
         {
-            QuizTentativa? tentativa = await QuizRepository.BuscarTentativa(usuarioId, quizId);
-            if (tentativa != null)
-            {
-                tentativa.Concluido = true;
-                await QuizRepository.SalvarTentativa(tentativa);
-            }
-        }
 
-        public async Task<bool> VerificarQuizRealizado(int usuarioId, int quizId)
-        {
-            QuizTentativa? tentativa = await QuizRepository.BuscarTentativa(usuarioId, quizId);
-            if (tentativa != null && tentativa.Concluido == true)
-            {
-                return true;
-            }
-            else { return false; }
-        }
-
-        public async Task<ResultadoResposta> EnviarResposta(QuizTentativa quizTentativa, int alternativaId)
-        {
-            var resultado = new ResultadoResposta(ehCorreta:false);
-
-            Alternativa? alternativa = await QuizRepository.BuscarAlternativa(alternativaId);
-            Pergunta? pergunta = alternativa.Pergunta;
-
-            if (alternativa != null && alternativa.EhCorreta) { resultado.EhCorreta = true; }
-
-            PerguntaRespondida resposta = new PerguntaRespondida
-            {
-                QuizTentativa = quizTentativa,
-                Pergunta = pergunta,
-            };
-
-            return resultado;
         }
     }
 }

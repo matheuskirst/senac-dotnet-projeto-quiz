@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Telas.Eventos
 {
-    public class LoginEventArgs(string nome, string senha) : EventArgs
+    public class LoginEventArgs(string username, string senha) : EventArgs
     {
-        public string Nome { get; set; } = nome;
+        public string Username { get; set; } = username;
         public string Senha { get; set; } = senha;
     }
 }

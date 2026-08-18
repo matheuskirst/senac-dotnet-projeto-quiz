@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SenacQuizApp.Banco.Entidades;
+using SenacQuizApp.Entidades;
+using SenacQuizApp.Enums;
 
 namespace SenacQuizApp.banco.config
 {
-    public class AppContexto : DbContext
+    public class QuizAppContexto : DbContext
     {
         // Tabelas
         public DbSet<Conquista> Conquistas { get; set; }
         public DbSet<Pergunta> Perguntas { get; set; }
+        public DbSet<PerguntaTema> PerguntaTemas { get; set; }
         public DbSet<Alternativa> Alternativas { get; set; }
         public DbSet<PerguntaRespondida> PerguntasRespondidas { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
-        public DbSet<QuizPergunta> QuizzesPerguntas { get; set; }
-        public DbSet<QuizTentativa> QuizzesTentativas { get; set; }
+        public DbSet<QuizPergunta> QuizPerguntas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
 
         // Tabelas Lookup
         public DbSet<NivelUsuario> NiveisUsuarios { get; set; }
-        public DbSet<NivelPergunta> NiveisPerguntas { get; set; }
-        public DbSet<TemaPergunta> TemasPerguntas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,33 +32,6 @@ namespace SenacQuizApp.banco.config
 
             optionsBuilder.UseSeeding((context, _) =>
             {
-                if (!context.Set<NivelPergunta>().Any())
-                {
-                    var niveisPergunta = new List<NivelPergunta>{
-                        new NivelPergunta { Nome = "Iniciante", Pontos = 10 },
-                        new NivelPergunta { Nome = "Fácil", Pontos = 20 },
-                        new NivelPergunta { Nome = "Intermediário", Pontos = 30 },
-                        new NivelPergunta { Nome = "Avançado", Pontos = 50 }
-                    };
-
-                    context.Set<NivelPergunta>().AddRange(niveisPergunta);
-                    context.SaveChanges();
-                }
-
-                if (!context.Set<TemaPergunta>().Any())
-                {
-                    var temasPergunta = new List<TemaPergunta>{
-                        new TemaPergunta { Nome = "Hardware" },
-                        new TemaPergunta { Nome = "Programação" },
-                        new TemaPergunta { Nome = "Redes" },
-                        new TemaPergunta { Nome = "Segurança Digital" },
-                        new TemaPergunta { Nome = "Sistemas Operacionais" },
-                        new TemaPergunta { Nome = "Ferramentas de Produtividade" }
-                    };
-                    context.Set<TemaPergunta>().AddRange(temasPergunta);
-                    context.SaveChanges();
-                }
-
                 if (!context.Set<NivelUsuario>().Any())
                 {
                     var niveisUsuario = new List<NivelUsuario>{
@@ -98,8 +71,27 @@ namespace SenacQuizApp.banco.config
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+            modelBuilder.Entity<PerguntaTema>(builder =>
+            {
+                builder.HasKey(t => t.Id);
+                builder.Property(t => t.Id).ValueGeneratedNever();
+                builder.Property(t => t.Nome).IsRequired().HasMaxLength(50);
+
+                builder.HasData(PerguntaTema.List());
+            });
+
+
+            modelBuilder.Entity<Pergunta>()
+                .HasOne(p => p.Tema)
+                .WithMany()
+                .HasForeignKey(p => p.TemaId);
+
             modelBuilder.Entity<Pergunta>()
                 .Property(p => p.Tipo)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Pergunta>()
+                .Property(p => p.Nivel)
                 .HasConversion<string>();
 
 
@@ -110,17 +102,13 @@ namespace SenacQuizApp.banco.config
 
 
             modelBuilder.Entity<Usuario>()
-                .HasIndex(u => u.Nickname)
+                .HasIndex(u => u.Nome)
                 .IsUnique();
 
             modelBuilder.Entity<Usuario>()
                 .Property(qt => qt.DataDeCadastro)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-
-            modelBuilder.Entity<Quiz>()
-                .Property(q => q.QuantidadePerguntas)
-                .HasDefaultValue(10);
 
             modelBuilder.Entity<Quiz>()
                 .Property(q => q.DataDeCriacao)
@@ -141,26 +129,8 @@ namespace SenacQuizApp.banco.config
                 .HasForeignKey(qp => qp.PerguntaId);
 
 
-            modelBuilder.Entity<QuizTentativa>()
-                .HasKey(qt => new { qt.UsuarioId, qt.QuizId });
-
-            modelBuilder.Entity<QuizTentativa>()
-                .HasOne(qt => qt.Usuario)
-                .WithMany(u => u.QuizTentativas)
-                .HasForeignKey(qt => qt.UsuarioId);
-
-            modelBuilder.Entity<QuizTentativa>()
-                .HasOne(qt => qt.Quiz)
-                .WithMany(q => q.QuizTentativas)
-                .HasForeignKey(qt => qt.QuizId);
-
-            modelBuilder.Entity<QuizTentativa>()
-                .Property(qt => qt.DataInicio)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-
             modelBuilder.Entity<PerguntaRespondida>()
-                .HasKey(pr => new { pr.QuizTentativaId, pr.PerguntaId });
+                .HasKey(pr => new { pr.PerguntaId, pr.QuizId });
 
             modelBuilder.Entity<PerguntaRespondida>()
                 .Property(pr => pr.DataDeResposta)

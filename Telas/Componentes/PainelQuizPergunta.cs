@@ -14,9 +14,9 @@ namespace SenacQuizApp.Telas.Componentes
     public partial class PainelQuizPergunta : UserControl
     {
         public event Action<int>? ClicouAlternativa;
-        private readonly PerguntaDto? _pergunta;
+        private readonly PerguntasEncontradas? _pergunta;
         private readonly List<AlternativaDto>? _alternativas;
-        public PainelQuizPergunta(PerguntaDto pergunta, List<AlternativaDto> alternativas)
+        public PainelQuizPergunta(PerguntasEncontradas pergunta, List<AlternativaDto> alternativas)
         {
             _pergunta = pergunta;
             _alternativas = alternativas;
