@@ -1,4 +1,8 @@
-﻿using SenacQuizApp.banco.repositories;
+﻿using AntdUI;
+using Microsoft.EntityFrameworkCore.Metadata;
+using SenacQuizApp.banco.repositories;
+using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Eventos;
 using SenacQuizApp.Telas.Utils;
@@ -11,18 +15,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AntdUI;
 
 namespace SenacQuizApp.Telas
 {
     public partial class PaginaLogin : UserControl
     {
+        private readonly UsuarioService _usuarioService;
         private Color? _corBordas;
         public event EventHandler? EscolheuVoltar;
-        public event EventHandler<LoginEventArgs>? RequesitouLogin;
+        public event EventHandler? ConcluiuLogin;
 
-        public PaginaLogin()
+        public PaginaLogin(UsuarioService usuarioService)
         {
+            _usuarioService = usuarioService;
+
             InitializeComponent();
         }
 
@@ -77,7 +83,7 @@ namespace SenacQuizApp.Telas
 
             if (nomeValido && senhaValida)
             {
-                RequesitouLogin?.Invoke(this, new LoginEventArgs(nome, senha));
+                RequisitarLogin(nome, senha);
                 ButtonLoginEntrar.Enabled = false;
                 ButtonLoginEntrar.Loading = true;
             }
@@ -145,6 +151,32 @@ namespace SenacQuizApp.Telas
             );
             ButtonLoginEntrar.Enabled = true;
             ButtonLoginEntrar.Loading = false;
+        }
+
+        private async void RequisitarLogin(string nome, string senha)
+        {
+            try
+            {
+                LoginInput login = new(Username: nome, Senha: senha);
+
+                LoginResposta resultado = await _usuarioService.RealizarLogin(login);
+
+                if (resultado.IsSucesso == true)
+                {
+                    ConcluiuLogin?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    if (resultado.MensagemErro == MensagemErro.LoginInvalido)
+                    {
+                        ErroNoLogin();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErroDeConexao(ex.ToString());
+            }
         }
     }
 }

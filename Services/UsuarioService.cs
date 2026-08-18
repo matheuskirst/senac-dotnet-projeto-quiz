@@ -15,6 +15,7 @@ namespace SenacQuizApp.Services
     public class UsuarioService
     {
         private readonly UsuarioRepository _usuarioRepository;
+        private UsuarioLogado? UsuarioAtual;
 
         public UsuarioService(UsuarioRepository usuarioRepository)
         {
@@ -52,7 +53,9 @@ namespace SenacQuizApp.Services
                 AcertosConsecutivos = usuario.AcertosConsecutivos,
                 MaxAcertosConsecutivos = usuario.MaxAcertosConsecutivos
             };
-            return new LoginResposta(usuario: loginUsuario);
+
+            UsuarioAtual = loginUsuario;
+            return new LoginResposta();
         }
 
         // Signup
@@ -89,6 +92,11 @@ namespace SenacQuizApp.Services
                 LoginResposta resultado = await RealizarLogin(login);
                 return resultado;
             }
+        }
+
+        public void RealizarLogout()
+        {
+            if (UsuarioAtual != null) { UsuarioAtual = null; }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SenacQuizApp.Entidades;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos;
+using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
 using System;
 using System.Collections.Generic;
@@ -16,24 +17,23 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaQuiz : UserControl
     {
-        private readonly UsuarioLogado? _usuarioAtual;
-        private readonly QuizEncontrado? _quizAtual;
-        private List<PainelQuizPergunta> PaineisPerguntas;
+        private readonly UsuarioService? _usuarioService;
+        private readonly QuizService? _quizService;
+        private List<PainelQuizPergunta>? PaineisPerguntas;
         private int PerguntaAtualIndex;
-        public event Action<int> RespondeuPergunta;
-        public PaginaQuiz(UsuarioLogado? usuarioAtual, QuizEncontrado? quizAtual)
+        public PaginaQuiz(UsuarioService? usuarioService, QuizService quizService)
         {
-            _usuarioAtual = usuarioAtual;
-            _quizAtual = quizAtual;
+            _usuarioService = usuarioService;
+            _quizService = quizService;
 
             InitializeComponent();
         }
 
         private void PaginaQuiz_Load(object sender, EventArgs e)
         {
-            if (_quizAtual != null)
+            if (_quizService.QuizAtual != null)
             {
-                List<PerguntasEncontradas> perguntas = _quizAtual.Perguntas;
+                List<PerguntasEncontradas> perguntas = _quizService.QuizAtual.Perguntas;
                 PerguntasEncontradas? pergunta = perguntas.FirstOrDefault();
                 if (pergunta != null)
                 {
@@ -50,9 +50,9 @@ namespace SenacQuizApp.Telas
 
         private void AoResponderPergunta(int alternativaId)
         {
-            if (_quizAtual != null)
+            if (_quizService.QuizAtual != null)
             {
-                List<PerguntasEncontradas> perguntas = _quizAtual.Perguntas;
+                List<PerguntasEncontradas> perguntas = _quizService.QuizAtual.Perguntas;
                 int proximoIndex = PerguntaAtualIndex + 1;
 
                 if (proximoIndex < perguntas.Count)
@@ -67,7 +67,6 @@ namespace SenacQuizApp.Telas
 
                     PaineisPerguntas.Add(proximoPainelPergunta);
                 }
-                RespondeuPergunta?.Invoke(alternativaId);
             }
         }
     }

@@ -10,7 +10,7 @@ namespace SenacQuizApp.Entidades
     public class NivelUsuario
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
         public int PontosMin { get; set; }
         public int PontosMax { get; set; }
     }

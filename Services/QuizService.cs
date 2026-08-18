@@ -16,57 +16,59 @@ namespace SenacQuizApp.Services
         private readonly QuizRepository _quizRepository;
         private readonly PerguntaRepository _perguntaRepository;
 
+        public QuizEncontrado QuizAtual { get; set; }
+
         public QuizService(QuizRepository quizRespository, PerguntaRepository perguntaRepository)
         {
             _quizRepository = quizRespository;
             _perguntaRepository = perguntaRepository;
         }
 
-        public async Task<BuscarQuizResposta> BuscarQuizHoje(int usuarioId)
-        {
-            DateTime hoje = DateTime.Today;
-            Quiz? quiz = await _quizRepository.ObterPorData(usuarioId, hoje);
+        //public async Task<BuscarQuizResposta> BuscarQuizHoje(int usuarioId)
+        //{
+        //    DateTime hoje = DateTime.Today;
+        //    Quiz? quiz = await _quizRepository.ObterPorData(usuarioId, hoje);
 
-            if (quiz == null)
-            {
-                await GerarQuizDto(quiz);
-            }
-            else if (quiz != null && quiz.DataConcluido == DateTime.Today)
-            {
+        //    if (quiz == null)
+        //    {
+        //        await GerarQuizDto(quiz);
+        //    }
+        //    else if (quiz != null && quiz.DataConcluido == DateTime.Today)
+        //    {
                 
 
-                return quizEncontrado;
-            }
-        }
+        //        return quizEncontrado;
+        //    }
+        //}
 
-        public async Task<QuizEncontrado> GerarQuiz()
-        {
-            Quiz quiz = new Quiz();
+        //public async Task<QuizEncontrado> GerarQuiz()
+        //{
+        //    Quiz quiz = new Quiz();
 
-            IEnumerable<Pergunta> perguntasAleatorias = await _perguntaRepository.ObterAleatorio(quantidade: 9);
-            IEnumerable<Pergunta> perguntaAvancadaAleatoria = await _perguntaRepository.ObterAleatorio(quantidade: 1, nivel: PerguntaNivel.Avancado);
+        //    IEnumerable<Pergunta> perguntasAleatorias = await _perguntaRepository.ObterAleatorio(quantidade: 9);
+        //    IEnumerable<Pergunta> perguntaAvancadaAleatoria = await _perguntaRepository.ObterAleatorio(quantidade: 1, nivel: PerguntaNivel.Avancado);
 
-            List<QuizPergunta> quizPerguntas = [];
+        //    List<QuizPergunta> quizPerguntas = [];
 
-            foreach (Pergunta pergunta in perguntasAleatorias)
-            {
-                QuizPergunta qp = new QuizPergunta
-                {
-                    Quiz = quiz,
-                    Pergunta = pergunta
-                };
-                quizPerguntas.Add(qp);
-            }
+        //    foreach (Pergunta pergunta in perguntasAleatorias)
+        //    {
+        //        QuizPergunta qp = new QuizPergunta
+        //        {
+        //            Quiz = quiz,
+        //            Pergunta = pergunta
+        //        };
+        //        quizPerguntas.Add(qp);
+        //    }
             
-            Pergunta? perguntaAvancada = perguntaAvancadaAleatoria.FirstOrDefault();
-            if (perguntaAvancada != null)
-            {
-                QuizPergunta? quizPerguntaAvancada = new QuizPergunta { Quiz=quiz, Pergunta=perguntaAvancada };
-                quizPerguntas.Add(quizPerguntaAvancada);
-            }
+        //    Pergunta? perguntaAvancada = perguntaAvancadaAleatoria.FirstOrDefault();
+        //    if (perguntaAvancada != null)
+        //    {
+        //        QuizPergunta? quizPerguntaAvancada = new QuizPergunta { Quiz=quiz, Pergunta=perguntaAvancada };
+        //        quizPerguntas.Add(quizPerguntaAvancada);
+        //    }
 
-            await _quizRepository.AdicionarQuiz(quiz);
-        }
+        //    await _quizRepository.AdicionarQuiz(quiz);
+        //}
 
         public async Task<QuizEncontrado> GerarQuizDto(Quiz quiz)
         {

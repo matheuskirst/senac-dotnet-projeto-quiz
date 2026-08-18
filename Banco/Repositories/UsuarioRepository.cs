@@ -27,7 +27,7 @@ namespace SenacQuizApp.banco.repositories
         public async Task<Usuario?> ObterPorNome(string nome)
         {
             return await _contexto.Usuarios
-                .FirstOrDefaultAsync(u => u.Nome == nome);
+                .FirstOrDefaultAsync(u => u.Username == nome);
         }
 
         public async Task<IEnumerable<Usuario>> ObterTodos()

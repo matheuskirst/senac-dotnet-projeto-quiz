@@ -10,7 +10,7 @@ namespace SenacQuizApp.Entidades
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
+        public Usuario Usuario { get; set; } = null!;
         public DateTime DataIniciado { get; set; } = DateTime.UtcNow;
         public bool Concluido { get; set; }
         public DateTime DataConcluido { get; set; }

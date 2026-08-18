@@ -10,11 +10,11 @@ namespace SenacQuizApp.Modelos
     public class UsuarioLogado
     {
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Nickname { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Nickname { get; set; } = string.Empty;
         public DateTime? DataDeNascimento { get; set; }
         public DateTime? DataDeCadastro { get; set; }
-        public NivelUsuario Nivel { get; set; }
+        public NivelUsuario Nivel { get; set; } = null!;
         public int PontuacaoTotal { get; set; }
         public int TotalAcertos { get; set; }
         public int TotalRespondidos { get; set; }

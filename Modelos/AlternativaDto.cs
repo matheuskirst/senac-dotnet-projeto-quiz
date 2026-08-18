@@ -10,7 +10,7 @@ namespace SenacQuizApp.Modelos
     public class AlternativaDto
     {
         public int Id { get; set; }
-        public string Texto { get; set; }
-        public Pergunta Pergunta { get; set; }
+        public string Texto { get; set; } = string.Empty;
+        public Pergunta Pergunta { get; set; } = null!;
     }
 }

@@ -1,4 +1,6 @@
 ﻿using AntdUI;
+using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Eventos;
 using SenacQuizApp.Telas.Utils;
@@ -18,11 +20,13 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaSignup : UserControl
     {
+        private readonly UsuarioService _usuarioService;
         private Color? _corBordas;
         public event EventHandler? EscolheuVoltar;
-        public event EventHandler<SignupEventArgs>? RequesitouSignup;
-        public PaginaSignup()
+        public event EventHandler? ConcluiuSignup;
+        public PaginaSignup(UsuarioService usuarioService)
         {
+            _usuarioService = usuarioService;
             InitializeComponent();
         }
 
@@ -99,6 +103,34 @@ namespace SenacQuizApp.Telas
             ValidarRegistro();
         }
 
+        public void NomeIndisponivel()
+        {
+            PintarErros.ErroNoCampo(InputSignupNome, mensagem: "Esse nome não está disponível!");
+            ButtonSignupRegistrar.Enabled = true;
+            ButtonSignupRegistrar.Loading = false;
+        }
+
+        private void LimparBordas()
+        {
+            InputSignupNome.BorderColor = _corBordas;
+            InputSignupNick.BorderColor = _corBordas;
+            DatePickerSignupDataNascimento.BorderColor = _corBordas;
+            InputSignupSenha.BorderColor = _corBordas;
+            InputSignupConfirmarSenha.BorderColor = _corBordas;
+        }
+
+        public void ErroDeConexao(string? erro)
+        {
+            MessageBox.Show(
+                $"Ocorreu um erro{erro}.",
+                "Erro de Conexão",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
+            ButtonSignupRegistrar.Enabled = true;
+            ButtonSignupRegistrar.Loading = false;
+        }
+
         private async void ValidarRegistro()
         {
             LimparBordas();
@@ -126,7 +158,8 @@ namespace SenacQuizApp.Telas
 
             if (nomeValido && nickValido && dataNascimentoValido && senhaValida)
             {
-                RequesitouSignup?.Invoke(this, new SignupEventArgs(nome, nick, dataNascimento, senha));
+
+                RequisitarSignup(nome, nick, dataNascimento, senha);
                 ButtonSignupRegistrar.Enabled = false;
                 ButtonSignupRegistrar.Loading = true;
             }
@@ -226,32 +259,28 @@ namespace SenacQuizApp.Telas
                 && senha.Any(ch => !char.IsLetterOrDigit(ch));
         }
 
-        public void NomeIndisponivel()
+        private async void RequisitarSignup(string username, string nickname, DateTime? dataNascimento, string senha)
         {
-            PintarErros.ErroNoCampo(InputSignupNome, mensagem: "Esse nome não está disponível!");
-            ButtonSignupRegistrar.Enabled = true;
-            ButtonSignupRegistrar.Loading = false;
-        }
+            try
+            {
+                LoginResposta resultado = await _usuarioService.RealizarSignup(username, nickname, dataNascimento, senha);
 
-        private void LimparBordas()
-        {
-            InputSignupNome.BorderColor = _corBordas;
-            InputSignupNick.BorderColor = _corBordas;
-            DatePickerSignupDataNascimento.BorderColor = _corBordas;
-            InputSignupSenha.BorderColor = _corBordas;
-            InputSignupConfirmarSenha.BorderColor = _corBordas;
-        }
-
-        public void ErroDeConexao(string? erro)
-        {
-            MessageBox.Show(
-                $"Ocorreu um erro{erro}.",
-                "Erro de Conexão",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-            );
-            ButtonSignupRegistrar.Enabled = true;
-            ButtonSignupRegistrar.Loading = false;
+                if (resultado.IsSucesso == true)
+                {
+                    ConcluiuSignup?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    if (resultado.MensagemErro == MensagemErro.NomeIndisponivel)
+                    {
+                        NomeIndisponivel();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErroDeConexao(ex.ToString());
+            }
         }
     }
 }

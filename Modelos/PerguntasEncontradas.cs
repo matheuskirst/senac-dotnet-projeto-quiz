@@ -10,8 +10,8 @@ namespace SenacQuizApp.Modelos
     public class PerguntasEncontradas
     {
         public int Id { get; set; }
-        public string Enunciado { get; set; }
-        public PerguntaTema Tema { get; set; }
+        public string Enunciado { get; set; } = string.Empty;
+        public PerguntaTema Tema { get; set; } = null!;
         public PerguntaTipo Tipo { get; set; }
         public PerguntaNivel Nivel { get; set; }
         public List<AlternativaDto> Alternativas { get; set; } = new List<AlternativaDto>();

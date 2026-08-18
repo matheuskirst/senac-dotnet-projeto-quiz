@@ -9,9 +9,9 @@ namespace SenacQuizApp.Entidades
     public class Alternativa
     {
         public int Id { get; set; }
-        public string Texto { get; set; }
+        public string Texto { get; set; } = string.Empty;
         public bool EhCorreta { get; set; }
         public int PerguntaId { get; set; }
-        public Pergunta Pergunta { get; set; }
+        public Pergunta Pergunta { get; set; } = null!;
     }
 }

@@ -12,9 +12,9 @@ namespace SenacQuizApp.Entidades
         public int Id { get; set; }
 
         [StringLength(1000)]
-        public string Enunciado { get; set; }
+        public string Enunciado { get; set; } = string.Empty;
         public int TemaId { get; set; }
-        public PerguntaTema Tema { get; set; }
+        public PerguntaTema Tema { get; set; } = null!;
         public PerguntaTipo Tipo { get; set; }
         public PerguntaNivel Nivel { get; set; }
 
