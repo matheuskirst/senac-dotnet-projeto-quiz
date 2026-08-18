@@ -102,7 +102,7 @@ namespace SenacQuizApp.banco.config
 
 
             modelBuilder.Entity<Usuario>()
-                .HasIndex(u => u.Nome)
+                .HasIndex(u => u.Username)
                 .IsUnique();
 
             modelBuilder.Entity<Usuario>()
@@ -111,7 +111,7 @@ namespace SenacQuizApp.banco.config
 
 
             modelBuilder.Entity<Quiz>()
-                .Property(q => q.DataDeCriacao)
+                .Property(q => q.DataIniciado)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
 
