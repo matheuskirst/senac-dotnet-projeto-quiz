@@ -1,9 +1,4 @@
-﻿using SenacQuizApp.Entidades;
-using SenacQuizApp.Modelos;
-using SenacQuizApp.Services;
-using SenacQuizApp.Telas;
-using SenacQuizApp.Telas.Eventos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AntdUI;
+using SenacQuizApp.Modelos;
+using SenacQuizApp.Services;
+using SenacQuizApp.Telas;
+using SenacQuizApp.Telas.Eventos;
 using SenacQuizApp.Services.Enums;
 
 namespace SenacQuizApp.Telas
@@ -20,19 +19,25 @@ namespace SenacQuizApp.Telas
     public partial class FormPrincipal : Window
     {
         private readonly UsuarioService _usuarioService;
-        public Usuario? UsuarioAtual { get; private set; }
+        private readonly QuizService _quizService;
+        public UsuarioDto? UsuarioAtual { get; private set; }
         public QuizDto? QuizAtual { get; private set; }
 
         public FormPrincipal()
         {
             UsuarioService usuarioService = new UsuarioService();
+            QuizService quizService = new QuizService();
             _usuarioService = usuarioService;
+            _quizService = quizService;
 
             InitializeComponent();
         }
 
-        private void FormJanelaPrincipal_Load(object sender, EventArgs e)
+        private async void FormJanelaPrincipal_Load(object sender, EventArgs e)
         {
+            QuizDto? quiz = await _quizService.ObterQuizDeHoje();
+            if (quiz != null) { QuizAtual = quiz; }
+
             AbrirPaginaInicial(null, e);
         }
 
@@ -87,9 +92,9 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaQuiz(object? sender, EventArgs e)
         {
-            //PaginaQuiz paginaQuiz = new PaginaQuiz(UsuarioAtual, QuizAtual);
+            PaginaQuiz paginaQuiz = new PaginaQuiz(UsuarioAtual, QuizAtual);
 
-            //MudarPagina(paginaQuiz);
+            MudarPagina(paginaQuiz);
         }
 
         private async void AoRequisitarLogin(object? sender, LoginEventArgs e)

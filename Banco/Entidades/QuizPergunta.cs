@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Entidades
+namespace SenacQuizApp.Banco.Entidades
 {
     public class QuizPergunta
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SenacQuizApp.Entidades;
+using SenacQuizApp.Banco.Entidades;
 
 namespace SenacQuizApp.Modelos
 {

@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             PanelQuiz = new TableLayoutPanel();
-            PanelQuizCentral = new TableLayoutPanel();
-            InputPergunta = new AntdUI.Input();
-            PanelRespostas = new TableLayoutPanel();
-            PanelQuiz.SuspendLayout();
-            PanelQuizCentral.SuspendLayout();
             SuspendLayout();
             // 
             // PanelQuiz
@@ -43,7 +38,6 @@
             PanelQuiz.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             PanelQuiz.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             PanelQuiz.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            PanelQuiz.Controls.Add(PanelQuizCentral, 1, 2);
             PanelQuiz.Dock = DockStyle.Fill;
             PanelQuiz.Location = new Point(0, 0);
             PanelQuiz.Name = "PanelQuiz";
@@ -57,51 +51,9 @@
             PanelQuiz.Size = new Size(1024, 720);
             PanelQuiz.TabIndex = 7;
             // 
-            // PanelQuizCentral
-            // 
-            PanelQuizCentral.ColumnCount = 3;
-            PanelQuizCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
-            PanelQuizCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 90F));
-            PanelQuizCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
-            PanelQuizCentral.Controls.Add(InputPergunta, 1, 0);
-            PanelQuizCentral.Controls.Add(PanelRespostas, 1, 1);
-            PanelQuizCentral.Dock = DockStyle.Fill;
-            PanelQuizCentral.Location = new Point(23, 123);
-            PanelQuizCentral.Name = "PanelQuizCentral";
-            PanelQuizCentral.RowCount = 2;
-            PanelQuizCentral.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            PanelQuizCentral.RowStyles.Add(new RowStyle(SizeType.Percent, 75F));
-            PanelQuizCentral.Size = new Size(978, 524);
-            PanelQuizCentral.TabIndex = 0;
-            // 
-            // InputPergunta
-            // 
-            InputPergunta.Anchor = AnchorStyles.None;
-            InputPergunta.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputPergunta.Location = new Point(88, 15);
-            InputPergunta.Multiline = true;
-            InputPergunta.Name = "InputPergunta";
-            InputPergunta.PrefixText = "Pergunta: ";
-            InputPergunta.Size = new Size(800, 100);
-            InputPergunta.TabIndex = 0;
-            // 
-            // PanelRespostas
-            // 
-            PanelRespostas.ColumnCount = 2;
-            PanelRespostas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            PanelRespostas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            PanelRespostas.Dock = DockStyle.Fill;
-            PanelRespostas.Location = new Point(51, 134);
-            PanelRespostas.Name = "PanelRespostas";
-            PanelRespostas.RowCount = 2;
-            PanelRespostas.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            PanelRespostas.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            PanelRespostas.Size = new Size(874, 387);
-            PanelRespostas.TabIndex = 1;
-            // 
             // PaginaQuiz
             // 
-            AutoScaleDimensions = new SizeF(6F, 13F);
+            AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             Controls.Add(PanelQuiz);
@@ -110,15 +62,10 @@
             Name = "PaginaQuiz";
             Size = new Size(1024, 720);
             Load += PaginaQuiz_Load;
-            PanelQuiz.ResumeLayout(false);
-            PanelQuizCentral.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
         private TableLayoutPanel PanelQuiz;
-        private TableLayoutPanel PanelQuizCentral;
-        private AntdUI.Input InputPergunta;
-        private TableLayoutPanel PanelRespostas;
     }
 }

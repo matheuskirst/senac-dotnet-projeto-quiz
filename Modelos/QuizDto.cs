@@ -1,4 +1,4 @@
-﻿using SenacQuizApp.Entidades;
+﻿using SenacQuizApp.Banco.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;

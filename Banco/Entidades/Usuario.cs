@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Entidades
+namespace SenacQuizApp.Banco.Entidades
 {
     public class NivelUsuario
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public int PontosMin { get; set;}
-        public int PontosMax { get; set;}
+        public int PontosMin { get; set; }
+        public int PontosMax { get; set; }
     }
 
     public class Usuario

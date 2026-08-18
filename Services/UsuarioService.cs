@@ -1,5 +1,5 @@
 ﻿using SenacQuizApp.banco.repositories;
-using SenacQuizApp.Entidades;
+using SenacQuizApp.Banco.Entidades;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Services.Enums;
 using System;
@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Services
 {
-    public class ResultadoAuth(bool ehSucesso, Usuario? usuario=null, MensagemErro? mensagemErro=null)
+    public class ResultadoAuth(bool ehSucesso, UsuarioDto? usuario=null, MensagemErro? mensagemErro=null)
     {
         public bool EhSucesso { get; set; } = ehSucesso;
-        public Usuario? Usuario { get; set; } = usuario;
+        public UsuarioDto? Usuario { get; set; } = usuario;
         public MensagemErro? MensagemErro { get; set; } = mensagemErro;
     }
 
@@ -39,7 +39,21 @@ namespace SenacQuizApp.Services
 
                 if (ehSenhaValida)
                 {
-                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso:true, usuario:usuario);
+                    UsuarioDto? usuarioAtual = new UsuarioDto
+                    {
+                        Id = usuario.Id,
+                        Nome = usuario.Nome,
+                        Nickname = usuario.Nickname,
+                        DataDeNascimento = usuario.DataDeNascimento,
+                        DataDeCadastro = usuario.DataDeCadastro,
+                        Nivel = usuario.Nivel,
+                        PontuacaoTotal = usuario.PontuacaoTotal,
+                        TotalAcertos = usuario.TotalAcertos,
+                        TotalRespondidos = usuario.TotalRespondidos,
+                        AcertosConsecutivos = usuario.AcertosConsecutivos,
+                        MaxAcertosConsecutivos = usuario.MaxAcertosConsecutivos
+                    };
+                    ResultadoAuth resultado = new ResultadoAuth(ehSucesso:true, usuario:usuarioAtual);
                     return resultado;
                 }
                 else

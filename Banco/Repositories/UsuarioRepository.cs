@@ -1,5 +1,4 @@
 ﻿using SenacQuizApp.banco.config;
-using SenacQuizApp.Entidades;
 using SenacQuizApp.Modelos;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SenacQuizApp.Banco.Entidades;
 
 namespace SenacQuizApp.banco.repositories
 {

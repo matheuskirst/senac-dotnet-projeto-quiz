@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json;
 
-namespace SenacQuizApp.Entidades
+namespace SenacQuizApp.Banco.Entidades
 {
     public enum TipoPergunta
     {
@@ -36,6 +36,7 @@ namespace SenacQuizApp.Entidades
         public string Enunciado { get; set; }
         public TemaPergunta Tema { get; set; }
         public TipoPergunta Tipo { get; set; }
+        public int NivelPerguntaId { get; set; }
         public NivelPergunta Nivel { get; set; }
 
         public ICollection<Alternativa> Alternativas { get; set; } = new List<Alternativa>();

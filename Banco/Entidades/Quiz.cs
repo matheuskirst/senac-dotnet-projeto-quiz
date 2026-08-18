@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Entidades
+namespace SenacQuizApp.Banco.Entidades
 {
     public class Quiz
     {
         public int Id { get; set; }
-        public int? QuantidadePerguntas { get; set; } = 10;
+        public int QuantidadePerguntas { get; set; } = 10;
         public DateTime? DataDeCriacao { get; set; } = DateTime.UtcNow;
         public DateTime? DataExibicao { get; set; } = DateTime.UtcNow;
 

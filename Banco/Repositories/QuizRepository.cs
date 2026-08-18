@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.banco.config;
-using SenacQuizApp.Entidades;
+using SenacQuizApp.Banco.Entidades;
 using SenacQuizApp.Modelos;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,25 @@ namespace SenacQuizApp.Banco.Repositories
         {
             using (var db = new AppContexto())
             {
-                db.Quizzes.Add(quiz);
+                await db.Quizzes.AddAsync(quiz);
+                await db.SaveChangesAsync();
+            }
+        }
+        
+        public static async Task AdicionarQuizPerguntas(List<QuizPergunta> quizPergunta)
+        {
+            using (var db = new AppContexto())
+            {
+                await db.QuizzesPerguntas.AddRangeAsync(quizPergunta);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public static async Task SalvarTentativa(QuizTentativa tentativa)
+        {
+            using (var db = new AppContexto())
+            {
+                await db.QuizzesTentativas.AddAsync(tentativa);
                 await db.SaveChangesAsync();
             }
         }
@@ -26,20 +44,28 @@ namespace SenacQuizApp.Banco.Repositories
         {
             using (var db = new AppContexto())
             {
-                db.PerguntasRespondidas.Add(resposta);
+                await db.PerguntasRespondidas.AddAsync(resposta);
                 await db.SaveChangesAsync();
             }
         }
 
-        public static async Task<IEnumerable<Quiz>> ObterPerguntas()
+        public static async Task<IEnumerable<Pergunta>> ObterPerguntasAleatorias(int quantidade, int? nivelId=null)
         {
             using (var db = new AppContexto())
             {
-                var quizzes = await db.Quizzes
-                    .OrderBy(u => u.Id)
+                IQueryable<Pergunta> query = db.Perguntas;
+
+                if (nivelId != null && nivelId is int)
+                {
+                    query = query.Where(p => p.Nivel.Id == nivelId);
+                }
+
+                var perguntas = await query
+                    .OrderBy(p => EF.Functions.Random())
+                    .Take(quantidade)
                     .ToListAsync();
 
-                return quizzes;
+                return perguntas;
             }
         }
 
@@ -78,6 +104,17 @@ namespace SenacQuizApp.Banco.Repositories
             {
                 Alternativa? alternativa = await db.Alternativas.FindAsync(idAlternativa);
                 return alternativa;
+            }
+        }
+
+        public static async Task<QuizTentativa?> BuscarTentativa(int usuarioId, int quizId)
+        {
+            using (var db = new AppContexto())
+            {
+                QuizTentativa? tentativa = await db.QuizzesTentativas
+                    .Where(qt => qt.UsuarioId == usuarioId && qt.QuizId == quizId)
+                    .FirstOrDefaultAsync();
+                return tentativa;
             }
         }
     }

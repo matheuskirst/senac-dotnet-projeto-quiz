@@ -1,6 +1,4 @@
-﻿using SenacQuizApp.Services;
-using SenacQuizApp.Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,15 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SenacQuizApp.Services;
+using SenacQuizApp.Banco.Entidades;
+using SenacQuizApp.Modelos;
 
 namespace SenacQuizApp.Telas
 {
     public partial class PaginaPrincipal : UserControl
     {
-        private readonly Usuario? _usuarioAtual;
+        private readonly UsuarioDto? _usuarioAtual;
         public event EventHandler? RealizarLogout;
         public event EventHandler? JogarQuiz;
-        public PaginaPrincipal(Usuario? usuarioAtual)
+        public PaginaPrincipal(UsuarioDto? usuarioAtual)
         {
             _usuarioAtual = usuarioAtual ?? throw new ArgumentNullException(nameof(usuarioAtual));
 
