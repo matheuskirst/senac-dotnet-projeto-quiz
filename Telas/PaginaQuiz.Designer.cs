@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             PanelQuiz = new TableLayoutPanel();
+            panelPergunta = new Panel();
+            PanelQuiz.SuspendLayout();
             SuspendLayout();
             // 
             // PanelQuiz
@@ -38,6 +40,7 @@
             PanelQuiz.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             PanelQuiz.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             PanelQuiz.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            PanelQuiz.Controls.Add(panelPergunta, 1, 2);
             PanelQuiz.Dock = DockStyle.Fill;
             PanelQuiz.Location = new Point(0, 0);
             PanelQuiz.Name = "PanelQuiz";
@@ -51,9 +54,17 @@
             PanelQuiz.Size = new Size(1024, 720);
             PanelQuiz.TabIndex = 7;
             // 
+            // panelPergunta
+            // 
+            panelPergunta.Dock = DockStyle.Fill;
+            panelPergunta.Location = new Point(23, 123);
+            panelPergunta.Name = "panelPergunta";
+            panelPergunta.Size = new Size(978, 524);
+            panelPergunta.TabIndex = 0;
+            // 
             // PaginaQuiz
             // 
-            AutoScaleDimensions = new SizeF(8F, 17F);
+            AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             Controls.Add(PanelQuiz);
@@ -62,10 +73,12 @@
             Name = "PaginaQuiz";
             Size = new Size(1024, 720);
             Load += PaginaQuiz_Load;
+            PanelQuiz.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
         private TableLayoutPanel PanelQuiz;
+        private Panel panelPergunta;
     }
 }

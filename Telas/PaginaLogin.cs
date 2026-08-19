@@ -1,20 +1,8 @@
 ﻿using AntdUI;
-using Microsoft.EntityFrameworkCore.Metadata;
-using SenacQuizApp.banco.repositories;
 using SenacQuizApp.Enums;
-using SenacQuizApp.Modelos;
+using SenacQuizApp.Dtos;
 using SenacQuizApp.Services;
-using SenacQuizApp.Telas.Eventos;
 using SenacQuizApp.Telas.Utils;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas
 {
@@ -34,7 +22,7 @@ namespace SenacQuizApp.Telas
 
         private void PaginaLogin_Load(object sender, EventArgs e)
         {
-            _corBordas = InputLoginNome.BorderColor;
+            _corBordas = InputLoginUsername.BorderColor;
             StackPanelLoginErro.Back = Color.FromArgb(255, 200, 200);
         }
 
@@ -75,15 +63,15 @@ namespace SenacQuizApp.Telas
             LimparBordas();
             StackPanelLoginErro.Visible = false;
 
-            string? nome = InputLoginNome.Text;
+            string? username = InputLoginUsername.Text;
             string? senha = InputLoginSenha.Text;
 
-            bool nomeValido = ValidarNome(nome);
+            bool nomeValido = ValidarUsername(username);
             bool senhaValida = ValidarSenha(senha);
 
             if (nomeValido && senhaValida)
             {
-                RequisitarLogin(nome, senha);
+                RequisitarLogin(username, senha);
                 ButtonLoginEntrar.Enabled = false;
                 ButtonLoginEntrar.Loading = true;
             }
@@ -94,17 +82,17 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private bool ValidarNome(string? nome)
+        private bool ValidarUsername(string? username)
         {
             bool validado = false;
 
-            if (string.IsNullOrWhiteSpace(nome))
+            if (string.IsNullOrWhiteSpace(username))
             {
-                PintarErros.ErroNoCampo(InputLoginNome, mensagem:"Por favor preencha o campo.");
+                PintarErros.ErroNoCampo(InputLoginUsername, mensagem:"Por favor preencha o campo.");
             }
-            else if (nome.Length < 3 || nome.Length > 32)
+            else if (username.Length < 3 || username.Length > 32)
             {
-                PintarErros.ErroNoCampo(InputLoginNome, mensagem:"O Nome deve ter entre 3 e 32 caracteres.");
+                PintarErros.ErroNoCampo(InputLoginUsername, mensagem:"O Nome de Usuário deve ter entre 3 e 32 caracteres.");
             }
             else
             {
@@ -128,13 +116,13 @@ namespace SenacQuizApp.Telas
 
         private void LimparBordas()
         {
-            InputLoginNome.BorderColor = _corBordas;
+            InputLoginUsername.BorderColor = _corBordas;
             InputLoginSenha.BorderColor = _corBordas;
         }
 
         public void ErroNoLogin()
         {
-            PintarErros.ErroNoCampo(InputLoginNome);
+            PintarErros.ErroNoCampo(InputLoginUsername);
             PintarErros.ErroNoCampo(InputLoginSenha);
             StackPanelLoginErro.Visible = true;
             ButtonLoginEntrar.Enabled = true;
@@ -153,11 +141,11 @@ namespace SenacQuizApp.Telas
             ButtonLoginEntrar.Loading = false;
         }
 
-        private async void RequisitarLogin(string nome, string senha)
+        private async void RequisitarLogin(string username, string senha)
         {
             try
             {
-                LoginInput login = new(Username: nome, Senha: senha);
+                LoginInput login = new(Username: username, Senha: senha);
 
                 LoginResposta resultado = await _usuarioService.RealizarLogin(login);
 

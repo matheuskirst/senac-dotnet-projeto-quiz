@@ -1,20 +1,8 @@
 ﻿using AntdUI;
+using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
-using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
-using SenacQuizApp.Telas.Eventos;
 using SenacQuizApp.Telas.Utils;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas
 {
@@ -32,7 +20,7 @@ namespace SenacQuizApp.Telas
 
         private void PaginaSignup_Load(object sender, EventArgs e)
         {
-            _corBordas = InputSignupNome.BorderColor;
+            _corBordas = InputSignupUsername.BorderColor;
 
             DatePickerSignupDataNascimento.MaxDate = DateTime.Now;
             DatePickerSignupDataNascimento.MinDate = DateTime.Today.AddYears(-120);
@@ -92,7 +80,7 @@ namespace SenacQuizApp.Telas
 
         private void LimparBorda_TextChanged(object sender, EventArgs e)
         {
-            if (sender is AntdUI.Input control)
+            if (sender is Input control)
             {
                 control.BorderColor = _corBordas;
             }
@@ -105,14 +93,14 @@ namespace SenacQuizApp.Telas
 
         public void NomeIndisponivel()
         {
-            PintarErros.ErroNoCampo(InputSignupNome, mensagem: "Esse nome não está disponível!");
+            PintarErros.ErroNoCampo(InputSignupUsername, mensagem: "Esse nome não está disponível!");
             ButtonSignupRegistrar.Enabled = true;
             ButtonSignupRegistrar.Loading = false;
         }
 
         private void LimparBordas()
         {
-            InputSignupNome.BorderColor = _corBordas;
+            InputSignupUsername.BorderColor = _corBordas;
             InputSignupNick.BorderColor = _corBordas;
             DatePickerSignupDataNascimento.BorderColor = _corBordas;
             InputSignupSenha.BorderColor = _corBordas;
@@ -135,18 +123,18 @@ namespace SenacQuizApp.Telas
         {
             LimparBordas();
 
-            string? nome = InputSignupNome.Text;
+            string? username = InputSignupUsername.Text;
             string? nick = InputSignupNick.Text;
             DateTime? dataNascimento = DatePickerSignupDataNascimento.Value;
             string senha = InputSignupSenha.Text;
             string confirmarSenha = InputSignupConfirmarSenha.Text;
 
 
-            bool nomeValido = ValidarNome(nome);
+            bool usernameValido = ValidarUsername(username);
             bool nickValido = false;
-            if (!string.IsNullOrWhiteSpace(nome) && string.IsNullOrWhiteSpace(nick))
+            if (!string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(nick))
             {
-                nick = nome.ToLower();
+                nick = username.ToLower();
                 nickValido = true;
             }
             else
@@ -156,10 +144,10 @@ namespace SenacQuizApp.Telas
             bool dataNascimentoValido = ValidarDataNascimento(dataNascimento);
             bool senhaValida = ValidarSenha(senha, confirmarSenha);
 
-            if (nomeValido && nickValido && dataNascimentoValido && senhaValida)
+            if (usernameValido && nickValido && dataNascimentoValido && senhaValida)
             {
 
-                RequisitarSignup(nome, nick, dataNascimento, senha);
+                RequisitarSignup(username, nick, dataNascimento, senha);
                 ButtonSignupRegistrar.Enabled = false;
                 ButtonSignupRegistrar.Loading = true;
             }
@@ -170,17 +158,17 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private bool ValidarNome(string? nome)
+        private bool ValidarUsername(string? username)
         {
             bool validado = false;
 
-            if (string.IsNullOrWhiteSpace(nome))
+            if (string.IsNullOrWhiteSpace(username))
             {
-                PintarErros.ErroNoCampo(InputSignupNome, mensagem: "Por favor preencha o campo.");
+                PintarErros.ErroNoCampo(InputSignupUsername, mensagem: "Por favor preencha o campo.");
             }
-            else if (nome.Length < 3 || nome.Length > 32)
+            else if (username.Length < 3 || username.Length > 32)
             {
-                PintarErros.ErroNoCampo(InputSignupNome, mensagem: "O Nome deve ter entre 3 e 32 caracteres.");
+                PintarErros.ErroNoCampo(InputSignupUsername, mensagem: "O Nome de Usuário deve ter entre 3 e 32 caracteres.");
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenacQuizApp.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,22 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaPerfil : UserControl
     {
-        public PaginaPerfil()
+        private readonly UsuarioService _usuarioService;
+        private readonly PerguntaService _perguntaService;
+
+        public event EventHandler? VoltarParaMenu;
+
+        public PaginaPerfil(UsuarioService usuarioService, PerguntaService perguntaService)
         {
+            _usuarioService = usuarioService;
+            _perguntaService = perguntaService;
+
             InitializeComponent();
+        }
+
+        private void ButtonPerfilVoltar_Click(object sender, EventArgs e)
+        {
+            VoltarParaMenu?.Invoke(this, EventArgs.Empty);
         }
     }
 }

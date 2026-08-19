@@ -39,8 +39,8 @@
             LabelSignupDataNascimento = new AntdUI.Label();
             InputSignupNick = new AntdUI.Input();
             LabelSignupNick = new AntdUI.Label();
-            InputSignupNome = new AntdUI.Input();
-            LabelSignupNome = new AntdUI.Label();
+            InputSignupUsername = new AntdUI.Input();
+            LabelSignupUsername = new AntdUI.Label();
             LabelSignupTitulo = new AntdUI.Label();
             ButtonSignupVoltar = new AntdUI.Button();
             TableLayoutPanelSignup.SuspendLayout();
@@ -81,8 +81,8 @@
             StackPanelSignup.Controls.Add(LabelSignupDataNascimento);
             StackPanelSignup.Controls.Add(InputSignupNick);
             StackPanelSignup.Controls.Add(LabelSignupNick);
-            StackPanelSignup.Controls.Add(InputSignupNome);
-            StackPanelSignup.Controls.Add(LabelSignupNome);
+            StackPanelSignup.Controls.Add(InputSignupUsername);
+            StackPanelSignup.Controls.Add(LabelSignupUsername);
             StackPanelSignup.Controls.Add(LabelSignupTitulo);
             StackPanelSignup.Location = new Point(292, 32);
             StackPanelSignup.Name = "StackPanelSignup";
@@ -205,29 +205,29 @@
             LabelSignupNick.TabStop = false;
             LabelSignupNick.Text = "Nickname";
             // 
-            // InputSignupNome
+            // InputSignupUsername
             // 
-            InputSignupNome.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputSignupNome.Location = new Point(0, 122);
-            InputSignupNome.Margin = new Padding(0);
-            InputSignupNome.Name = "InputSignupNome";
-            InputSignupNome.Radius = 4;
-            InputSignupNome.Size = new Size(440, 50);
-            InputSignupNome.TabIndex = 3;
-            InputSignupNome.TextChanged += LimparBorda_TextChanged;
+            InputSignupUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InputSignupUsername.Location = new Point(0, 122);
+            InputSignupUsername.Margin = new Padding(0);
+            InputSignupUsername.Name = "InputSignupUsername";
+            InputSignupUsername.Radius = 4;
+            InputSignupUsername.Size = new Size(440, 50);
+            InputSignupUsername.TabIndex = 3;
+            InputSignupUsername.TextChanged += LimparBorda_TextChanged;
             // 
-            // LabelSignupNome
+            // LabelSignupUsername
             // 
-            LabelSignupNome.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelSignupNome.Location = new Point(3, 96);
-            LabelSignupNome.Name = "LabelSignupNome";
-            LabelSignupNome.Prefix = "";
-            LabelSignupNome.Size = new Size(434, 23);
-            LabelSignupNome.Suffix = "*";
-            LabelSignupNome.SuffixColor = Color.Red;
-            LabelSignupNome.TabIndex = 2;
-            LabelSignupNome.TabStop = false;
-            LabelSignupNome.Text = "Nome de Usuário";
+            LabelSignupUsername.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelSignupUsername.Location = new Point(3, 96);
+            LabelSignupUsername.Name = "LabelSignupUsername";
+            LabelSignupUsername.Prefix = "";
+            LabelSignupUsername.Size = new Size(434, 23);
+            LabelSignupUsername.Suffix = "*";
+            LabelSignupUsername.SuffixColor = Color.Red;
+            LabelSignupUsername.TabIndex = 2;
+            LabelSignupUsername.TabStop = false;
+            LabelSignupUsername.Text = "Nome de Usuário";
             // 
             // LabelSignupTitulo
             // 
@@ -276,7 +276,7 @@
         private AntdUI.Input input3;
         private AntdUI.Input input2;
         private AntdUI.StackPanel StackPanelSignup;
-        private AntdUI.Label LabelSignupNome;
+        private AntdUI.Label LabelSignupUsername;
         private AntdUI.Label LabelSignupTitulo;
         private AntdUI.Button ButtonSignupRegistrar;
         private AntdUI.Input InputSignupConfirmarSenha;
@@ -287,6 +287,6 @@
         private AntdUI.Label LabelSignupDataNascimento;
         private AntdUI.Input InputSignupNick;
         private AntdUI.Label LabelSignupNick;
-        private AntdUI.Input InputSignupNome;
+        private AntdUI.Input InputSignupUsername;
     }
 }

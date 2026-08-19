@@ -1,32 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using AntdUI;
-using SenacQuizApp.Modelos;
+﻿using AntdUI;
 using SenacQuizApp.Services;
-using SenacQuizApp.Telas;
-using SenacQuizApp.Telas.Eventos;
-using SenacQuizApp.Enums;
-using SenacQuizApp.Banco.Repositories;
 
 namespace SenacQuizApp.Telas
 {
     public partial class FormPrincipal : Window
     {
         private readonly UsuarioService _usuarioService;
-        private readonly QuizService _quizService;
         private readonly PerguntaService _perguntaService;
 
-        public FormPrincipal(UsuarioService usuarioService, QuizService quizService, PerguntaService perguntaService)
+        public FormPrincipal(UsuarioService usuarioService, PerguntaService perguntaService)
         {
             _usuarioService = usuarioService;
-            _quizService = quizService;
             _perguntaService = perguntaService;
 
             InitializeComponent();
@@ -83,24 +67,37 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaPrincipal(object? sender, EventArgs e)
         {
-            PaginaPrincipal paginaPrincipal = new PaginaPrincipal(_usuarioService, _quizService);
+            PaginaPrincipal paginaPrincipal = new PaginaPrincipal(_usuarioService);
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
-            paginaPrincipal.ClicouJogarQuizDiario += AbrirPaginaQuiz;
+            paginaPrincipal.JogarQuizDiario += AbrirPaginaQuiz;
+            paginaPrincipal.AbrirPerfil += AbrirPaginaPerfil;
+            paginaPrincipal.AbrirRanking += AbrirPaginaQuiz;
 
             MudarPagina(paginaPrincipal);
         }
 
         public void AbrirPaginaQuiz(object? sender, EventArgs e)
         {
-            PaginaQuiz paginaQuiz = new PaginaQuiz(_usuarioService, _quizService);
+            PaginaQuiz paginaQuiz = new PaginaQuiz(_usuarioService, _perguntaService);
 
             MudarPagina(paginaQuiz);
         }
 
-        private async void AoFinalizarQuiz(object? sender, SignupEventArgs e)
+        public void AbrirPaginaPerfil(object? sender, EventArgs e)
         {
+            PaginaPerfil paginaPerfil = new PaginaPerfil(_usuarioService, _perguntaService);
 
+            paginaPerfil.VoltarParaMenu += AbrirPaginaPrincipal;
+
+            MudarPagina(paginaPerfil);
+        }
+
+        public void AbrirPaginaRanking(object? sender, EventArgs e)
+        {
+            PaginaRanking paginaRanking = new PaginaRanking(_usuarioService, _perguntaService);
+
+            MudarPagina(paginaRanking);
         }
     }
 }

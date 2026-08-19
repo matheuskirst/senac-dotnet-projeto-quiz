@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Entidades
+namespace SenacQuizApp.Modelos
 {
-    public class Alternativa
+    public class PerguntaAlternativa
     {
         public int Id { get; set; }
-        public string Texto { get; set; } = string.Empty;
-        public bool EhCorreta { get; set; }
+        public string Texto { get; set; } = null!;
+        public bool IsCorreta { get; set; }
         public int PerguntaId { get; set; }
         public Pergunta Pergunta { get; set; } = null!;
     }

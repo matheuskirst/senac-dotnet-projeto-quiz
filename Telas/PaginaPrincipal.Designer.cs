@@ -28,137 +28,188 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TableLayoutPanelPrincipal = new TableLayoutPanel();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            stackPanel1 = new AntdUI.StackPanel();
+            PanelPrincipalCentro = new TableLayoutPanel();
+            ButtonIniciarQuizDiario = new AntdUI.Button();
+            PanelPrincipalHeader = new TableLayoutPanel();
+            PanelPrincipalHeaderEsquerda = new AntdUI.StackPanel();
             ButtonPrincipalSair = new AntdUI.Button();
-            stackPanel2 = new AntdUI.StackPanel();
-            button2 = new AntdUI.Button();
-            ButtonJogarQuiz = new AntdUI.Button();
-            TableLayoutPanelPrincipal.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            stackPanel1.SuspendLayout();
-            stackPanel2.SuspendLayout();
+            PanelPrincipalFooter = new TableLayoutPanel();
+            PanelPrincipalFooterEsquerda = new AntdUI.StackPanel();
+            ButtonPrincipalRanking = new AntdUI.Button();
+            PanelPrincipalHeaderDireita = new AntdUI.StackPanel();
+            PanelPrincipalFooterDireita = new AntdUI.StackPanel();
+            ButtonPrincipalPerfil = new AntdUI.Button();
+            PanelPrincipalCentro.SuspendLayout();
+            PanelPrincipalHeader.SuspendLayout();
+            PanelPrincipalHeaderEsquerda.SuspendLayout();
+            PanelPrincipalFooter.SuspendLayout();
+            PanelPrincipalHeaderDireita.SuspendLayout();
+            PanelPrincipalFooterDireita.SuspendLayout();
             SuspendLayout();
             // 
-            // TableLayoutPanelPrincipal
+            // PanelPrincipalCentro
             // 
-            TableLayoutPanelPrincipal.BackColor = Color.Transparent;
-            TableLayoutPanelPrincipal.ColumnCount = 3;
-            TableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TableLayoutPanelPrincipal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelPrincipal.Controls.Add(tableLayoutPanel1, 1, 1);
-            TableLayoutPanelPrincipal.Controls.Add(ButtonJogarQuiz, 1, 2);
-            TableLayoutPanelPrincipal.Dock = DockStyle.Fill;
-            TableLayoutPanelPrincipal.Location = new Point(0, 0);
-            TableLayoutPanelPrincipal.Name = "TableLayoutPanelPrincipal";
-            TableLayoutPanelPrincipal.RowCount = 5;
-            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            TableLayoutPanelPrincipal.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelPrincipal.Size = new Size(1024, 720);
-            TableLayoutPanelPrincipal.TabIndex = 6;
+            PanelPrincipalCentro.ColumnCount = 1;
+            PanelPrincipalCentro.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            PanelPrincipalCentro.Controls.Add(PanelPrincipalFooter, 0, 2);
+            PanelPrincipalCentro.Controls.Add(ButtonIniciarQuizDiario, 0, 1);
+            PanelPrincipalCentro.Controls.Add(PanelPrincipalHeader, 0, 0);
+            PanelPrincipalCentro.Dock = DockStyle.Fill;
+            PanelPrincipalCentro.Location = new Point(0, 0);
+            PanelPrincipalCentro.Name = "PanelPrincipalCentro";
+            PanelPrincipalCentro.RowCount = 3;
+            PanelPrincipalCentro.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            PanelPrincipalCentro.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            PanelPrincipalCentro.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            PanelPrincipalCentro.Size = new Size(1024, 720);
+            PanelPrincipalCentro.TabIndex = 0;
             // 
-            // tableLayoutPanel1
+            // ButtonIniciarQuizDiario
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(stackPanel1, 0, 0);
-            tableLayoutPanel1.Controls.Add(stackPanel2, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(20, 20);
-            tableLayoutPanel1.Margin = new Padding(0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RightToLeft = RightToLeft.No;
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(984, 50);
-            tableLayoutPanel1.TabIndex = 0;
+            ButtonIniciarQuizDiario.Anchor = AnchorStyles.None;
+            ButtonIniciarQuizDiario.Font = new Font("Tahoma", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonIniciarQuizDiario.Location = new Point(362, 325);
+            ButtonIniciarQuizDiario.Name = "ButtonIniciarQuizDiario";
+            ButtonIniciarQuizDiario.Size = new Size(300, 70);
+            ButtonIniciarQuizDiario.TabIndex = 0;
+            ButtonIniciarQuizDiario.Text = "Iniciar Quiz";
+            ButtonIniciarQuizDiario.Click += ButtonIniciarQuizDiario_Click;
             // 
-            // stackPanel1
+            // PanelPrincipalHeader
             // 
-            stackPanel1.Controls.Add(ButtonPrincipalSair);
-            stackPanel1.Dock = DockStyle.Fill;
-            stackPanel1.Location = new Point(0, 0);
-            stackPanel1.Margin = new Padding(0);
-            stackPanel1.Name = "stackPanel1";
-            stackPanel1.Size = new Size(492, 50);
-            stackPanel1.TabIndex = 0;
-            stackPanel1.Text = "stackPanel1";
+            PanelPrincipalHeader.ColumnCount = 2;
+            PanelPrincipalHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            PanelPrincipalHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            PanelPrincipalHeader.Controls.Add(PanelPrincipalHeaderEsquerda, 0, 0);
+            PanelPrincipalHeader.Controls.Add(PanelPrincipalHeaderDireita, 1, 0);
+            PanelPrincipalHeader.Dock = DockStyle.Fill;
+            PanelPrincipalHeader.Location = new Point(3, 3);
+            PanelPrincipalHeader.Name = "PanelPrincipalHeader";
+            PanelPrincipalHeader.RowCount = 1;
+            PanelPrincipalHeader.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            PanelPrincipalHeader.Size = new Size(1018, 54);
+            PanelPrincipalHeader.TabIndex = 1;
+            // 
+            // PanelPrincipalHeaderEsquerda
+            // 
+            PanelPrincipalHeaderEsquerda.Controls.Add(ButtonPrincipalSair);
+            PanelPrincipalHeaderEsquerda.Dock = DockStyle.Fill;
+            PanelPrincipalHeaderEsquerda.Location = new Point(0, 0);
+            PanelPrincipalHeaderEsquerda.Margin = new Padding(0);
+            PanelPrincipalHeaderEsquerda.Name = "PanelPrincipalHeaderEsquerda";
+            PanelPrincipalHeaderEsquerda.Size = new Size(509, 54);
+            PanelPrincipalHeaderEsquerda.TabIndex = 2;
+            PanelPrincipalHeaderEsquerda.Text = "stackPanel1";
             // 
             // ButtonPrincipalSair
             // 
-            ButtonPrincipalSair.DefaultBack = Color.Ivory;
             ButtonPrincipalSair.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonPrincipalSair.Location = new Point(3, 3);
             ButtonPrincipalSair.Name = "ButtonPrincipalSair";
-            ButtonPrincipalSair.Radius = 4;
-            ButtonPrincipalSair.Size = new Size(100, 44);
+            ButtonPrincipalSair.Size = new Size(100, 48);
             ButtonPrincipalSair.TabIndex = 1;
             ButtonPrincipalSair.Text = "Sair";
-            ButtonPrincipalSair.Click += ButtonPrincipalSair_Click;
+            ButtonPrincipalSair.Click += ButtonPrincipalSair_Click_1;
             // 
-            // stackPanel2
+            // PanelPrincipalFooter
             // 
-            stackPanel2.Controls.Add(button2);
-            stackPanel2.Dock = DockStyle.Fill;
-            stackPanel2.Location = new Point(492, 0);
-            stackPanel2.Margin = new Padding(0);
-            stackPanel2.Name = "stackPanel2";
-            stackPanel2.RightToLeft = RightToLeft.Yes;
-            stackPanel2.Size = new Size(492, 50);
-            stackPanel2.TabIndex = 1;
-            stackPanel2.Text = "stackPanel2";
+            PanelPrincipalFooter.ColumnCount = 2;
+            PanelPrincipalFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            PanelPrincipalFooter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            PanelPrincipalFooter.Controls.Add(PanelPrincipalFooterEsquerda, 0, 0);
+            PanelPrincipalFooter.Controls.Add(PanelPrincipalFooterDireita, 1, 0);
+            PanelPrincipalFooter.Dock = DockStyle.Fill;
+            PanelPrincipalFooter.Location = new Point(3, 663);
+            PanelPrincipalFooter.Name = "PanelPrincipalFooter";
+            PanelPrincipalFooter.RowCount = 1;
+            PanelPrincipalFooter.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            PanelPrincipalFooter.Size = new Size(1018, 54);
+            PanelPrincipalFooter.TabIndex = 2;
             // 
-            // button2
+            // PanelPrincipalFooterEsquerda
             // 
-            button2.DefaultBack = Color.Wheat;
-            button2.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(389, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(100, 44);
-            button2.TabIndex = 1;
-            button2.Text = "Perfil";
+            PanelPrincipalFooterEsquerda.Dock = DockStyle.Fill;
+            PanelPrincipalFooterEsquerda.Location = new Point(0, 0);
+            PanelPrincipalFooterEsquerda.Margin = new Padding(0);
+            PanelPrincipalFooterEsquerda.Name = "PanelPrincipalFooterEsquerda";
+            PanelPrincipalFooterEsquerda.Size = new Size(509, 54);
+            PanelPrincipalFooterEsquerda.TabIndex = 2;
+            PanelPrincipalFooterEsquerda.Text = "stackPanel1";
             // 
-            // ButtonJogarQuiz
+            // ButtonPrincipalRanking
             // 
-            ButtonJogarQuiz.Anchor = AnchorStyles.None;
-            ButtonJogarQuiz.Font = new Font("Tahoma", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonJogarQuiz.Location = new Point(392, 323);
-            ButtonJogarQuiz.Name = "ButtonJogarQuiz";
-            ButtonJogarQuiz.Size = new Size(240, 74);
-            ButtonJogarQuiz.TabIndex = 1;
-            ButtonJogarQuiz.Text = "Jogar Quiz";
-            ButtonJogarQuiz.Click += ButtonJogarQuiz_Click;
+            ButtonPrincipalRanking.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonPrincipalRanking.Location = new Point(406, 3);
+            ButtonPrincipalRanking.Name = "ButtonPrincipalRanking";
+            ButtonPrincipalRanking.Size = new Size(100, 48);
+            ButtonPrincipalRanking.TabIndex = 1;
+            ButtonPrincipalRanking.Text = "Ranking";
+            ButtonPrincipalRanking.Click += ButtonPrincipalRanking_Click;
+            // 
+            // PanelPrincipalHeaderDireita
+            // 
+            PanelPrincipalHeaderDireita.Controls.Add(ButtonPrincipalPerfil);
+            PanelPrincipalHeaderDireita.Dock = DockStyle.Fill;
+            PanelPrincipalHeaderDireita.Location = new Point(509, 0);
+            PanelPrincipalHeaderDireita.Margin = new Padding(0);
+            PanelPrincipalHeaderDireita.Name = "PanelPrincipalHeaderDireita";
+            PanelPrincipalHeaderDireita.RightToLeft = RightToLeft.Yes;
+            PanelPrincipalHeaderDireita.Size = new Size(509, 54);
+            PanelPrincipalHeaderDireita.TabIndex = 3;
+            PanelPrincipalHeaderDireita.Text = "stackPanel1";
+            // 
+            // PanelPrincipalFooterDireita
+            // 
+            PanelPrincipalFooterDireita.Controls.Add(ButtonPrincipalRanking);
+            PanelPrincipalFooterDireita.Dock = DockStyle.Fill;
+            PanelPrincipalFooterDireita.Location = new Point(509, 0);
+            PanelPrincipalFooterDireita.Margin = new Padding(0);
+            PanelPrincipalFooterDireita.Name = "PanelPrincipalFooterDireita";
+            PanelPrincipalFooterDireita.RightToLeft = RightToLeft.Yes;
+            PanelPrincipalFooterDireita.Size = new Size(509, 54);
+            PanelPrincipalFooterDireita.TabIndex = 3;
+            PanelPrincipalFooterDireita.Text = "stackPanel1";
+            // 
+            // ButtonPrincipalPerfil
+            // 
+            ButtonPrincipalPerfil.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonPrincipalPerfil.Location = new Point(406, 3);
+            ButtonPrincipalPerfil.Name = "ButtonPrincipalPerfil";
+            ButtonPrincipalPerfil.Size = new Size(100, 48);
+            ButtonPrincipalPerfil.TabIndex = 2;
+            ButtonPrincipalPerfil.Text = "Perfil";
+            ButtonPrincipalPerfil.Click += ButtonPrincipalPerfil_Click;
             // 
             // PaginaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            Controls.Add(TableLayoutPanelPrincipal);
+            Controls.Add(PanelPrincipalCentro);
             Margin = new Padding(2);
             Name = "PaginaPrincipal";
             Size = new Size(1024, 720);
-            TableLayoutPanelPrincipal.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            stackPanel1.ResumeLayout(false);
-            stackPanel2.ResumeLayout(false);
+            PanelPrincipalCentro.ResumeLayout(false);
+            PanelPrincipalHeader.ResumeLayout(false);
+            PanelPrincipalHeaderEsquerda.ResumeLayout(false);
+            PanelPrincipalFooter.ResumeLayout(false);
+            PanelPrincipalHeaderDireita.ResumeLayout(false);
+            PanelPrincipalFooterDireita.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel TableLayoutPanelPrincipal;
-        private TableLayoutPanel tableLayoutPanel1;
-        private AntdUI.StackPanel stackPanel1;
+        private TableLayoutPanel PanelPrincipalCentro;
+        private AntdUI.Button ButtonIniciarQuizDiario;
+        private TableLayoutPanel PanelPrincipalFooter;
+        private AntdUI.StackPanel PanelPrincipalFooterEsquerda;
+        private AntdUI.Button ButtonPrincipalRanking;
+        private TableLayoutPanel PanelPrincipalHeader;
+        private AntdUI.StackPanel PanelPrincipalHeaderEsquerda;
         private AntdUI.Button ButtonPrincipalSair;
-        private AntdUI.StackPanel stackPanel2;
-        private AntdUI.Button button2;
-        private AntdUI.Button ButtonJogarQuiz;
+        private AntdUI.StackPanel PanelPrincipalFooterDireita;
+        private AntdUI.StackPanel PanelPrincipalHeaderDireita;
+        private AntdUI.Button ButtonPrincipalPerfil;
     }
 }

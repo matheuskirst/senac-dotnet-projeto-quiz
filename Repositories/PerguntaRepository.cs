@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SenacQuizApp.banco.config;
-using SenacQuizApp.Entidades;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SenacQuizApp.Data;
 
-namespace SenacQuizApp.Banco.Repositories
+namespace SenacQuizApp.Repositories
 {
     public class PerguntaRepository
     {
@@ -24,14 +24,14 @@ namespace SenacQuizApp.Banco.Repositories
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task AdicionarPergunta(Pergunta pergunta, List<Alternativa> alternativas)
+        public async Task AdicionarPergunta(Pergunta pergunta, List<PerguntaAlternativa> alternativas)
         {
             _contexto.Perguntas.Add(pergunta);
-            _contexto.Alternativas.AddRange(alternativas);
+            _contexto.PerguntasAlternativas.AddRange(alternativas);
             await _contexto.SaveChangesAsync();
         }
 
-        public async Task SalvarPerguntaRespondida(PerguntaRespondida resposta)
+        public async Task SalvarResposta(PerguntaRespondida resposta)
         {
             _contexto.PerguntasRespondidas.Add(resposta);
             await _contexto.SaveChangesAsync();

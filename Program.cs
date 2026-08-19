@@ -1,10 +1,8 @@
 using AntdUI;
-using SenacQuizApp.banco.repositories;
-using SenacQuizApp.Banco.Repositories;
+using SenacQuizApp.Repositories;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas;
-
-using SenacQuizApp.banco.config;
+using SenacQuizApp.Data;
 
 namespace SenacQuizApp
 {
@@ -19,11 +17,9 @@ namespace SenacQuizApp
             QuizAppContexto contexto = new();
 
             UsuarioRepository usuarioRepository = new(contexto);
-            QuizRepository quizRepository = new(contexto);
             PerguntaRepository perguntaRepository = new(contexto);
 
             UsuarioService usuarioService = new(usuarioRepository);
-            QuizService quizService = new(quizRepository, perguntaRepository);
             PerguntaService perguntaService = new(perguntaRepository);
 
             // To customize application configuration such as set high DPI settings or default font,
@@ -35,7 +31,7 @@ namespace SenacQuizApp
             AntdUI.Localization.Provider = new AntdUIBrLocalizer();
             AntdUI.Localization.SetLanguage("pt-BR");
 
-            Application.Run(new FormPrincipal(usuarioService, quizService, perguntaService));
+            Application.Run(new FormPrincipal(usuarioService, perguntaService));
         }
     }
 }

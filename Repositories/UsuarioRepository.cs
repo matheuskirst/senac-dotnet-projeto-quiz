@@ -1,14 +1,8 @@
-﻿using SenacQuizApp.banco.config;
-using SenacQuizApp.Modelos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SenacQuizApp.Modelos;
 using Microsoft.EntityFrameworkCore;
-using SenacQuizApp.Entidades;
+using SenacQuizApp.Data;
 
-namespace SenacQuizApp.banco.repositories
+namespace SenacQuizApp.Repositories
 {
     public class UsuarioRepository
     {

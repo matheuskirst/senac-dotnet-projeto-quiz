@@ -16,13 +16,13 @@ namespace SenacQuizApp.Telas
     public partial class PaginaPrincipal : UserControl
     {
         private readonly UsuarioService _usuarioService;
-        private readonly QuizService _quizService;
         public event EventHandler? RealizarLogout;
-        public event EventHandler? ClicouJogarQuizDiario;
-        public PaginaPrincipal(UsuarioService usuarioService, QuizService quizService)
+        public event EventHandler? JogarQuizDiario;
+        public event EventHandler? AbrirPerfil;
+        public event EventHandler? AbrirRanking;
+        public PaginaPrincipal(UsuarioService usuarioService)
         {
-            _usuarioService = usuarioService; 
-            _quizService = quizService;
+            _usuarioService = usuarioService;
 
             InitializeComponent();
         }
@@ -32,9 +32,25 @@ namespace SenacQuizApp.Telas
             RealizarLogout?.Invoke(this, EventArgs.Empty);
         }
 
-        private void ButtonJogarQuiz_Click(object sender, EventArgs e)
+
+        private void ButtonPrincipalSair_Click_1(object sender, EventArgs e)
         {
-            ClicouJogarQuizDiario?.Invoke(this, EventArgs.Empty);
+            RealizarLogout?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ButtonIniciarQuizDiario_Click(object sender, EventArgs e)
+        {
+            JogarQuizDiario?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ButtonPrincipalPerfil_Click(object sender, EventArgs e)
+        {
+            AbrirPerfil?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ButtonPrincipalRanking_Click(object sender, EventArgs e)
+        {
+            AbrirRanking?.Invoke(this, EventArgs.Empty);
         }
     }
 }

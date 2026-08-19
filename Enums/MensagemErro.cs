@@ -14,7 +14,5 @@ namespace SenacQuizApp.Enums
 
         public static MensagemErro NomeIndisponivel { get; } = new("Esse nome não está disponível!");
         public static MensagemErro LoginInvalido { get; } = new("Nome ou senha estão errados.");
-        public static MensagemErro QuizInvalido { get; } = new("Quiz não encontrado.");
-        public static MensagemErro QuizConcluido { get; } = new("O quiz diário já foi conclúido!");
     }
 }

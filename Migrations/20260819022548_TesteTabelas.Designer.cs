@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SenacQuizApp.Data;
@@ -11,9 +12,11 @@ using SenacQuizApp.Data;
 namespace SenacQuizApp.Migrations
 {
     [DbContext(typeof(QuizAppContexto))]
-    partial class QuizContextoModelSnapshot : ModelSnapshot
+    [Migration("20260819022548_TesteTabelas")]
+    partial class TesteTabelas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,8 +32,8 @@ namespace SenacQuizApp.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -131,7 +134,7 @@ namespace SenacQuizApp.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsCorreta")
+                    b.Property<bool>("EhCorreta")
                         .HasColumnType("boolean");
 
                     b.Property<int>("PerguntaId")
@@ -145,7 +148,7 @@ namespace SenacQuizApp.Migrations
 
                     b.HasIndex("PerguntaId");
 
-                    b.ToTable("PerguntasAlternativas");
+                    b.ToTable("Alternativas");
                 });
 
             modelBuilder.Entity("SenacQuizApp.Modelos.PerguntaRespondida", b =>

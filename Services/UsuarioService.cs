@@ -1,21 +1,13 @@
-﻿using SenacQuizApp.banco.repositories;
-using SenacQuizApp.Entidades;
+﻿using SenacQuizApp.Repositories;
+using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SenacQuizApp.Services
 {
     public class UsuarioService
     {
         private readonly UsuarioRepository _usuarioRepository;
-        private UsuarioLogado? UsuarioAtual;
 
         public UsuarioService(UsuarioRepository usuarioRepository)
         {
@@ -54,7 +46,7 @@ namespace SenacQuizApp.Services
                 MaxAcertosConsecutivos = usuario.MaxAcertosConsecutivos
             };
 
-            UsuarioAtual = loginUsuario;
+            Sessao.UsuarioAtual = loginUsuario;
             return new LoginResposta();
         }
 
@@ -96,7 +88,7 @@ namespace SenacQuizApp.Services
 
         public void RealizarLogout()
         {
-            if (UsuarioAtual != null) { UsuarioAtual = null; }
+            if (Sessao.UsuarioAtual != null) { Sessao.UsuarioAtual = null; }
         }
     }
 }

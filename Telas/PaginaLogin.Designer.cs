@@ -34,8 +34,8 @@
             ButtonLoginEntrar = new AntdUI.Button();
             InputLoginSenha = new AntdUI.Input();
             LabelLoginSenha = new AntdUI.Label();
-            InputLoginNome = new AntdUI.Input();
-            LabelLoginNome = new AntdUI.Label();
+            InputLoginUsername = new AntdUI.Input();
+            LabelLoginUsername = new AntdUI.Label();
             LabelLoginTitulo = new AntdUI.Label();
             ButtonLoginVoltar = new AntdUI.Button();
             TableLayoutPanelLogin = new TableLayoutPanel();
@@ -51,8 +51,8 @@
             StackPanelLogin.Controls.Add(ButtonLoginEntrar);
             StackPanelLogin.Controls.Add(InputLoginSenha);
             StackPanelLogin.Controls.Add(LabelLoginSenha);
-            StackPanelLogin.Controls.Add(InputLoginNome);
-            StackPanelLogin.Controls.Add(LabelLoginNome);
+            StackPanelLogin.Controls.Add(InputLoginUsername);
+            StackPanelLogin.Controls.Add(LabelLoginUsername);
             StackPanelLogin.Controls.Add(LabelLoginTitulo);
             StackPanelLogin.Location = new Point(292, 110);
             StackPanelLogin.Name = "StackPanelLogin";
@@ -122,25 +122,25 @@
             LabelLoginSenha.TabIndex = 19;
             LabelLoginSenha.Text = "Senha";
             // 
-            // InputLoginNome
+            // InputLoginUsername
             // 
-            InputLoginNome.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputLoginNome.Location = new Point(0, 122);
-            InputLoginNome.Margin = new Padding(0);
-            InputLoginNome.Name = "InputLoginNome";
-            InputLoginNome.Radius = 4;
-            InputLoginNome.Size = new Size(440, 50);
-            InputLoginNome.TabIndex = 3;
-            InputLoginNome.TextChanged += LimparBorda_TextChanged;
+            InputLoginUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InputLoginUsername.Location = new Point(0, 122);
+            InputLoginUsername.Margin = new Padding(0);
+            InputLoginUsername.Name = "InputLoginUsername";
+            InputLoginUsername.Radius = 4;
+            InputLoginUsername.Size = new Size(440, 50);
+            InputLoginUsername.TabIndex = 3;
+            InputLoginUsername.TextChanged += LimparBorda_TextChanged;
             // 
-            // LabelLoginNome
+            // LabelLoginUsername
             // 
-            LabelLoginNome.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelLoginNome.Location = new Point(3, 96);
-            LabelLoginNome.Name = "LabelLoginNome";
-            LabelLoginNome.Size = new Size(434, 23);
-            LabelLoginNome.TabIndex = 2;
-            LabelLoginNome.Text = "Nome de Usuário";
+            LabelLoginUsername.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelLoginUsername.Location = new Point(3, 96);
+            LabelLoginUsername.Name = "LabelLoginUsername";
+            LabelLoginUsername.Size = new Size(434, 23);
+            LabelLoginUsername.TabIndex = 2;
+            LabelLoginUsername.Text = "Nome de Usuário";
             // 
             // LabelLoginTitulo
             // 
@@ -212,8 +212,8 @@
         private AntdUI.Button ButtonLoginEntrar;
         private AntdUI.Input InputLoginSenha;
         private AntdUI.Label LabelLoginSenha;
-        private AntdUI.Input InputLoginNome;
-        private AntdUI.Label LabelLoginNome;
+        private AntdUI.Input InputLoginUsername;
+        private AntdUI.Label LabelLoginUsername;
         private AntdUI.Label LabelLoginTitulo;
         private AntdUI.Button ButtonLoginVoltar;
         private TableLayoutPanel TableLayoutPanelLogin;

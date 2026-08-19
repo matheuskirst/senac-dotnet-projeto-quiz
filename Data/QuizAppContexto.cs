@@ -5,26 +5,21 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SenacQuizApp.Entidades;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Enums;
 
-namespace SenacQuizApp.banco.config
+namespace SenacQuizApp.Data
 {
     public class QuizAppContexto : DbContext
     {
         // Tabelas
-        public DbSet<Conquista> Conquistas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pergunta> Perguntas { get; set; }
         public DbSet<PerguntaTema> PerguntaTemas { get; set; }
-        public DbSet<Alternativa> Alternativas { get; set; }
+        public DbSet<PerguntaAlternativa> PerguntasAlternativas { get; set; }
         public DbSet<PerguntaRespondida> PerguntasRespondidas { get; set; }
-        public DbSet<Quiz> Quizzes { get; set; }
-        public DbSet<QuizPergunta> QuizPerguntas { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Conquista> Conquistas { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
-
-        // Tabelas Lookup
-        public DbSet<NivelUsuario> NiveisUsuarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,18 +27,6 @@ namespace SenacQuizApp.banco.config
 
             optionsBuilder.UseSeeding((context, _) =>
             {
-                if (!context.Set<NivelUsuario>().Any())
-                {
-                    var niveisUsuario = new List<NivelUsuario>{
-                        new NivelUsuario { Nome = "Iniciante", PontosMin = 0, PontosMax = 500 },
-                        new NivelUsuario { Nome = "Aprendiz", PontosMin = 501, PontosMax = 2000 },
-                        new NivelUsuario { Nome = "Intermediário", PontosMin = 2001, PontosMax = 10000 },
-                        new NivelUsuario { Nome = "Avançado", PontosMin = 10001 }
-                    };
-                    context.Set<NivelUsuario>().AddRange(niveisUsuario);
-                    context.SaveChanges();
-                }
-
                 if (!context.Set<Conquista>().Any())
                 {
                     var conquistas = new List<Conquista>{
@@ -94,8 +77,16 @@ namespace SenacQuizApp.banco.config
                 .Property(p => p.Nivel)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<PerguntaTema>(entity =>
+            {
+                entity.HasKey(pt => pt.Id);
 
-            modelBuilder.Entity<Alternativa>()
+                entity.Property(pt => pt.Nome)
+                    .HasMaxLength(200);
+            });
+
+
+            modelBuilder.Entity<PerguntaAlternativa>()
                 .HasOne(a => a.Pergunta)
                 .WithMany(p => p.Alternativas)
                 .HasForeignKey(a => a.PerguntaId);
@@ -106,31 +97,12 @@ namespace SenacQuizApp.banco.config
                 .IsUnique();
 
             modelBuilder.Entity<Usuario>()
-                .Property(qt => qt.DataDeCadastro)
+                .Property(u => u.DataDeCadastro)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-
-            modelBuilder.Entity<Quiz>()
-                .Property(q => q.DataIniciado)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-
-            modelBuilder.Entity<QuizPergunta>()
-                .HasKey(qp => new { qp.QuizId, qp.PerguntaId });
-
-            modelBuilder.Entity<QuizPergunta>()
-                .HasOne(qp => qp.Quiz)
-                .WithMany(q => q.QuizPerguntas)
-                .HasForeignKey(qp => qp.QuizId);
-
-            modelBuilder.Entity<QuizPergunta>()
-                .HasOne(qp => qp.Pergunta)
-                .WithMany(p => p.QuizPerguntas)
-                .HasForeignKey(qp => qp.PerguntaId);
 
 
             modelBuilder.Entity<PerguntaRespondida>()
-                .HasKey(pr => new { pr.PerguntaId, pr.QuizId });
+                .HasKey(pr => new { pr.UsuarioId, pr.PerguntaId });
 
             modelBuilder.Entity<PerguntaRespondida>()
                 .Property(pr => pr.DataDeResposta)
@@ -138,10 +110,10 @@ namespace SenacQuizApp.banco.config
 
 
             modelBuilder.Entity<UsuarioConquista>()
-                .HasKey(ua => new { ua.UsuarioId, ua.ConquistaId });
+                .HasKey(uc => new { uc.UsuarioId, uc.ConquistaId });
 
             modelBuilder.Entity<UsuarioConquista>()
-                .Property(ua => ua.DataDeAquisicao);
+                .Property(uc => uc.DataDeAquisicao);
         }
     }
 }
