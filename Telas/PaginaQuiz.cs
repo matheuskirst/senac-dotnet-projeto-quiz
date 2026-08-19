@@ -9,8 +9,6 @@ namespace SenacQuizApp.Telas
     {
         private readonly UsuarioService _usuarioService;
         private readonly PerguntaService _perguntaService;
-        private List<PainelQuizPergunta>? PaineisPerguntas;
-        private int PerguntaAtualIndex;
         public PaginaQuiz(UsuarioService usuarioService, PerguntaService perguntaService)
         {
             _usuarioService = usuarioService;
@@ -24,12 +22,6 @@ namespace SenacQuizApp.Telas
             Quiz quiz = await _perguntaService.CriarQuiz();
 
             Pergunta pergunta = quiz.Perguntas.First();
-
-            PainelQuizPergunta painel = new PainelQuizPergunta(pergunta);
-
-            painel.Dock = DockStyle.Fill;
-
-            panelPergunta.Controls.Add(painel);
         }
     }
 }

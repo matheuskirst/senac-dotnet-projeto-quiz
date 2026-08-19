@@ -24,6 +24,8 @@ namespace SenacQuizApp.Telas
         {
             _corBordas = InputLoginUsername.BorderColor;
             StackPanelLoginErro.Back = Color.FromArgb(255, 200, 200);
+
+            InputLoginUsername.Focus();
         }
 
         private void ButtonLoginVoltar_Click(object sender, EventArgs e)

@@ -24,6 +24,8 @@ namespace SenacQuizApp.Telas
 
             DatePickerSignupDataNascimento.MaxDate = DateTime.Now;
             DatePickerSignupDataNascimento.MinDate = DateTime.Today.AddYears(-120);
+
+            InputSignupUsername.Focus();
         }
 
         private void ButtonSignupVoltar_Click(object sender, EventArgs e)

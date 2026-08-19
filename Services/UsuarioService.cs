@@ -31,7 +31,7 @@ namespace SenacQuizApp.Services
                 return new LoginResposta(mensagemErro: MensagemErro.LoginInvalido);
             }
 
-            UsuarioLogado? loginUsuario = new()
+            UsuarioLogado? usuarioLogado = new()
             {
                 Id = usuario.Id,
                 Username = usuario.Username,
@@ -46,7 +46,7 @@ namespace SenacQuizApp.Services
                 MaxAcertosConsecutivos = usuario.MaxAcertosConsecutivos
             };
 
-            Sessao.UsuarioAtual = loginUsuario;
+            Sessao.IniciarSessao(usuarioLogado);
             return new LoginResposta();
         }
 
@@ -88,7 +88,7 @@ namespace SenacQuizApp.Services
 
         public void RealizarLogout()
         {
-            if (Sessao.UsuarioAtual != null) { Sessao.UsuarioAtual = null; }
+            Sessao.EncerrarSessao();
         }
     }
 }

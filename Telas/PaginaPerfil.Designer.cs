@@ -34,12 +34,10 @@
             PanelPerfilFooterDireita = new AntdUI.StackPanel();
             PanelPerfilHeader = new TableLayoutPanel();
             PanelPerfilHeaderEsquerda = new AntdUI.StackPanel();
-            ButtonPerfilVoltar = new AntdUI.Button();
             PanelPerfilHeaderDireita = new AntdUI.StackPanel();
             PanelPerfilCentro.SuspendLayout();
             PanelPerfilFooter.SuspendLayout();
             PanelPerfilHeader.SuspendLayout();
-            PanelPerfilHeaderEsquerda.SuspendLayout();
             SuspendLayout();
             // 
             // PanelPerfilCentro
@@ -111,7 +109,6 @@
             // 
             // PanelPerfilHeaderEsquerda
             // 
-            PanelPerfilHeaderEsquerda.Controls.Add(ButtonPerfilVoltar);
             PanelPerfilHeaderEsquerda.Dock = DockStyle.Fill;
             PanelPerfilHeaderEsquerda.Location = new Point(0, 0);
             PanelPerfilHeaderEsquerda.Margin = new Padding(0);
@@ -119,16 +116,6 @@
             PanelPerfilHeaderEsquerda.Size = new Size(509, 54);
             PanelPerfilHeaderEsquerda.TabIndex = 2;
             PanelPerfilHeaderEsquerda.Text = "stackPanel1";
-            // 
-            // ButtonPerfilVoltar
-            // 
-            ButtonPerfilVoltar.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonPerfilVoltar.Location = new Point(3, 3);
-            ButtonPerfilVoltar.Name = "ButtonPerfilVoltar";
-            ButtonPerfilVoltar.Size = new Size(100, 48);
-            ButtonPerfilVoltar.TabIndex = 1;
-            ButtonPerfilVoltar.Text = "Voltar";
-            ButtonPerfilVoltar.Click += ButtonPerfilVoltar_Click;
             // 
             // PanelPerfilHeaderDireita
             // 
@@ -148,10 +135,10 @@
             Controls.Add(PanelPerfilCentro);
             Name = "PaginaPerfil";
             Size = new Size(1024, 720);
+            Load += PaginaPerfil_Load;
             PanelPerfilCentro.ResumeLayout(false);
             PanelPerfilFooter.ResumeLayout(false);
             PanelPerfilHeader.ResumeLayout(false);
-            PanelPerfilHeaderEsquerda.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -164,7 +151,6 @@
         private AntdUI.Button ButtonIniciarQuizDiario;
         private TableLayoutPanel PanelPerfilHeader;
         private AntdUI.StackPanel PanelPerfilHeaderEsquerda;
-        private AntdUI.Button ButtonPerfilVoltar;
         private AntdUI.StackPanel PanelPerfilHeaderDireita;
         private AntdUI.Button ButtonPrincipalPerfil;
     }

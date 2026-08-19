@@ -31,7 +31,7 @@ namespace SenacQuizApp
             AntdUI.Localization.Provider = new AntdUIBrLocalizer();
             AntdUI.Localization.SetLanguage("pt-BR");
 
-            Application.Run(new FormPrincipal(usuarioService, perguntaService));
+            Application.Run(new FormApp(usuarioService, perguntaService));
         }
     }
 }

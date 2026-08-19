@@ -94,7 +94,7 @@
             ButtonLoginEntrar.Margin = new Padding(3, 50, 3, 3);
             ButtonLoginEntrar.Name = "ButtonLoginEntrar";
             ButtonLoginEntrar.Size = new Size(434, 60);
-            ButtonLoginEntrar.TabIndex = 23;
+            ButtonLoginEntrar.TabIndex = 2;
             ButtonLoginEntrar.Text = "Entrar";
             ButtonLoginEntrar.Click += ButtonLoginEntrar_Click;
             // 
@@ -108,7 +108,7 @@
             InputLoginSenha.Radius = 4;
             InputLoginSenha.Size = new Size(440, 50);
             InputLoginSenha.SuffixText = "Mostrar";
-            InputLoginSenha.TabIndex = 20;
+            InputLoginSenha.TabIndex = 1;
             InputLoginSenha.UseSystemPasswordChar = true;
             InputLoginSenha.SuffixClick += InputLoginSenha_SuffixClick;
             InputLoginSenha.TextChanged += LimparBorda_TextChanged;
@@ -130,7 +130,7 @@
             InputLoginUsername.Name = "InputLoginUsername";
             InputLoginUsername.Radius = 4;
             InputLoginUsername.Size = new Size(440, 50);
-            InputLoginUsername.TabIndex = 3;
+            InputLoginUsername.TabIndex = 0;
             InputLoginUsername.TextChanged += LimparBorda_TextChanged;
             // 
             // LabelLoginUsername
@@ -163,7 +163,7 @@
             ButtonLoginVoltar.Name = "ButtonLoginVoltar";
             ButtonLoginVoltar.Radius = 4;
             ButtonLoginVoltar.Size = new Size(137, 44);
-            ButtonLoginVoltar.TabIndex = 0;
+            ButtonLoginVoltar.TabIndex = 3;
             ButtonLoginVoltar.Text = "Voltar para Tela Inicial";
             ButtonLoginVoltar.Click += ButtonLoginVoltar_Click;
             // 

@@ -16,7 +16,6 @@ namespace SenacQuizApp.Telas
         private readonly UsuarioService _usuarioService;
         private readonly PerguntaService _perguntaService;
 
-        public event EventHandler? VoltarParaMenu;
 
         public PaginaPerfil(UsuarioService usuarioService, PerguntaService perguntaService)
         {
@@ -26,9 +25,9 @@ namespace SenacQuizApp.Telas
             InitializeComponent();
         }
 
-        private void ButtonPerfilVoltar_Click(object sender, EventArgs e)
+        private void PaginaPerfil_Load(object sender, EventArgs e)
         {
-            VoltarParaMenu?.Invoke(this, EventArgs.Empty);
+
         }
     }
 }

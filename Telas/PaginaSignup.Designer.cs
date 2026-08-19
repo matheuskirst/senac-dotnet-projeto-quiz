@@ -99,7 +99,7 @@
             ButtonSignupRegistrar.Margin = new Padding(3, 50, 3, 3);
             ButtonSignupRegistrar.Name = "ButtonSignupRegistrar";
             ButtonSignupRegistrar.Size = new Size(434, 60);
-            ButtonSignupRegistrar.TabIndex = 23;
+            ButtonSignupRegistrar.TabIndex = 5;
             ButtonSignupRegistrar.Text = "Registrar";
             ButtonSignupRegistrar.Click += ButtonSignupRegistrar_Click;
             // 
@@ -113,7 +113,7 @@
             InputSignupConfirmarSenha.Radius = 4;
             InputSignupConfirmarSenha.Size = new Size(440, 50);
             InputSignupConfirmarSenha.SuffixText = "Mostrar";
-            InputSignupConfirmarSenha.TabIndex = 22;
+            InputSignupConfirmarSenha.TabIndex = 4;
             InputSignupConfirmarSenha.UseSystemPasswordChar = true;
             InputSignupConfirmarSenha.SuffixClick += InputSignupConfirmarSenha_SuffixClick;
             InputSignupConfirmarSenha.TextChanged += LimparBorda_TextChanged;
@@ -141,7 +141,7 @@
             InputSignupSenha.Size = new Size(440, 50);
             InputSignupSenha.SuffixSvg = "";
             InputSignupSenha.SuffixText = "Mostrar";
-            InputSignupSenha.TabIndex = 20;
+            InputSignupSenha.TabIndex = 3;
             InputSignupSenha.UseSystemPasswordChar = true;
             InputSignupSenha.SuffixClick += InputSignupSenha_SuffixClick;
             InputSignupSenha.TextChanged += LimparBorda_TextChanged;
@@ -168,7 +168,7 @@
             DatePickerSignupDataNascimento.PlaceholderText = "DD/MM/AAAA";
             DatePickerSignupDataNascimento.Radius = 4;
             DatePickerSignupDataNascimento.Size = new Size(440, 50);
-            DatePickerSignupDataNascimento.TabIndex = 18;
+            DatePickerSignupDataNascimento.TabIndex = 2;
             DatePickerSignupDataNascimento.TextChanged += LimparBorda_TextChanged;
             DatePickerSignupDataNascimento.KeyDown += DatePickerSignupDataNascimento_KeyDown;
             // 
@@ -192,7 +192,7 @@
             InputSignupNick.Name = "InputSignupNick";
             InputSignupNick.Radius = 4;
             InputSignupNick.Size = new Size(440, 50);
-            InputSignupNick.TabIndex = 5;
+            InputSignupNick.TabIndex = 1;
             InputSignupNick.TextChanged += LimparBorda_TextChanged;
             // 
             // LabelSignupNick
@@ -213,7 +213,7 @@
             InputSignupUsername.Name = "InputSignupUsername";
             InputSignupUsername.Radius = 4;
             InputSignupUsername.Size = new Size(440, 50);
-            InputSignupUsername.TabIndex = 3;
+            InputSignupUsername.TabIndex = 0;
             InputSignupUsername.TextChanged += LimparBorda_TextChanged;
             // 
             // LabelSignupUsername
@@ -250,7 +250,7 @@
             ButtonSignupVoltar.Name = "ButtonSignupVoltar";
             ButtonSignupVoltar.Radius = 4;
             ButtonSignupVoltar.Size = new Size(137, 44);
-            ButtonSignupVoltar.TabIndex = 0;
+            ButtonSignupVoltar.TabIndex = 6;
             ButtonSignupVoltar.Text = "Voltar para Tela Inicial";
             ButtonSignupVoltar.Click += ButtonSignupVoltar_Click;
             // 

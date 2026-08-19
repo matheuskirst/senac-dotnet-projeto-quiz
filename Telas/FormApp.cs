@@ -1,18 +1,19 @@
 ﻿using AntdUI;
 using SenacQuizApp.Services;
+using SenacQuizApp.Telas.Componentes;
+using System.Diagnostics.Contracts;
 
 namespace SenacQuizApp.Telas
 {
-    public partial class FormPrincipal : Window
+    public partial class FormApp : Window
     {
         private readonly UsuarioService _usuarioService;
         private readonly PerguntaService _perguntaService;
 
-        public FormPrincipal(UsuarioService usuarioService, PerguntaService perguntaService)
+        public FormApp(UsuarioService usuarioService, PerguntaService perguntaService)
         {
             _usuarioService = usuarioService;
             _perguntaService = perguntaService;
-
             InitializeComponent();
         }
 
@@ -23,15 +24,28 @@ namespace SenacQuizApp.Telas
 
         public void MudarPagina(UserControl pagina)
         {
-            while (panelContainer.Controls.Count > 0)
+            if (pagina is PaginaInicial
+                || pagina is PaginaLogin
+                || pagina is PaginaSignup
+                || pagina is PaginaQuiz
+            ) 
             {
-                var controle = panelContainer.Controls[0];
-                panelContainer.Controls.Remove(controle);
+                PanelAppHeader.SuspendLayout();
+                PanelAppHeader.Visible = false;
+            }
+            else { PanelAppHeader.Visible = true; }
+
+            this.ActiveControl = null;
+
+            while (PanelAppBody.Controls.Count > 0)
+            {
+                var controle = PanelAppBody.Controls[0];
+                PanelAppBody.Controls.Remove(controle);
                 controle.Dispose();
             }
 
             pagina.Dock = DockStyle.Fill;
-            panelContainer.Controls.Add(pagina);
+            PanelAppBody.Controls.Add(pagina);
         }
 
         public void AbrirPaginaInicial(object? sender, EventArgs e)
@@ -71,8 +85,6 @@ namespace SenacQuizApp.Telas
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
             paginaPrincipal.JogarQuizDiario += AbrirPaginaQuiz;
-            paginaPrincipal.AbrirPerfil += AbrirPaginaPerfil;
-            paginaPrincipal.AbrirRanking += AbrirPaginaQuiz;
 
             MudarPagina(paginaPrincipal);
         }
@@ -87,8 +99,6 @@ namespace SenacQuizApp.Telas
         public void AbrirPaginaPerfil(object? sender, EventArgs e)
         {
             PaginaPerfil paginaPerfil = new PaginaPerfil(_usuarioService, _perguntaService);
-
-            paginaPerfil.VoltarParaMenu += AbrirPaginaPrincipal;
 
             MudarPagina(paginaPerfil);
         }

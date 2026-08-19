@@ -18,8 +18,6 @@ namespace SenacQuizApp.Telas
         private readonly UsuarioService _usuarioService;
         public event EventHandler? RealizarLogout;
         public event EventHandler? JogarQuizDiario;
-        public event EventHandler? AbrirPerfil;
-        public event EventHandler? AbrirRanking;
         public PaginaPrincipal(UsuarioService usuarioService)
         {
             _usuarioService = usuarioService;
@@ -41,16 +39,6 @@ namespace SenacQuizApp.Telas
         private void ButtonIniciarQuizDiario_Click(object sender, EventArgs e)
         {
             JogarQuizDiario?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void ButtonPrincipalPerfil_Click(object sender, EventArgs e)
-        {
-            AbrirPerfil?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void ButtonPrincipalRanking_Click(object sender, EventArgs e)
-        {
-            AbrirRanking?.Invoke(this, EventArgs.Empty);
         }
     }
 }
