@@ -1,7 +1,5 @@
 ﻿using AntdUI;
 using SenacQuizApp.Services;
-using SenacQuizApp.Telas.Componentes;
-using System.Diagnostics.Contracts;
 
 namespace SenacQuizApp.Telas
 {
@@ -17,7 +15,7 @@ namespace SenacQuizApp.Telas
             InitializeComponent();
         }
 
-        private async void FormJanelaPrincipal_Load(object sender, EventArgs e)
+        private void FormJanelaPrincipal_Load(object sender, EventArgs e)
         {
             AbrirPaginaInicial(null, e);
         }
@@ -28,12 +26,16 @@ namespace SenacQuizApp.Telas
                 || pagina is PaginaLogin
                 || pagina is PaginaSignup
                 || pagina is PaginaQuiz
-            ) 
+            )
             {
-                PanelAppHeader.SuspendLayout();
+                PanelDropdownUsuario.Visible = false;
                 PanelAppHeader.Visible = false;
             }
-            else { PanelAppHeader.Visible = true; }
+            else
+            {
+                PanelDropdownUsuario.Visible = true;
+                PanelAppHeader.Visible = true;
+            }
 
             this.ActiveControl = null;
 
@@ -64,7 +66,7 @@ namespace SenacQuizApp.Telas
             PaginaLogin paginaLogin = new PaginaLogin(_usuarioService);
 
             paginaLogin.EscolheuVoltar += AbrirPaginaInicial;
-            paginaLogin.ConcluiuLogin += AbrirPaginaPrincipal;
+            paginaLogin.ConcluiuLogin += AoConcluirLogin;
 
             MudarPagina(paginaLogin);
         }
@@ -74,7 +76,7 @@ namespace SenacQuizApp.Telas
             PaginaSignup paginaSignup = new PaginaSignup(_usuarioService);
 
             paginaSignup.EscolheuVoltar += AbrirPaginaInicial;
-            paginaSignup.ConcluiuSignup += AbrirPaginaPrincipal;
+            paginaSignup.ConcluiuSignup += AoConcluirLogin;
 
             MudarPagina(paginaSignup);
         }
@@ -82,6 +84,11 @@ namespace SenacQuizApp.Telas
         public void AbrirPaginaPrincipal(object? sender, EventArgs e)
         {
             PaginaPrincipal paginaPrincipal = new PaginaPrincipal(_usuarioService);
+
+            ButtonHeaderRanking.Enabled = true;
+            ButtonHeaderPerfil.Enabled = true;
+
+            ButtonHeaderMenu.Enabled = false;
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
             paginaPrincipal.JogarQuizDiario += AbrirPaginaQuiz;
@@ -100,14 +107,46 @@ namespace SenacQuizApp.Telas
         {
             PaginaPerfil paginaPerfil = new PaginaPerfil(_usuarioService, _perguntaService);
 
+            ButtonHeaderMenu.Enabled = true;
+            ButtonHeaderRanking.Enabled = true;
+
+            ButtonHeaderPerfil.Enabled = false;
+
             MudarPagina(paginaPerfil);
         }
 
         public void AbrirPaginaRanking(object? sender, EventArgs e)
         {
+            ButtonHeaderMenu.Enabled = true;
+            ButtonHeaderPerfil.Enabled = true;
+
+            ButtonHeaderRanking.Enabled = false;
+
             PaginaRanking paginaRanking = new PaginaRanking(_usuarioService, _perguntaService);
 
             MudarPagina(paginaRanking);
+        }
+
+        private void AoConcluirLogin(object? sender, EventArgs e)
+        {
+            DropdownUsuario.Text = Sessao.UsuarioAtual?.Username;
+
+            AbrirPaginaPrincipal(sender, EventArgs.Empty);
+        }
+
+        private void ButtonHeaderMenu_Click(object sender, EventArgs e)
+        {
+            AbrirPaginaPrincipal(sender, EventArgs.Empty);
+        }
+
+        private void ButtonHeaderRanking_Click(object sender, EventArgs e)
+        {
+            AbrirPaginaRanking(sender, EventArgs.Empty);
+        }
+
+        private void ButtonHeaderPerfil_Click(object sender, EventArgs e)
+        {
+            AbrirPaginaPerfil(sender, EventArgs.Empty);
         }
     }
 }

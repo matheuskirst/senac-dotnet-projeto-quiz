@@ -54,7 +54,7 @@
             StackPanelLogin.Controls.Add(InputLoginUsername);
             StackPanelLogin.Controls.Add(LabelLoginUsername);
             StackPanelLogin.Controls.Add(LabelLoginTitulo);
-            StackPanelLogin.Location = new Point(292, 110);
+            StackPanelLogin.Location = new Point(292, 100);
             StackPanelLogin.Name = "StackPanelLogin";
             StackPanelLogin.Size = new Size(440, 450);
             StackPanelLogin.TabIndex = 1;
@@ -158,11 +158,11 @@
             // ButtonLoginVoltar
             // 
             ButtonLoginVoltar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonLoginVoltar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonLoginVoltar.Location = new Point(23, 653);
+            ButtonLoginVoltar.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonLoginVoltar.Location = new Point(23, 633);
             ButtonLoginVoltar.Name = "ButtonLoginVoltar";
             ButtonLoginVoltar.Radius = 4;
-            ButtonLoginVoltar.Size = new Size(137, 44);
+            ButtonLoginVoltar.Size = new Size(170, 64);
             ButtonLoginVoltar.TabIndex = 3;
             ButtonLoginVoltar.Text = "Voltar para Tela Inicial";
             ButtonLoginVoltar.Click += ButtonLoginVoltar_Click;
@@ -182,8 +182,7 @@
             TableLayoutPanelLogin.RowCount = 4;
             TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
             TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TableLayoutPanelLogin.Size = new Size(1024, 720);
             TableLayoutPanelLogin.TabIndex = 5;

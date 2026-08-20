@@ -1,7 +1,6 @@
 ﻿using SenacQuizApp.Services;
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Modelos;
-using SenacQuizApp.Telas.Componentes;
 
 namespace SenacQuizApp.Telas
 {

@@ -62,8 +62,7 @@
             TableLayoutPanelSignup.RowCount = 4;
             TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
             TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TableLayoutPanelSignup.Size = new Size(1024, 720);
             TableLayoutPanelSignup.TabIndex = 0;
@@ -84,9 +83,9 @@
             StackPanelSignup.Controls.Add(InputSignupUsername);
             StackPanelSignup.Controls.Add(LabelSignupUsername);
             StackPanelSignup.Controls.Add(LabelSignupTitulo);
-            StackPanelSignup.Location = new Point(292, 32);
+            StackPanelSignup.Location = new Point(292, 23);
             StackPanelSignup.Name = "StackPanelSignup";
-            StackPanelSignup.Size = new Size(440, 605);
+            StackPanelSignup.Size = new Size(440, 604);
             StackPanelSignup.TabIndex = 3;
             StackPanelSignup.Text = "stackPanel1";
             StackPanelSignup.Vertical = true;
@@ -246,10 +245,11 @@
             // ButtonSignupVoltar
             // 
             ButtonSignupVoltar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonSignupVoltar.Location = new Point(23, 653);
+            ButtonSignupVoltar.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonSignupVoltar.Location = new Point(23, 633);
             ButtonSignupVoltar.Name = "ButtonSignupVoltar";
             ButtonSignupVoltar.Radius = 4;
-            ButtonSignupVoltar.Size = new Size(137, 44);
+            ButtonSignupVoltar.Size = new Size(170, 64);
             ButtonSignupVoltar.TabIndex = 6;
             ButtonSignupVoltar.Text = "Voltar para Tela Inicial";
             ButtonSignupVoltar.Click += ButtonSignupVoltar_Click;

@@ -73,9 +73,9 @@ namespace SenacQuizApp.Telas
 
             if (nomeValido && senhaValida)
             {
-                RequisitarLogin(username, senha);
                 ButtonLoginEntrar.Enabled = false;
                 ButtonLoginEntrar.Loading = true;
+                await RequisitarLogin(username, senha);
             }
             else
             {
@@ -124,11 +124,11 @@ namespace SenacQuizApp.Telas
 
         public void ErroNoLogin()
         {
-            PintarErros.ErroNoCampo(InputLoginUsername);
-            PintarErros.ErroNoCampo(InputLoginSenha);
-            StackPanelLoginErro.Visible = true;
             ButtonLoginEntrar.Enabled = true;
             ButtonLoginEntrar.Loading = false;
+            StackPanelLoginErro.Visible = true;
+            PintarErros.ErroNoCampo(InputLoginUsername);
+            PintarErros.ErroNoCampo(InputLoginSenha);
         }
 
         public void ErroDeConexao(string? erro)
@@ -143,7 +143,7 @@ namespace SenacQuizApp.Telas
             ButtonLoginEntrar.Loading = false;
         }
 
-        private async void RequisitarLogin(string username, string senha)
+        private async Task RequisitarLogin(string username, string senha)
         {
             try
             {
