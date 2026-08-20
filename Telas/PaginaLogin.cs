@@ -60,7 +60,7 @@ namespace SenacQuizApp.Telas
             ValidarLogin();
         }
 
-        public async void ValidarLogin()
+        private async void ValidarLogin()
         {
             LimparBordas();
             StackPanelLoginErro.Visible = false;
@@ -122,7 +122,7 @@ namespace SenacQuizApp.Telas
             InputLoginSenha.BorderColor = _corBordas;
         }
 
-        public void ErroNoLogin()
+        private void ErroNoLogin()
         {
             ButtonLoginEntrar.Enabled = true;
             ButtonLoginEntrar.Loading = false;
@@ -131,7 +131,7 @@ namespace SenacQuizApp.Telas
             PintarErros.ErroNoCampo(InputLoginSenha);
         }
 
-        public void ErroDeConexao(string? erro)
+        private void ErroDeConexao(string? erro)
         {
             MessageBox.Show(
                 $"Ocorreu um erro{erro}.",
@@ -157,7 +157,7 @@ namespace SenacQuizApp.Telas
                 }
                 else
                 {
-                    if (resultado.MensagemErro == Mensagem.LoginInvalido)
+                    if (resultado.MensagemErro == Mensagem.LoginInvalidoErro)
                     {
                         ErroNoLogin();
                     }

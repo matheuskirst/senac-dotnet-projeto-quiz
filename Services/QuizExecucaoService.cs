@@ -72,7 +72,7 @@ namespace SenacQuizApp.Services
                     QuizDto quizDto = CriarQuizDto(quiz);
                     return new ObterQuizResponse(IsSucesso: true, Data: quizDto);
                 }
-                // Se quiz existe mas não foi concluido, retorna quiz inconcluido
+                // Se quiz existe mas não foi concluido, retorna quiz inconcluso
                 else if (quiz != null && quiz.IsConcluido == false)
                 {
                     QuizDto quizDto = CriarQuizDto(quiz);
@@ -200,15 +200,16 @@ namespace SenacQuizApp.Services
                 {
                     await _perguntaRepository.SalvarResposta(resposta);
                     usuario.AdicionarPontos(pontos);
+                    return new NovaRespostaResponse(IsSucesso: true);
                 }
                 catch
                 {
-
+                    return new NovaRespostaResponse(IsSucesso: false);
                 }
             }
             catch
             {
-
+                return new NovaRespostaResponse(IsSucesso: false);
             }
 
         }

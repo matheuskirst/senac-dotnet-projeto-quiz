@@ -7,13 +7,11 @@ namespace SenacQuizApp.Telas
     {
         private readonly AutenticacaoService _usuarioService;
         private readonly QuizExecucaoService _quizService;
-        private readonly PerguntaService _perguntaService;
 
-        public FormApp(AutenticacaoService usuarioService, QuizExecucaoService quizService, PerguntaService perguntaService)
+        public FormApp(AutenticacaoService usuarioService, QuizExecucaoService quizService)
         {
             _usuarioService = usuarioService;
             _quizService = quizService;
-            _perguntaService = perguntaService;
             InitializeComponent();
         }
 
@@ -107,7 +105,7 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaPerfil(object? sender, EventArgs e)
         {
-            PaginaPerfil paginaPerfil = new PaginaPerfil(_usuarioService, _perguntaService);
+            PaginaPerfil paginaPerfil = new PaginaPerfil(_usuarioService);
 
             ButtonHeaderMenu.Enabled = true;
             ButtonHeaderRanking.Enabled = true;
@@ -124,14 +122,14 @@ namespace SenacQuizApp.Telas
 
             ButtonHeaderRanking.Enabled = false;
 
-            PaginaRanking paginaRanking = new PaginaRanking(_usuarioService, _perguntaService);
+            PaginaRanking paginaRanking = new PaginaRanking(_usuarioService);
 
             MudarPagina(paginaRanking);
         }
 
         private void AoConcluirLogin(object? sender, EventArgs e)
         {
-            DropdownUsuario.Text = Sessao.UsuarioAtual?.Username;
+            DropdownUsuario.Text = UsuarioAtual.Username;
 
             AbrirPaginaPrincipal(sender, EventArgs.Empty);
         }

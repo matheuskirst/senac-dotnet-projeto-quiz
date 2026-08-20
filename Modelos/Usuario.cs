@@ -50,22 +50,22 @@ namespace SenacQuizApp.Modelos
 
         public void AdicionarAcertos(int acertos)
         {
-            AcertosConsecutivos += acertos;
+            AtualAcertosConsecutivos += acertos;
 
-            if (AcertosConsecutivos > MaxAcertosConsecutivos)
+            if (AtualAcertosConsecutivos > MaxAcertosConsecutivos)
             {
-                MaxAcertosConsecutivos = AcertosConsecutivos;
+                MaxAcertosConsecutivos = AtualAcertosConsecutivos;
             }
         }
 
         public void LimparAcertos()
         {
-            if (AcertosConsecutivos > MaxAcertosConsecutivos)
+            if (AtualAcertosConsecutivos > MaxAcertosConsecutivos)
             {
-                MaxAcertosConsecutivos = AcertosConsecutivos;
+                MaxAcertosConsecutivos = AtualAcertosConsecutivos;
             }
 
-            AcertosConsecutivos = 0;
+            AtualAcertosConsecutivos = 0;
         }
     }
 }

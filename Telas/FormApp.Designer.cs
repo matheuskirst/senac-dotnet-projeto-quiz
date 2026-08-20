@@ -54,7 +54,7 @@
             PageHeader.ShowButton = true;
             PageHeader.Size = new Size(1024, 40);
             PageHeader.TabIndex = 5;
-            PageHeader.Text = "Quiz";
+            PageHeader.Text = "Quiz TI";
             // 
             // PanelDropdownUsuario
             // 
@@ -170,7 +170,7 @@
             Name = "FormApp";
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Projeto Quiz";
+            Text = "Quiz TI";
             WindowState = FormWindowState.Maximized;
             Load += FormJanelaPrincipal_Load;
             PageHeader.ResumeLayout(false);

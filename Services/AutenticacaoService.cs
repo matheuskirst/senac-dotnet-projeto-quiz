@@ -20,36 +20,21 @@ namespace SenacQuizApp.Services
         // Determina se o nome já está sendo usado
         public async Task<bool> VerificarNome(string nome)
         {
-            var usuario = await _usuarioRepository.ObterPorNome(nome);
+            var usuario = await _usuarioRepository.ObterPorUsername(nome);
             return usuario != null;
         }
 
         // Login
         public async Task<LoginResponse> RealizarLogin(LoginRequest login)
         {
-            Usuario? usuario = await _usuarioRepository.ObterPorNome(login.Username);
+            Usuario? usuario = await _usuarioRepository.ObterPorUsername(login.Username);
 
             if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(login.Senha, usuario.Senha))
             {
-                return new LoginResponse(IsSucesso: false, MensagemErro: Mensagem.LoginInvalido);
+                return new LoginResponse(IsSucesso: false, MensagemErro: Mensagem.LoginInvalidoErro);
             }
 
-            UsuarioPerfilDto? usuarioLogado = new()
-            {
-                Id = usuario.Id,
-                Username = usuario.Username,
-                Nickname = usuario.Nickname,
-                DataDeNascimento = usuario.DataDeNascimento,
-                DataDeCadastro = usuario.DataDeCadastro,
-                Nivel = usuario.Nivel,
-                PontuacaoTotal = usuario.PontuacaoTotal,
-                TotalAcertos = usuario.TotalAcertos,
-                TotalRespondidos = usuario.TotalRespondidos,
-                AcertosConsecutivos = usuario.AcertosConsecutivos,
-                MaxAcertosConsecutivos = usuario.MaxAcertosConsecutivos
-            };
-
-            Sessao.IniciarSessao(usuarioLogado);
+            UsuarioAtual.IniciarSessao(id: usuario.Id, username: usuario.Username);
             return new LoginResponse(IsSucesso: true);
         }
 
@@ -65,7 +50,7 @@ namespace SenacQuizApp.Services
 
             if (usernameIndisponivel)
             {
-                LoginResponse resultado = new LoginResponse(mensagemErro: MensagemErro.NomeIndisponivel);
+                LoginResponse resultado = new LoginResponse(IsSucesso: false, MensagemErro: Mensagem.NomeIndisponivelErro);
                 return resultado;
             }
             else
@@ -80,9 +65,9 @@ namespace SenacQuizApp.Services
                     Senha = senhaHash
                 };
 
-                await _usuarioRepository.RegistrarUsuario(usuario);
+                await _usuarioRepository.Adicionar(usuario);
 
-                LoginInput login = new(Username: username, Senha: senha);
+                LoginRequest login = new(Username: username, Senha: senha);
 
                 LoginResponse resultado = await RealizarLogin(login);
                 return resultado;
@@ -91,7 +76,7 @@ namespace SenacQuizApp.Services
 
         public void RealizarLogout()
         {
-            Sessao.EncerrarSessao();
+            UsuarioAtual.EncerrarSessao();
         }
     }
 }

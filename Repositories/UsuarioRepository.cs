@@ -35,7 +35,7 @@ namespace SenacQuizApp.Repositories
                 .FindAsync(id);
         }
 
-        public async Task<Usuario?> ObterPorUsersame(string username)
+        public async Task<Usuario?> ObterPorUsername(string username)
         {
             return await _contexto.Usuarios
                 .SingleAsync(u => u.Username == username);

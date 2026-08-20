@@ -93,7 +93,7 @@ namespace SenacQuizApp.Telas
             ValidarRegistro();
         }
 
-        public void NomeIndisponivel()
+        private void NomeIndisponivel()
         {
             PintarErros.ErroNoCampo(InputSignupUsername, mensagem: "Esse nome não está disponível!");
             ButtonSignupRegistrar.Enabled = true;
@@ -109,7 +109,7 @@ namespace SenacQuizApp.Telas
             InputSignupConfirmarSenha.BorderColor = _corBordas;
         }
 
-        public void ErroDeConexao(string? erro)
+        private void ErroDeConexao(string? erro)
         {
             MessageBox.Show(
                 $"Ocorreu um erro{erro}.",
@@ -261,7 +261,7 @@ namespace SenacQuizApp.Telas
                 }
                 else
                 {
-                    if (resultado.MensagemErro == Mensagem.NomeIndisponivel)
+                    if (resultado.MensagemErro == Mensagem.NomeIndisponivelErro)
                     {
                         NomeIndisponivel();
                     }
