@@ -1,19 +1,23 @@
 ﻿using SenacQuizApp.Dtos;
+using System.ComponentModel.DataAnnotations;
 
 namespace SenacQuizApp
 {
-    public static class Sessao
+    public static class UsuarioAtual
     {
-        public static UsuarioLogado? UsuarioAtual { get; private set; }
+        public static int Id { get; private set; }
+        public static string Username { get; private set; } = string.Empty;
 
-        public static void IniciarSessao(UsuarioLogado usuario)
+        public static void IniciarSessao(int id, string username)
         {
-            UsuarioAtual = usuario;
+            Id = id;
+            Username = username;
         }
 
         public static void EncerrarSessao()
         {
-            UsuarioAtual = null;
+            Id = 0;
+            Username = string.Empty;
         }
     }
 }

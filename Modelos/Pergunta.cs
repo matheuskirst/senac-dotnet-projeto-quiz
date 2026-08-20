@@ -18,7 +18,8 @@ namespace SenacQuizApp.Modelos
         public PerguntaTipo Tipo { get; set; }
         public PerguntaNivel Nivel { get; set; }
 
-        public ICollection<PerguntaAlternativa> Alternativas { get; set; } = new List<PerguntaAlternativa>();
+        public ICollection<Alternativa> Alternativas { get; set; } = new List<Alternativa>();
         public ICollection<PerguntaRespondida> PerguntasRespondidas { get; set; } = new List<PerguntaRespondida>();
+        public ICollection<Quiz> Quizzes { get; set; } = new List<Quiz>();
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos
 {
-    public class UsuarioLogado
+    public class UsuarioPerfilDto
     {
         public int Id { get; set; }
         public string Username { get; set; } = null!;
@@ -18,7 +18,9 @@ namespace SenacQuizApp.Dtos
         public int PontuacaoTotal { get; set; }
         public int TotalAcertos { get; set; }
         public int TotalRespondidos { get; set; }
-        public int AcertosConsecutivos { get; set; }
+        public int AtualAcertosConsecutivos { get; set; }
         public int MaxAcertosConsecutivos { get; set; }
+        public PerguntaTema TemaMaisAcertado { get; set; } = null!;
+        public int TemaMaisAcertadoQuantidade { get; set; }
     }
 }

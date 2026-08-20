@@ -5,12 +5,14 @@ namespace SenacQuizApp.Telas
 {
     public partial class FormApp : Window
     {
-        private readonly UsuarioService _usuarioService;
+        private readonly AutenticacaoService _usuarioService;
+        private readonly QuizExecucaoService _quizService;
         private readonly PerguntaService _perguntaService;
 
-        public FormApp(UsuarioService usuarioService, PerguntaService perguntaService)
+        public FormApp(AutenticacaoService usuarioService, QuizExecucaoService quizService, PerguntaService perguntaService)
         {
             _usuarioService = usuarioService;
+            _quizService = quizService;
             _perguntaService = perguntaService;
             InitializeComponent();
         }
@@ -98,7 +100,7 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaQuiz(object? sender, EventArgs e)
         {
-            PaginaQuiz paginaQuiz = new PaginaQuiz(_usuarioService, _perguntaService);
+            PaginaQuiz paginaQuiz = new PaginaQuiz(_usuarioService, _quizService);
 
             MudarPagina(paginaQuiz);
         }

@@ -8,11 +8,11 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaSignup : UserControl
     {
-        private readonly UsuarioService _usuarioService;
+        private readonly AutenticacaoService _usuarioService;
         private Color? _corBordas;
         public event EventHandler? EscolheuVoltar;
         public event EventHandler? ConcluiuSignup;
-        public PaginaSignup(UsuarioService usuarioService)
+        public PaginaSignup(AutenticacaoService usuarioService)
         {
             _usuarioService = usuarioService;
             InitializeComponent();
@@ -253,7 +253,7 @@ namespace SenacQuizApp.Telas
         {
             try
             {
-                LoginResposta resultado = await _usuarioService.RealizarSignup(username, nickname, dataNascimento, senha);
+                LoginResponse resultado = await _usuarioService.RealizarSignup(username, nickname, dataNascimento, senha);
 
                 if (resultado.IsSucesso == true)
                 {
@@ -261,7 +261,7 @@ namespace SenacQuizApp.Telas
                 }
                 else
                 {
-                    if (resultado.MensagemErro == MensagemErro.NomeIndisponivel)
+                    if (resultado.MensagemErro == Mensagem.NomeIndisponivel)
                     {
                         NomeIndisponivel();
                     }

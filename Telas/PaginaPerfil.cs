@@ -14,11 +14,11 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaPerfil : UserControl
     {
-        private readonly UsuarioService _usuarioService;
+        private readonly AutenticacaoService _usuarioService;
         private readonly PerguntaService _perguntaService;
 
 
-        public PaginaPerfil(UsuarioService usuarioService, PerguntaService perguntaService)
+        public PaginaPerfil(AutenticacaoService usuarioService, PerguntaService perguntaService)
         {
             _usuarioService = usuarioService;
             _perguntaService = perguntaService;

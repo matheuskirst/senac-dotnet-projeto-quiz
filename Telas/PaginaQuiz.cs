@@ -6,21 +6,20 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaQuiz : UserControl
     {
-        private readonly UsuarioService _usuarioService;
-        private readonly PerguntaService _perguntaService;
-        public PaginaQuiz(UsuarioService usuarioService, PerguntaService perguntaService)
+        private readonly AutenticacaoService _usuarioService;
+        private readonly QuizExecucaoService _quizService;
+        private QuizDto? QuizAtual;
+        public PaginaQuiz(AutenticacaoService usuarioService, QuizExecucaoService quizService)
         {
             _usuarioService = usuarioService;
-            _perguntaService = perguntaService;
+            _quizService = quizService;
 
             InitializeComponent();
         }
 
         private async void PaginaQuiz_Load(object sender, EventArgs e)
         {
-            Quiz quiz = await _perguntaService.CriarQuiz();
 
-            Pergunta pergunta = quiz.Perguntas.First();
         }
     }
 }

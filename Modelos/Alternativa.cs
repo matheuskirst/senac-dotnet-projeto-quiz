@@ -6,19 +6,12 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Modelos
 {
-    public class QuizPerguntas
+    public class Alternativa
     {
-        public int Id {  get; set; }
-
-        public int QuizId { get; set; }
-
-        public Quiz Quiz { get; set; } = null!;
-
+        public int Id { get; set; }
+        public string Texto { get; set; } = null!;
+        public bool IsCorreta { get; set; }
         public int PerguntaId { get; set; }
-
         public Pergunta Pergunta { get; set; } = null!;
-
-
-
     }
 }

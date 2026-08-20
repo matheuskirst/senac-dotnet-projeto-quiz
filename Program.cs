@@ -18,9 +18,11 @@ namespace SenacQuizApp
 
             UsuarioRepository usuarioRepository = new(contexto);
             PerguntaRepository perguntaRepository = new(contexto);
+            QuizRepository quizRepository = new(contexto);
 
-            UsuarioService usuarioService = new(usuarioRepository);
-            PerguntaService perguntaService = new(perguntaRepository);
+            AutenticacaoService usuarioService = new(contexto, usuarioRepository);
+            PerguntaService perguntaService = new(contexto, perguntaRepository);
+            QuizExecucaoService quizService = new(contexto, quizRepository, perguntaRepository);
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -31,7 +33,7 @@ namespace SenacQuizApp
             AntdUI.Localization.Provider = new AntdUIBrLocalizer();
             AntdUI.Localization.SetLanguage("pt-BR");
 
-            Application.Run(new FormApp(usuarioService, perguntaService));
+            Application.Run(new FormApp(usuarioService, quizService, perguntaService));
         }
     }
 }

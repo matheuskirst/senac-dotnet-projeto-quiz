@@ -2,15 +2,18 @@
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos;
+using SenacQuizApp.Data;
 
 namespace SenacQuizApp.Services
 {
-    public class UsuarioService
+    public class AutenticacaoService
     {
+        private readonly QuizAppContexto _contexto;
         private readonly UsuarioRepository _usuarioRepository;
 
-        public UsuarioService(UsuarioRepository usuarioRepository)
+        public AutenticacaoService(QuizAppContexto contexto, UsuarioRepository usuarioRepository)
         {
+            _contexto = contexto;
             _usuarioRepository = usuarioRepository;
         }
 
@@ -22,16 +25,16 @@ namespace SenacQuizApp.Services
         }
 
         // Login
-        public async Task<LoginResposta> RealizarLogin(LoginInput login)
+        public async Task<LoginResponse> RealizarLogin(LoginRequest login)
         {
             Usuario? usuario = await _usuarioRepository.ObterPorNome(login.Username);
 
             if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(login.Senha, usuario.Senha))
             {
-                return new LoginResposta(mensagemErro: MensagemErro.LoginInvalido);
+                return new LoginResponse(IsSucesso: false, MensagemErro: Mensagem.LoginInvalido);
             }
 
-            UsuarioLogado? usuarioLogado = new()
+            UsuarioPerfilDto? usuarioLogado = new()
             {
                 Id = usuario.Id,
                 Username = usuario.Username,
@@ -47,11 +50,11 @@ namespace SenacQuizApp.Services
             };
 
             Sessao.IniciarSessao(usuarioLogado);
-            return new LoginResposta();
+            return new LoginResponse(IsSucesso: true);
         }
 
         // Signup
-        public async Task<LoginResposta> RealizarSignup(
+        public async Task<LoginResponse> RealizarSignup(
             string username,
             string nickname,
             DateTime? dataDeNascimento,
@@ -62,7 +65,7 @@ namespace SenacQuizApp.Services
 
             if (usernameIndisponivel)
             {
-                LoginResposta resultado = new LoginResposta(mensagemErro: MensagemErro.NomeIndisponivel);
+                LoginResponse resultado = new LoginResponse(mensagemErro: MensagemErro.NomeIndisponivel);
                 return resultado;
             }
             else
@@ -81,7 +84,7 @@ namespace SenacQuizApp.Services
 
                 LoginInput login = new(Username: username, Senha: senha);
 
-                LoginResposta resultado = await RealizarLogin(login);
+                LoginResponse resultado = await RealizarLogin(login);
                 return resultado;
             }
         }

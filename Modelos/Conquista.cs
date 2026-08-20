@@ -12,10 +12,10 @@ namespace SenacQuizApp.Modelos
         public int Id { get; set; }
 
         [StringLength(255)]
-        public string Nome { get; set; } = string.Empty;
+        public string Nome { get; set; } = null!;
 
         [StringLength(1000)]
-        public string Descricao { get; set; } = string.Empty;
+        public string Descricao { get; set; } = null!;
 
         public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }

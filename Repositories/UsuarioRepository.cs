@@ -12,23 +12,33 @@ namespace SenacQuizApp.Repositories
             _contexto = contexto;
         }
 
-        public async Task RegistrarUsuario(Usuario usuario)
+        public async Task Adicionar(Usuario usuario)
         {
             _contexto.Usuarios.Add(usuario);
-            await _contexto.SaveChangesAsync();
         }
 
-        public async Task<Usuario?> ObterPorNome(string nome)
+        public async Task Atualizar(Usuario usuario)
         {
-            return await _contexto.Usuarios
-                .FirstOrDefaultAsync(u => u.Username == nome);
+            _contexto.Usuarios.Update(usuario);
         }
 
-        public async Task<IEnumerable<Usuario>> ObterTodos()
+        public async Task<List<Usuario>> ObterTodos()
         {
             return await _contexto.Usuarios
                 .OrderBy(u => u.Id)
                 .ToListAsync();
+        }
+
+        public async Task<Usuario?> ObterPorId(int id)
+        {
+            return await _contexto.Usuarios
+                .FindAsync(id);
+        }
+
+        public async Task<Usuario?> ObterPorUsersame(string username)
+        {
+            return await _contexto.Usuarios
+                .SingleAsync(u => u.Username == username);
         }
     }
 }

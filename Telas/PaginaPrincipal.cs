@@ -15,10 +15,10 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaPrincipal : UserControl
     {
-        private readonly UsuarioService _usuarioService;
+        private readonly AutenticacaoService _usuarioService;
         public event EventHandler? RealizarLogout;
         public event EventHandler? JogarQuizDiario;
-        public PaginaPrincipal(UsuarioService usuarioService)
+        public PaginaPrincipal(AutenticacaoService usuarioService)
         {
             _usuarioService = usuarioService;
 

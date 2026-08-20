@@ -88,21 +88,22 @@
             // 
             // InputPergunta
             // 
-            InputPergunta.Anchor = AnchorStyles.None;
             InputPergunta.AutoScroll = true;
+            InputPergunta.Dock = DockStyle.Fill;
             InputPergunta.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputPergunta.Location = new Point(258, 15);
+            InputPergunta.Location = new Point(51, 2);
             InputPergunta.Margin = new Padding(3, 2, 3, 2);
             InputPergunta.MinimumSize = new Size(460, 100);
             InputPergunta.Multiline = true;
             InputPergunta.Name = "InputPergunta";
             InputPergunta.PrefixText = "Pergunta: ";
             InputPergunta.ReadOnly = true;
-            InputPergunta.Size = new Size(460, 100);
+            InputPergunta.Size = new Size(874, 127);
             InputPergunta.TabIndex = 0;
             // 
             // PanelRespostas
             // 
+            PanelRespostas.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             PanelRespostas.ColumnCount = 2;
             PanelRespostas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             PanelRespostas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));

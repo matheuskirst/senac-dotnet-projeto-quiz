@@ -20,10 +20,52 @@ namespace SenacQuizApp.Modelos
         public int PontuacaoTotal { get; set; } = 0;
         public int TotalAcertos { get; set; } = 0;
         public int TotalRespondidos { get; set; } = 0;
-        public int AcertosConsecutivos { get; set; } = 0;
+        public int AtualAcertosConsecutivos { get; set; } = 0;
         public int MaxAcertosConsecutivos { get; set; } = 0;
 
         public ICollection<PerguntaRespondida> PerguntasRespondidas { get; set; } = new List<PerguntaRespondida>();
         public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
+
+        public void AdicionarPontos(int pontos)
+        {
+            PontuacaoTotal += pontos;
+
+            if (PontuacaoTotal <= 500)
+            {
+                Nivel = UsuarioNivel.Iniciante;
+            }
+            else if (PontuacaoTotal > 500)
+            {
+                Nivel = UsuarioNivel.Aprendiz;
+            }
+            else if (PontuacaoTotal > 2000)
+            {
+                Nivel = UsuarioNivel.Intermediario;
+            }
+            else if (PontuacaoTotal > 10000)
+            {
+                Nivel = UsuarioNivel.Avancado;
+            }
+        }
+
+        public void AdicionarAcertos(int acertos)
+        {
+            AcertosConsecutivos += acertos;
+
+            if (AcertosConsecutivos > MaxAcertosConsecutivos)
+            {
+                MaxAcertosConsecutivos = AcertosConsecutivos;
+            }
+        }
+
+        public void LimparAcertos()
+        {
+            if (AcertosConsecutivos > MaxAcertosConsecutivos)
+            {
+                MaxAcertosConsecutivos = AcertosConsecutivos;
+            }
+
+            AcertosConsecutivos = 0;
+        }
     }
 }

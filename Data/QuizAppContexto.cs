@@ -12,12 +12,12 @@ namespace SenacQuizApp.Data
 {
     public class QuizAppContexto : DbContext
     {
-        // Tabelas
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pergunta> Perguntas { get; set; }
         public DbSet<PerguntaTema> PerguntaTemas { get; set; }
-        public DbSet<PerguntaAlternativa> PerguntasAlternativas { get; set; }
+        public DbSet<Alternativa> Alternativas { get; set; }
         public DbSet<PerguntaRespondida> PerguntasRespondidas { get; set; }
+        public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<Conquista> Conquistas { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
 
@@ -63,20 +63,6 @@ namespace SenacQuizApp.Data
                 builder.HasData(PerguntaTema.List());
             });
 
-
-            modelBuilder.Entity<Pergunta>()
-                .HasOne(p => p.Tema)
-                .WithMany()
-                .HasForeignKey(p => p.TemaId);
-
-            modelBuilder.Entity<Pergunta>()
-                .Property(p => p.Tipo)
-                .HasConversion<string>();
-
-            modelBuilder.Entity<Pergunta>()
-                .Property(p => p.Nivel)
-                .HasConversion<string>();
-
             modelBuilder.Entity<PerguntaTema>(entity =>
             {
                 entity.HasKey(pt => pt.Id);
@@ -86,10 +72,43 @@ namespace SenacQuizApp.Data
             });
 
 
-            modelBuilder.Entity<PerguntaAlternativa>()
+            modelBuilder.Entity<Pergunta>()
+                .HasMany(p => p.Alternativas)
+                .WithOne(a => a.Pergunta)
+                .HasForeignKey(a => a.PerguntaId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Pergunta>()
+                .Property(p => p.Tipo)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Pergunta>()
+                .Property(p => p.Nivel)
+                .HasConversion<string>();
+
+
+            modelBuilder.Entity<Alternativa>()
                 .HasOne(a => a.Pergunta)
                 .WithMany(p => p.Alternativas)
                 .HasForeignKey(a => a.PerguntaId);
+
+
+            modelBuilder.Entity<Quiz>()
+                .HasMany(q => q.Perguntas)
+                .WithMany(p => p.Quizzes)
+                .UsingEntity(qp => qp.ToTable("QuizPerguntas"));
+
+            modelBuilder.Entity<Quiz>()
+                .Property(q => q.DataDeCriacao)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+
+            modelBuilder.Entity<PerguntaRespondida>()
+                .HasKey(pr => new { pr.QuizId, pr.PerguntaId });
+
+            modelBuilder.Entity<PerguntaRespondida>()
+                .Property(pr => pr.DataDeResposta)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
 
             modelBuilder.Entity<Usuario>()
@@ -98,14 +117,6 @@ namespace SenacQuizApp.Data
 
             modelBuilder.Entity<Usuario>()
                 .Property(u => u.DataDeCadastro)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-
-            modelBuilder.Entity<PerguntaRespondida>()
-                .HasKey(pr => new { pr.UsuarioId, pr.PerguntaId });
-
-            modelBuilder.Entity<PerguntaRespondida>()
-                .Property(pr => pr.DataDeResposta)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
 
