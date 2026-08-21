@@ -25,43 +25,41 @@ namespace SenacQuizApp.Data
         {
             optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=projeto_quiz;Username=postgres;Password=admin;Trust Server Certificate=true");
 
-            optionsBuilder.UseSeeding(async (context, _) =>
+            optionsBuilder.UseSeeding((context, _) =>
+            {
+                if (!context.Set<Pergunta>().Any())
                 {
+                    var filepath = Path.Combine(AppContext.BaseDirectory, "perguntas.sql");
 
-                var filepath = Path.Combine(AppContext.BaseDirectory, "Data", "Seed", "perguntas.sql");
+                    if (File.Exists(filepath))
+                    {
+                        var sqlContent = File.ReadAllText(filepath);
 
-                if (File.Exists(filepath))
+                        context.Database.ExecuteSqlRaw(sqlContent);
+                    }
+                }
+
+                if (!context.Set<Conquista>().Any())
                 {
-                    var sqlContent = await File.ReadAllTextAsync(filepath);
-
-                    await context.Database.ExecuteSqlRawAsync(sqlContent);
+                    var conquistas = new List<Conquista>{
+                        new Conquista { Nome = "Primeiro Quiz Concluído", Descricao = "Complete seu primeiro quiz" },
+                        new Conquista { Nome = "10 Acertos Seguidos", Descricao = "Atinga 10 respostas corretas em consecução" },
+                        new Conquista { Nome = "Mestre em Hardware", Descricao = "Atinga 100 acertos no tema 'Hardware'" },
+                        new Conquista { Nome = "Mestre em Programação", Descricao = "Atinga 100 acertos no tema 'Programação'" },
+                        new Conquista { Nome = "Mestre em Redes", Descricao = "Atinga 100 acertos no tema 'Redes'" },
+                        new Conquista { Nome = "Mestre em Segurança Digital", Descricao = "Atinga 100 acertos no tema 'Segurança Digital'" },
+                        new Conquista { Nome = "Mestre em Sistemas Operacionais", Descricao = "Atinga 100 acertos no tema 'Sistemas Operacionais'" },
+                        new Conquista { Nome = "Mestre em Ferramentas de Produtividade", Descricao = "Atinga 100 acertos no tema 'Ferramentas de Produtividade'" },
+                        new Conquista { Nome = "Acessou por 3 Dias Seguidos", Descricao = "Faça login por três dias consecutivos" },
+                        new Conquista { Nome = "Acessou por 7 Dias Seguidos", Descricao = "Faça login a cada dia por uma semana" },
+                        new Conquista { Nome = "Acessou por 30 Dias Seguidos", Descricao = "Faça login a cada dia por um mês" },
+                        new Conquista { Nome = "Acessou por 90 Dias Seguidos", Descricao = "Faça login a cada dia por três meses consecutivos" },
+                        new Conquista { Nome = "Acessou por 365 Dias Seguidos", Descricao = "Faça login a cada dia por um ano" }
+                    };
+                    context.Set<Conquista>().AddRange(conquistas);
+                    context.SaveChanges();
                 }
             });
-
-
-            //optionsBuilder.UseSeeding((context, _) =>
-            //{
-            //    if (!context.Set<Conquista>().Any())
-            //    {
-            //        var conquistas = new List<Conquista>{
-            //            new Conquista { Nome = "Primeiro Quiz Concluído", Descricao = "Complete seu primeiro quiz" },
-            //            new Conquista { Nome = "10 Acertos Seguidos", Descricao = "Atinga 10 respostas corretas em consecução" },
-            //            new Conquista { Nome = "Mestre em Hardware", Descricao = "Atinga 100 acertos no tema 'Hardware'" },
-            //            new Conquista { Nome = "Mestre em Programação", Descricao = "Atinga 100 acertos no tema 'Programação'" },
-            //            new Conquista { Nome = "Mestre em Redes", Descricao = "Atinga 100 acertos no tema 'Redes'" },
-            //            new Conquista { Nome = "Mestre em Segurança Digital", Descricao = "Atinga 100 acertos no tema 'Segurança Digital'" },
-            //            new Conquista { Nome = "Mestre em Sistemas Operacionais", Descricao = "Atinga 100 acertos no tema 'Sistemas Operacionais'" },
-            //            new Conquista { Nome = "Mestre em Ferramentas de Produtividade", Descricao = "Atinga 100 acertos no tema 'Ferramentas de Produtividade'" },
-            //            new Conquista { Nome = "Acessou por 3 Dias Seguidos", Descricao = "Faça login por três dias consecutivos" },
-            //            new Conquista { Nome = "Acessou por 7 Dias Seguidos", Descricao = "Faça login a cada dia por uma semana" },
-            //            new Conquista { Nome = "Acessou por 30 Dias Seguidos", Descricao = "Faça login a cada dia por um mês" },
-            //            new Conquista { Nome = "Acessou por 90 Dias Seguidos", Descricao = "Faça login a cada dia por três meses consecutivos" },
-            //            new Conquista { Nome = "Acessou por 365 Dias Seguidos", Descricao = "Faça login a cada dia por um ano" }
-            //        };
-            //        context.Set<Conquista>().AddRange(conquistas);
-            //        context.SaveChanges();
-            //    }
-            //});
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,5 +1,3 @@
-BEGIN;
-
 -- ============================================================
 -- PERGUNTAS
 -- ============================================================
@@ -320,6 +318,3 @@ VALUES
 (82, 'Cor de fundo da célula', FALSE, 24),
 (83, 'Quebra de página', FALSE, 24),
 (84, 'Cabeçalho do documento', FALSE, 24);
-
-
-COMMIT;

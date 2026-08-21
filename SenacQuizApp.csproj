@@ -37,4 +37,10 @@
     <Folder Include="Data\Seed\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\Seed\perguntas.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
