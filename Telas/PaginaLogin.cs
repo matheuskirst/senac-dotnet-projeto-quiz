@@ -8,14 +8,14 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaLogin : UserControl
     {
-        private readonly AutenticacaoService _usuarioService;
+        private readonly AutenticacaoService _autenticacaoService;
         private Color? _corBordas;
         public event EventHandler? EscolheuVoltar;
         public event EventHandler? ConcluiuLogin;
 
-        public PaginaLogin(AutenticacaoService usuarioService)
+        public PaginaLogin(AutenticacaoService autenticacaoService)
         {
-            _usuarioService = usuarioService;
+            _autenticacaoService = autenticacaoService;
 
             InitializeComponent();
         }
@@ -147,9 +147,9 @@ namespace SenacQuizApp.Telas
         {
             try
             {
-                LoginRequest login = new(Username: username, Senha: senha);
+                AutenticacaoRequest login = new(Username: username, Senha: senha);
 
-                LoginResponse resultado = await _usuarioService.RealizarLogin(login);
+                AutenticacaoResponse resultado = await _autenticacaoService.RealizarLogin(login);
 
                 if (resultado.IsSucesso == true)
                 {
@@ -157,7 +157,7 @@ namespace SenacQuizApp.Telas
                 }
                 else
                 {
-                    if (resultado.MensagemErro == Mensagem.LoginInvalidoErro)
+                    if (resultado.Erro == ErroAutenticacao.LoginInvalido)
                     {
                         ErroNoLogin();
                     }

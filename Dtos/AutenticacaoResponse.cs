@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos
 {
-    public record NovaRespostaResponse(bool IsSucesso, Mensagem? Mensagem=null);
+    public record AutenticacaoResponse(bool IsSucesso, ErroAutenticacao? Erro=null);
 }

@@ -6,20 +6,37 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaQuiz : UserControl
     {
-        private readonly AutenticacaoService _usuarioService;
-        private readonly QuizExecucaoService _quizService;
-        private QuizDto? QuizAtual;
-        public PaginaQuiz(AutenticacaoService usuarioService, QuizExecucaoService quizService)
+        private readonly QuizExecucaoService _quizExecucaoService;
+        public PaginaQuiz(QuizExecucaoService quizExecucaoService)
         {
-            _usuarioService = usuarioService;
-            _quizService = quizService;
+            _quizExecucaoService = quizExecucaoService;
 
             InitializeComponent();
         }
 
         private async void PaginaQuiz_Load(object sender, EventArgs e)
         {
+            ObterQuizResponse quizResposta = await _quizExecucaoService.ObterQuizDiario();
 
+            if (quizResposta.IsSucesso)
+            {
+                QuizDto? quiz = quizResposta.Data;
+
+                if (quiz == null) return;
+
+                PerguntaDto pergunta = quiz.Perguntas.First();
+
+                InputPergunta.Text = pergunta.Enunciado;
+
+                foreach(AlternativaDto alternativa in pergunta.Alternativas)
+                {
+                    AntdUI.Button button = new AntdUI.Button();
+                    button.Text = alternativa.Texto;
+
+                    button.Dock = DockStyle.Fill;
+                    PanelAlternativas.Controls.Add(button);
+                }
+            }
         }
     }
 }

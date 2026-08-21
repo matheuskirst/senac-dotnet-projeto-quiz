@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenacQuizApp.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos
 {
-    public record NovaRespostaRequest(int QuizId, int PerguntaId, int AlternativaId);
+    public record SalvarRespostaResponse(bool IsSucesso, ErroQuiz? Erro=null);
 }

@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos
 {
-    public record AlternativaDto(
-        int Id,
-        string Texto
-        );
+    public record AlternativaDto(int Id, string Texto);
 }

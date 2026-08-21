@@ -17,20 +17,20 @@ namespace SenacQuizApp.Repositories
             _contexto = contexto;
         }
 
-        public async Task Adicionar(Quiz quiz)
+        public void Adicionar(Quiz quiz)
         {
             _contexto.Quizzes.Add(quiz);
         }
 
-        public async Task Atualizar(Quiz quiz)
+        public void Atualizar(Quiz quiz)
         {
             _contexto.Quizzes.Update(quiz);
-            await _contexto.SaveChangesAsync();
         }
 
-        public async Task<Quiz> ObterPorId(int quizId)
+        public async Task<Quiz?> ObterPorId(int id)
         {
-            return await _contexto.Quizzes.SingleAsync(quiz => quiz.Id == quizId);
+            return await _contexto.Quizzes
+                .FindAsync(id);
         }
 
         public async Task<List<Quiz>> ObterPorUsuarioId(int usuarioId)

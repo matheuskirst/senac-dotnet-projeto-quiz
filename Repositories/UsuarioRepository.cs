@@ -12,12 +12,12 @@ namespace SenacQuizApp.Repositories
             _contexto = contexto;
         }
 
-        public async Task Adicionar(Usuario usuario)
+        public void Adicionar(Usuario usuario)
         {
             _contexto.Usuarios.Add(usuario);
         }
 
-        public async Task Atualizar(Usuario usuario)
+        public void Atualizar(Usuario usuario)
         {
             _contexto.Usuarios.Update(usuario);
         }
@@ -38,7 +38,7 @@ namespace SenacQuizApp.Repositories
         public async Task<Usuario?> ObterPorUsername(string username)
         {
             return await _contexto.Usuarios
-                .SingleAsync(u => u.Username == username);
+                .FirstOrDefaultAsync(u => u.Username == username);
         }
     }
 }

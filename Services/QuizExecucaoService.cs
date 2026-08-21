@@ -49,48 +49,60 @@ namespace SenacQuizApp.Services
                 Perguntas = [.. perguntasAleatorias, .. perguntaAvancada]
             };
 
-            await _quizRepository.Adicionar(quiz);
+            _quizRepository.Adicionar(quiz);
             await _contexto.SaveChangesAsync();
             return quiz;
         }
 
-        public async Task<ObterQuizResponse> ObterQuizDiario(int usuarioId)
+        public async Task<VerificarQuizResponse> VerificarQuizDiario()
+        {
+            int usuarioId = UsuarioAtual.Id;
+            var hoje = DateTime.Today;
+            List<Quiz> quizzes = await _quizRepository.ObterPorUsuarioIdEData(usuarioId, hoje);
+            Quiz? quiz = quizzes.FirstOrDefault();
+
+            if (quiz != null)
+            {
+                return new VerificarQuizResponse(Existe: true, IsConcluido: quiz.IsConcluido);
+            }
+            else
+            {
+                return new VerificarQuizResponse(Existe: false, Erro: ErroQuiz.QuizInvalido);
+            }
+        }
+
+        public async Task<ObterQuizResponse> ObterQuizDiario()
         {
             SequenciaAcertos = 0;
-            try
+
+            // Verifica se existe um quiz criado hoje
+            int usuarioId = UsuarioAtual.Id;
+            var hoje = DateTime.Today;
+            List<Quiz> quizzes = await _quizRepository.ObterPorUsuarioIdEData(usuarioId, hoje);
+            Quiz? quiz = quizzes.FirstOrDefault();
+
+            // Se quiz não existe, criar e retornar um quiz novo
+            if (quiz == null)
             {
-                // Verifica se existe um quiz criado hoje
-                var hoje = DateTime.Today;
-                List<Quiz> quizzes = await _quizRepository.ObterPorUsuarioIdEData(usuarioId, hoje);
-                Quiz? quiz = quizzes.FirstOrDefault();
+                quiz = await CriarQuiz(usuarioId);
 
-                // Se quiz não existe, criar e retornar um quiz novo
-                if (quiz == null)
-                {
-                    quiz = await CriarQuiz(usuarioId);
-
-                    QuizDto quizDto = CriarQuizDto(quiz);
-                    return new ObterQuizResponse(IsSucesso: true, Data: quizDto);
-                }
-                // Se quiz existe mas não foi concluido, retorna quiz inconcluso
-                else if (quiz != null && quiz.IsConcluido == false)
-                {
-                    QuizDto quizDto = CriarQuizDto(quiz);
-                    return new ObterQuizResponse(IsSucesso: true, Data: quizDto);
-                }
-                // Se quiz existe e foi concluido, retorna mensagem 'quiz já concluido'
-                else if (quiz != null && quiz.IsConcluido)
-                {
-                    return new ObterQuizResponse(IsSucesso: false, Mensagem: Mensagem.QuizJaConcluidoErro);
-                }
-                else
-                {
-                    return new ObterQuizResponse(IsSucesso: false, Mensagem: Mensagem.QuizInvalidoErro);
-                }
+                QuizDto quizDto = CriarQuizDto(quiz);
+                return new ObterQuizResponse(IsSucesso: true, Data: quizDto);
             }
-            catch
+            // Se quiz existe mas não foi concluido, retorna quiz inconcluso
+            else if (quiz != null && quiz.IsConcluido == false)
             {
-                return new ObterQuizResponse(IsSucesso: false, Mensagem: Mensagem.QuizInvalidoErro);
+                QuizDto quizDto = CriarQuizDto(quiz);
+                return new ObterQuizResponse(IsSucesso: true, Data: quizDto);
+            }
+            // Se quiz existe e foi concluido, retorna mensagem 'quiz já concluido'
+            else if (quiz != null && quiz.IsConcluido)
+            {
+                return new ObterQuizResponse(IsSucesso: false, Erro: ErroQuiz.QuizJaConcluido);
+            }
+            else
+            {
+                return new ObterQuizResponse(IsSucesso: false, Erro: ErroQuiz.QuizInvalido);
             }
         }
 
@@ -131,92 +143,82 @@ namespace SenacQuizApp.Services
             return quizDto;
         }
 
-        public async Task<NovaRespostaResponse> AdicionarResposta(NovaRespostaRequest respostaDto)
+        public async Task<SalvarRespostaResponse> AdicionarResposta(SalvarRespostaRequest respostaDto)
         {
             int usuarioId = UsuarioAtual.Id;
             int quizId = respostaDto.QuizId;
             int perguntaId = respostaDto.PerguntaId;
             int alternativaId = respostaDto.AlternativaId;
 
-            try
+            Usuario? usuario = await _usuarioRepository.ObterPorId(usuarioId);
+            Pergunta? pergunta = await _perguntaRepository.ObterPorId(perguntaId);
+            Alternativa? alternativa = await _alternativaRepository.ObterPorId(alternativaId);
+
+            if (usuario == null || pergunta == null || alternativa == null)
+                return new SalvarRespostaResponse(IsSucesso: false, Erro: ErroQuiz.RespostaInvalida);
+
+
+            bool acertou = alternativa.IsCorreta;
+
+            if (acertou) { SequenciaAcertos += 1; }
+            else { SequenciaAcertos = 0; }
+
+            int pontos = 0;
+
+            switch (pergunta.Nivel)
             {
-                Usuario? usuario = await _usuarioRepository.ObterPorId(usuarioId);
-                Pergunta? pergunta = await _perguntaRepository.ObterPorId(perguntaId);
-                Alternativa? alternativa = await _alternativaRepository.ObterPorId(alternativaId);
-
-                if (usuario == null || pergunta == null || alternativa == null)
-                    return new NovaRespostaResponse(IsSucesso: false, Mensagem: Mensagem.SalvarRespostaErro);
-
-
-                bool acertou = alternativa.IsCorreta;
-
-                if (acertou) { SequenciaAcertos += 1; }
-                else { SequenciaAcertos = 0; }
-
-                int pontos = 0;
-
-                switch (pergunta.Nivel)
-                {
-                    case PerguntaNivel.Iniciante:
-                        pontos += 10;
-                        break;
-                    case PerguntaNivel.Facil:
-                        pontos += 20;
-                        break;
-                    case PerguntaNivel.Intermediario:
-                        pontos += 30;
-                        break;
-                    case PerguntaNivel.Avancado:
-                        pontos += 50;
-                        break;
-                }
-
-                int bonus = 10;
-
-                if (SequenciaAcertos >= 5)
-                {
-                    bonus = 20;
-                }
-                else if (SequenciaAcertos >= 3)
-                {
-                    bonus = 10;
-                }
-                else
-                {
-                    bonus = 0;
-                }
-
-                pontos += pontos * (bonus / 100);
-
-                PerguntaRespondida resposta = new()
-                {
-                    QuizId = quizId,
-                    PerguntaId = perguntaId,
-                    Acertou = acertou,
-                    PontuacaoFinal = pontos
-                };
-
-                try
-                {
-                    await _perguntaRepository.SalvarResposta(resposta);
-                    usuario.AdicionarPontos(pontos);
-                    return new NovaRespostaResponse(IsSucesso: true);
-                }
-                catch
-                {
-                    return new NovaRespostaResponse(IsSucesso: false);
-                }
-            }
-            catch
-            {
-                return new NovaRespostaResponse(IsSucesso: false);
+                case PerguntaNivel.Iniciante:
+                    pontos += 10;
+                    break;
+                case PerguntaNivel.Facil:
+                    pontos += 20;
+                    break;
+                case PerguntaNivel.Intermediario:
+                    pontos += 30;
+                    break;
+                case PerguntaNivel.Avancado:
+                    pontos += 50;
+                    break;
             }
 
+            int bonus = 10;
+
+            if (SequenciaAcertos >= 5)
+            {
+                bonus = 20;
+            }
+            else if (SequenciaAcertos >= 3)
+            {
+                bonus = 10;
+            }
+            else
+            {
+                bonus = 0;
+            }
+
+            pontos += pontos * (bonus / 100);
+
+            PerguntaRespondida resposta = new()
+            {
+                QuizId = quizId,
+                PerguntaId = perguntaId,
+                Acertou = acertou,
+                PontuacaoFinal = pontos
+            };
+
+            _perguntaRepository.SalvarResposta(resposta);
+            usuario.AdicionarPontos(pontos);
+            return new SalvarRespostaResponse(IsSucesso: true);
         }
 
         public async Task<ObterQuizResponse> ConcluirQuiz(int quizId)
         {
-            Quiz quiz = await _quizRepository.ObterPorId(quizId);
+            Quiz? quiz = await _quizRepository.ObterPorId(quizId);
+
+            if (quiz == null)
+            {
+                return new ObterQuizResponse(IsSucesso: false, Erro: ErroQuiz.QuizInvalido);
+            }
 
             int pontuacaoTotal = 0;
 
@@ -226,7 +228,7 @@ namespace SenacQuizApp.Services
             }
 
             quiz.Concluir(pontuacaoTotal);
-            await _quizRepository.Atualizar(quiz);
+            _quizRepository.Atualizar(quiz);
             await _contexto.SaveChangesAsync();
 
             QuizDto quizDto = CriarQuizDto(quiz);

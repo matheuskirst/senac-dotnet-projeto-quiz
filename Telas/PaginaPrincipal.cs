@@ -10,28 +10,40 @@ using System.Windows.Forms;
 using SenacQuizApp.Services;
 using SenacQuizApp.Modelos;
 using Microsoft.EntityFrameworkCore.Metadata;
+using SenacQuizApp.Dtos;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace SenacQuizApp.Telas
 {
     public partial class PaginaPrincipal : UserControl
     {
-        private readonly AutenticacaoService _usuarioService;
+        private readonly QuizExecucaoService _quizExecucaoService;
+
         public event EventHandler? RealizarLogout;
         public event EventHandler? JogarQuizDiario;
-        public PaginaPrincipal(AutenticacaoService usuarioService)
+        public PaginaPrincipal(QuizExecucaoService quizExecucaoService)
         {
-            _usuarioService = usuarioService;
+            _quizExecucaoService = quizExecucaoService;
 
             InitializeComponent();
         }
 
-        private void ButtonPrincipalSair_Click(object sender, EventArgs e)
+        private async void PaginaPrincipal_Load(object sender, EventArgs e)
         {
-            RealizarLogout?.Invoke(this, EventArgs.Empty);
+            VerificarQuizResponse quiz = await _quizExecucaoService.VerificarQuizDiario();
+
+            if (!quiz.Existe || quiz.IsConcluido == false)
+            {
+                ButtonIniciarQuizDiario.Enabled = true;
+            }
+
+            if (quiz.IsConcluido == true)
+            {
+                ButtonIniciarQuizDiario.Enabled = false;
+            }
         }
 
-
-        private void ButtonPrincipalSair_Click_1(object sender, EventArgs e)
+        private void ButtonPrincipalSair_Click(object sender, EventArgs e)
         {
             RealizarLogout?.Invoke(this, EventArgs.Empty);
         }

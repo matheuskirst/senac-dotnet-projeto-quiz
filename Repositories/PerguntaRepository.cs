@@ -18,13 +18,13 @@ namespace SenacQuizApp.Repositories
             _contexto = contexto;
         }
 
-        public async Task Adicionar(Pergunta pergunta, List<Alternativa> alternativas)
+        public void Adicionar(Pergunta pergunta, List<Alternativa> alternativas)
         {
             _contexto.Perguntas.Add(pergunta);
             _contexto.Alternativas.AddRange(alternativas);
         }
 
-        public async Task AdicionarTema(PerguntaTema tema)
+        public void AdicionarTema(PerguntaTema tema)
         {
             _contexto.PerguntaTemas.Add(tema);
         }
@@ -52,7 +52,7 @@ namespace SenacQuizApp.Repositories
                 .ToListAsync();
         }
 
-        public async Task SalvarResposta(PerguntaRespondida resposta)
+        public void SalvarResposta(PerguntaRespondida resposta)
         {
             _contexto.PerguntasRespondidas.Add(resposta);
         }

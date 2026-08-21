@@ -272,9 +272,6 @@
 
         private TableLayoutPanel TableLayoutPanelSignup;
         private AntdUI.Button ButtonSignupVoltar;
-        private AntdUI.Input input4;
-        private AntdUI.Input input3;
-        private AntdUI.Input input2;
         private AntdUI.StackPanel StackPanelSignup;
         private AntdUI.Label LabelSignupUsername;
         private AntdUI.Label LabelSignupTitulo;

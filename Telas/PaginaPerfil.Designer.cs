@@ -148,10 +148,8 @@
         private TableLayoutPanel PanelPerfilFooter;
         private AntdUI.StackPanel PanelPerfilFooterEsquerda;
         private AntdUI.StackPanel PanelPerfilFooterDireita;
-        private AntdUI.Button ButtonIniciarQuizDiario;
         private TableLayoutPanel PanelPerfilHeader;
         private AntdUI.StackPanel PanelPerfilHeaderEsquerda;
         private AntdUI.StackPanel PanelPerfilHeaderDireita;
-        private AntdUI.Button ButtonPrincipalPerfil;
     }
 }

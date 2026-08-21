@@ -14,14 +14,9 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaRanking : UserControl
     {
-        private readonly AutenticacaoService _usuarioService;
 
-        public event EventHandler? VoltarParaMenu;
-
-        public PaginaRanking(AutenticacaoService usuarioService)
+        public PaginaRanking()
         {
-            _usuarioService = usuarioService;
-
             InitializeComponent();
         }
     }

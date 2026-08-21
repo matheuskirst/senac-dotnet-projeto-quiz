@@ -35,8 +35,8 @@
             PanelPrincipalFooterDireita = new AntdUI.StackPanel();
             ButtonIniciarQuizDiario = new AntdUI.Button();
             PanelPrincipalHeader = new TableLayoutPanel();
-            PanelPrincipalHeaderDireita = new AntdUI.StackPanel();
             PanelPrincipalHeaderEsquerda = new AntdUI.StackPanel();
+            PanelPrincipalHeaderDireita = new AntdUI.StackPanel();
             PanelPrincipalCentro.SuspendLayout();
             PanelPrincipalFooter.SuspendLayout();
             PanelPrincipalFooterEsquerda.SuspendLayout();
@@ -94,7 +94,7 @@
             ButtonPrincipalSair.Size = new Size(100, 48);
             ButtonPrincipalSair.TabIndex = 1;
             ButtonPrincipalSair.Text = "Sair";
-            ButtonPrincipalSair.Click += ButtonPrincipalSair_Click_1;
+            ButtonPrincipalSair.Click += ButtonPrincipalSair_Click;
             // 
             // PanelPrincipalFooterDireita
             // 
@@ -133,6 +133,16 @@
             PanelPrincipalHeader.Size = new Size(1018, 54);
             PanelPrincipalHeader.TabIndex = 1;
             // 
+            // PanelPrincipalHeaderEsquerda
+            // 
+            PanelPrincipalHeaderEsquerda.Dock = DockStyle.Fill;
+            PanelPrincipalHeaderEsquerda.Location = new Point(0, 0);
+            PanelPrincipalHeaderEsquerda.Margin = new Padding(0);
+            PanelPrincipalHeaderEsquerda.Name = "PanelPrincipalHeaderEsquerda";
+            PanelPrincipalHeaderEsquerda.Size = new Size(509, 54);
+            PanelPrincipalHeaderEsquerda.TabIndex = 2;
+            PanelPrincipalHeaderEsquerda.Text = "stackPanel1";
+            // 
             // PanelPrincipalHeaderDireita
             // 
             PanelPrincipalHeaderDireita.Dock = DockStyle.Fill;
@@ -144,16 +154,6 @@
             PanelPrincipalHeaderDireita.TabIndex = 3;
             PanelPrincipalHeaderDireita.Text = "stackPanel1";
             // 
-            // PanelPrincipalHeaderEsquerda
-            // 
-            PanelPrincipalHeaderEsquerda.Dock = DockStyle.Fill;
-            PanelPrincipalHeaderEsquerda.Location = new Point(0, 0);
-            PanelPrincipalHeaderEsquerda.Margin = new Padding(0);
-            PanelPrincipalHeaderEsquerda.Name = "PanelPrincipalHeaderEsquerda";
-            PanelPrincipalHeaderEsquerda.Size = new Size(509, 54);
-            PanelPrincipalHeaderEsquerda.TabIndex = 2;
-            PanelPrincipalHeaderEsquerda.Text = "stackPanel1";
-            // 
             // PaginaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -163,6 +163,7 @@
             Margin = new Padding(2);
             Name = "PaginaPrincipal";
             Size = new Size(1024, 720);
+            Load += PaginaPrincipal_Load;
             PanelPrincipalCentro.ResumeLayout(false);
             PanelPrincipalFooter.ResumeLayout(false);
             PanelPrincipalFooterEsquerda.ResumeLayout(false);

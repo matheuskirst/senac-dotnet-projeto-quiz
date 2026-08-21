@@ -8,13 +8,13 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaSignup : UserControl
     {
-        private readonly AutenticacaoService _usuarioService;
+        private readonly AutenticacaoService _autenticacaoService;
         private Color? _corBordas;
         public event EventHandler? EscolheuVoltar;
         public event EventHandler? ConcluiuSignup;
-        public PaginaSignup(AutenticacaoService usuarioService)
+        public PaginaSignup(AutenticacaoService autenticacaoService)
         {
-            _usuarioService = usuarioService;
+            _autenticacaoService = autenticacaoService;
             InitializeComponent();
         }
 
@@ -121,7 +121,7 @@ namespace SenacQuizApp.Telas
             ButtonSignupRegistrar.Loading = false;
         }
 
-        private async void ValidarRegistro()
+        private void ValidarRegistro()
         {
             LimparBordas();
 
@@ -137,6 +137,7 @@ namespace SenacQuizApp.Telas
             if (!string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(nick))
             {
                 nick = username.ToLower();
+                InputSignupNick.Text = nick;
                 nickValido = true;
             }
             else
@@ -253,7 +254,7 @@ namespace SenacQuizApp.Telas
         {
             try
             {
-                LoginResponse resultado = await _usuarioService.RealizarSignup(username, nickname, dataNascimento, senha);
+                AutenticacaoResponse resultado = await _autenticacaoService.RealizarSignup(username, nickname, dataNascimento, senha);
 
                 if (resultado.IsSucesso == true)
                 {
@@ -261,7 +262,7 @@ namespace SenacQuizApp.Telas
                 }
                 else
                 {
-                    if (resultado.MensagemErro == Mensagem.NomeIndisponivelErro)
+                    if (resultado.Erro == ErroAutenticacao.NomeIndisponivel)
                     {
                         NomeIndisponivel();
                     }

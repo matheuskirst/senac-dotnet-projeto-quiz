@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos
 {
-    public record LoginRequest(string Username, string Senha);
+    public record AutenticacaoRequest(string Username, string Senha);
 }

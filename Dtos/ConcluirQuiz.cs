@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos
 {
-    public record ConcluirQuiz(int Id, int PontuacaoTotal);
+    public record ConcluirQuiz(int Id);
 }
