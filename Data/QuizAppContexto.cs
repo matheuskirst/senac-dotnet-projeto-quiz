@@ -115,6 +115,10 @@ namespace SenacQuizApp.Data
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
 
+            modelBuilder.Entity<UsuarioStatus>()
+                .Property(u => u.Nivel)
+                .HasConversion<string>();
+
 
             modelBuilder.Entity<UsuarioResposta>()
                 .HasKey(pr => new { pr.QuizId, pr.PerguntaId });

@@ -13,10 +13,13 @@ namespace SenacQuizApp.Modelos
         public Usuario Usuario { get; set; } = null!;
         public UsuarioNivel Nivel { get; set; } = UsuarioNivel.Iniciante;
         public int PontuacaoTotal { get; set; } = 0;
-        public int TotalAcertos { get; set; } = 0;
         public int TotalRespondidos { get; set; } = 0;
+        public int TotalAcertos { get; set; } = 0;
         public int AtualAcertosConsecutivos { get; set; } = 0;
         public int MaxAcertosConsecutivos { get; set; } = 0;
+        public PerguntaTema TemaMaisAcertado { get; set; } = null!;
+        public int TemaTotalRespostas { get; set; } = 0;
+        public int TemaTotalAcertos { get; set; } = 0;
 
         public ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 

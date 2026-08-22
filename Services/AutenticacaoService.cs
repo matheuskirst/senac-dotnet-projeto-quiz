@@ -65,6 +65,11 @@ namespace SenacQuizApp.Services
                     Senha = senhaHash
                 };
 
+                var usuarioStatus = new UsuarioStatus
+                {
+                    Usuario = usuario,
+                };
+
                 _usuarioRepository.Adicionar(usuario);
                 await _contexto.SaveChangesAsync();
 

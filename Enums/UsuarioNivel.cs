@@ -11,6 +11,6 @@ namespace SenacQuizApp.Enums
         Iniciante = 1,
         Aprendiz = 2,
         Intermediario = 3,
-        Avancado = 4,
+        Avancado = 4
     }
 }
