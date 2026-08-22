@@ -7,6 +7,9 @@ namespace SenacQuizApp.Telas
     public partial class PaginaQuiz : UserControl
     {
         private readonly QuizExecucaoService _quizExecucaoService;
+
+        private int PerguntaAtualIndex;
+
         public PaginaQuiz(QuizExecucaoService quizExecucaoService)
         {
             _quizExecucaoService = quizExecucaoService;
@@ -17,6 +20,7 @@ namespace SenacQuizApp.Telas
         private async void PaginaQuiz_Load(object sender, EventArgs e)
         {
             ObterQuizResponse quizResposta = await _quizExecucaoService.ObterQuizDiario();
+
 
             if (quizResposta.IsSucesso)
             {

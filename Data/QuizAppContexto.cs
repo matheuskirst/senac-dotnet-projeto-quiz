@@ -13,10 +13,11 @@ namespace SenacQuizApp.Data
     public class QuizAppContexto : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<UsuarioStatus> UsuariosStatus { get; set; }
         public DbSet<Pergunta> Perguntas { get; set; }
         public DbSet<PerguntaTema> PerguntaTemas { get; set; }
         public DbSet<Alternativa> Alternativas { get; set; }
-        public DbSet<PerguntaRespondida> PerguntasRespondidas { get; set; }
+        public DbSet<UsuarioResposta> UsuariosRespostas { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<Conquista> Conquistas { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
@@ -105,24 +106,6 @@ namespace SenacQuizApp.Data
                 .HasForeignKey(a => a.PerguntaId);
 
 
-            modelBuilder.Entity<Quiz>()
-                .HasMany(q => q.Perguntas)
-                .WithMany(p => p.Quizzes)
-                .UsingEntity(qp => qp.ToTable("QuizPerguntas"));
-
-            modelBuilder.Entity<Quiz>()
-                .Property(q => q.DataDeCriacao)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-
-            modelBuilder.Entity<PerguntaRespondida>()
-                .HasKey(pr => new { pr.QuizId, pr.PerguntaId });
-
-            modelBuilder.Entity<PerguntaRespondida>()
-                .Property(pr => pr.DataDeResposta)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-
             modelBuilder.Entity<Usuario>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
@@ -132,11 +115,38 @@ namespace SenacQuizApp.Data
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
 
+
+            modelBuilder.Entity<UsuarioResposta>()
+                .HasKey(pr => new { pr.QuizId, pr.PerguntaId });
+
+            modelBuilder.Entity<UsuarioResposta>()
+                .Property(pr => pr.DataDeResposta)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+
             modelBuilder.Entity<UsuarioConquista>()
                 .HasKey(uc => new { uc.UsuarioId, uc.ConquistaId });
 
             modelBuilder.Entity<UsuarioConquista>()
                 .Property(uc => uc.DataDeAquisicao);
+
+
+            modelBuilder.Entity<Quiz>()
+                .HasIndex(ud => new { ud.UsuarioId, ud.DataExibido })
+                .IsUnique();
+
+            modelBuilder.Entity<Quiz>()
+                .Property(pr => pr.DataExibido)
+                .HasDefaultValueSql("CURRENT_DATE");
+
+            modelBuilder.Entity<Quiz>()
+                .HasMany(q => q.Perguntas)
+                .WithMany(p => p.Quizzes)
+                .UsingEntity(qp => qp.ToTable("QuizPerguntas"));
+
+            modelBuilder.Entity<Quiz>()
+                .Property(q => q.DataInicio)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
     }
 }

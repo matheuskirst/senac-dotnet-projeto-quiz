@@ -54,23 +54,6 @@ namespace SenacQuizApp.Services
             return quiz;
         }
 
-        public async Task<VerificarQuizResponse> VerificarQuizDiario()
-        {
-            int usuarioId = UsuarioAtual.Id;
-            var hoje = DateTime.Today;
-            List<Quiz> quizzes = await _quizRepository.ObterPorUsuarioIdEData(usuarioId, hoje);
-            Quiz? quiz = quizzes.FirstOrDefault();
-
-            if (quiz != null)
-            {
-                return new VerificarQuizResponse(Existe: true, IsConcluido: quiz.IsConcluido);
-            }
-            else
-            {
-                return new VerificarQuizResponse(Existe: false, Erro: ErroQuiz.QuizInvalido);
-            }
-        }
-
         public async Task<ObterQuizResponse> ObterQuizDiario()
         {
             SequenciaAcertos = 0;
@@ -120,7 +103,7 @@ namespace SenacQuizApp.Services
                 }
 
                 bool respondeuPergunta = false;
-                foreach(PerguntaRespondida resposta in quiz.PerguntasRespondidas)
+                foreach(UsuarioResposta resposta in quiz.PerguntasRespondidas)
                 {
                     if (pergunta.Id == resposta.Pergunta.Id)
                     {
@@ -198,7 +181,7 @@ namespace SenacQuizApp.Services
 
             pontos += pontos * (bonus / 100);
 
-            PerguntaRespondida resposta = new()
+            UsuarioResposta resposta = new()
             {
                 QuizId = quizId,
                 PerguntaId = perguntaId,
@@ -222,7 +205,7 @@ namespace SenacQuizApp.Services
 
             int pontuacaoTotal = 0;
 
-            foreach(PerguntaRespondida resposta in quiz.PerguntasRespondidas)
+            foreach(UsuarioResposta resposta in quiz.PerguntasRespondidas)
             {
                 pontuacaoTotal += resposta.PontuacaoFinal;
             }

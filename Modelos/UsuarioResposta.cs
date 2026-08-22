@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Modelos
 {
-    public class PerguntaRespondida
+    public class UsuarioResposta
     {
         public int Id { get; set; }
         public int QuizId { get; set; }

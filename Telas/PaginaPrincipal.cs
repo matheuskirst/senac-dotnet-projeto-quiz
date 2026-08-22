@@ -30,17 +30,7 @@ namespace SenacQuizApp.Telas
 
         private async void PaginaPrincipal_Load(object sender, EventArgs e)
         {
-            VerificarQuizResponse quiz = await _quizExecucaoService.VerificarQuizDiario();
 
-            if (!quiz.Existe || quiz.IsConcluido == false)
-            {
-                ButtonIniciarQuizDiario.Enabled = true;
-            }
-
-            if (quiz.IsConcluido == true)
-            {
-                ButtonIniciarQuizDiario.Enabled = false;
-            }
         }
 
         private void ButtonPrincipalSair_Click(object sender, EventArgs e)

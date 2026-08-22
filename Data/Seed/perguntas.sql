@@ -88,7 +88,7 @@ VALUES
 -- ALTERNATIVAS
 -- ============================================================
 
-INSERT INTO "PerguntasAlternativas" 
+INSERT INTO "Alternativas" 
     ("Id", "Texto", "IsCorreta", "PerguntaId")
 VALUES
 

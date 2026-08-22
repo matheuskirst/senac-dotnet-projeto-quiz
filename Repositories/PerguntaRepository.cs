@@ -52,7 +52,7 @@ namespace SenacQuizApp.Repositories
                 .ToListAsync();
         }
 
-        public void SalvarResposta(PerguntaRespondida resposta)
+        public void SalvarResposta(UsuarioResposta resposta)
         {
             _contexto.PerguntasRespondidas.Add(resposta);
         }
