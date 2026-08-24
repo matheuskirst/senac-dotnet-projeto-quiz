@@ -12,4 +12,3 @@ namespace SenacQuizApp.Enums
         LoginInvalido
     }
 }
-

@@ -10,6 +10,15 @@ namespace SenacQuizApp.Modelos
 {
     public class Usuario
     {
+        public Usuario (string username, string senha, string? nickname = null)
+        {
+            Username = username;
+            Senha = senha;
+            Nickname = string.IsNullOrWhiteSpace(nickname) ? username.ToLower() : nickname;
+        }
+
+        public Usuario() { }
+
         public int Id { get; set; }
         public string Username { get; set; } = null!;
         public string Nickname { get; set; } = null!;
@@ -17,8 +26,9 @@ namespace SenacQuizApp.Modelos
         public string Senha { get; set; } = null!;
         public DateTime? DataDeCadastro { get; set; } = DateTime.UtcNow;
 
-        public ICollection<UsuarioStatus> UsuarioStatus { get; set; } = new List<UsuarioStatus>();
-        public ICollection<UsuarioResposta> UsuarioRespostas { get; set; } = new List<UsuarioResposta>();
+        public UsuarioStats Stats { get; set; } = null!;
+
+        public ICollection<UsuarioResposta> Respostas { get; set; } = new List<UsuarioResposta>();
         public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }
 }

@@ -93,8 +93,8 @@
             // ButtonSignupRegistrar
             // 
             ButtonSignupRegistrar.DefaultBack = Color.Wheat;
-            ButtonSignupRegistrar.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonSignupRegistrar.Location = new Point(3, 538);
+            ButtonSignupRegistrar.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonSignupRegistrar.Location = new Point(3, 541);
             ButtonSignupRegistrar.Margin = new Padding(3, 50, 3, 3);
             ButtonSignupRegistrar.Name = "ButtonSignupRegistrar";
             ButtonSignupRegistrar.Size = new Size(434, 60);
@@ -105,7 +105,7 @@
             // InputSignupConfirmarSenha
             // 
             InputSignupConfirmarSenha.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputSignupConfirmarSenha.Location = new Point(0, 438);
+            InputSignupConfirmarSenha.Location = new Point(0, 441);
             InputSignupConfirmarSenha.Margin = new Padding(0);
             InputSignupConfirmarSenha.MaxLength = 50;
             InputSignupConfirmarSenha.Name = "InputSignupConfirmarSenha";
@@ -119,8 +119,8 @@
             // 
             // LabelSignupConfirmarSenha
             // 
-            LabelSignupConfirmarSenha.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelSignupConfirmarSenha.Location = new Point(3, 412);
+            LabelSignupConfirmarSenha.Font = new Font("Segoe UI", 14.25F);
+            LabelSignupConfirmarSenha.Location = new Point(3, 415);
             LabelSignupConfirmarSenha.Name = "LabelSignupConfirmarSenha";
             LabelSignupConfirmarSenha.Size = new Size(434, 23);
             LabelSignupConfirmarSenha.Suffix = "*";
@@ -132,7 +132,7 @@
             // InputSignupSenha
             // 
             InputSignupSenha.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputSignupSenha.Location = new Point(0, 359);
+            InputSignupSenha.Location = new Point(0, 362);
             InputSignupSenha.Margin = new Padding(0);
             InputSignupSenha.MaxLength = 50;
             InputSignupSenha.Name = "InputSignupSenha";
@@ -147,8 +147,8 @@
             // 
             // LabelSignupSenha
             // 
-            LabelSignupSenha.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelSignupSenha.Location = new Point(3, 333);
+            LabelSignupSenha.Font = new Font("Segoe UI", 14.25F);
+            LabelSignupSenha.Location = new Point(3, 336);
             LabelSignupSenha.Name = "LabelSignupSenha";
             LabelSignupSenha.Size = new Size(434, 23);
             LabelSignupSenha.Suffix = "*";
@@ -161,7 +161,7 @@
             // 
             DatePickerSignupDataNascimento.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DatePickerSignupDataNascimento.Format = "dd/MM/yyyy";
-            DatePickerSignupDataNascimento.Location = new Point(0, 280);
+            DatePickerSignupDataNascimento.Location = new Point(0, 283);
             DatePickerSignupDataNascimento.Margin = new Padding(0);
             DatePickerSignupDataNascimento.Name = "DatePickerSignupDataNascimento";
             DatePickerSignupDataNascimento.PlaceholderText = "DD/MM/AAAA";
@@ -173,8 +173,8 @@
             // 
             // LabelSignupDataNascimento
             // 
-            LabelSignupDataNascimento.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelSignupDataNascimento.Location = new Point(3, 254);
+            LabelSignupDataNascimento.Font = new Font("Segoe UI", 14.25F);
+            LabelSignupDataNascimento.Location = new Point(3, 257);
             LabelSignupDataNascimento.Name = "LabelSignupDataNascimento";
             LabelSignupDataNascimento.Size = new Size(434, 23);
             LabelSignupDataNascimento.Suffix = "*";
@@ -186,7 +186,7 @@
             // InputSignupNick
             // 
             InputSignupNick.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputSignupNick.Location = new Point(0, 201);
+            InputSignupNick.Location = new Point(0, 204);
             InputSignupNick.Margin = new Padding(0);
             InputSignupNick.Name = "InputSignupNick";
             InputSignupNick.Radius = 4;
@@ -196,8 +196,8 @@
             // 
             // LabelSignupNick
             // 
-            LabelSignupNick.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelSignupNick.Location = new Point(3, 175);
+            LabelSignupNick.Font = new Font("Segoe UI", 14.25F);
+            LabelSignupNick.Location = new Point(3, 178);
             LabelSignupNick.Name = "LabelSignupNick";
             LabelSignupNick.Size = new Size(434, 23);
             LabelSignupNick.TabIndex = 4;
@@ -207,7 +207,7 @@
             // InputSignupUsername
             // 
             InputSignupUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputSignupUsername.Location = new Point(0, 122);
+            InputSignupUsername.Location = new Point(0, 125);
             InputSignupUsername.Margin = new Padding(0);
             InputSignupUsername.Name = "InputSignupUsername";
             InputSignupUsername.Radius = 4;
@@ -217,8 +217,8 @@
             // 
             // LabelSignupUsername
             // 
-            LabelSignupUsername.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelSignupUsername.Location = new Point(3, 96);
+            LabelSignupUsername.Font = new Font("Segoe UI", 14.25F);
+            LabelSignupUsername.Location = new Point(3, 99);
             LabelSignupUsername.Name = "LabelSignupUsername";
             LabelSignupUsername.Prefix = "";
             LabelSignupUsername.Size = new Size(434, 23);
@@ -231,12 +231,12 @@
             // LabelSignupTitulo
             // 
             LabelSignupTitulo.AutoSizeMode = AntdUI.TAutoSize.Height;
-            LabelSignupTitulo.Font = new Font("Tahoma", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelSignupTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelSignupTitulo.Location = new Point(3, 3);
             LabelSignupTitulo.Margin = new Padding(3, 3, 3, 50);
             LabelSignupTitulo.MinimumSize = new Size(0, 40);
             LabelSignupTitulo.Name = "LabelSignupTitulo";
-            LabelSignupTitulo.Size = new Size(434, 40);
+            LabelSignupTitulo.Size = new Size(434, 43);
             LabelSignupTitulo.TabIndex = 1;
             LabelSignupTitulo.TabStop = false;
             LabelSignupTitulo.Text = "Criar Conta";
@@ -245,7 +245,7 @@
             // ButtonSignupVoltar
             // 
             ButtonSignupVoltar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonSignupVoltar.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonSignupVoltar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonSignupVoltar.Location = new Point(23, 633);
             ButtonSignupVoltar.Name = "ButtonSignupVoltar";
             ButtonSignupVoltar.Radius = 4;

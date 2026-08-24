@@ -40,5 +40,11 @@ namespace SenacQuizApp.Repositories
             return await _contexto.Usuarios
                 .FirstOrDefaultAsync(u => u.Username == username);
         }
+
+        public async Task<UsuarioStats?> ObterStatsPorId(int id)
+        {
+            return await _contexto.UsuarioStats
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
     }
 }

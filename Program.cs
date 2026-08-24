@@ -17,12 +17,11 @@ namespace SenacQuizApp
             QuizAppContexto contexto = new();
 
             UsuarioRepository usuarioRepository = new(contexto);
-            PerguntaRepository perguntaRepository = new(contexto);
-            AlternativaRepository alternativaRepository = new(contexto);
+            QuestaoRepository perguntaRepository = new(contexto);
             QuizRepository quizRepository = new(contexto);
 
             AutenticacaoService usuarioService = new(contexto, usuarioRepository);
-            QuizExecucaoService quizService = new(contexto, quizRepository, perguntaRepository, alternativaRepository, usuarioRepository);
+            QuizService quizService = new(contexto, quizRepository, perguntaRepository, usuarioRepository);
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

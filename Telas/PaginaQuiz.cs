@@ -1,46 +1,29 @@
-﻿using SenacQuizApp.Services;
-using SenacQuizApp.Dtos;
+﻿using SenacQuizApp.Dtos;
 using SenacQuizApp.Modelos;
+using SenacQuizApp.Enums;
+using SenacQuizApp.Services;
+using SenacQuizApp.Telas.Componentes;
+using System.ComponentModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using SenacQuizApp.Telas.Componentes.Quiz;
 
 namespace SenacQuizApp.Telas
 {
     public partial class PaginaQuiz : UserControl
     {
-        private readonly QuizExecucaoService _quizExecucaoService;
+        private readonly QuizService _quizService;
 
-        private int PerguntaAtualIndex;
+        public event EventHandler? VoltarParaMenuPrincipal;
 
-        public PaginaQuiz(QuizExecucaoService quizExecucaoService)
+        public PaginaQuiz(QuizService quizService)
         {
-            _quizExecucaoService = quizExecucaoService;
-
+            _quizService = quizService;
             InitializeComponent();
         }
 
         private async void PaginaQuiz_Load(object sender, EventArgs e)
         {
-            ObterQuizResponse quizResposta = await _quizExecucaoService.ObterQuizDiario();
 
-
-            if (quizResposta.IsSucesso)
-            {
-                QuizDto? quiz = quizResposta.Data;
-
-                if (quiz == null) return;
-
-                PerguntaDto pergunta = quiz.Perguntas.First();
-
-                InputPergunta.Text = pergunta.Enunciado;
-
-                foreach(AlternativaDto alternativa in pergunta.Alternativas)
-                {
-                    AntdUI.Button button = new AntdUI.Button();
-                    button.Text = alternativa.Texto;
-
-                    button.Dock = DockStyle.Fill;
-                    PanelAlternativas.Controls.Add(button);
-                }
-            }
         }
     }
 }

@@ -3,6 +3,7 @@ using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Data;
+using SenacQuizApp.Global;
 
 namespace SenacQuizApp.Services
 {
@@ -62,13 +63,13 @@ namespace SenacQuizApp.Services
                     Username = username,
                     Nickname = nickname,
                     DataDeNascimento = dataDeNascimento,
-                    Senha = senhaHash
+                    Senha = senhaHash,
+                    Stats = new UsuarioStats
+                    {
+                        NivelId = UsuarioNivelId.Iniciante
+                    }
                 };
 
-                var usuarioStatus = new UsuarioStatus
-                {
-                    Usuario = usuario,
-                };
 
                 _usuarioRepository.Adicionar(usuario);
                 await _contexto.SaveChangesAsync();

@@ -17,13 +17,13 @@ namespace SenacQuizApp.Telas
 {
     public partial class PaginaPrincipal : UserControl
     {
-        private readonly QuizExecucaoService _quizExecucaoService;
+        private readonly QuizService _quizService;
 
         public event EventHandler? RealizarLogout;
         public event EventHandler? JogarQuizDiario;
-        public PaginaPrincipal(QuizExecucaoService quizExecucaoService)
+        public PaginaPrincipal(QuizService quizService)
         {
-            _quizExecucaoService = quizExecucaoService;
+            _quizService = quizService;
 
             InitializeComponent();
         }

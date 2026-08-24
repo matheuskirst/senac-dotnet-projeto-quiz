@@ -131,10 +131,10 @@ namespace SenacQuizApp.Telas
             PintarErros.ErroNoCampo(InputLoginSenha);
         }
 
-        private void ErroDeConexao(string? erro)
+        private void ErroDeConexao()
         {
             MessageBox.Show(
-                $"Ocorreu um erro{erro}.",
+                "Ocorreu um erro ao se conectar com o servidor.",
                 "Erro de Conexão",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error
@@ -163,9 +163,9 @@ namespace SenacQuizApp.Telas
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                ErroDeConexao(ex.ToString());
+                ErroDeConexao();
             }
         }
     }

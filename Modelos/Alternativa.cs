@@ -11,7 +11,7 @@ namespace SenacQuizApp.Modelos
         public int Id { get; set; }
         public string Texto { get; set; } = null!;
         public bool IsCorreta { get; set; }
-        public int PerguntaId { get; set; }
-        public Pergunta Pergunta { get; set; } = null!;
+        public int QuestaoId { get; set; }
+        public Questao Questao { get; set; } = null!;
     }
 }

@@ -40,11 +40,19 @@ namespace SenacQuizApp.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Quiz>> ObterPorUsuarioIdEData(int usuarioId, DateTime data)
+        public async Task<Quiz?> ObterPorUsuarioIdEData(int usuarioId, DateOnly data)
         {
             return await _contexto.Quizzes
-                .Where(quiz => quiz.UsuarioId == usuarioId && quiz.DataDeCriacao.Date == data)
-                .ToListAsync();
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Tema)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Nivel)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Tipo)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Alternativas)
+                .Include(quiz => quiz.UsuarioRespostas)
+                .FirstOrDefaultAsync(quiz => quiz.UsuarioId == usuarioId && quiz.DataExibido == data);
         }
     }
 }

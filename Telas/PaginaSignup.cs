@@ -1,6 +1,7 @@
 ﻿using AntdUI;
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
+using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Utils;
 
@@ -109,10 +110,10 @@ namespace SenacQuizApp.Telas
             InputSignupConfirmarSenha.BorderColor = _corBordas;
         }
 
-        private void ErroDeConexao(string? erro)
+        private void ErroDeConexao(string erro)
         {
             MessageBox.Show(
-                $"Ocorreu um erro{erro}.",
+                $"Ocorreu um erro ao se conectar com o servidor {erro}.",
                 "Erro de Conexão",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error
@@ -169,9 +170,9 @@ namespace SenacQuizApp.Telas
             {
                 PintarErros.ErroNoCampo(InputSignupUsername, mensagem: "Por favor preencha o campo.");
             }
-            else if (username.Length < 3 || username.Length > 32)
+            else if (username.Length < 3 || username.Length > ModelosConstantes.Usuario.MaxUsernameLength)
             {
-                PintarErros.ErroNoCampo(InputSignupUsername, mensagem: "O Nome de Usuário deve ter entre 3 e 32 caracteres.");
+                PintarErros.ErroNoCampo(InputSignupUsername, mensagem: $"O Nome de Usuário deve ter entre 3 e {ModelosConstantes.Usuario.MaxUsernameLength} caracteres.");
             }
             else
             {
@@ -182,9 +183,9 @@ namespace SenacQuizApp.Telas
 
         private bool ValidarNickname(string nickname)
         {
-            if (!string.IsNullOrEmpty(nickname) && (nickname.Length < 3 || nickname.Length > 32))
+            if (!string.IsNullOrEmpty(nickname) && (nickname.Length < 3 || nickname.Length > ModelosConstantes.Usuario.MaxNicknameLength))
             {
-                PintarErros.ErroNoCampo(InputSignupNick, mensagem: "O Nickname deve ter entre 3 e 32 caracteres.");
+                PintarErros.ErroNoCampo(InputSignupNick, mensagem: $"O Nickname deve ter entre 3 e {ModelosConstantes.Usuario.MaxNicknameLength} caracteres.");
                 return false;
             }
             return true;
@@ -218,9 +219,9 @@ namespace SenacQuizApp.Telas
                 PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "Por favor preencha o campo.");
                 validado = false;
             }
-            else if (senha.Length < 6 || senha.Length > 50)
+            else if (senha.Length < 6 || senha.Length > ModelosConstantes.Usuario.MaxSenhaLength)
             {
-                PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "A senha deve ter entre 6 e 50 caracteres!");
+                PintarErros.ErroNoCampo(InputSignupSenha, mensagem: $"A senha deve ter entre 6 e {ModelosConstantes.Usuario.MaxSenhaLength} caracteres!");
 
                 validado = false;
             }

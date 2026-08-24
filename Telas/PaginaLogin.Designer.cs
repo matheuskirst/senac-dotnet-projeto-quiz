@@ -47,6 +47,7 @@
             // StackPanelLogin
             // 
             StackPanelLogin.Anchor = AnchorStyles.None;
+            StackPanelLogin.AutoScroll = true;
             StackPanelLogin.Controls.Add(StackPanelLoginErro);
             StackPanelLogin.Controls.Add(ButtonLoginEntrar);
             StackPanelLogin.Controls.Add(InputLoginSenha);
@@ -68,7 +69,7 @@
             StackPanelLoginErro.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             StackPanelLoginErro.BorderWidth = 2F;
             StackPanelLoginErro.Controls.Add(LabelLoginErro);
-            StackPanelLoginErro.Location = new Point(3, 367);
+            StackPanelLoginErro.Location = new Point(3, 370);
             StackPanelLoginErro.Name = "StackPanelLoginErro";
             StackPanelLoginErro.Radius = 6;
             StackPanelLoginErro.Size = new Size(434, 50);
@@ -78,7 +79,7 @@
             // LabelLoginErro
             // 
             LabelLoginErro.BackColor = Color.Transparent;
-            LabelLoginErro.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelLoginErro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelLoginErro.Location = new Point(5, 5);
             LabelLoginErro.Name = "LabelLoginErro";
             LabelLoginErro.Size = new Size(428, 40);
@@ -89,8 +90,8 @@
             // ButtonLoginEntrar
             // 
             ButtonLoginEntrar.DefaultBack = Color.PaleGreen;
-            ButtonLoginEntrar.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonLoginEntrar.Location = new Point(3, 301);
+            ButtonLoginEntrar.Font = new Font("Segoe UI", 14.25F);
+            ButtonLoginEntrar.Location = new Point(3, 304);
             ButtonLoginEntrar.Margin = new Padding(3, 50, 3, 3);
             ButtonLoginEntrar.Name = "ButtonLoginEntrar";
             ButtonLoginEntrar.Size = new Size(434, 60);
@@ -101,7 +102,7 @@
             // InputLoginSenha
             // 
             InputLoginSenha.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputLoginSenha.Location = new Point(0, 201);
+            InputLoginSenha.Location = new Point(0, 204);
             InputLoginSenha.Margin = new Padding(0);
             InputLoginSenha.MaxLength = 50;
             InputLoginSenha.Name = "InputLoginSenha";
@@ -115,8 +116,8 @@
             // 
             // LabelLoginSenha
             // 
-            LabelLoginSenha.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelLoginSenha.Location = new Point(3, 175);
+            LabelLoginSenha.Font = new Font("Segoe UI", 14.25F);
+            LabelLoginSenha.Location = new Point(3, 178);
             LabelLoginSenha.Name = "LabelLoginSenha";
             LabelLoginSenha.Size = new Size(434, 23);
             LabelLoginSenha.TabIndex = 19;
@@ -125,7 +126,7 @@
             // InputLoginUsername
             // 
             InputLoginUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputLoginUsername.Location = new Point(0, 122);
+            InputLoginUsername.Location = new Point(0, 125);
             InputLoginUsername.Margin = new Padding(0);
             InputLoginUsername.Name = "InputLoginUsername";
             InputLoginUsername.Radius = 4;
@@ -135,8 +136,8 @@
             // 
             // LabelLoginUsername
             // 
-            LabelLoginUsername.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelLoginUsername.Location = new Point(3, 96);
+            LabelLoginUsername.Font = new Font("Segoe UI", 14.25F);
+            LabelLoginUsername.Location = new Point(3, 99);
             LabelLoginUsername.Name = "LabelLoginUsername";
             LabelLoginUsername.Size = new Size(434, 23);
             LabelLoginUsername.TabIndex = 2;
@@ -145,12 +146,12 @@
             // LabelLoginTitulo
             // 
             LabelLoginTitulo.AutoSizeMode = AntdUI.TAutoSize.Height;
-            LabelLoginTitulo.Font = new Font("Tahoma", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelLoginTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelLoginTitulo.Location = new Point(3, 3);
             LabelLoginTitulo.Margin = new Padding(3, 3, 3, 50);
             LabelLoginTitulo.MinimumSize = new Size(0, 40);
             LabelLoginTitulo.Name = "LabelLoginTitulo";
-            LabelLoginTitulo.Size = new Size(434, 40);
+            LabelLoginTitulo.Size = new Size(434, 43);
             LabelLoginTitulo.TabIndex = 1;
             LabelLoginTitulo.Text = "Realizar Login";
             LabelLoginTitulo.TextAlign = ContentAlignment.TopCenter;
@@ -158,7 +159,7 @@
             // ButtonLoginVoltar
             // 
             ButtonLoginVoltar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonLoginVoltar.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonLoginVoltar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonLoginVoltar.Location = new Point(23, 633);
             ButtonLoginVoltar.Name = "ButtonLoginVoltar";
             ButtonLoginVoltar.Radius = 4;

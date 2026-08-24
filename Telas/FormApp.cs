@@ -1,4 +1,5 @@
 ﻿using AntdUI;
+using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 
 namespace SenacQuizApp.Telas
@@ -6,12 +7,12 @@ namespace SenacQuizApp.Telas
     public partial class FormApp : Window
     {
         private readonly AutenticacaoService _autenticacaoService;
-        private readonly QuizExecucaoService _quizExecucaoService;
+        private readonly QuizService _quizService;
 
-        public FormApp(AutenticacaoService autenticacaoService, QuizExecucaoService quizService)
+        public FormApp(AutenticacaoService autenticacaoService, QuizService quizService)
         {
             _autenticacaoService = autenticacaoService;
-            _quizExecucaoService = quizService;
+            _quizService = quizService;
             InitializeComponent();
         }
 
@@ -25,15 +26,12 @@ namespace SenacQuizApp.Telas
             if (pagina is PaginaInicial
                 || pagina is PaginaLogin
                 || pagina is PaginaSignup
-                || pagina is PaginaQuiz
             )
             {
-                PanelDropdownUsuario.Visible = false;
                 PanelAppHeader.Visible = false;
             }
             else
             {
-                PanelDropdownUsuario.Visible = true;
                 PanelAppHeader.Visible = true;
             }
 
@@ -53,7 +51,7 @@ namespace SenacQuizApp.Telas
         public void AbrirPaginaInicial(object? sender, EventArgs e)
         {
             _autenticacaoService.RealizarLogout();
-            PaginaInicial paginaInicial = new PaginaInicial();
+            var paginaInicial = new PaginaInicial();
 
             paginaInicial.EscolheuLogin += AbrirPaginaLogin;
             paginaInicial.EscolheuSignup += AbrirPaginaSignup;
@@ -63,7 +61,7 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaLogin(object? sender, EventArgs e)
         {
-            PaginaLogin paginaLogin = new PaginaLogin(_autenticacaoService);
+            var paginaLogin = new PaginaLogin(_autenticacaoService);
 
             paginaLogin.EscolheuVoltar += AbrirPaginaInicial;
             paginaLogin.ConcluiuLogin += AoConcluirLogin;
@@ -73,17 +71,21 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaSignup(object? sender, EventArgs e)
         {
-            PaginaSignup paginaSignup = new PaginaSignup(_autenticacaoService);
+            var paginaSignup = new PaginaSignup(_autenticacaoService);
 
             paginaSignup.EscolheuVoltar += AbrirPaginaInicial;
             paginaSignup.ConcluiuSignup += AoConcluirLogin;
 
             MudarPagina(paginaSignup);
         }
+        private void AoConcluirLogin(object? sender, EventArgs e)
+        {
+            AbrirPaginaPrincipal(sender, EventArgs.Empty);
+        }
 
         public void AbrirPaginaPrincipal(object? sender, EventArgs e)
         {
-            PaginaPrincipal paginaPrincipal = new PaginaPrincipal(_quizExecucaoService);
+            var paginaPrincipal = new PaginaPrincipal(_quizService);
 
             ButtonHeaderRanking.Enabled = true;
             ButtonHeaderPerfil.Enabled = true;
@@ -98,55 +100,22 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaQuiz(object? sender, EventArgs e)
         {
-            PaginaQuiz paginaQuiz = new PaginaQuiz(_quizExecucaoService);
+            var paginaQuiz = new PaginaQuiz(_quizService);
+
+            paginaQuiz.VoltarParaMenuPrincipal += AbrirPaginaPrincipal;
 
             MudarPagina(paginaQuiz);
         }
 
-        public void AbrirPaginaPerfil(object? sender, EventArgs e)
-        {
-            PaginaPerfil paginaPerfil = new PaginaPerfil(_autenticacaoService);
-
-            ButtonHeaderMenu.Enabled = true;
-            ButtonHeaderRanking.Enabled = true;
-
-            ButtonHeaderPerfil.Enabled = false;
-
-            MudarPagina(paginaPerfil);
-        }
-
-        public void AbrirPaginaRanking(object? sender, EventArgs e)
-        {
-            ButtonHeaderMenu.Enabled = true;
-            ButtonHeaderPerfil.Enabled = true;
-
-            ButtonHeaderRanking.Enabled = false;
-
-            PaginaRanking paginaRanking = new PaginaRanking();
-
-            MudarPagina(paginaRanking);
-        }
-
-        private void AoConcluirLogin(object? sender, EventArgs e)
-        {
-            DropdownUsuario.Text = UsuarioAtual.Username;
-
-            AbrirPaginaPrincipal(sender, EventArgs.Empty);
-        }
 
         private void ButtonHeaderMenu_Click(object sender, EventArgs e)
         {
             AbrirPaginaPrincipal(sender, EventArgs.Empty);
         }
 
-        private void ButtonHeaderRanking_Click(object sender, EventArgs e)
+        private void ButtonHeaderQuiz_Click(object sender, EventArgs e)
         {
-            AbrirPaginaRanking(sender, EventArgs.Empty);
-        }
-
-        private void ButtonHeaderPerfil_Click(object sender, EventArgs e)
-        {
-            AbrirPaginaPerfil(sender, EventArgs.Empty);
+            AbrirPaginaQuiz(sender, EventArgs.Empty);
         }
     }
 }
