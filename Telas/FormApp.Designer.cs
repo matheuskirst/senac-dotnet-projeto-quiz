@@ -61,7 +61,7 @@
             // ButtonHeaderMenu
             // 
             ButtonHeaderMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonHeaderMenu.Font = new Font("Tahoma", 12F);
+            ButtonHeaderMenu.Font = new Font("Segoe UI", 12F);
             ButtonHeaderMenu.Location = new Point(3, 3);
             ButtonHeaderMenu.Name = "ButtonHeaderMenu";
             ButtonHeaderMenu.Size = new Size(120, 44);
@@ -72,7 +72,7 @@
             // ButtonHeaderRanking
             // 
             ButtonHeaderRanking.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonHeaderRanking.Font = new Font("Tahoma", 12F);
+            ButtonHeaderRanking.Font = new Font("Segoe UI", 12F);
             ButtonHeaderRanking.Location = new Point(134, 3);
             ButtonHeaderRanking.Name = "ButtonHeaderRanking";
             ButtonHeaderRanking.Size = new Size(120, 44);
@@ -82,7 +82,7 @@
             // ButtonHeaderQuiz
             // 
             ButtonHeaderQuiz.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonHeaderQuiz.Font = new Font("Tahoma", 12F);
+            ButtonHeaderQuiz.Font = new Font("Segoe UI", 12F);
             ButtonHeaderQuiz.Location = new Point(265, 3);
             ButtonHeaderQuiz.Name = "ButtonHeaderQuiz";
             ButtonHeaderQuiz.Size = new Size(120, 44);
@@ -93,7 +93,7 @@
             // ButtonHeaderPerfil
             // 
             ButtonHeaderPerfil.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonHeaderPerfil.Font = new Font("Tahoma", 12F);
+            ButtonHeaderPerfil.Font = new Font("Segoe UI", 12F);
             ButtonHeaderPerfil.Location = new Point(396, 3);
             ButtonHeaderPerfil.Name = "ButtonHeaderPerfil";
             ButtonHeaderPerfil.Size = new Size(120, 44);

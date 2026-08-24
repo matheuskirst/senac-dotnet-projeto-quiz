@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using SenacQuizApp.Global;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SenacQuizApp.Services
 {
@@ -20,7 +21,6 @@ namespace SenacQuizApp.Services
         private readonly QuizRepository _quizRepository;
         private readonly QuestaoRepository _questaoRepository;
         private readonly UsuarioRepository _usuarioRepository;
-
 
         public QuizService(
             QuizAppContexto contexto, 
@@ -63,7 +63,6 @@ namespace SenacQuizApp.Services
             var hoje = DateOnly.FromDateTime(ObterHora.ObterHoraBrasilia());
 
             Quiz? quiz = await _quizRepository.ObterPorUsuarioIdEData(usuarioId, hoje);
-            UsuarioStats? usuarioStats = await _usuarioRepository.ObterStatsPorId(usuarioId);
 
             if (quiz == null)
             {
@@ -75,41 +74,79 @@ namespace SenacQuizApp.Services
                 Id = questao.Id,
                 Enunciado = questao.Enunciado,
                 Tipo = questao.TipoId,
+                Pontos = questao.Nivel.Pontos,
                 Respondida = quiz.UsuarioRespostas.Any(ur => ur.UsuarioId == UsuarioAtual.Id && ur.QuizId == quiz.Id && ur.QuestaoId == questao.Id),
                 Alternativas = questao.Alternativas.Select(alternativa => new AlternativaDto
                 {
                     Id = alternativa.Id,
                     Texto = alternativa.Texto,
-                }).ToList()
+                }).OrderBy(a => Guid.NewGuid()).ToList()
             }).ToList();
 
-            var quizDto = new QuizDto(QuizId: quiz.Id, DataExibido: quiz.DataExibido, FoiConcluido: quiz.FoiConcluido, PontuacaoTotal: quiz.PontuacaoTotal, Questoes: questoesDto);
+            var quizDto = new QuizDto(Id: quiz.Id, DataExibido: quiz.DataExibido, FoiConcluido: quiz.FoiConcluido, PontuacaoTotal: quiz.PontuacaoTotal, Questoes: questoesDto);
 
             return quizDto;
         }
 
-        public async Task<bool> SalvarResposta(int quizId, int questaoId, int pontuacaoInicial, bool acertou, int bonus, int PontuacaoFinal)
+        public async Task<bool> SalvarResposta(int quizId, QuestaoDto questao, int sequenciaAcertos, int? alternativaId = null, bool? verdadeiro = null)
         {
-            UsuarioStats? usuarioStats = await _usuarioRepository.ObterStatsPorId(UsuarioAtual.Id);
+            int usuarioId = UsuarioAtual.Id;
+            UsuarioStats? usuarioStats = await _usuarioRepository.ObterStatsPorId(usuarioId);
+            Quiz? quiz = await _quizRepository.ObterPorId(quizId);
+            bool correta = false;
+            int pontos = questao.Pontos;
+            int bonus = 0;
+            int pontuacaoFinal = 0;
 
-            if (usuarioStats == null) return false;
-
-            usuarioStats.AtualizarAcertos(acertou);
-
-            UsuarioResposta resposta = new()
+            if (alternativaId != null && verdadeiro == null)
             {
-                UsuarioId = UsuarioAtual.Id,
+                correta = await _questaoRepository.VerificarAlternativa(alternativaId);
+            }            
+            
+            if (verdadeiro != null && alternativaId == null)
+            {
+                correta = await _questaoRepository.VerificarVerdadeiroFalso(questao.Id, verdadeiro);
+            }
+
+            if (correta)
+            {
+                if (sequenciaAcertos >= 5)
+                {
+                    bonus = 20;
+                }
+                else if (sequenciaAcertos >= 3)
+                {
+                    bonus = 10;
+                }
+
+                pontuacaoFinal = pontos + (pontos * bonus) / 100;
+            }
+
+            if (usuarioStats != null)
+            {
+                usuarioStats.AtualizarAcertos(correta);
+                usuarioStats.AdicionarPontos(pontuacaoFinal);
+            }
+
+            if (quiz != null)
+            {
+                quiz.PontuacaoTotal += pontuacaoFinal;
+            }
+
+            var usuarioResposta = new UsuarioResposta
+            {
+                UsuarioId = usuarioId,
                 QuizId = quizId,
-                QuestaoId = questaoId,
-                PontuacaoInicial = pontuacaoInicial,
-                Acertou = acertou,
-                Bonus = bonus,
-                PontuacaoFinal = pontuacaoInicial
+                QuestaoId = questao.Id,
+                Acertou = correta,
+                PontuacaoFinal = pontuacaoFinal,
+                DataDeResposta = DateTime.UtcNow
             };
 
-            _questaoRepository.AdicionarResposta(resposta);
+            _questaoRepository.AdicionarResposta(usuarioResposta);
+
             await _contexto.SaveChangesAsync();
-            return isCorreta;
+            return correta;
         }
 
         public async Task ConcluirQuiz(int quizId)

@@ -12,6 +12,7 @@ namespace SenacQuizApp.Dtos.Quiz
         public int Id { get; set; }
         public string Enunciado { get; set; } = null!;
         public QuestaoTipoId Tipo { get; set; }
+        public int Pontos { get; set; }
         public bool Respondida { get; set; }
         public List<AlternativaDto> Alternativas { get; set; } = null!;
     }

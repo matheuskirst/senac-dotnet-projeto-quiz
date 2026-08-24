@@ -89,6 +89,7 @@ namespace SenacQuizApp.Telas
             var paginaPrincipal = new PaginaPrincipal(_quizService);
 
             ButtonHeaderRanking.Enabled = true;
+            ButtonHeaderQuiz.Enabled = true;
             ButtonHeaderPerfil.Enabled = true;
 
             ButtonHeaderMenu.Enabled = false;
@@ -101,6 +102,11 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaQuiz(object? sender, EventArgs e)
         {
+            ButtonHeaderRanking.Enabled = true;
+            ButtonHeaderMenu.Enabled = true;
+            ButtonHeaderPerfil.Enabled = true;
+
+            ButtonHeaderQuiz.Enabled = false;
             var paginaQuiz = new PaginaQuiz(_quizService);
 
             paginaQuiz.VoltarParaOMenu += AbrirPaginaPrincipal;

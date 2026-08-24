@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static SenacQuizApp.Global.ModelosConstantes;
 
 namespace SenacQuizApp.Telas.Componentes
 {
@@ -43,7 +44,7 @@ namespace SenacQuizApp.Telas.Componentes
                             "O quiz diário já foi concluido.",
                             "Quiz já concluido",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
+                            MessageBoxIcon.Warning
                             );
                         VoltarParaOMenu?.Invoke(this, EventArgs.Empty);
                     }
@@ -55,6 +56,7 @@ namespace SenacQuizApp.Telas.Componentes
                             QuestaoAtualIndex = 0,
                             SequenciaAcertos = 0
                         };
+                        ProximaQuestao();
                     }
                 }
 
@@ -83,9 +85,93 @@ namespace SenacQuizApp.Telas.Componentes
             PanelQuestoes.Controls.Add(painel);
         }
 
-        private void ProximaQuestao()
+        private async void ProximaQuestao()
         {
-            var questao = new PainelQuestoes(_quizSessao.Quiz.Questoes);
+            if (_quizSessao != null)
+            {
+                int index = _quizSessao.QuestaoAtualIndex;
+                var questao = _quizSessao.Quiz.Questoes[index];
+                var painelQuestao = new PainelQuestoes(questao);
+
+                if (index >= _quizSessao.Quiz.Questoes.Count - 1)
+                {
+                    await FinalizarQuiz();
+                }
+                else
+                {
+                    if (questao.Respondida)
+                    {
+                        ProximaQuestao();
+                    }
+
+                    painelQuestao.Dock = DockStyle.Fill;
+                    painelQuestao.EscolheuAlternativa += AoResponder;
+                    painelQuestao.EscolheuVerdadeiro += AoResponder;
+
+                    MudarPainel(painelQuestao);
+                }
+            }
+        }
+
+        private async void AoResponder(int alternativaId)
+        {
+            if (_quizSessao != null)
+            {
+                int quizId = _quizSessao.Quiz.Id;
+                int index = _quizSessao.QuestaoAtualIndex;
+                var questao = _quizSessao.Quiz.Questoes[index];
+                int sequenciaAcertos = _quizSessao.SequenciaAcertos;
+
+                bool correta = await _quizService.SalvarResposta(quizId, questao, sequenciaAcertos, alternativaId: alternativaId);
+
+                if (correta)
+                {
+                    _quizSessao.SequenciaAcertos++;
+                }
+                if (index < _quizSessao.Quiz.Questoes.Count - 1)
+                {
+                    _quizSessao.QuestaoAtualIndex++;
+                }
+                ProximaQuestao();
+            }
+        }        
+        
+        private async void AoResponder(bool verdadeira)
+        {
+            if (_quizSessao != null)
+            {
+                int quizId = _quizSessao.Quiz.Id;
+                int index = _quizSessao.QuestaoAtualIndex;
+                var questao = _quizSessao.Quiz.Questoes[index];
+                int sequenciaAcertos = _quizSessao.SequenciaAcertos;
+
+                bool correta = await _quizService.SalvarResposta(quizId, questao, sequenciaAcertos, verdadeiro: verdadeira);
+
+                if (correta)
+                {
+                    _quizSessao.SequenciaAcertos++;
+                }
+                if (index < _quizSessao.Quiz.Questoes.Count - 1)
+                {
+                    _quizSessao.QuestaoAtualIndex++;
+                }
+                ProximaQuestao();
+            }
+        }
+
+        private async Task FinalizarQuiz()
+        {
+            if (_quizSessao != null)
+            {
+                await _quizService.ConcluirQuiz(_quizSessao.Quiz.Id);
+                MessageBox.Show(
+                    "O quiz foi concluido.",
+                    "Quiz concluido",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                    );
+                VoltarParaOMenu?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 

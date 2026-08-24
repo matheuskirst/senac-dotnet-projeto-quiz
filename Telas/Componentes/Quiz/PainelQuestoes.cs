@@ -39,7 +39,7 @@ namespace SenacQuizApp.Telas.Componentes
                     
                         Tag = alternativa.Id,
                         Text = alternativa.Texto,
-                        Font = new Font("Tahoma", 12),
+                        Font = new Font("Segoe UI", 12),
                         Dock = DockStyle.Fill
                     };
 
@@ -54,7 +54,7 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     Tag = true,
                     Text = "Verdadeiro",
-                    Font = new Font("Tahoma", 12),
+                    Font = new Font("Segoe UI", 12),
                     Dock = DockStyle.Fill
                 };
                 buttonVerdade.Click += AlternativaEscolhida;
@@ -64,7 +64,7 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     Tag = false,
                     Text = "Falso",
-                    Font = new Font("Tahoma", 12),
+                    Font = new Font("Segoe UI", 12),
                     Dock = DockStyle.Fill
                 };
                 buttonFalso.Click += AlternativaEscolhida;
@@ -84,8 +84,8 @@ namespace SenacQuizApp.Telas.Componentes
                 }
                 else
                 {
-                    bool Opcao = (bool)btn.Tag;
-                    EscolheuVerdadeiro?.Invoke(Opcao);
+                    bool opcao = (bool)btn.Tag;
+                    EscolheuVerdadeiro?.Invoke(opcao);
                 }
             }
         }

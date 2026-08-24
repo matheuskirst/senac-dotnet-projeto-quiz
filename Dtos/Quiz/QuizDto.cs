@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SenacQuizApp.Dtos.Quiz
 {
     public record QuizDto(
-        int QuizId,
+        int Id,
         DateOnly DataExibido,
         bool FoiConcluido,
         int? PontuacaoTotal,

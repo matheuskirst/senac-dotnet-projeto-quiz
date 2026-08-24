@@ -175,8 +175,6 @@ namespace SenacQuizApp.Data
             {
                 entity.ToTable("UsuarioRespostas");
 
-                entity.HasKey(ur => ur.Id);
-
                 entity.HasOne(ur => ur.Usuario)
                     .WithMany(u => u.Respostas)
                     .HasForeignKey(ur => ur.UsuarioId)

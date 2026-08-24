@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SenacQuizApp.Data;
@@ -11,9 +12,11 @@ using SenacQuizApp.Data;
 namespace SenacQuizApp.Migrations
 {
     [DbContext(typeof(QuizAppContexto))]
-    partial class QuizContextoModelSnapshot : ModelSnapshot
+    [Migration("20260824223445_Atualiza")]
+    partial class Atualiza
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,6 +299,9 @@ namespace SenacQuizApp.Migrations
                     b.Property<bool>("Acertou")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("Bonus")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("DataDeResposta")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -305,6 +311,9 @@ namespace SenacQuizApp.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("PontuacaoFinal")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PontuacaoInicial")
                         .HasColumnType("integer");
 
                     b.HasKey("UsuarioId", "QuizId", "QuestaoId");

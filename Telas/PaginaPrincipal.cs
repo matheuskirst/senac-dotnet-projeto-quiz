@@ -28,7 +28,7 @@ namespace SenacQuizApp.Telas
             InitializeComponent();
         }
 
-        private async void PaginaPrincipal_Load(object sender, EventArgs e)
+        private void PaginaPrincipal_Load(object sender, EventArgs e)
         {
 
         }
