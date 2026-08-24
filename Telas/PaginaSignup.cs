@@ -1,5 +1,5 @@
 ﻿using AntdUI;
-using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;

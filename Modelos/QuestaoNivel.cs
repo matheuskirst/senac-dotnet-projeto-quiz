@@ -11,6 +11,7 @@ namespace SenacQuizApp.Modelos
     {
         public QuestaoNivelId Id { get; set; }
         public string Nome { get; set; } = null!;
+        public int Pontos { get; set; }
 
         public ICollection<Questao> Questoes { get; set; } = new List<Questao>();
     }

@@ -38,7 +38,7 @@ namespace SenacQuizApp.Telas
             RealizarLogout?.Invoke(this, EventArgs.Empty);
         }
 
-        private void ButtonIniciarQuizDiario_Click(object sender, EventArgs e)
+        private void ButtonIniciarQuiz_Click(object sender, EventArgs e)
         {
             JogarQuizDiario?.Invoke(this, EventArgs.Empty);
         }

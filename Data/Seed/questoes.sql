@@ -2,12 +2,12 @@
 -- QUESTÃO NÍVEIS
 -- ============================================================
 INSERT INTO "QuestaoNiveis"
-    ("Id", "Nome")
+    ("Id", "Nome", "Pontos")
 VALUES
-(1, 'Iniciante'),
-(2, 'Fácil'),
-(3, 'Intermediário'),
-(4, 'Avançado');
+(1, 'Iniciante', 10),
+(2, 'Fácil', 20),
+(3, 'Intermediário', 30),
+(4, 'Avançado', 50);
 
 
 -- ============================================================

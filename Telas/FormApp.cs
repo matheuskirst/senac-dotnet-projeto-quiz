@@ -1,6 +1,7 @@
 ﻿using AntdUI;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
+using SenacQuizApp.Telas.Componentes;
 
 namespace SenacQuizApp.Telas
 {
@@ -102,11 +103,10 @@ namespace SenacQuizApp.Telas
         {
             var paginaQuiz = new PaginaQuiz(_quizService);
 
-            paginaQuiz.VoltarParaMenuPrincipal += AbrirPaginaPrincipal;
+            paginaQuiz.VoltarParaOMenu += AbrirPaginaPrincipal;
 
             MudarPagina(paginaQuiz);
         }
-
 
         private void ButtonHeaderMenu_Click(object sender, EventArgs e)
         {

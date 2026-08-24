@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ButtonIniciarQuiz = new AntdUI.Button();
             SuspendLayout();
+            // 
+            // ButtonIniciarQuiz
+            // 
+            ButtonIniciarQuiz.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonIniciarQuiz.Location = new Point(364, 330);
+            ButtonIniciarQuiz.Name = "ButtonIniciarQuiz";
+            ButtonIniciarQuiz.Size = new Size(290, 83);
+            ButtonIniciarQuiz.TabIndex = 0;
+            ButtonIniciarQuiz.Text = "Iniciar Quiz";
+            ButtonIniciarQuiz.Click += ButtonIniciarQuiz_Click;
             // 
             // PaginaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
+            Controls.Add(ButtonIniciarQuiz);
             Margin = new Padding(2);
             Name = "PaginaPrincipal";
             Size = new Size(1024, 720);
@@ -43,5 +55,7 @@
         }
 
         #endregion
+
+        private AntdUI.Button ButtonIniciarQuiz;
     }
 }

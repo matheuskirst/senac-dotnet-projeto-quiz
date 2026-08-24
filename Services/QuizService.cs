@@ -1,6 +1,6 @@
 ﻿using SenacQuizApp.Data;
 using SenacQuizApp.Repositories;
-using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.Quiz;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Enums;
 using System;
@@ -57,7 +57,7 @@ namespace SenacQuizApp.Services
             return quizCriado;
         }
 
-        public async Task<QuizDto> ObterQuizDiario()
+        public async Task<QuizDto?> ObterQuizDiario()
         {
             int usuarioId = UsuarioAtual.Id;
             var hoje = DateOnly.FromDateTime(ObterHora.ObterHoraBrasilia());
@@ -70,117 +70,41 @@ namespace SenacQuizApp.Services
                 quiz = await CriarQuiz(usuarioId);
             }
 
-            var questoessDtos = quiz.Questoes.Select(questao => new QuestaoDto(
-                Id: questao.Id,
-                Enunciado: questao.Enunciado,
-                TemaId: questao.TemaId,
-                Tema: questao.Tema.Nome,
-                TipoId: questao.TipoId,
-                Tipo: questao.Tipo.Nome,
-                NivelId: questao.NivelId,
-                Nivel: questao.Nivel.Nome,
-                Respondida: quiz.UsuarioRespostas.Any(qr =>qr.QuizId == quiz.Id && qr.UsuarioId == usuarioId && qr.QuestaoId == questao.Id),
-                Alternativas: questao.Alternativas.Select(alternativa => new AlternativaDto(
-                    Id: alternativa.Id,
-                    Texto: alternativa.Texto
-                )).ToList()
-            )).ToList();
+            var questoesDto = quiz.Questoes.Select(questao => new QuestaoDto
+            {
+                Id = questao.Id,
+                Enunciado = questao.Enunciado,
+                Tipo = questao.TipoId,
+                Respondida = quiz.UsuarioRespostas.Any(ur => ur.UsuarioId == UsuarioAtual.Id && ur.QuizId == quiz.Id && ur.QuestaoId == questao.Id),
+                Alternativas = questao.Alternativas.Select(alternativa => new AlternativaDto
+                {
+                    Id = alternativa.Id,
+                    Texto = alternativa.Texto,
+                }).ToList()
+            }).ToList();
 
-            var respostasDtos = quiz.UsuarioRespostas.Select(resposta => new QuestaoRespondidaDto(
-                Id: resposta.Id,
-                QuestaoId: resposta.QuestaoId,
-                Acertou: resposta.Acertou,
-                PontuacaoInicial: resposta.PontuacaoInicial,
-                Bonus: resposta.Bonus,
-                PontuacaoFinal: resposta.PontuacaoFinal
-            )).ToList();
-
-            QuizDto quizDto = new(
-                Id: quiz.Id,
-                IsConcluido: quiz.IsConcluido,
-                TempoDeConclusao: quiz.TempoDeConclusao,
-                PontuacaoTotal: quiz.PontuacaoTotal,
-                Questoes: questoessDtos,
-                Respondidas: respostasDtos
-                );
+            var quizDto = new QuizDto(QuizId: quiz.Id, DataExibido: quiz.DataExibido, FoiConcluido: quiz.FoiConcluido, PontuacaoTotal: quiz.PontuacaoTotal, Questoes: questoesDto);
 
             return quizDto;
         }
 
-        public async Task<bool> SalvarResposta(QuizDto quiz, QuestaoDto questao, int sequenciaAcertos, int? alternativaId = null, bool? verdadeiro = null)
+        public async Task<bool> SalvarResposta(int quizId, int questaoId, int pontuacaoInicial, bool acertou, int bonus, int PontuacaoFinal)
         {
             UsuarioStats? usuarioStats = await _usuarioRepository.ObterStatsPorId(UsuarioAtual.Id);
 
             if (usuarioStats == null) return false;
 
-            int pontos = 0;
-            int bonus = 0;
-            bool isCorreta = false;
-
-            switch (questao.NivelId)
-            {
-                case QuestaoNivelId.Iniciante:
-                    pontos += 10;
-                    break;
-                case QuestaoNivelId.Facil:
-                    pontos += 20;
-                    break;
-                case QuestaoNivelId.Intermediario:
-                    pontos += 30;
-                    break;
-                case QuestaoNivelId.Avancado:
-                    pontos += 50;
-                    break;
-            }
-
-            // Bônus em %
-            if (sequenciaAcertos >= 5)
-            {
-                bonus = 20 ;
-            }
-            else if (sequenciaAcertos >= 3)
-            {
-                bonus = 10;
-            }
-            else
-            {
-                bonus = 0;
-            }
-
-            int pontosBonus = pontos + (pontos * bonus) / 100;
-
-            if (questao.TipoId == QuestaoTipoId.Alternativas && alternativaId != null)
-            {
-                isCorreta = await _questaoRepository.VerificarAlternativa(alternativaId);
-
-            }
-
-            if (questao.TipoId == QuestaoTipoId.VerdadeiroOuFalso && verdadeiro != null)
-            {
-                isCorreta = await _questaoRepository.VerificarVerdadeiroFalso(questao.Id, verdadeiro);
-            }
-
-            if (isCorreta) 
-            { 
-                usuarioStats.AdicionarPontos(pontosBonus); 
-            }
-            else
-            {
-                bonus = 0;
-                pontosBonus = 0;
-            }
-
-            usuarioStats.AtualizarAcertos(isCorreta);
+            usuarioStats.AtualizarAcertos(acertou);
 
             UsuarioResposta resposta = new()
             {
                 UsuarioId = UsuarioAtual.Id,
-                QuizId = quiz.Id,
-                QuestaoId = questao.Id,
-                PontuacaoInicial = pontos,
-                Acertou = isCorreta,
+                QuizId = quizId,
+                QuestaoId = questaoId,
+                PontuacaoInicial = pontuacaoInicial,
+                Acertou = acertou,
                 Bonus = bonus,
-                PontuacaoFinal = pontosBonus
+                PontuacaoFinal = pontuacaoInicial
             };
 
             _questaoRepository.AdicionarResposta(resposta);

@@ -14,7 +14,7 @@ namespace SenacQuizApp.Modelos
         public Usuario Usuario { get; set; } = null!;
         public DateTime DataInicio { get; set; } = DateTime.UtcNow;
         public DateOnly DataExibido { get; set; } = DateOnly.FromDateTime(ObterHora.ObterHoraBrasilia());
-        public bool IsConcluido { get; set; } = false;
+        public bool FoiConcluido { get; set; } = false;
         public DateTime? DataConcluido { get; set; }
         public TimeSpan? TempoDeConclusao { get; set; }
         public int PontuacaoTotal { get; set; } = 0;
@@ -24,9 +24,9 @@ namespace SenacQuizApp.Modelos
 
         public void Concluir()
         {
-            if (IsConcluido) throw new InvalidOperationException("Esse quiz já foi concluido");
+            if (FoiConcluido) throw new InvalidOperationException("Esse quiz já foi concluido");
 
-            IsConcluido = true;
+            FoiConcluido = true;
             DataConcluido = DateTime.UtcNow;
             TempoDeConclusao = DataConcluido - DataInicio;
         }

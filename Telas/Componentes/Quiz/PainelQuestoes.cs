@@ -1,5 +1,6 @@
-﻿using SenacQuizApp.Dtos;
+﻿using SenacQuizApp.Dtos.Quiz;
 using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +30,7 @@ namespace SenacQuizApp.Telas.Componentes
         {
             InputPergunta.Text = _questao.Enunciado;
 
-            if (_questao.TipoId == QuestaoTipoId.Alternativas)
+            if (_questao.Tipo == QuestaoTipoId.Alternativas)
             {
                 foreach (AlternativaDto alternativa in _questao.Alternativas)
                 {
@@ -76,7 +77,7 @@ namespace SenacQuizApp.Telas.Componentes
             var btn = sender as AntdUI.Button;
             if (btn != null && btn.Tag != null)
             {
-                if (_questao.TipoId == QuestaoTipoId.Alternativas)
+                if (_questao.Tipo == QuestaoTipoId.Alternativas)
                 {
                     int alternativaId = (int)btn.Tag;
                     EscolheuAlternativa?.Invoke(alternativaId);

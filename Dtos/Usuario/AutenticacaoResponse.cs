@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Dtos
+namespace SenacQuizApp.Dtos.Usuario
 {
     public record AutenticacaoResponse(bool IsSucesso, ErroAutenticacao? Erro=null);
 }

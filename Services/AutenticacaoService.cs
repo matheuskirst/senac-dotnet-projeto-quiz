@@ -1,9 +1,9 @@
 ﻿using SenacQuizApp.Repositories;
-using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Data;
 using SenacQuizApp.Global;
+using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Services
 {

@@ -1,8 +1,8 @@
 ﻿using AntdUI;
 using SenacQuizApp.Enums;
-using SenacQuizApp.Dtos;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Utils;
+using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Telas
 {
