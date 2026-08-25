@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SenacQuizApp.Global.ModelosConstantes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SenacQuizApp.Repositories
 {
@@ -30,13 +32,31 @@ namespace SenacQuizApp.Repositories
         public async Task<Quiz?> ObterPorId(int id)
         {
             return await _contexto.Quizzes
-                .FindAsync(id);
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Tema)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Nivel)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Tipo)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Alternativas)
+            .Include(quiz => quiz.UsuarioRespostas)
+                .FirstOrDefaultAsync(quiz => quiz.Id == id);
         }
 
         public async Task<List<Quiz>> ObterPorUsuarioId(int usuarioId)
         {
             return await _contexto.Quizzes
                 .Where(quiz => quiz.UsuarioId == usuarioId)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Tema)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Nivel)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Tipo)
+                .Include(quiz => quiz.Questoes)
+                    .ThenInclude(q => q.Alternativas)
+                .Include(quiz => quiz.UsuarioRespostas)
                 .ToListAsync();
         }
 

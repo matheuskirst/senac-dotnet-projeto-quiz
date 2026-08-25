@@ -1,6 +1,7 @@
 ﻿using SenacQuizApp.Data;
 using SenacQuizApp.Repositories;
 using SenacQuizApp.Dtos.Quiz;
+using SenacQuizApp.Dtos.Quiz.Concluido;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Enums;
 using System;
@@ -73,7 +74,7 @@ namespace SenacQuizApp.Services
             {
                 Id = questao.Id,
                 Enunciado = questao.Enunciado,
-                Tipo = questao.TipoId,
+                TipoId = questao.TipoId,
                 Pontos = questao.Nivel.Pontos,
                 Respondida = quiz.UsuarioRespostas.Any(ur => ur.UsuarioId == UsuarioAtual.Id && ur.QuizId == quiz.Id && ur.QuestaoId == questao.Id),
                 Alternativas = questao.Alternativas.Select(alternativa => new AlternativaDto
@@ -83,9 +84,72 @@ namespace SenacQuizApp.Services
                 }).OrderBy(a => Guid.NewGuid()).ToList()
             }).ToList();
 
-            var quizDto = new QuizDto(Id: quiz.Id, DataExibido: quiz.DataExibido, FoiConcluido: quiz.FoiConcluido, PontuacaoTotal: quiz.PontuacaoTotal, Questoes: questoesDto);
+            var quizDto = new QuizDto
+            {
+                Id = quiz.Id,
+                DataExibido = quiz.DataExibido,
+                FoiConcluido = quiz.FoiConcluido,
+                PontuacaoTotal = quiz.PontuacaoTotal,
+                Questoes = questoesDto
+            };
 
             return quizDto;
+        }
+
+        public async Task<QuizConcluidoDto?> ObterQuiz(int quizId)
+        {
+            int usuarioId = UsuarioAtual.Id;
+            var hoje = DateOnly.FromDateTime(ObterHora.ObterHoraBrasilia());
+
+            Quiz? quiz = await _quizRepository.ObterPorId(quizId);
+
+            if (quiz == null)
+            {
+                return null;
+            }
+
+            var questoesConcluidasDto = quiz.Questoes.Select(questao => new QuestaoConcluidaDto
+            {
+                Id = questao.Id,
+                Enunciado = questao.Enunciado,
+                TemaId = questao.TemaId,
+                Tema = questao.Tema.Nome,
+                NivelId = questao.NivelId,
+                Nivel = questao.Nivel.Nome,
+                TipoId = questao.TipoId,
+                Tipo = questao.Tipo.Nome,
+                Pontos = quiz.UsuarioRespostas
+                    .Where(ur =>
+                        ur.UsuarioId == UsuarioAtual.Id
+                        && ur.QuizId == quiz.Id
+                        && ur.QuestaoId == questao.Id)
+                    .Select(ur => ur.PontuacaoFinal)
+                    .FirstOrDefault(),
+                Acertou = quiz.UsuarioRespostas
+                    .Where(ur =>
+                        ur.UsuarioId == UsuarioAtual.Id
+                        && ur.QuizId == quiz.Id
+                        && ur.QuestaoId == questao.Id)
+                    .Select(ur => ur.Acertou)
+                    .FirstOrDefault(),
+            }).ToList();
+
+            var quizConcluidoDto = new QuizConcluidoDto
+            {
+                Id = quiz.Id,
+                DataInicio = quiz.DataInicio,
+                DataExibido = quiz.DataExibido,
+                FoiConcluido = quiz.FoiConcluido,
+                DataConcluido = quiz.DataConcluido,
+                TempoDeConclusao = quiz.TempoDeConclusao,
+                TotalQuestoes = quiz.Questoes.Count(),
+                TotalAcertos = quiz.UsuarioRespostas
+                    .Count(ur => ur.Acertou == true),
+                PontuacaoTotal = quiz.PontuacaoTotal,
+                Questoes = questoesConcluidasDto
+            };
+
+            return quizConcluidoDto;
         }
 
         public async Task<bool> SalvarResposta(int quizId, QuestaoDto questao, int sequenciaAcertos, int? alternativaId = null, bool? verdadeiro = null)

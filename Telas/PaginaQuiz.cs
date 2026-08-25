@@ -40,6 +40,7 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     if (quiz.FoiConcluido)
                     {
+                        await _quizService.ObterQuiz(quiz);
                         MessageBox.Show(
                             "O quiz diário já foi concluido.",
                             "Quiz já concluido",
@@ -127,6 +128,10 @@ namespace SenacQuizApp.Telas.Componentes
                 if (correta)
                 {
                     _quizSessao.SequenciaAcertos++;
+                }
+                else
+                {
+                    _quizSessao.SequenciaAcertos = 0;
                 }
                 if (index < _quizSessao.Quiz.Questoes.Count - 1)
                 {

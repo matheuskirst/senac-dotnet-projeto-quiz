@@ -28,9 +28,9 @@ namespace SenacQuizApp.Telas.Componentes
 
         private void PainelPergunta_Load(object sender, EventArgs e)
         {
-            InputPergunta.Text = _questao.Enunciado;
+            LabelQuestaoEnunciado.Text = _questao.Enunciado;
 
-            if (_questao.Tipo == QuestaoTipoId.Alternativas)
+            if (_questao.TipoId == QuestaoTipoId.Alternativas)
             {
                 foreach (AlternativaDto alternativa in _questao.Alternativas)
                 {
@@ -39,7 +39,7 @@ namespace SenacQuizApp.Telas.Componentes
                     
                         Tag = alternativa.Id,
                         Text = alternativa.Texto,
-                        Font = new Font("Segoe UI", 12),
+                        Font = new Font("Segoe UI", 16),
                         Dock = DockStyle.Fill
                     };
 
@@ -54,7 +54,7 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     Tag = true,
                     Text = "Verdadeiro",
-                    Font = new Font("Segoe UI", 12),
+                    Font = new Font("Segoe UI", 16),
                     Dock = DockStyle.Fill
                 };
                 buttonVerdade.Click += AlternativaEscolhida;
@@ -64,7 +64,7 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     Tag = false,
                     Text = "Falso",
-                    Font = new Font("Segoe UI", 12),
+                    Font = new Font("Segoe UI", 16),
                     Dock = DockStyle.Fill
                 };
                 buttonFalso.Click += AlternativaEscolhida;
@@ -77,7 +77,7 @@ namespace SenacQuizApp.Telas.Componentes
             var btn = sender as AntdUI.Button;
             if (btn != null && btn.Tag != null)
             {
-                if (_questao.Tipo == QuestaoTipoId.Alternativas)
+                if (_questao.TipoId == QuestaoTipoId.Alternativas)
                 {
                     int alternativaId = (int)btn.Tag;
                     EscolheuAlternativa?.Invoke(alternativaId);

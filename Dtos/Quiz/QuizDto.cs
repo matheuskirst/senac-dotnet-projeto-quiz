@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos.Quiz
 {
-    public record QuizDto(
-        int Id,
-        DateOnly DataExibido,
-        bool FoiConcluido,
-        int? PontuacaoTotal,
-        List<QuestaoDto> Questoes
-        );
+    public record QuizDto {
+        public int Id { get; set; }
+        public DateOnly DataExibido { get; set; }
+        public bool FoiConcluido { get; set; }
+        public int? PontuacaoTotal { get; set; }
+        public List<QuestaoDto> Questoes { get; set; } = null!;
+    }
 }

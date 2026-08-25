@@ -28,45 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            PanelPerguntaCentral = new TableLayoutPanel();
-            InputPergunta = new AntdUI.Input();
+            LabelQuestaoEnunciado = new AntdUI.Input();
             PanelAlternativas = new TableLayoutPanel();
+            PanelPerguntaCentral = new TableLayoutPanel();
             PanelPerguntaCentral.SuspendLayout();
             SuspendLayout();
             // 
-            // PanelPerguntaCentral
+            // LabelQuestaoEnunciado
             // 
-            PanelPerguntaCentral.ColumnCount = 3;
-            PanelPerguntaCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
-            PanelPerguntaCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 90F));
-            PanelPerguntaCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
-            PanelPerguntaCentral.Controls.Add(InputPergunta, 1, 0);
-            PanelPerguntaCentral.Controls.Add(PanelAlternativas, 1, 1);
-            PanelPerguntaCentral.Dock = DockStyle.Fill;
-            PanelPerguntaCentral.Location = new Point(0, 0);
-            PanelPerguntaCentral.Margin = new Padding(3, 2, 3, 2);
-            PanelPerguntaCentral.Name = "PanelPerguntaCentral";
-            PanelPerguntaCentral.RowCount = 3;
-            PanelPerguntaCentral.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            PanelPerguntaCentral.RowStyles.Add(new RowStyle(SizeType.Percent, 75F));
-            PanelPerguntaCentral.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            PanelPerguntaCentral.Size = new Size(1000, 700);
-            PanelPerguntaCentral.TabIndex = 3;
-            // 
-            // InputPergunta
-            // 
-            InputPergunta.AutoScroll = true;
-            InputPergunta.Dock = DockStyle.Fill;
-            InputPergunta.Font = new Font("Tahoma", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            InputPergunta.Location = new Point(53, 2);
-            InputPergunta.Margin = new Padding(3, 2, 3, 2);
-            InputPergunta.MinimumSize = new Size(460, 100);
-            InputPergunta.Multiline = true;
-            InputPergunta.Name = "InputPergunta";
-            InputPergunta.PrefixText = "Pergunta: ";
-            InputPergunta.ReadOnly = true;
-            InputPergunta.Size = new Size(894, 158);
-            InputPergunta.TabIndex = 0;
+            LabelQuestaoEnunciado.Dock = DockStyle.Fill;
+            LabelQuestaoEnunciado.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelQuestaoEnunciado.Location = new Point(53, 3);
+            LabelQuestaoEnunciado.Multiline = true;
+            LabelQuestaoEnunciado.Name = "LabelQuestaoEnunciado";
+            LabelQuestaoEnunciado.PrefixText = "Questão: ";
+            LabelQuestaoEnunciado.Size = new Size(894, 156);
+            LabelQuestaoEnunciado.TabIndex = 2;
             // 
             // PanelAlternativas
             // 
@@ -87,6 +64,25 @@
             PanelAlternativas.Size = new Size(840, 427);
             PanelAlternativas.TabIndex = 1;
             // 
+            // PanelPerguntaCentral
+            // 
+            PanelPerguntaCentral.ColumnCount = 3;
+            PanelPerguntaCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
+            PanelPerguntaCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 90F));
+            PanelPerguntaCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
+            PanelPerguntaCentral.Controls.Add(PanelAlternativas, 1, 1);
+            PanelPerguntaCentral.Controls.Add(LabelQuestaoEnunciado, 1, 0);
+            PanelPerguntaCentral.Dock = DockStyle.Fill;
+            PanelPerguntaCentral.Location = new Point(0, 0);
+            PanelPerguntaCentral.Margin = new Padding(3, 2, 3, 2);
+            PanelPerguntaCentral.Name = "PanelPerguntaCentral";
+            PanelPerguntaCentral.RowCount = 3;
+            PanelPerguntaCentral.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            PanelPerguntaCentral.RowStyles.Add(new RowStyle(SizeType.Percent, 75F));
+            PanelPerguntaCentral.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            PanelPerguntaCentral.Size = new Size(1000, 700);
+            PanelPerguntaCentral.TabIndex = 3;
+            // 
             // PainelQuestoes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -101,8 +97,8 @@
 
         #endregion
 
-        private TableLayoutPanel PanelPerguntaCentral;
-        private AntdUI.Input InputPergunta;
+        private AntdUI.Input LabelQuestaoEnunciado;
         private TableLayoutPanel PanelAlternativas;
+        private TableLayoutPanel PanelPerguntaCentral;
     }
 }
