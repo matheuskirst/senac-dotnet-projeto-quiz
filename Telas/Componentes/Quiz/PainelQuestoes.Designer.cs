@@ -28,22 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            LabelQuestaoEnunciado = new AntdUI.Input();
             PanelAlternativas = new TableLayoutPanel();
             PanelPerguntaCentral = new TableLayoutPanel();
+            InputQuestaoEnunciado = new AntdUI.Input();
             PanelPerguntaCentral.SuspendLayout();
             SuspendLayout();
-            // 
-            // LabelQuestaoEnunciado
-            // 
-            LabelQuestaoEnunciado.Dock = DockStyle.Fill;
-            LabelQuestaoEnunciado.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuestaoEnunciado.Location = new Point(53, 3);
-            LabelQuestaoEnunciado.Multiline = true;
-            LabelQuestaoEnunciado.Name = "LabelQuestaoEnunciado";
-            LabelQuestaoEnunciado.PrefixText = "Questão: ";
-            LabelQuestaoEnunciado.Size = new Size(894, 156);
-            LabelQuestaoEnunciado.TabIndex = 2;
             // 
             // PanelAlternativas
             // 
@@ -71,7 +60,7 @@
             PanelPerguntaCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 90F));
             PanelPerguntaCentral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
             PanelPerguntaCentral.Controls.Add(PanelAlternativas, 1, 1);
-            PanelPerguntaCentral.Controls.Add(LabelQuestaoEnunciado, 1, 0);
+            PanelPerguntaCentral.Controls.Add(InputQuestaoEnunciado, 1, 0);
             PanelPerguntaCentral.Dock = DockStyle.Fill;
             PanelPerguntaCentral.Location = new Point(0, 0);
             PanelPerguntaCentral.Margin = new Padding(3, 2, 3, 2);
@@ -82,6 +71,18 @@
             PanelPerguntaCentral.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             PanelPerguntaCentral.Size = new Size(1000, 700);
             PanelPerguntaCentral.TabIndex = 3;
+            // 
+            // InputQuestaoEnunciado
+            // 
+            InputQuestaoEnunciado.Dock = DockStyle.Fill;
+            InputQuestaoEnunciado.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InputQuestaoEnunciado.Location = new Point(53, 3);
+            InputQuestaoEnunciado.Multiline = true;
+            InputQuestaoEnunciado.Name = "InputQuestaoEnunciado";
+            InputQuestaoEnunciado.PrefixText = "";
+            InputQuestaoEnunciado.ReadOnly = true;
+            InputQuestaoEnunciado.Size = new Size(894, 156);
+            InputQuestaoEnunciado.TabIndex = 2;
             // 
             // PainelQuestoes
             // 
@@ -96,9 +97,8 @@
         }
 
         #endregion
-
-        private AntdUI.Input LabelQuestaoEnunciado;
         private TableLayoutPanel PanelAlternativas;
         private TableLayoutPanel PanelPerguntaCentral;
+        private AntdUI.Input InputQuestaoEnunciado;
     }
 }

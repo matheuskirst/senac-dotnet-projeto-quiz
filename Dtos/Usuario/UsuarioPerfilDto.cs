@@ -1,9 +1,4 @@
 ﻿using SenacQuizApp.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos.Usuario
 {
@@ -12,9 +7,9 @@ namespace SenacQuizApp.Dtos.Usuario
         public int Id { get; set; }
         public string Username { get; set; } = null!;
         public string Nickname { get; set; } = null!;
-        public DateTime? DataDeNascimento { get; set; }
         public DateTime? DataDeCadastro { get; set; }
-        public UsuarioNivelId Nivel { get; set; }
+        public UsuarioNivelId NivelId { get; set; }
+        public string Nivel { get; set; } = null!;
         public int PontuacaoTotal { get; set; }
         public int TotalAcertos { get; set; }
         public int TotalRespondidos { get; set; }

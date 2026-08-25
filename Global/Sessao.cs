@@ -1,7 +1,4 @@
-﻿using SenacQuizApp.Dtos;
-using System.ComponentModel.DataAnnotations;
-
-namespace SenacQuizApp.Global
+﻿namespace SenacQuizApp.Global
 {
     public static class UsuarioAtual
     {

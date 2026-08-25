@@ -9,11 +9,13 @@ namespace SenacQuizApp.Telas
     {
         private readonly AutenticacaoService _autenticacaoService;
         private readonly QuizService _quizService;
+        private readonly UsuarioPerfilService _usuarioPerfilService;
 
-        public FormApp(AutenticacaoService autenticacaoService, QuizService quizService)
+        public FormApp(AutenticacaoService autenticacaoService, QuizService quizService, UsuarioPerfilService usuarioPerfilService)
         {
             _autenticacaoService = autenticacaoService;
             _quizService = quizService;
+            _usuarioPerfilService = usuarioPerfilService;
             InitializeComponent();
         }
 
@@ -89,25 +91,23 @@ namespace SenacQuizApp.Telas
             var paginaPrincipal = new PaginaPrincipal(_quizService);
 
             ButtonHeaderRanking.Enabled = true;
-            ButtonHeaderQuiz.Enabled = true;
             ButtonHeaderPerfil.Enabled = true;
 
             ButtonHeaderMenu.Enabled = false;
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
-            paginaPrincipal.JogarQuizDiario += AbrirPaginaQuiz;
+            paginaPrincipal.AbrirQuizDiario += AbrirPaginaQuiz;
 
             MudarPagina(paginaPrincipal);
         }
 
-        public void AbrirPaginaQuiz(object? sender, EventArgs e)
+        public void AbrirPaginaQuiz(int quizId)
         {
             ButtonHeaderRanking.Enabled = true;
             ButtonHeaderMenu.Enabled = true;
             ButtonHeaderPerfil.Enabled = true;
 
-            ButtonHeaderQuiz.Enabled = false;
-            var paginaQuiz = new PaginaQuiz(_quizService);
+            var paginaQuiz = new PaginaQuiz(quizId, _quizService, _usuarioPerfilService);
 
             paginaQuiz.VoltarParaOMenu += AbrirPaginaPrincipal;
 
@@ -117,11 +117,6 @@ namespace SenacQuizApp.Telas
         private void ButtonHeaderMenu_Click(object sender, EventArgs e)
         {
             AbrirPaginaPrincipal(sender, EventArgs.Empty);
-        }
-
-        private void ButtonHeaderQuiz_Click(object sender, EventArgs e)
-        {
-            AbrirPaginaQuiz(sender, EventArgs.Empty);
         }
     }
 }

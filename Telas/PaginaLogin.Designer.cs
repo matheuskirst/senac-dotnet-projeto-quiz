@@ -84,7 +84,7 @@
             LabelLoginErro.Name = "LabelLoginErro";
             LabelLoginErro.Size = new Size(428, 40);
             LabelLoginErro.TabIndex = 1;
-            LabelLoginErro.Text = "O Nome ou a Senha são inválidos!";
+            LabelLoginErro.Text = "";
             LabelLoginErro.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ButtonLoginEntrar

@@ -122,8 +122,9 @@ namespace SenacQuizApp.Telas
             InputLoginSenha.BorderColor = _corBordas;
         }
 
-        private void ErroNoLogin()
+        private void ErroNoLogin(string erro)
         {
+            LabelLoginErro.Text = erro;
             ButtonLoginEntrar.Enabled = true;
             ButtonLoginEntrar.Loading = false;
             StackPanelLoginErro.Visible = true;
@@ -147,21 +148,20 @@ namespace SenacQuizApp.Telas
         {
             try
             {
-                AutenticacaoRequest login = new(Username: username, Senha: senha);
+                bool loginSucesso = await _autenticacaoService.RealizarLogin(username, senha);
 
-                AutenticacaoResponse resultado = await _autenticacaoService.RealizarLogin(login);
-
-                if (resultado.IsSucesso == true)
+                if (loginSucesso)
                 {
                     ConcluiuLogin?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
-                    if (resultado.Erro == ErroAutenticacao.LoginInvalido)
-                    {
-                        ErroNoLogin();
-                    }
+                    ErroDeConexao();
                 }
+            }
+            catch (LoginException ex)
+            {
+                ErroNoLogin(ex.ToString());
             }
             catch
             {

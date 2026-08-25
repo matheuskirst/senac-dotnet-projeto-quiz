@@ -28,7 +28,8 @@ namespace SenacQuizApp.Telas.Componentes
 
         private void PainelPergunta_Load(object sender, EventArgs e)
         {
-            LabelQuestaoEnunciado.Text = _questao.Enunciado;
+            InputQuestaoEnunciado.WordWrap = true;
+            InputQuestaoEnunciado.Text = _questao.Enunciado;
 
             if (_questao.TipoId == QuestaoTipoId.Alternativas)
             {

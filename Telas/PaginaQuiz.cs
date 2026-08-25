@@ -1,31 +1,23 @@
-﻿using SenacQuizApp.Dtos;
-using SenacQuizApp.Enums;
-using SenacQuizApp.Services;
+﻿using SenacQuizApp.Services;
 using SenacQuizApp.Dtos.Quiz;
-using SenacQuizApp.Modelos;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static SenacQuizApp.Global.ModelosConstantes;
+using SenacQuizApp.Dtos.Quiz.Concluido;
+using SenacQuizApp.Telas.Componentes.Quiz;
 
 namespace SenacQuizApp.Telas.Componentes
 {
     public partial class PaginaQuiz : UserControl
     {
+        private readonly int _quizId;
         private readonly QuizService _quizService;
+        private readonly UsuarioPerfilService _usuarioPerfilService;
         private QuizSessao? _quizSessao;
 
         public event EventHandler? VoltarParaOMenu;
-        public PaginaQuiz(QuizService quizService)
+        public PaginaQuiz(int quizId, QuizService quizService, UsuarioPerfilService usuarioPerfilService)
         {
+            _quizId = quizId;
             _quizService = quizService;
+            _usuarioPerfilService = usuarioPerfilService;
 
             InitializeComponent();
         }
@@ -34,24 +26,18 @@ namespace SenacQuizApp.Telas.Componentes
         {
             try
             {
-                QuizDto? quiz = await _quizService.ObterQuizDiario();
+                QuizDto? quiz = await _quizService.ObterQuiz(_quizId);
 
                 if (quiz != null)
                 {
+                    PanelQuizProgresso.Visible = true;
                     if (quiz.FoiConcluido)
                     {
-                        await _quizService.ObterQuiz(quiz);
-                        MessageBox.Show(
-                            "O quiz diário já foi concluido.",
-                            "Quiz já concluido",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                            );
-                        VoltarParaOMenu?.Invoke(this, EventArgs.Empty);
+                        await MostrarQuizFinalizado(quiz.Id);
                     }
                     else
                     {
-                        _quizSessao = new QuizSessao 
+                        _quizSessao = new QuizSessao
                         { 
                             Quiz = quiz,
                             QuestaoAtualIndex = 0,
@@ -60,7 +46,6 @@ namespace SenacQuizApp.Telas.Componentes
                         ProximaQuestao();
                     }
                 }
-
             }
             catch
             {
@@ -75,7 +60,7 @@ namespace SenacQuizApp.Telas.Componentes
             }
         }
 
-        private void MudarPainel(PainelQuestoes painel)
+        private void MudarPainel(UserControl painel)
         {
             while (PanelQuestoes.Controls.Count > 0)
             {
@@ -91,25 +76,39 @@ namespace SenacQuizApp.Telas.Componentes
             if (_quizSessao != null)
             {
                 int index = _quizSessao.QuestaoAtualIndex;
-                var questao = _quizSessao.Quiz.Questoes[index];
-                var painelQuestao = new PainelQuestoes(questao);
 
-                if (index >= _quizSessao.Quiz.Questoes.Count - 1)
+                if (index >= 0 && index < _quizSessao.Quiz.Questoes.Count - 1)
                 {
-                    await FinalizarQuiz();
+                    var questao = _quizSessao.Quiz.Questoes[index];
+                    var painelQuestao = new PainelQuestoes(questao);
+
+                    if (questao.Respondida)
+                    {
+                        if (questao.Acertou == true)
+                        {
+                            _quizSessao.SequenciaAcertos++;
+                        }
+                        else if (questao.Acertou == false)
+                        {
+                            _quizSessao.SequenciaAcertos = 0;
+                        }
+
+                        _quizSessao.QuestaoAtualIndex++;
+                        ProximaQuestao();
+                    }
+                    else
+                    {
+                        painelQuestao.Dock = DockStyle.Fill;
+                        painelQuestao.EscolheuAlternativa += AoResponder;
+                        painelQuestao.EscolheuVerdadeiro += AoResponder;
+
+                        MudarPainel(painelQuestao);
+                    }
+                    LabelQuizSequenciaAcertos.Text = _quizSessao.SequenciaAcertos.ToString();
                 }
                 else
                 {
-                    if (questao.Respondida)
-                    {
-                        ProximaQuestao();
-                    }
-
-                    painelQuestao.Dock = DockStyle.Fill;
-                    painelQuestao.EscolheuAlternativa += AoResponder;
-                    painelQuestao.EscolheuVerdadeiro += AoResponder;
-
-                    MudarPainel(painelQuestao);
+                    await FinalizarQuiz();
                 }
             }
         }
@@ -133,13 +132,14 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     _quizSessao.SequenciaAcertos = 0;
                 }
+
                 if (index < _quizSessao.Quiz.Questoes.Count - 1)
                 {
                     _quizSessao.QuestaoAtualIndex++;
                 }
                 ProximaQuestao();
             }
-        }        
+        }
         
         private async void AoResponder(bool verdadeira)
         {
@@ -156,6 +156,11 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     _quizSessao.SequenciaAcertos++;
                 }
+                else
+                {
+                    _quizSessao.SequenciaAcertos = 0;
+                }
+
                 if (index < _quizSessao.Quiz.Questoes.Count - 1)
                 {
                     _quizSessao.QuestaoAtualIndex++;
@@ -175,7 +180,21 @@ namespace SenacQuizApp.Telas.Componentes
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                     );
-                VoltarParaOMenu?.Invoke(this, EventArgs.Empty);
+                await MostrarQuizFinalizado(_quizSessao.Quiz.Id);
+            }
+        }
+
+        private async Task MostrarQuizFinalizado(int quizId)
+        {
+            PanelQuizProgresso.Visible = false;
+            QuizConcluidoDto? quizConcluido = await _quizService.ObterQuizConcluido(quizId);
+
+            if (quizConcluido != null)
+            {
+                var painelResultado = new PainelResultado(quizConcluido);
+                painelResultado.Dock = DockStyle.Fill;
+
+                MudarPainel(painelResultado);
             }
         }
     }

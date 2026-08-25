@@ -1,46 +1,46 @@
-﻿using SenacQuizApp.Repositories;
-using SenacQuizApp.Enums;
-using SenacQuizApp.Modelos;
+﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
-using SenacQuizApp.Global;
 using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Enums;
+using SenacQuizApp.Global;
+using SenacQuizApp.Modelos;
 
 namespace SenacQuizApp.Services
 {
     public class AutenticacaoService
     {
         private readonly QuizAppContexto _contexto;
-        private readonly UsuarioRepository _usuarioRepository;
 
-        public AutenticacaoService(QuizAppContexto contexto, UsuarioRepository usuarioRepository)
+        public AutenticacaoService(QuizAppContexto contexto)
         {
             _contexto = contexto;
-            _usuarioRepository = usuarioRepository;
         }
 
         // Determina se o nome já está sendo usado
         public async Task<bool> VerificarUsername(string username)
         {
-            var usuario = await _usuarioRepository.ObterPorUsername(username);
+            var usuario = await _contexto.Usuarios
+                .FirstOrDefaultAsync(u => u.Username == username);
             return usuario != null;
         }
 
         // Login
-        public async Task<AutenticacaoResponse> RealizarLogin(AutenticacaoRequest login)
+        public async Task<bool> RealizarLogin(string username, string senha)
         {
-            Usuario? usuario = await _usuarioRepository.ObterPorUsername(login.Username);
+            Usuario? usuario = await _contexto.Usuarios
+                                .FirstOrDefaultAsync(u => u.Username == username);
 
-            if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(login.Senha, usuario.Senha))
+            if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(senha, usuario.Senha))
             {
-                return new AutenticacaoResponse(IsSucesso: false, Erro: ErroAutenticacao.LoginInvalido);
+                throw new LoginException("O Nome ou a Senha são inválidos!");
             }
 
             UsuarioAtual.IniciarSessao(id: usuario.Id, username: usuario.Username);
-            return new AutenticacaoResponse(IsSucesso: true);
+            return true;
         }
 
         // Signup
-        public async Task<AutenticacaoResponse> RealizarSignup(
+        public async Task<bool> RealizarSignup(
             string username,
             string nickname,
             DateTime? dataDeNascimento,
@@ -51,8 +51,7 @@ namespace SenacQuizApp.Services
 
             if (usernameIndisponivel)
             {
-                AutenticacaoResponse resultado = new AutenticacaoResponse(IsSucesso: false, Erro: ErroAutenticacao.NomeIndisponivel);
-                return resultado;
+                throw new UsernameInvalidoException();
             }
             else
             {
@@ -71,13 +70,18 @@ namespace SenacQuizApp.Services
                 };
 
 
-                _usuarioRepository.Adicionar(usuario);
+                _contexto.Usuarios.Add(usuario);
                 await _contexto.SaveChangesAsync();
 
-                AutenticacaoRequest login = new(Username: username, Senha: senha);
-
-                AutenticacaoResponse resultado = await RealizarLogin(login);
-                return resultado;
+                bool loginSucesso = await RealizarLogin(username, senha);
+                if (loginSucesso)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -85,5 +89,18 @@ namespace SenacQuizApp.Services
         {
             UsuarioAtual.EncerrarSessao();
         }
+    }
+    public class UsernameInvalidoException : Exception
+    {
+        public UsernameInvalidoException() { }
+
+        public UsernameInvalidoException(string message) : base(message) { }
+    }
+
+    public class LoginException : Exception
+    {
+        public LoginException() { }
+
+        public LoginException(string message) : base(message) { }
     }
 }

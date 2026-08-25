@@ -110,10 +110,10 @@ namespace SenacQuizApp.Telas
             InputSignupConfirmarSenha.BorderColor = _corBordas;
         }
 
-        private void ErroDeConexao(string erro)
+        private void ErroDeConexao()
         {
             MessageBox.Show(
-                $"Ocorreu um erro ao se conectar com o servidor {erro}.",
+                "Ocorreu um erro ao se conectar com o servidor.",
                 "Erro de Conexão",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error
@@ -255,23 +255,24 @@ namespace SenacQuizApp.Telas
         {
             try
             {
-                AutenticacaoResponse resultado = await _autenticacaoService.RealizarSignup(username, nickname, dataNascimento, senha);
+                bool signupSucesso = await _autenticacaoService.RealizarSignup(username, nickname, dataNascimento, senha);
 
-                if (resultado.IsSucesso == true)
+                if (signupSucesso)
                 {
                     ConcluiuSignup?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
-                    if (resultado.Erro == ErroAutenticacao.NomeIndisponivel)
-                    {
-                        NomeIndisponivel();
-                    }
+                    ErroDeConexao();
                 }
             }
-            catch (Exception ex)
+            catch (UsernameInvalidoException)
             {
-                ErroDeConexao(ex.ToString());
+                NomeIndisponivel();
+            }
+            catch
+            {
+                ErroDeConexao();
             }
         }
     }

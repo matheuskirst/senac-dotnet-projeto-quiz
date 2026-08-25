@@ -19,6 +19,7 @@ namespace SenacQuizApp.Dtos.Quiz.Concluido
         public string Tipo { get; set; } = null!;
         public int Pontos { get; set; }
         public bool Acertou { get; set; }
+        public List<AlternativaCorretaDto> Alternativas { get; set; } = null!;
     }
 }
 

@@ -32,7 +32,6 @@
             PanelAppBody = new Panel();
             ButtonHeaderMenu = new AntdUI.Button();
             ButtonHeaderRanking = new AntdUI.Button();
-            ButtonHeaderQuiz = new AntdUI.Button();
             ButtonHeaderPerfil = new AntdUI.Button();
             PanelAppHeader = new AntdUI.StackPanel();
             PanelAppHeader.SuspendLayout();
@@ -79,22 +78,11 @@
             ButtonHeaderRanking.TabIndex = 2;
             ButtonHeaderRanking.Text = "Ranking";
             // 
-            // ButtonHeaderQuiz
-            // 
-            ButtonHeaderQuiz.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ButtonHeaderQuiz.Font = new Font("Segoe UI", 12F);
-            ButtonHeaderQuiz.Location = new Point(265, 3);
-            ButtonHeaderQuiz.Name = "ButtonHeaderQuiz";
-            ButtonHeaderQuiz.Size = new Size(120, 44);
-            ButtonHeaderQuiz.TabIndex = 5;
-            ButtonHeaderQuiz.Text = "Quiz";
-            ButtonHeaderQuiz.Click += ButtonHeaderQuiz_Click;
-            // 
             // ButtonHeaderPerfil
             // 
             ButtonHeaderPerfil.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonHeaderPerfil.Font = new Font("Segoe UI", 12F);
-            ButtonHeaderPerfil.Location = new Point(396, 3);
+            ButtonHeaderPerfil.Location = new Point(265, 3);
             ButtonHeaderPerfil.Name = "ButtonHeaderPerfil";
             ButtonHeaderPerfil.Size = new Size(120, 44);
             ButtonHeaderPerfil.TabIndex = 6;
@@ -102,8 +90,8 @@
             // 
             // PanelAppHeader
             // 
+            PanelAppHeader.BackColor = SystemColors.ControlLight;
             PanelAppHeader.Controls.Add(ButtonHeaderPerfil);
-            PanelAppHeader.Controls.Add(ButtonHeaderQuiz);
             PanelAppHeader.Controls.Add(ButtonHeaderRanking);
             PanelAppHeader.Controls.Add(ButtonHeaderMenu);
             PanelAppHeader.Dock = DockStyle.Top;
@@ -139,7 +127,6 @@
         private Panel PanelAppBody;
         private AntdUI.Button ButtonHeaderMenu;
         private AntdUI.Button ButtonHeaderRanking;
-        private AntdUI.Button ButtonHeaderQuiz;
         private AntdUI.Button ButtonHeaderPerfil;
         private AntdUI.StackPanel PanelAppHeader;
     }
