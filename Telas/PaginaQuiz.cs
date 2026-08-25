@@ -76,40 +76,34 @@ namespace SenacQuizApp.Telas.Componentes
             if (_quizSessao != null)
             {
                 int index = _quizSessao.QuestaoAtualIndex;
+                LabelQuizQuestaoIndex.Text = $"{index + 1}";
 
-                if (index >= 0 && index < _quizSessao.Quiz.Questoes.Count - 1)
+                var questao = _quizSessao.Quiz.Questoes[index];
+                var painelQuestao = new PainelQuestoes(questao);
+
+                if (questao.Respondida)
                 {
-                    var questao = _quizSessao.Quiz.Questoes[index];
-                    var painelQuestao = new PainelQuestoes(questao);
-
-                    if (questao.Respondida)
+                    if (questao.Acertou == true)
                     {
-                        if (questao.Acertou == true)
-                        {
-                            _quizSessao.SequenciaAcertos++;
-                        }
-                        else if (questao.Acertou == false)
-                        {
-                            _quizSessao.SequenciaAcertos = 0;
-                        }
-
-                        _quizSessao.QuestaoAtualIndex++;
-                        ProximaQuestao();
+                        _quizSessao.SequenciaAcertos++;
                     }
-                    else
+                    else if (questao.Acertou == false)
                     {
-                        painelQuestao.Dock = DockStyle.Fill;
-                        painelQuestao.EscolheuAlternativa += AoResponder;
-                        painelQuestao.EscolheuVerdadeiro += AoResponder;
-
-                        MudarPainel(painelQuestao);
+                        _quizSessao.SequenciaAcertos = 0;
                     }
-                    LabelQuizSequenciaAcertos.Text = _quizSessao.SequenciaAcertos.ToString();
+
+                    _quizSessao.QuestaoAtualIndex++;
+                    ProximaQuestao();
                 }
                 else
                 {
-                    await FinalizarQuiz();
+                    painelQuestao.Dock = DockStyle.Fill;
+                    painelQuestao.EscolheuAlternativa += AoResponder;
+                    painelQuestao.EscolheuVerdadeiro += AoResponder;
+
+                    MudarPainel(painelQuestao);
                 }
+                LabelQuizSequenciaAcertos.Text = _quizSessao.SequenciaAcertos.ToString();
             }
         }
 
@@ -136,8 +130,12 @@ namespace SenacQuizApp.Telas.Componentes
                 if (index < _quizSessao.Quiz.Questoes.Count - 1)
                 {
                     _quizSessao.QuestaoAtualIndex++;
+                    ProximaQuestao();
                 }
-                ProximaQuestao();
+                else
+                {
+                    await FinalizarQuiz();
+                }
             }
         }
         
@@ -164,8 +162,12 @@ namespace SenacQuizApp.Telas.Componentes
                 if (index < _quizSessao.Quiz.Questoes.Count - 1)
                 {
                     _quizSessao.QuestaoAtualIndex++;
+                    ProximaQuestao();
                 }
-                ProximaQuestao();
+                else
+                {
+                    await FinalizarQuiz();
+                }
             }
         }
 

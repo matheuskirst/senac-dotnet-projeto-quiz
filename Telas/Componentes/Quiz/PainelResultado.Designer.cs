@@ -49,7 +49,7 @@
             // 
             // LabelTitulo
             // 
-            LabelTitulo.BackColor = Color.Transparent;
+            LabelTitulo.BackColor = Color.White;
             LabelTitulo.Dock = DockStyle.Top;
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelTitulo.Location = new Point(0, 0);
