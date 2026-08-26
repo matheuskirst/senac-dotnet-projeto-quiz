@@ -88,6 +88,7 @@
             ButtonHeaderPerfil.Size = new Size(120, 43);
             ButtonHeaderPerfil.TabIndex = 8;
             ButtonHeaderPerfil.Text = "Perfil";
+            ButtonHeaderPerfil.Click += ButtonHeaderPerfil_Click;
             // 
             // PanelAppHeader
             // 

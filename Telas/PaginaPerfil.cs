@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SenacQuizApp.Modelos;
+using SenacQuizApp.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,12 +15,15 @@ namespace SenacQuizApp.Telas
     public partial class PaginaPerfil : UserControl
     {
         private readonly int _usuarioId;
+        private readonly UsuarioPerfilService _usuarioPerfilService;
 
-        public event Action<int> AbrirConquistas;
+        public event Action<int>? AbrirConquistas;
 
-        public PaginaPerfil(int usuarioId)
+        public PaginaPerfil(int usuarioId, UsuarioPerfilService usuarioPerfilService)
         {
             _usuarioId = usuarioId;
+            _usuarioPerfilService = usuarioPerfilService;
+
             InitializeComponent();
         }
 

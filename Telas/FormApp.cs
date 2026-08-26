@@ -115,6 +115,17 @@ namespace SenacQuizApp.Telas
 
             MudarPagina(paginaRanking);
         }
+        public void AbrirPaginaPerfil(int usuarioId)
+        {
+            var paginaPerfil = new PaginaPerfil(usuarioId, _usuarioPerfilService);
+
+            ButtonHeaderMenu.Enabled = true;
+            ButtonHeaderRanking.Enabled = true;
+
+            ButtonHeaderPerfil.Enabled = false;
+
+            MudarPagina(paginaPerfil);
+        }
 
         public void AbrirPaginaQuiz(int quizId)
         {
@@ -137,6 +148,11 @@ namespace SenacQuizApp.Telas
         private void ButtonHeaderRanking_Click(object sender, EventArgs e)
         {
             AbrirPaginaRanking(sender, EventArgs.Empty);
+        }
+
+        private void ButtonHeaderPerfil_Click(object sender, EventArgs e)
+        {
+            AbrirPaginaPerfil(UsuarioAtual.Id);
         }
     }
 }
