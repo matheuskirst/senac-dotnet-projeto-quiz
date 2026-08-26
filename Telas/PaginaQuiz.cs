@@ -83,13 +83,21 @@ namespace SenacQuizApp.Telas.Componentes
 
                 if (questao.Respondida)
                 {
-                    if (questao.Acertou == true)
+                    _quizSessao.SequenciaAcertos++;
+                    if (_quizSessao.SequenciaAcertos >= 5)
                     {
-                        _quizSessao.SequenciaAcertos++;
+                        LabelQuizQuestaoBonus.Text = "20%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 20) / 100}";
                     }
-                    else if (questao.Acertou == false)
+                    else if (_quizSessao.SequenciaAcertos >= 3)
                     {
-                        _quizSessao.SequenciaAcertos = 0;
+                        LabelQuizQuestaoBonus.Text = "10%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 10) / 100}";
+                    }
+                    else
+                    {
+                        LabelQuizQuestaoBonus.Text = "0%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos}";
                     }
 
                     _quizSessao.QuestaoAtualIndex++;
@@ -118,24 +126,7 @@ namespace SenacQuizApp.Telas.Componentes
 
                 bool correta = await _quizService.SalvarResposta(quizId, questao, sequenciaAcertos, alternativaId: alternativaId);
 
-                if (correta)
-                {
-                    _quizSessao.SequenciaAcertos++;
-                }
-                else
-                {
-                    _quizSessao.SequenciaAcertos = 0;
-                }
-
-                if (index < _quizSessao.Quiz.Questoes.Count - 1)
-                {
-                    _quizSessao.QuestaoAtualIndex++;
-                    ProximaQuestao();
-                }
-                else
-                {
-                    await FinalizarQuiz();
-                }
+                await AoSalvarQuestao(correta);
             }
         }
         
@@ -150,16 +141,42 @@ namespace SenacQuizApp.Telas.Componentes
 
                 bool correta = await _quizService.SalvarResposta(quizId, questao, sequenciaAcertos, verdadeiro: verdadeira);
 
+                await AoSalvarQuestao(correta);
+            }
+        }
+
+        private async Task AoSalvarQuestao(bool correta)
+        {
+            if (_quizSessao != null)
+            {
+                int index = _quizSessao.QuestaoAtualIndex;
+                var questao = _quizSessao.Quiz.Questoes[index];
+
                 if (correta)
                 {
                     _quizSessao.SequenciaAcertos++;
+                    if (_quizSessao.SequenciaAcertos >= 5) 
+                    { 
+                        LabelQuizQuestaoBonus.Text = "20%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 20) / 100}";
+                    }
+                    else if (_quizSessao.SequenciaAcertos >= 3) 
+                    { 
+                        LabelQuizQuestaoBonus.Text = "10%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 10) / 100}";
+                    }
+                    else 
+                    { 
+                        LabelQuizQuestaoBonus.Text = "0%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos}";
+                    }
                 }
                 else
                 {
                     _quizSessao.SequenciaAcertos = 0;
                 }
 
-                if (index < _quizSessao.Quiz.Questoes.Count - 1)
+                if (_quizSessao.QuestaoAtualIndex < _quizSessao.Quiz.Questoes.Count - 1)
                 {
                     _quizSessao.QuestaoAtualIndex++;
                     ProximaQuestao();

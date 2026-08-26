@@ -43,7 +43,7 @@ namespace SenacQuizApp.Services
         public async Task<bool> RealizarSignup(
             string username,
             string nickname,
-            DateTime? dataDeNascimento,
+            DateOnly? dataDeNascimento,
             string senha
             )
         {

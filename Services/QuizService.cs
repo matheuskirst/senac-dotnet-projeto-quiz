@@ -249,7 +249,7 @@ namespace SenacQuizApp.Services
                 .Where(a => a.Id == alternativaId)
                 .Select(a => a.IsCorreta)
                 .FirstOrDefaultAsync();
-            }            
+            }
             
             if (verdadeiro != null && alternativaId == null)
             {

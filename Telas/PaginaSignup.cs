@@ -128,7 +128,7 @@ namespace SenacQuizApp.Telas
 
             string? username = InputSignupUsername.Text;
             string? nick = InputSignupNick.Text;
-            DateTime? dataNascimento = DatePickerSignupDataNascimento.Value;
+            DateOnly? dataNascimento = NullableDateOnly.ToNullableDateOnly(DatePickerSignupDataNascimento.Value);
             string senha = InputSignupSenha.Text;
             string confirmarSenha = InputSignupConfirmarSenha.Text;
 
@@ -191,7 +191,7 @@ namespace SenacQuizApp.Telas
             return true;
         }
 
-        private bool ValidarDataNascimento(DateTime? dataNascimento)
+        private bool ValidarDataNascimento(DateOnly? dataNascimento)
         {
             if (dataNascimento == null)
             {
@@ -251,7 +251,7 @@ namespace SenacQuizApp.Telas
                 && senha.Any(ch => !char.IsLetterOrDigit(ch));
         }
 
-        private async void RequisitarSignup(string username, string nickname, DateTime? dataNascimento, string senha)
+        private async void RequisitarSignup(string username, string nickname, DateOnly? dataNascimento, string senha)
         {
             try
             {

@@ -22,7 +22,7 @@ namespace SenacQuizApp.Modelos
         public int Id { get; set; }
         public string Username { get; set; } = null!;
         public string Nickname { get; set; } = null!;
-        public DateTime? DataDeNascimento { get; set; }
+        public DateOnly? DataDeNascimento { get; set; }
         public string Senha { get; set; } = null!;
         public DateTime? DataDeCadastro { get; set; } = DateTime.UtcNow;
 
