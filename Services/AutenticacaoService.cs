@@ -89,6 +89,18 @@ namespace SenacQuizApp.Services
         {
             UsuarioAtual.EncerrarSessao();
         }
+
+        public async Task AtualizarSenha(string senha, string novaSenha)
+        {
+            int usuarioId = UsuarioAtual.Id;
+            Usuario? usuario = await _contexto.Usuarios
+                                .FirstOrDefaultAsync(u => u.Id == usuarioId);
+
+            if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(senha, usuario.Senha))
+            {
+                return;
+            }
+        }
     }
     public class UsernameInvalidoException : Exception
     {
