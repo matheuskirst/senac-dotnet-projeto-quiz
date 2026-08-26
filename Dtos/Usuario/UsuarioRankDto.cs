@@ -1,12 +1,4 @@
-﻿using SenacQuizApp.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SenacQuizApp.Dtos.Usuario
+﻿namespace SenacQuizApp.Dtos.Usuario
 {
     public class UsuarioRankDto
     {

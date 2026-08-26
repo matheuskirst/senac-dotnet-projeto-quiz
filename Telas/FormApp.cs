@@ -113,8 +113,11 @@ namespace SenacQuizApp.Telas
 
             ButtonHeaderRanking.Enabled = false;
 
+            paginaRanking.AbrirPerfil += AbrirPaginaPerfil;
+
             MudarPagina(paginaRanking);
         }
+
         public void AbrirPaginaPerfil(int usuarioId)
         {
             var paginaPerfil = new PaginaPerfil(usuarioId, _usuarioPerfilService);

@@ -76,9 +76,9 @@
             panel1.Controls.Add(LabelNivel);
             panel1.Controls.Add(LabelPontuacao);
             panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(633, 0);
+            panel1.Location = new Point(1108, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(170, 600);
+            panel1.Size = new Size(170, 742);
             panel1.TabIndex = 3;
             panel1.Text = "panel1";
             // 
@@ -102,7 +102,7 @@
             Controls.Add(panel1);
             Controls.Add(LabelUsuario);
             Name = "PaginaPerfil";
-            Size = new Size(800, 600);
+            Size = new Size(1278, 742);
             Load += PaginaPerfil_Load;
             panel1.ResumeLayout(false);
             ResumeLayout(false);

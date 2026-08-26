@@ -34,6 +34,7 @@
             ButtonHeaderRanking = new AntdUI.Button();
             ButtonHeaderPerfil = new AntdUI.Button();
             PanelAppHeader = new AntdUI.Panel();
+            PanelAppFooter = new AntdUI.Panel();
             PanelAppHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,17 +45,17 @@
             PageHeader.Location = new Point(0, 0);
             PageHeader.Name = "PageHeader";
             PageHeader.ShowButton = true;
-            PageHeader.Size = new Size(1024, 40);
+            PageHeader.Size = new Size(1024, 35);
             PageHeader.TabIndex = 5;
             PageHeader.Text = "Quiz TI";
             // 
             // PanelAppBody
             // 
             PanelAppBody.Dock = DockStyle.Fill;
-            PanelAppBody.Location = new Point(0, 120);
+            PanelAppBody.Location = new Point(0, 115);
             PanelAppBody.Margin = new Padding(0);
             PanelAppBody.Name = "PanelAppBody";
-            PanelAppBody.Size = new Size(1024, 600);
+            PanelAppBody.Size = new Size(1024, 565);
             PanelAppBody.TabIndex = 4;
             // 
             // ButtonHeaderMenu
@@ -98,11 +99,22 @@
             PanelAppHeader.Controls.Add(ButtonHeaderPerfil);
             PanelAppHeader.Controls.Add(ButtonHeaderRanking);
             PanelAppHeader.Dock = DockStyle.Top;
-            PanelAppHeader.Location = new Point(0, 40);
+            PanelAppHeader.Location = new Point(0, 35);
             PanelAppHeader.Name = "PanelAppHeader";
             PanelAppHeader.Size = new Size(1024, 80);
             PanelAppHeader.TabIndex = 9;
             PanelAppHeader.Text = "panel1";
+            // 
+            // PanelAppFooter
+            // 
+            PanelAppFooter.Back = Color.Transparent;
+            PanelAppFooter.BackColor = SystemColors.ControlLight;
+            PanelAppFooter.Dock = DockStyle.Bottom;
+            PanelAppFooter.Location = new Point(0, 680);
+            PanelAppFooter.Name = "PanelAppFooter";
+            PanelAppFooter.Size = new Size(1024, 40);
+            PanelAppFooter.TabIndex = 10;
+            PanelAppFooter.Text = "panel1";
             // 
             // FormApp
             // 
@@ -110,6 +122,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1024, 720);
             Controls.Add(PanelAppBody);
+            Controls.Add(PanelAppFooter);
             Controls.Add(PanelAppHeader);
             Controls.Add(PageHeader);
             MinimumSize = new Size(854, 480);
@@ -130,5 +143,6 @@
         private AntdUI.Button ButtonHeaderPerfil;
         private AntdUI.Button ButtonHeaderRanking;
         private AntdUI.Panel PanelAppHeader;
+        private AntdUI.Panel PanelAppFooter;
     }
 }

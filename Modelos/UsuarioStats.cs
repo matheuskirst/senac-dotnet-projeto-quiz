@@ -28,15 +28,15 @@ namespace SenacQuizApp.Modelos
             {
                 NivelId = UsuarioNivelId.Iniciante;
             }
-            else if (PontuacaoTotal > 500)
+            else if (PontuacaoTotal <= 2000)
             {
                 NivelId = UsuarioNivelId.Aprendiz;
             }
-            else if (PontuacaoTotal > 2000)
+            else if (PontuacaoTotal <= 10000)
             {
                 NivelId = UsuarioNivelId.Intermediario;
             }
-            else if (PontuacaoTotal > 10000)
+            else
             {
                 NivelId = UsuarioNivelId.Avancado;
             }
