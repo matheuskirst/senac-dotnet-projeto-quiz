@@ -91,5 +91,12 @@ namespace SenacQuizApp.Telas
 
             MostrarMenuUsuario(usuario);
         }
+
+        private void TableUsuariosRank_CellDoubleClick(object sender, AntdUI.TableClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right || e.Record is not UsuarioRankDto usuario) return;
+
+            AbrirPerfil?.Invoke(usuario.Id);
+        }
     }
 }

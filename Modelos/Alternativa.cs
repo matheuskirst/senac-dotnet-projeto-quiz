@@ -9,9 +9,11 @@ namespace SenacQuizApp.Modelos
     public class Alternativa
     {
         public int Id { get; set; }
-        public string Texto { get; set; } = null!;
-        public bool IsCorreta { get; set; }
+
         public int QuestaoId { get; set; }
         public Questao Questao { get; set; } = null!;
+
+        public string Texto { get; set; } = null!;
+        public bool IsCorreta { get; set; }
     }
 }

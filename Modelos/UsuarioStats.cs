@@ -10,8 +10,10 @@ namespace SenacQuizApp.Modelos
     public class UsuarioStats
     {
         public int Id { get; set; }
+
         public UsuarioNivelId NivelId { get; set; } = UsuarioNivelId.Iniciante;
         public UsuarioNivel Nivel { get; set; } = null!;
+
         public int PontuacaoTotal { get; set; } = 0;
         public int TotalRespondidos { get; set; } = 0;
         public int TotalAcertos { get; set; } = 0;

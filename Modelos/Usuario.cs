@@ -20,6 +20,7 @@ namespace SenacQuizApp.Modelos
         public Usuario() { }
 
         public int Id { get; set; }
+
         public string Username { get; set; } = null!;
         public string Nickname { get; set; } = null!;
         public DateOnly? DataDeNascimento { get; set; }

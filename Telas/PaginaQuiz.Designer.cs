@@ -30,51 +30,83 @@
         {
             PanelQuestoes = new Panel();
             PanelQuizProgresso = new AntdUI.Panel();
-            panel1 = new AntdUI.Panel();
-            LabelQuizQuestaoBonus = new AntdUI.Label();
+            PanelQuizHeaderQuestao = new AntdUI.Panel();
             LabelQuizQuestaoPontos = new AntdUI.Label();
-            LabelQuizSequenciaAcertos = new AntdUI.Label();
             LabelQuizQuestaoIndex = new AntdUI.Label();
+            LabelQuizQuestaoBonus = new AntdUI.Label();
+            PanelQuizHeaderUsuario = new AntdUI.Panel();
+            LabelUsuarioNivel = new AntdUI.Label();
+            LabelUsuarioNick = new AntdUI.Label();
+            LabelQuizSequenciaAcertos = new AntdUI.Label();
             PanelQuizProgresso.SuspendLayout();
-            panel1.SuspendLayout();
+            PanelQuizHeaderQuestao.SuspendLayout();
+            PanelQuizHeaderUsuario.SuspendLayout();
             SuspendLayout();
             // 
             // PanelQuestoes
             // 
             PanelQuestoes.Dock = DockStyle.Fill;
-            PanelQuestoes.Location = new Point(0, 94);
+            PanelQuestoes.Location = new Point(0, 120);
             PanelQuestoes.Name = "PanelQuestoes";
-            PanelQuestoes.Size = new Size(1000, 606);
+            PanelQuestoes.Padding = new Padding(20);
+            PanelQuestoes.Size = new Size(1000, 580);
             PanelQuestoes.TabIndex = 0;
             // 
             // PanelQuizProgresso
             // 
-            PanelQuizProgresso.Controls.Add(panel1);
-            PanelQuizProgresso.Controls.Add(LabelQuizSequenciaAcertos);
-            PanelQuizProgresso.Controls.Add(LabelQuizQuestaoIndex);
+            PanelQuizProgresso.Back = Color.Transparent;
+            PanelQuizProgresso.BackColor = Color.Transparent;
+            PanelQuizProgresso.Controls.Add(PanelQuizHeaderQuestao);
+            PanelQuizProgresso.Controls.Add(PanelQuizHeaderUsuario);
             PanelQuizProgresso.Dock = DockStyle.Top;
             PanelQuizProgresso.Location = new Point(0, 0);
+            PanelQuizProgresso.Margin = new Padding(0);
             PanelQuizProgresso.Name = "PanelQuizProgresso";
-            PanelQuizProgresso.Padding = new Padding(10);
-            PanelQuizProgresso.Size = new Size(1000, 94);
+            PanelQuizProgresso.Size = new Size(1000, 120);
             PanelQuizProgresso.TabIndex = 1;
             PanelQuizProgresso.Text = "panel1";
             // 
-            // panel1
+            // PanelQuizHeaderQuestao
             // 
-            panel1.Anchor = AnchorStyles.Right;
-            panel1.Back = Color.Transparent;
-            panel1.BackColor = Color.Transparent;
-            panel1.BorderColor = Color.Black;
-            panel1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-            panel1.BorderWidth = 1F;
-            panel1.Controls.Add(LabelQuizQuestaoBonus);
-            panel1.Controls.Add(LabelQuizQuestaoPontos);
-            panel1.Location = new Point(767, 32);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(245, 62);
-            panel1.TabIndex = 0;
-            panel1.Text = "panel1";
+            PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoPontos);
+            PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoIndex);
+            PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoBonus);
+            PanelQuizHeaderQuestao.Dock = DockStyle.Right;
+            PanelQuizHeaderQuestao.Location = new Point(700, 0);
+            PanelQuizHeaderQuestao.Margin = new Padding(0);
+            PanelQuizHeaderQuestao.Name = "PanelQuizHeaderQuestao";
+            PanelQuizHeaderQuestao.Padding = new Padding(10);
+            PanelQuizHeaderQuestao.Radius = 15;
+            PanelQuizHeaderQuestao.RadiusAlign = AntdUI.TAlignRound.BL;
+            PanelQuizHeaderQuestao.Size = new Size(300, 120);
+            PanelQuizHeaderQuestao.TabIndex = 7;
+            PanelQuizHeaderQuestao.Text = "panel2";
+            // 
+            // LabelQuizQuestaoPontos
+            // 
+            LabelQuizQuestaoPontos.Anchor = AnchorStyles.Right;
+            LabelQuizQuestaoPontos.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelQuizQuestaoPontos.BackColor = Color.Transparent;
+            LabelQuizQuestaoPontos.Font = new Font("Segoe UI", 14.25F);
+            LabelQuizQuestaoPontos.Location = new Point(13, 86);
+            LabelQuizQuestaoPontos.Name = "LabelQuizQuestaoPontos";
+            LabelQuizQuestaoPontos.Prefix = "Vale:  ";
+            LabelQuizQuestaoPontos.Size = new Size(63, 28);
+            LabelQuizQuestaoPontos.TabIndex = 4;
+            LabelQuizQuestaoPontos.Text = "0";
+            // 
+            // LabelQuizQuestaoIndex
+            // 
+            LabelQuizQuestaoIndex.Anchor = AnchorStyles.Right;
+            LabelQuizQuestaoIndex.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelQuizQuestaoIndex.BackColor = Color.Transparent;
+            LabelQuizQuestaoIndex.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelQuizQuestaoIndex.Location = new Point(13, 13);
+            LabelQuizQuestaoIndex.Name = "LabelQuizQuestaoIndex";
+            LabelQuizQuestaoIndex.Prefix = "Questão Atual:  ";
+            LabelQuizQuestaoIndex.Size = new Size(146, 30);
+            LabelQuizQuestaoIndex.TabIndex = 2;
+            LabelQuizQuestaoIndex.Text = "0";
             // 
             // LabelQuizQuestaoBonus
             // 
@@ -82,49 +114,67 @@
             LabelQuizQuestaoBonus.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelQuizQuestaoBonus.BackColor = Color.Transparent;
             LabelQuizQuestaoBonus.Font = new Font("Segoe UI", 14.25F);
-            LabelQuizQuestaoBonus.Location = new Point(4, 4);
+            LabelQuizQuestaoBonus.Location = new Point(13, 50);
             LabelQuizQuestaoBonus.Name = "LabelQuizQuestaoBonus";
             LabelQuizQuestaoBonus.Prefix = "Bônus:  ";
             LabelQuizQuestaoBonus.Size = new Size(97, 28);
             LabelQuizQuestaoBonus.TabIndex = 3;
             LabelQuizQuestaoBonus.Text = "0%";
             // 
-            // LabelQuizQuestaoPontos
+            // PanelQuizHeaderUsuario
             // 
-            LabelQuizQuestaoPontos.Anchor = AnchorStyles.Right;
-            LabelQuizQuestaoPontos.AutoSizeMode = AntdUI.TAutoSize.Auto;
-            LabelQuizQuestaoPontos.BackColor = Color.Transparent;
-            LabelQuizQuestaoPontos.Font = new Font("Segoe UI", 14.25F);
-            LabelQuizQuestaoPontos.Location = new Point(4, 33);
-            LabelQuizQuestaoPontos.Name = "LabelQuizQuestaoPontos";
-            LabelQuizQuestaoPontos.Prefix = "Pontos:  ";
-            LabelQuizQuestaoPontos.Size = new Size(85, 28);
-            LabelQuizQuestaoPontos.TabIndex = 4;
-            LabelQuizQuestaoPontos.Text = "0";
+            PanelQuizHeaderUsuario.Controls.Add(LabelUsuarioNivel);
+            PanelQuizHeaderUsuario.Controls.Add(LabelUsuarioNick);
+            PanelQuizHeaderUsuario.Controls.Add(LabelQuizSequenciaAcertos);
+            PanelQuizHeaderUsuario.Dock = DockStyle.Left;
+            PanelQuizHeaderUsuario.Location = new Point(0, 0);
+            PanelQuizHeaderUsuario.Margin = new Padding(0);
+            PanelQuizHeaderUsuario.Name = "PanelQuizHeaderUsuario";
+            PanelQuizHeaderUsuario.Padding = new Padding(10);
+            PanelQuizHeaderUsuario.Radius = 15;
+            PanelQuizHeaderUsuario.RadiusAlign = AntdUI.TAlignRound.BR;
+            PanelQuizHeaderUsuario.Size = new Size(300, 120);
+            PanelQuizHeaderUsuario.TabIndex = 6;
+            PanelQuizHeaderUsuario.Text = "panel2";
+            // 
+            // LabelUsuarioNivel
+            // 
+            LabelUsuarioNivel.Anchor = AnchorStyles.Left;
+            LabelUsuarioNivel.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelUsuarioNivel.BackColor = Color.Transparent;
+            LabelUsuarioNivel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelUsuarioNivel.Location = new Point(13, 50);
+            LabelUsuarioNivel.Name = "LabelUsuarioNivel";
+            LabelUsuarioNivel.Prefix = "Nível: ";
+            LabelUsuarioNivel.Size = new Size(73, 30);
+            LabelUsuarioNivel.TabIndex = 7;
+            LabelUsuarioNivel.Text = "#";
+            // 
+            // LabelUsuarioNick
+            // 
+            LabelUsuarioNick.Anchor = AnchorStyles.Left;
+            LabelUsuarioNick.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelUsuarioNick.BackColor = Color.Transparent;
+            LabelUsuarioNick.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelUsuarioNick.Location = new Point(13, 13);
+            LabelUsuarioNick.Name = "LabelUsuarioNick";
+            LabelUsuarioNick.Prefix = "Usuário: ";
+            LabelUsuarioNick.Size = new Size(96, 30);
+            LabelUsuarioNick.TabIndex = 6;
+            LabelUsuarioNick.Text = "#";
             // 
             // LabelQuizSequenciaAcertos
             // 
             LabelQuizSequenciaAcertos.Anchor = AnchorStyles.Left;
+            LabelQuizSequenciaAcertos.AutoSizeMode = AntdUI.TAutoSize.Auto;
             LabelQuizSequenciaAcertos.BackColor = Color.Transparent;
-            LabelQuizSequenciaAcertos.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuizSequenciaAcertos.Location = new Point(13, 36);
+            LabelQuizSequenciaAcertos.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelQuizSequenciaAcertos.Location = new Point(13, 86);
             LabelQuizSequenciaAcertos.Name = "LabelQuizSequenciaAcertos";
             LabelQuizSequenciaAcertos.Prefix = "Sequência de Acertos:  ";
-            LabelQuizSequenciaAcertos.Size = new Size(378, 23);
+            LabelQuizSequenciaAcertos.Size = new Size(230, 31);
             LabelQuizSequenciaAcertos.TabIndex = 5;
             LabelQuizSequenciaAcertos.Text = "0";
-            // 
-            // LabelQuizQuestaoIndex
-            // 
-            LabelQuizQuestaoIndex.Anchor = AnchorStyles.Right;
-            LabelQuizQuestaoIndex.BackColor = Color.Transparent;
-            LabelQuizQuestaoIndex.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuizQuestaoIndex.Location = new Point(769, 5);
-            LabelQuizQuestaoIndex.Name = "LabelQuizQuestaoIndex";
-            LabelQuizQuestaoIndex.Prefix = "Questão Atual:  ";
-            LabelQuizQuestaoIndex.Size = new Size(186, 23);
-            LabelQuizQuestaoIndex.TabIndex = 2;
-            LabelQuizQuestaoIndex.Text = "0";
             // 
             // PaginaQuiz
             // 
@@ -136,8 +186,10 @@
             Size = new Size(1000, 700);
             Load += PaginaQuiz_Load;
             PanelQuizProgresso.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            PanelQuizHeaderQuestao.ResumeLayout(false);
+            PanelQuizHeaderQuestao.PerformLayout();
+            PanelQuizHeaderUsuario.ResumeLayout(false);
+            PanelQuizHeaderUsuario.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -148,6 +200,9 @@
         private AntdUI.Label LabelQuizQuestaoBonus;
         private AntdUI.Label LabelQuizQuestaoPontos;
         private AntdUI.Label LabelQuizSequenciaAcertos;
-        private AntdUI.Panel panel1;
+        private AntdUI.Panel PanelQuizHeaderUsuario;
+        private AntdUI.Label LabelUsuarioNick;
+        private AntdUI.Label LabelUsuarioNivel;
+        private AntdUI.Panel PanelQuizHeaderQuestao;
     }
 }

@@ -185,9 +185,9 @@
             CollapsePanel.Back = Color.Transparent;
             CollapsePanel.BackColor = Color.WhiteSmoke;
             CollapsePanel.Controls.Add(CollapseQuestoes);
-            CollapsePanel.Location = new Point(136, 49);
+            CollapsePanel.Location = new Point(95, 49);
             CollapsePanel.Name = "CollapsePanel";
-            CollapsePanel.Size = new Size(446, 557);
+            CollapsePanel.Size = new Size(500, 557);
             CollapsePanel.TabIndex = 0;
             CollapsePanel.Text = "panel1";
             // 
@@ -197,7 +197,7 @@
             CollapseQuestoes.Location = new Point(0, 0);
             CollapseQuestoes.Name = "CollapseQuestoes";
             CollapseQuestoes.ResizingLineThickness = 2F;
-            CollapseQuestoes.Size = new Size(446, 557);
+            CollapseQuestoes.Size = new Size(500, 557);
             CollapseQuestoes.TabIndex = 4;
             CollapseQuestoes.Text = "collapse1";
             // 

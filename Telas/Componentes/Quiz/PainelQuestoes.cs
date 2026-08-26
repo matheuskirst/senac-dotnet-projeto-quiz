@@ -37,9 +37,9 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     var button = new AntdUI.Button
                     {
-                    
                         Tag = alternativa.Id,
                         Text = alternativa.Texto,
+                        BackHover = Color.FromArgb(255, 223, 156),
                         Font = new Font("Segoe UI", 16),
                         Dock = DockStyle.Fill
                     };
@@ -55,6 +55,7 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     Tag = true,
                     Text = "Verdadeiro",
+                    BackHover = Color.FromArgb(224, 255, 156),
                     Font = new Font("Segoe UI", 16),
                     Dock = DockStyle.Fill
                 };
@@ -65,6 +66,7 @@ namespace SenacQuizApp.Telas.Componentes
                 {
                     Tag = false,
                     Text = "Falso",
+                    BackHover = Color.FromArgb(224, 255, 156),
                     Font = new Font("Segoe UI", 16),
                     Dock = DockStyle.Fill
                 };

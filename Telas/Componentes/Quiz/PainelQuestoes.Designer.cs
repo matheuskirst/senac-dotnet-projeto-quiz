@@ -45,6 +45,7 @@
             PanelAlternativas.Location = new Point(80, 192);
             PanelAlternativas.Margin = new Padding(30);
             PanelAlternativas.Name = "PanelAlternativas";
+            PanelAlternativas.Padding = new Padding(150, 0, 150, 0);
             PanelAlternativas.RowCount = 4;
             PanelAlternativas.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             PanelAlternativas.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
@@ -75,7 +76,7 @@
             // InputQuestaoEnunciado
             // 
             InputQuestaoEnunciado.Dock = DockStyle.Fill;
-            InputQuestaoEnunciado.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InputQuestaoEnunciado.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputQuestaoEnunciado.Location = new Point(53, 3);
             InputQuestaoEnunciado.Multiline = true;
             InputQuestaoEnunciado.Name = "InputQuestaoEnunciado";

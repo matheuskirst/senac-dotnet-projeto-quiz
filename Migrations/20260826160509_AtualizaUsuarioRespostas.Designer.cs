@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SenacQuizApp.Data;
@@ -11,9 +12,11 @@ using SenacQuizApp.Data;
 namespace SenacQuizApp.Migrations
 {
     [DbContext(typeof(QuizAppContexto))]
-    partial class QuizContextoModelSnapshot : ModelSnapshot
+    [Migration("20260826160509_AtualizaUsuarioRespostas")]
+    partial class AtualizaUsuarioRespostas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,14 +179,14 @@ namespace SenacQuizApp.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("DataConcluido")
-                        .HasColumnType("timestamptz");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateOnly>("DataExibido")
                         .HasColumnType("date");
 
                     b.Property<DateTime>("DataInicio")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<bool>("FoiConcluido")
@@ -216,7 +219,7 @@ namespace SenacQuizApp.Migrations
 
                     b.Property<DateTime?>("DataDeCadastro")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<DateOnly?>("DataDeNascimento")
@@ -255,7 +258,7 @@ namespace SenacQuizApp.Migrations
 
                     b.Property<DateTime?>("DataDeAquisicao")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("UsuarioId", "ConquistaId");
@@ -295,7 +298,7 @@ namespace SenacQuizApp.Migrations
 
                     b.Property<DateTime?>("DataDeResposta")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int>("PontuacaoFinal")

@@ -88,6 +88,7 @@ namespace SenacQuizApp.Data
                     .OnDelete(DeleteBehavior.Cascade);
 
                 entity.Property(u => u.DataDeCadastro)
+                    .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(u => u.Username)
@@ -167,12 +168,17 @@ namespace SenacQuizApp.Data
                     .UsingEntity(qq => qq.ToTable("QuizQuestoes"));
 
                 entity.Property(q => q.DataInicio)
+                    .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(q => q.DataConcluido)
+                    .HasColumnType("timestamptz");
             });
 
 
             modelBuilder.Entity<UsuarioResposta>(entity =>
             {
+                entity.HasKey(ur => new { ur.UsuarioId, ur.QuizId, ur.QuestaoId });
                 entity.ToTable("UsuarioRespostas");
 
                 entity.HasOne(ur => ur.Usuario)
@@ -190,9 +196,8 @@ namespace SenacQuizApp.Data
                     .HasForeignKey(ur => ur.QuestaoId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasKey(ur => new { ur.UsuarioId, ur.QuizId, ur.QuestaoId });
-
                 entity.Property(ur => ur.DataDeResposta)
+                    .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
 
@@ -212,6 +217,7 @@ namespace SenacQuizApp.Data
                 entity.HasKey(uc => new { uc.UsuarioId, uc.ConquistaId });
 
                 entity.Property(uc => uc.DataDeAquisicao)
+                    .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
         }

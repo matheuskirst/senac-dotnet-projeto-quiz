@@ -11,6 +11,7 @@ namespace SenacQuizApp.Modelos
     public class Conquista
     {
         public ConquistaId Id { get; set; }
+
         public string Nome { get; set; } = null!;
         public string Descricao { get; set; } = null!;
 

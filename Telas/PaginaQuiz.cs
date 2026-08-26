@@ -2,6 +2,8 @@
 using SenacQuizApp.Dtos.Quiz;
 using SenacQuizApp.Dtos.Quiz.Concluido;
 using SenacQuizApp.Telas.Componentes.Quiz;
+using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Global;
 
 namespace SenacQuizApp.Telas.Componentes
 {
@@ -26,9 +28,10 @@ namespace SenacQuizApp.Telas.Componentes
         {
             try
             {
+                UsuarioPerfilDto? usuarioStats = await _usuarioPerfilService.ObterPerfilPorId(UsuarioAtual.Id);
                 QuizDto? quiz = await _quizService.ObterQuiz(_quizId);
 
-                if (quiz != null)
+                if (quiz != null && usuarioStats != null)
                 {
                     PanelQuizProgresso.Visible = true;
                     if (quiz.FoiConcluido)
@@ -37,6 +40,9 @@ namespace SenacQuizApp.Telas.Componentes
                     }
                     else
                     {
+                        LabelUsuarioNick.Text = usuarioStats.Nickname;
+                        LabelUsuarioNivel.Text = usuarioStats.Nivel;
+
                         _quizSessao = new QuizSessao
                         { 
                             Quiz = quiz,
@@ -84,23 +90,8 @@ namespace SenacQuizApp.Telas.Componentes
                 if (questao.Respondida)
                 {
                     _quizSessao.SequenciaAcertos++;
-                    if (_quizSessao.SequenciaAcertos >= 5)
-                    {
-                        LabelQuizQuestaoBonus.Text = "20%";
-                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 20) / 100}";
-                    }
-                    else if (_quizSessao.SequenciaAcertos >= 3)
-                    {
-                        LabelQuizQuestaoBonus.Text = "10%";
-                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 10) / 100}";
-                    }
-                    else
-                    {
-                        LabelQuizQuestaoBonus.Text = "0%";
-                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos}";
-                    }
-
                     _quizSessao.QuestaoAtualIndex++;
+
                     ProximaQuestao();
                 }
                 else
@@ -110,8 +101,37 @@ namespace SenacQuizApp.Telas.Componentes
                     painelQuestao.EscolheuVerdadeiro += AoResponder;
 
                     MudarPainel(painelQuestao);
+                    MostrarQuestaoInfo();
                 }
                 LabelQuizSequenciaAcertos.Text = _quizSessao.SequenciaAcertos.ToString();
+            }
+        }
+
+        private void MostrarQuestaoInfo()
+        {
+            if (_quizSessao != null)
+            {
+                int index = _quizSessao.QuestaoAtualIndex;
+                LabelQuizQuestaoIndex.Text = $"{index + 1}";
+
+                var questao = _quizSessao.Quiz.Questoes[index];
+                var painelQuestao = new PainelQuestoes(questao);
+
+                                    if (_quizSessao.SequenciaAcertos >= 5)
+                    {
+                        LabelQuizQuestaoBonus.Text = "20%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 20) / 100} Pontos";
+                    }
+                    else if (_quizSessao.SequenciaAcertos >= 3)
+                    {
+                        LabelQuizQuestaoBonus.Text = "10%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 10) / 100} Pontos";
+                    }
+                    else
+                    {
+                        LabelQuizQuestaoBonus.Text = "0%";
+                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos} Pontos";
+                    }
             }
         }
 
@@ -149,27 +169,9 @@ namespace SenacQuizApp.Telas.Componentes
         {
             if (_quizSessao != null)
             {
-                int index = _quizSessao.QuestaoAtualIndex;
-                var questao = _quizSessao.Quiz.Questoes[index];
-
                 if (correta)
                 {
                     _quizSessao.SequenciaAcertos++;
-                    if (_quizSessao.SequenciaAcertos >= 5) 
-                    { 
-                        LabelQuizQuestaoBonus.Text = "20%";
-                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 20) / 100}";
-                    }
-                    else if (_quizSessao.SequenciaAcertos >= 3) 
-                    { 
-                        LabelQuizQuestaoBonus.Text = "10%";
-                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos + (questao.Pontos * 10) / 100}";
-                    }
-                    else 
-                    { 
-                        LabelQuizQuestaoBonus.Text = "0%";
-                        LabelQuizQuestaoPontos.Text = $"{questao.Pontos}";
-                    }
                 }
                 else
                 {
@@ -179,6 +181,7 @@ namespace SenacQuizApp.Telas.Componentes
                 if (_quizSessao.QuestaoAtualIndex < _quizSessao.Quiz.Questoes.Count - 1)
                 {
                     _quizSessao.QuestaoAtualIndex++;
+
                     ProximaQuestao();
                 }
                 else

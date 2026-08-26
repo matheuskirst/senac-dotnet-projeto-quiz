@@ -10,6 +10,7 @@ namespace SenacQuizApp.Modelos
     public class UsuarioNivel
     {
         public UsuarioNivelId Id { get; set; }
+
         public string Nome { get; set; } = null!;
 
 

@@ -10,6 +10,7 @@ namespace SenacQuizApp.Modelos
     public class QuestaoNivel
     {
         public QuestaoNivelId Id { get; set; }
+
         public string Nome { get; set; } = null!;
         public int Pontos { get; set; }
 

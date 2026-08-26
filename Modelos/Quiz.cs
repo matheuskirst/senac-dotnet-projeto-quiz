@@ -10,8 +10,10 @@ namespace SenacQuizApp.Modelos
     public class Quiz
     {
         public int Id { get; set; }
+
         public int UsuarioId {  get; set; }
         public Usuario Usuario { get; set; } = null!;
+
         public DateTime DataInicio { get; set; } = DateTime.UtcNow;
         public DateOnly DataExibido { get; set; } = DateOnly.FromDateTime(ObterHora.ObterHoraBrasilia());
         public bool FoiConcluido { get; set; } = false;

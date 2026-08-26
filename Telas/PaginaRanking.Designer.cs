@@ -30,7 +30,7 @@
         {
             PanelRanking = new AntdUI.Panel();
             TableUsuariosRank = new AntdUI.Table();
-            label1 = new AntdUI.Label();
+            LabelTitulo = new AntdUI.Label();
             PanelRanking.SuspendLayout();
             SuspendLayout();
             // 
@@ -40,9 +40,9 @@
             PanelRanking.BorderColor = Color.Black;
             PanelRanking.BorderWidth = 1F;
             PanelRanking.Controls.Add(TableUsuariosRank);
-            PanelRanking.Location = new Point(375, 90);
+            PanelRanking.Location = new Point(265, 90);
             PanelRanking.Name = "PanelRanking";
-            PanelRanking.Size = new Size(530, 664);
+            PanelRanking.Size = new Size(750, 664);
             PanelRanking.TabIndex = 0;
             // 
             // TableUsuariosRank
@@ -56,27 +56,28 @@
             TableUsuariosRank.Location = new Point(1, 1);
             TableUsuariosRank.LostFocusClearSelection = true;
             TableUsuariosRank.Name = "TableUsuariosRank";
-            TableUsuariosRank.Size = new Size(528, 662);
+            TableUsuariosRank.Size = new Size(748, 662);
             TableUsuariosRank.TabIndex = 3;
             TableUsuariosRank.CellClick += TableUsuariosRank_CellClick;
+            TableUsuariosRank.CellDoubleClick += TableUsuariosRank_CellDoubleClick;
             // 
-            // label1
+            // LabelTitulo
             // 
-            label1.BackColor = Color.Transparent;
-            label1.Dock = DockStyle.Top;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(1280, 85);
-            label1.TabIndex = 1;
-            label1.Text = "Ranking";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            LabelTitulo.BackColor = Color.Transparent;
+            LabelTitulo.Dock = DockStyle.Top;
+            LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelTitulo.Location = new Point(0, 0);
+            LabelTitulo.Name = "LabelTitulo";
+            LabelTitulo.Size = new Size(1280, 85);
+            LabelTitulo.TabIndex = 1;
+            LabelTitulo.Text = "Ranking";
+            LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PaginaRanking
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label1);
+            Controls.Add(LabelTitulo);
             Controls.Add(PanelRanking);
             Name = "PaginaRanking";
             Size = new Size(1280, 720);
@@ -89,6 +90,6 @@
 
         private AntdUI.Panel PanelRanking;
         private AntdUI.Table TableUsuariosRank;
-        private AntdUI.Label label1;
+        private AntdUI.Label LabelTitulo;
     }
 }
