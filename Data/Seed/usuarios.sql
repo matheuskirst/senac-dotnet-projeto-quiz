@@ -2,7 +2,7 @@
 -- USUÁRIOS NÍVEIS
 -- ============================================================
 INSERT INTO "UsuarioNiveis"
-    ("Id", "Nome")
+    ("Id", "Nome", "PontosMin", "PontosMax")
 VALUES
 (1, 'Iniciante', 0, 500),
 (2, 'Fácil', 501, 2000),
