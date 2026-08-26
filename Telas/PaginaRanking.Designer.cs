@@ -31,7 +31,9 @@
             PanelRanking = new AntdUI.Panel();
             TableUsuariosRank = new AntdUI.Table();
             LabelTitulo = new AntdUI.Label();
+            panel1 = new AntdUI.Panel();
             PanelRanking.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // PanelRanking
@@ -40,9 +42,9 @@
             PanelRanking.BorderColor = Color.Black;
             PanelRanking.BorderWidth = 1F;
             PanelRanking.Controls.Add(TableUsuariosRank);
-            PanelRanking.Location = new Point(265, 90);
+            PanelRanking.Location = new Point(240, 91);
             PanelRanking.Name = "PanelRanking";
-            PanelRanking.Size = new Size(750, 664);
+            PanelRanking.Size = new Size(800, 620);
             PanelRanking.TabIndex = 0;
             // 
             // TableUsuariosRank
@@ -56,7 +58,7 @@
             TableUsuariosRank.Location = new Point(1, 1);
             TableUsuariosRank.LostFocusClearSelection = true;
             TableUsuariosRank.Name = "TableUsuariosRank";
-            TableUsuariosRank.Size = new Size(748, 662);
+            TableUsuariosRank.Size = new Size(798, 618);
             TableUsuariosRank.TabIndex = 3;
             TableUsuariosRank.CellClick += TableUsuariosRank_CellClick;
             TableUsuariosRank.CellDoubleClick += TableUsuariosRank_CellDoubleClick;
@@ -73,16 +75,27 @@
             LabelTitulo.Text = "Ranking";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(PanelRanking);
+            panel1.Controls.Add(LabelTitulo);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1280, 720);
+            panel1.TabIndex = 2;
+            panel1.Text = "panel1";
+            // 
             // PaginaRanking
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(LabelTitulo);
-            Controls.Add(PanelRanking);
+            Controls.Add(panel1);
             Name = "PaginaRanking";
             Size = new Size(1280, 720);
             Load += PaginaRanking_Load;
             PanelRanking.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -91,5 +104,6 @@
         private AntdUI.Panel PanelRanking;
         private AntdUI.Table TableUsuariosRank;
         private AntdUI.Label LabelTitulo;
+        private AntdUI.Panel panel1;
     }
 }

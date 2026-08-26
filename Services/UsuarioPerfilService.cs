@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SenacQuizApp.Data;
 using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Enums;
@@ -20,15 +21,16 @@ namespace SenacQuizApp.Services
         public async Task<UsuarioPerfilDto?> ObterPerfilPorId(int usuarioId)
         {
             return await _contexto.Usuarios
+                .AsNoTracking()
                 .Where(usuario => usuario.Id == usuarioId)
                 .Select(usuario => new UsuarioPerfilDto
                 {
                     Id = usuario.Id,
-                    Username = usuario.Username,
                     Nickname = usuario.Nickname,
                     DataDeCadastro = usuario.DataDeCadastro,
                     NivelId = usuario.Stats.NivelId,
                     Nivel = usuario.Stats.Nivel.Nome,
+                    PontuacaoTotal = usuario.Stats.PontuacaoTotal,
                     TotalAcertos = usuario.Stats.TotalAcertos,
                     TotalRespondidos = usuario.Stats.TotalRespondidos,
                     AtualAcertosConsecutivos = usuario.Stats.AtualAcertosConsecutivos,

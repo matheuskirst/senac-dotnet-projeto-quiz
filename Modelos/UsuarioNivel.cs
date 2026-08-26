@@ -12,7 +12,7 @@ namespace SenacQuizApp.Modelos
         public UsuarioNivelId Id { get; set; }
 
         public string Nome { get; set; } = null!;
-
-
+        public int PontosMin { get; set; }
+        public int? PontosMax { get; set; }
     }
 }

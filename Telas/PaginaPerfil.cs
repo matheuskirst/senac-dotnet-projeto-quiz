@@ -1,4 +1,7 @@
-﻿using SenacQuizApp.Modelos;
+﻿using AntdUI;
+using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
 using System;
 using System.Collections.Generic;
@@ -27,14 +30,69 @@ namespace SenacQuizApp.Telas
             InitializeComponent();
         }
 
-        private void PaginaPerfil_Load(object sender, EventArgs e)
+        private async void PaginaPerfil_Load(object sender, EventArgs e)
         {
+            try
+            {
+                UsuarioPerfilDto? perfil = await _usuarioPerfilService.ObterPerfilPorId(_usuarioId);
 
+                if (perfil == null)
+                {
+                    return;
+                }
+
+                AtualizarPerfil(perfil);
+
+            }
+            catch
+            {
+
+            }
         }
 
-        private void ButtonConquistas_Click(object sender, EventArgs e)
+        private void AtualizarPerfil(UsuarioPerfilDto perfil)
         {
+            LabelUsuario.Text = perfil.Nickname;
+            LabelNivel.Text = perfil.Nivel;
 
+            int pontosAtuais = perfil.PontuacaoTotal;
+            int pontosMinimosNivelAtual = 0;
+            int pontosMaximosProximoNivel = 0;
+
+            switch (perfil.NivelId)
+            {
+                case UsuarioNivelId.Iniciante:
+                    pontosMinimosNivelAtual = 0;
+                    pontosMaximosProximoNivel = 500;
+                    break;
+                case UsuarioNivelId.Aprendiz:
+                    pontosMinimosNivelAtual = 501;
+                    pontosMaximosProximoNivel = 2000;
+                    break;
+                case UsuarioNivelId.Intermediario:
+                    pontosMinimosNivelAtual = 20001;
+                    pontosMaximosProximoNivel = 10000;
+                    break;
+                case UsuarioNivelId.Avancado:
+                    ProgressUsuarioNivel.Value = 1F;
+                    ProgressUsuarioNivel.Text = "Nível Máximo";
+                    return;
+            }
+
+            int progressoNivel = pontosAtuais - pontosMinimosNivelAtual;
+            int totalNecessarioNoNivel = pontosMaximosProximoNivel - pontosMinimosNivelAtual;
+
+            if (progressoNivel < 0) progressoNivel = 0;
+
+            ProgressUsuarioNivel.Value = (float)progressoNivel / totalNecessarioNoNivel;
+
+
+            ProgressUsuarioNivel.TextUnit = $"% {pontosAtuais} / {pontosMaximosProximoNivel} Pontos";
+
+            LabelInsertPontuacaoTotal.Text = perfil.PontuacaoTotal.ToString();
+            LabelInsertAcertos.Text = perfil.TotalAcertos.ToString();
+            LabelInsertTotalRespostas.Text = perfil.TotalRespondidos.ToString();
+            LabelInsertTaxaAcertos.Text = $"{(double)perfil.TotalAcertos / perfil.TotalRespondidos:P0}";
         }
     }
 }

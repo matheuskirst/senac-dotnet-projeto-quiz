@@ -4,7 +4,7 @@
 INSERT INTO "UsuarioNiveis"
     ("Id", "Nome")
 VALUES
-(1, 'Iniciante'),
-(2, 'Fácil'),
-(3, 'Intermediário'),
-(4, 'Avançado');
+(1, 'Iniciante', 0, 500),
+(2, 'Fácil', 501, 2000),
+(3, 'Intermediário', 2001, 10000),
+(4, 'Avançado', 10001);

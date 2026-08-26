@@ -5,7 +5,6 @@ namespace SenacQuizApp.Dtos.Usuario
     public class UsuarioPerfilDto
     {
         public int Id { get; set; }
-        public string Username { get; set; } = null!;
         public string Nickname { get; set; } = null!;
         public DateTime? DataDeCadastro { get; set; }
         public UsuarioNivelId NivelId { get; set; }
