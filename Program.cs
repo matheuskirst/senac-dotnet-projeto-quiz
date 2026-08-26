@@ -17,6 +17,7 @@ namespace SenacQuizApp
             AutenticacaoService usuarioService = new(contexto);
             QuizService quizService = new(contexto);
             UsuarioPerfilService usuarioPerfilService = new(contexto);
+            RankingService rankingService = new(contexto);
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -27,7 +28,7 @@ namespace SenacQuizApp
             AntdUI.Localization.Provider = new AntdUIBrLocalizer();
             AntdUI.Localization.SetLanguage("pt-BR");
 
-            Application.Run(new FormApp(usuarioService, quizService, usuarioPerfilService));
+            Application.Run(new FormApp(usuarioService, quizService, usuarioPerfilService, rankingService));
         }
     }
 }

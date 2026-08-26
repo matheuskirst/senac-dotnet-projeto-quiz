@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new AntdUI.Panel();
+            PanelQuizDiario = new AntdUI.Panel();
             LabelQuizDiarioStatus = new AntdUI.Label();
             ButtonQuizDiario = new AntdUI.Button();
             LabelQuizDiario = new AntdUI.Label();
-            panel2 = new AntdUI.Panel();
+            PanelHistoricoPreview = new AntdUI.Panel();
             CollapseQuizzesPartidas = new AntdUI.Collapse();
             LabelQuizzesPartidas = new AntdUI.Label();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
+            PanelQuizDiario.SuspendLayout();
+            PanelHistoricoPreview.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // PanelQuizDiario
             // 
-            panel1.Back = Color.Transparent;
-            panel1.BackColor = SystemColors.ControlLight;
-            panel1.Controls.Add(LabelQuizDiarioStatus);
-            panel1.Controls.Add(ButtonQuizDiario);
-            panel1.Controls.Add(LabelQuizDiario);
-            panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(774, 0);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(10);
-            panel1.Size = new Size(250, 720);
-            panel1.TabIndex = 0;
-            panel1.Text = "panel1";
+            PanelQuizDiario.Back = Color.Transparent;
+            PanelQuizDiario.BackColor = SystemColors.ControlLight;
+            PanelQuizDiario.Controls.Add(LabelQuizDiarioStatus);
+            PanelQuizDiario.Controls.Add(ButtonQuizDiario);
+            PanelQuizDiario.Controls.Add(LabelQuizDiario);
+            PanelQuizDiario.Dock = DockStyle.Right;
+            PanelQuizDiario.Location = new Point(774, 0);
+            PanelQuizDiario.Name = "PanelQuizDiario";
+            PanelQuizDiario.Padding = new Padding(10);
+            PanelQuizDiario.Size = new Size(250, 720);
+            PanelQuizDiario.TabIndex = 0;
+            PanelQuizDiario.Text = "panel1";
             // 
             // LabelQuizDiarioStatus
             // 
@@ -89,26 +89,26 @@
             LabelQuizDiario.Text = "Quiz Diário";
             LabelQuizDiario.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panel2
+            // PanelHistoricoPreview
             // 
-            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel2.AutoScroll = true;
-            panel2.Controls.Add(CollapseQuizzesPartidas);
-            panel2.Controls.Add(LabelQuizzesPartidas);
-            panel2.Location = new Point(172, 80);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(430, 560);
-            panel2.TabIndex = 1;
-            panel2.Text = "panel2";
+            PanelHistoricoPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            PanelHistoricoPreview.AutoScroll = true;
+            PanelHistoricoPreview.Controls.Add(CollapseQuizzesPartidas);
+            PanelHistoricoPreview.Controls.Add(LabelQuizzesPartidas);
+            PanelHistoricoPreview.Location = new Point(110, 80);
+            PanelHistoricoPreview.Name = "PanelHistoricoPreview";
+            PanelHistoricoPreview.Size = new Size(550, 560);
+            PanelHistoricoPreview.TabIndex = 1;
+            PanelHistoricoPreview.Text = "panel2";
             // 
             // CollapseQuizzesPartidas
             // 
             CollapseQuizzesPartidas.BackColor = Color.Transparent;
             CollapseQuizzesPartidas.Dock = DockStyle.Fill;
-            CollapseQuizzesPartidas.Location = new Point(0, 23);
+            CollapseQuizzesPartidas.Location = new Point(0, 39);
             CollapseQuizzesPartidas.Name = "CollapseQuizzesPartidas";
             CollapseQuizzesPartidas.ResizingLineThickness = 2F;
-            CollapseQuizzesPartidas.Size = new Size(430, 537);
+            CollapseQuizzesPartidas.Size = new Size(550, 521);
             CollapseQuizzesPartidas.TabIndex = 1;
             // 
             // LabelQuizzesPartidas
@@ -118,7 +118,7 @@
             LabelQuizzesPartidas.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizzesPartidas.Location = new Point(0, 0);
             LabelQuizzesPartidas.Name = "LabelQuizzesPartidas";
-            LabelQuizzesPartidas.Size = new Size(430, 23);
+            LabelQuizzesPartidas.Size = new Size(550, 39);
             LabelQuizzesPartidas.TabIndex = 0;
             LabelQuizzesPartidas.Text = "Últimas 5 Partidas";
             LabelQuizzesPartidas.TextAlign = ContentAlignment.MiddleCenter;
@@ -128,23 +128,23 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            Controls.Add(panel2);
-            Controls.Add(panel1);
+            Controls.Add(PanelHistoricoPreview);
+            Controls.Add(PanelQuizDiario);
             Margin = new Padding(2);
             Name = "PaginaPrincipal";
             Size = new Size(1024, 720);
             Load += PaginaPrincipal_Load;
-            panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
+            PanelQuizDiario.ResumeLayout(false);
+            PanelHistoricoPreview.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private AntdUI.Panel panel1;
+        private AntdUI.Panel PanelQuizDiario;
         private AntdUI.Label LabelQuizDiario;
         private AntdUI.Button ButtonQuizDiario;
-        private AntdUI.Panel panel2;
+        private AntdUI.Panel PanelHistoricoPreview;
         private AntdUI.Label LabelQuizzesPartidas;
         private AntdUI.Collapse CollapseQuizzesPartidas;
         private AntdUI.Label LabelQuizDiarioStatus;

@@ -1,4 +1,5 @@
 ﻿using AntdUI;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
@@ -10,12 +11,14 @@ namespace SenacQuizApp.Telas
         private readonly AutenticacaoService _autenticacaoService;
         private readonly QuizService _quizService;
         private readonly UsuarioPerfilService _usuarioPerfilService;
+        private readonly RankingService _rankingService;
 
-        public FormApp(AutenticacaoService autenticacaoService, QuizService quizService, UsuarioPerfilService usuarioPerfilService)
+        public FormApp(AutenticacaoService autenticacaoService, QuizService quizService, UsuarioPerfilService usuarioPerfilService, RankingService rankingService)
         {
             _autenticacaoService = autenticacaoService;
             _quizService = quizService;
             _usuarioPerfilService = usuarioPerfilService;
+            _rankingService = rankingService;
             InitializeComponent();
         }
 
@@ -101,6 +104,18 @@ namespace SenacQuizApp.Telas
             MudarPagina(paginaPrincipal);
         }
 
+        public void AbrirPaginaRanking(object? sender, EventArgs e)
+        {
+            var paginaRanking = new PaginaRanking(_rankingService);
+
+            ButtonHeaderMenu.Enabled = true;
+            ButtonHeaderPerfil.Enabled = true;
+
+            ButtonHeaderRanking.Enabled = false;
+
+            MudarPagina(paginaRanking);
+        }
+
         public void AbrirPaginaQuiz(int quizId)
         {
             ButtonHeaderRanking.Enabled = true;
@@ -117,6 +132,11 @@ namespace SenacQuizApp.Telas
         private void ButtonHeaderMenu_Click(object sender, EventArgs e)
         {
             AbrirPaginaPrincipal(sender, EventArgs.Empty);
+        }
+
+        private void ButtonHeaderRanking_Click(object sender, EventArgs e)
+        {
+            AbrirPaginaRanking(sender, EventArgs.Empty);
         }
     }
 }

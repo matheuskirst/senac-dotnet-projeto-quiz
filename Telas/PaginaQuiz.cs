@@ -71,7 +71,7 @@ namespace SenacQuizApp.Telas.Componentes
             PanelQuestoes.Controls.Add(painel);
         }
 
-        private async void ProximaQuestao()
+        private void ProximaQuestao()
         {
             if (_quizSessao != null)
             {

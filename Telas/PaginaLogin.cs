@@ -161,7 +161,7 @@ namespace SenacQuizApp.Telas
             }
             catch (LoginException ex)
             {
-                ErroNoLogin(ex.ToString());
+                ErroNoLogin(ex.Message);
             }
             catch
             {
