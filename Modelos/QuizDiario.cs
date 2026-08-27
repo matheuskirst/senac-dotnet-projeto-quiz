@@ -27,9 +27,14 @@ namespace SenacQuizApp.Modelos
         public ICollection<Questao> Questoes { get; set; } = new List<Questao>();
         public ICollection<UsuarioResposta> UsuarioRespostas { get; set; } = new List<UsuarioResposta>();
 
-        public void Concluir()
+        public void Concluir(int pontuacaoReal)
         {
             if (FoiConcluido) throw new InvalidOperationException("Esse quiz já foi concluido");
+
+            if (PontuacaoTotal != pontuacaoReal)
+            {
+                PontuacaoTotal = pontuacaoReal;
+            }
 
             FoiConcluido = true;
             DataConcluido = DateTimeOffset.UtcNow;

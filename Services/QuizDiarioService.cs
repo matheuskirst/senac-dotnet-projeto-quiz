@@ -186,16 +186,20 @@ namespace SenacQuizApp.Services
 
             return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos);
         }
+
         public async Task ConcluirQuiz(int quizId)
         {
             using var contexto = new QuizAppContexto();
 
             QuizDiario? quiz = await contexto.QuizzesDiarios
                 .FindAsync(quizId);
-
             if (quiz == null) return;
 
-            quiz.Concluir();
+            int pontuacaoReal = quiz.UsuarioRespostas
+                .Where(resposta => resposta.Acertou)
+                .Sum(resposta => resposta.PontuacaoFinal);
+
+            quiz.Concluir(pontuacaoReal);
             contexto.QuizzesDiarios.Update(quiz);
             await contexto.SaveChangesAsync();
         }

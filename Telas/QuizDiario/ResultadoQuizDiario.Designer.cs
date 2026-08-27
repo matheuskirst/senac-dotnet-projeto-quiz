@@ -76,7 +76,7 @@
             PanelQuizConclusao.Location = new Point(0, 45);
             PanelQuizConclusao.Name = "PanelQuizConclusao";
             PanelQuizConclusao.Padding = new Padding(10);
-            PanelQuizConclusao.Size = new Size(350, 675);
+            PanelQuizConclusao.Size = new Size(400, 675);
             PanelQuizConclusao.TabIndex = 1;
             PanelQuizConclusao.Text = "panel1";
             // 
@@ -88,7 +88,7 @@
             LabelPontuacaoTotal.Location = new Point(11, 239);
             LabelPontuacaoTotal.Name = "LabelPontuacaoTotal";
             LabelPontuacaoTotal.Prefix = "Pontuação Total: ";
-            LabelPontuacaoTotal.Size = new Size(328, 38);
+            LabelPontuacaoTotal.Size = new Size(378, 38);
             LabelPontuacaoTotal.TabIndex = 14;
             LabelPontuacaoTotal.Text = "*";
             // 
@@ -100,7 +100,7 @@
             LabelTotalAcertos.Location = new Point(11, 201);
             LabelTotalAcertos.Name = "LabelTotalAcertos";
             LabelTotalAcertos.Prefix = "Total Acertos ";
-            LabelTotalAcertos.Size = new Size(328, 38);
+            LabelTotalAcertos.Size = new Size(378, 38);
             LabelTotalAcertos.TabIndex = 13;
             LabelTotalAcertos.Text = "*";
             // 
@@ -112,7 +112,7 @@
             LabelTotalQuestoes.Location = new Point(11, 163);
             LabelTotalQuestoes.Name = "LabelTotalQuestoes";
             LabelTotalQuestoes.Prefix = "Total Questões: ";
-            LabelTotalQuestoes.Size = new Size(328, 38);
+            LabelTotalQuestoes.Size = new Size(378, 38);
             LabelTotalQuestoes.TabIndex = 12;
             LabelTotalQuestoes.Text = "*";
             // 
@@ -124,7 +124,7 @@
             LabelTempoDeConclusao.Location = new Point(11, 125);
             LabelTempoDeConclusao.Name = "LabelTempoDeConclusao";
             LabelTempoDeConclusao.Prefix = "Tempo de Conclusão: ";
-            LabelTempoDeConclusao.Size = new Size(328, 38);
+            LabelTempoDeConclusao.Size = new Size(378, 38);
             LabelTempoDeConclusao.TabIndex = 11;
             LabelTempoDeConclusao.Text = "*";
             // 
@@ -136,7 +136,7 @@
             LabelDataConcluido.Location = new Point(11, 87);
             LabelDataConcluido.Name = "LabelDataConcluido";
             LabelDataConcluido.Prefix = "Data Concluido: ";
-            LabelDataConcluido.Size = new Size(328, 38);
+            LabelDataConcluido.Size = new Size(378, 38);
             LabelDataConcluido.TabIndex = 10;
             LabelDataConcluido.Text = "*";
             // 
@@ -148,7 +148,7 @@
             LabelDataInicio.Location = new Point(11, 49);
             LabelDataInicio.Name = "LabelDataInicio";
             LabelDataInicio.Prefix = "Data Iniciado: ";
-            LabelDataInicio.Size = new Size(328, 38);
+            LabelDataInicio.Size = new Size(378, 38);
             LabelDataInicio.TabIndex = 8;
             LabelDataInicio.Text = "*";
             // 
@@ -160,7 +160,7 @@
             LabelSubTitulo.Location = new Point(11, 11);
             LabelSubTitulo.Name = "LabelSubTitulo";
             LabelSubTitulo.Prefix = "";
-            LabelSubTitulo.Size = new Size(328, 38);
+            LabelSubTitulo.Size = new Size(378, 38);
             LabelSubTitulo.TabIndex = 15;
             LabelSubTitulo.Text = "Estátisticas";
             LabelSubTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -171,10 +171,10 @@
             PanelQuizResultados.BackColor = Color.White;
             PanelQuizResultados.Controls.Add(CollapsePanel);
             PanelQuizResultados.Dock = DockStyle.Fill;
-            PanelQuizResultados.Location = new Point(350, 45);
+            PanelQuizResultados.Location = new Point(400, 45);
             PanelQuizResultados.Name = "PanelQuizResultados";
             PanelQuizResultados.Padding = new Padding(100);
-            PanelQuizResultados.Size = new Size(674, 675);
+            PanelQuizResultados.Size = new Size(624, 675);
             PanelQuizResultados.TabIndex = 2;
             PanelQuizResultados.Text = "panel1";
             // 
@@ -187,7 +187,7 @@
             CollapsePanel.Controls.Add(CollapseQuestoes);
             CollapsePanel.Location = new Point(95, 49);
             CollapsePanel.Name = "CollapsePanel";
-            CollapsePanel.Size = new Size(489, 589);
+            CollapsePanel.Size = new Size(439, 589);
             CollapsePanel.TabIndex = 0;
             CollapsePanel.Text = "panel1";
             // 
@@ -197,7 +197,7 @@
             CollapseQuestoes.Location = new Point(0, 0);
             CollapseQuestoes.Name = "CollapseQuestoes";
             CollapseQuestoes.ResizingLineThickness = 2F;
-            CollapseQuestoes.Size = new Size(489, 589);
+            CollapseQuestoes.Size = new Size(439, 589);
             CollapseQuestoes.TabIndex = 4;
             CollapseQuestoes.Text = "collapse1";
             // 
@@ -217,14 +217,14 @@
             button2.TabIndex = 1;
             button2.Text = "button2";
             // 
-            // PainelResultadoQuizDiario
+            // ResultadoQuizDiario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(PanelQuizResultados);
             Controls.Add(PanelQuizConclusao);
             Controls.Add(LabelTitulo);
-            Name = "PainelResultadoQuizDiario";
+            Name = "ResultadoQuizDiario";
             Size = new Size(1024, 720);
             Load += PainelResultado_Load;
             PanelQuizConclusao.ResumeLayout(false);
