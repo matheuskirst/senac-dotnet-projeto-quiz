@@ -36,6 +36,7 @@
             PanelAppHeader = new AntdUI.Panel();
             PanelAppFooter = new AntdUI.Panel();
             PanelHeaderDivider = new AntdUI.Panel();
+            PanelFooterDivider = new AntdUI.Panel();
             PanelAppHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,7 +58,7 @@
             PanelAppBody.Location = new Point(0, 116);
             PanelAppBody.Margin = new Padding(0);
             PanelAppBody.Name = "PanelAppBody";
-            PanelAppBody.Size = new Size(1024, 564);
+            PanelAppBody.Size = new Size(1024, 563);
             PanelAppBody.TabIndex = 4;
             // 
             // ButtonHeaderMenu
@@ -116,7 +117,7 @@
             // PanelAppFooter
             // 
             PanelAppFooter.Back = Color.Transparent;
-            PanelAppFooter.BackColor = SystemColors.ControlLight;
+            PanelAppFooter.BackColor = SystemColors.ControlDark;
             PanelAppFooter.Dock = DockStyle.Bottom;
             PanelAppFooter.Location = new Point(0, 680);
             PanelAppFooter.Name = "PanelAppFooter";
@@ -135,12 +136,24 @@
             PanelHeaderDivider.TabIndex = 0;
             PanelHeaderDivider.Text = "panel1";
             // 
+            // PanelFooterDivider
+            // 
+            PanelFooterDivider.Back = SystemColors.ControlDarkDark;
+            PanelFooterDivider.BackColor = SystemColors.ControlDarkDark;
+            PanelFooterDivider.Dock = DockStyle.Bottom;
+            PanelFooterDivider.Location = new Point(0, 679);
+            PanelFooterDivider.Name = "PanelFooterDivider";
+            PanelFooterDivider.Size = new Size(1024, 1);
+            PanelFooterDivider.TabIndex = 1;
+            PanelFooterDivider.Text = "panel1";
+            // 
             // FormApp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1024, 720);
             Controls.Add(PanelAppBody);
+            Controls.Add(PanelFooterDivider);
             Controls.Add(PanelAppFooter);
             Controls.Add(PanelHeaderDivider);
             Controls.Add(PanelAppHeader);
@@ -165,5 +178,6 @@
         private AntdUI.Panel PanelAppHeader;
         private AntdUI.Panel PanelAppFooter;
         private AntdUI.Panel PanelHeaderDivider;
+        private AntdUI.Panel PanelFooterDivider;
     }
 }

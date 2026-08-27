@@ -29,7 +29,7 @@ namespace SenacQuizApp.Services
                 .Include(q => q.Nivel)
                 .Include(q => q.Tipo)
                 .Include(q => q.Alternativas)
-                .OrderBy(q => Guid.NewGuid())
+                .OrderBy(q => EF.Functions.Random())
                 .FirstOrDefault();
 
             var questoes = questaoAvancada != null ? new List<Questao> { questaoAvancada } : new List<Questao>();
@@ -42,7 +42,7 @@ namespace SenacQuizApp.Services
                 .Include(q => q.Nivel)
                 .Include(q => q.Tipo)
                 .Include(q => q.Alternativas)
-                .OrderBy(q => Guid.NewGuid())
+                .OrderBy(q => EF.Functions.Random())
                 .Take(9)
                 .ToListAsync();
 

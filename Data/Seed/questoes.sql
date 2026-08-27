@@ -1,6 +1,7 @@
 -- ============================================================
 -- QUESTÃO NÍVEIS
 -- ============================================================
+
 INSERT INTO "QuestaoNiveis"
     ("Id", "Nome", "Pontos")
 VALUES
@@ -13,6 +14,7 @@ VALUES
 -- ============================================================
 -- QUESTÃO TEMAS
 -- ============================================================
+
 INSERT INTO "QuestaoTemas"
     ("Id", "Nome")
 VALUES
@@ -27,6 +29,7 @@ VALUES
 -- ============================================================
 -- QUESTÃO TIPOS
 -- ============================================================
+
 INSERT INTO "QuestaoTipos"
     ("Id", "Nome")
 VALUES
@@ -50,6 +53,10 @@ VALUES
 (2, 'Qual dos componentes abaixo é utilizado para armazenar dados permanentemente?', 1, 1, 1, NULL),
 (3, 'A memória RAM é um tipo de memória volátil.', 1, 2, 2, TRUE),
 (4, 'Qual componente é responsável pelo processamento gráfico de um computador?', 1, 2, 1, NULL),
+(37, 'Qual componente é responsável por armazenar temporariamente os dados e programas em uso pelo computador?', 1, 1, 1, NULL),
+(38, 'Qual tecnologia de armazenamento geralmente oferece maior velocidade de leitura e escrita?', 1, 2, 1, NULL),
+(39, 'A placa-mãe é responsável por conectar e permitir a comunicação entre diversos componentes do computador.', 1, 2, 2, TRUE),
+(40, 'Qual característica de uma GPU é especialmente importante para aplicações de processamento paralelo?', 1, 4, 1, NULL),
 
 -- ============================================================
 -- PROGRAMAÇÃO
@@ -59,6 +66,10 @@ VALUES
 (6, 'Qual estrutura é normalmente utilizada para repetir um bloco de código enquanto uma condição for verdadeira?', 2, 1, 1, NULL),
 (7, 'Uma função pode receber parâmetros e retornar um valor.', 2, 2, 2, TRUE),
 (8, 'O que significa o conceito de encapsulamento na programação orientada a objetos?', 2, 3, 1, NULL),
+(41, 'Qual palavra-chave normalmente é utilizada para definir uma função em Python?', 2, 1, 1, NULL),
+(42, 'O que é um loop infinito?', 2, 2, 1, NULL),
+(43, 'Uma variável declarada dentro de uma função pode ter escopo local.', 2, 2, 2, TRUE),
+(44, 'Qual estrutura de dados segue o princípio LIFO (Last In, First Out)?', 2, 4, 1, NULL),
 
 -- ============================================================
 -- REDES
@@ -68,6 +79,10 @@ VALUES
 (10, 'Qual dispositivo é normalmente utilizado para conectar diferentes redes?', 3, 1, 1, NULL),
 (11, 'O protocolo HTTPS utiliza criptografia para proteger a comunicação entre cliente e servidor.', 3, 2, 2, TRUE),
 (12, 'Qual protocolo é utilizado para traduzir nomes de domínio em endereços IP?', 3, 2, 1, NULL),
+(45, 'Qual equipamento é utilizado para conectar dispositivos dentro de uma mesma rede local?', 3, 1, 1, NULL),
+(46, 'Qual protocolo é utilizado para transferência de arquivos entre computadores?', 3, 2, 1, NULL),
+(47, 'O endereço MAC identifica uma interface de rede em nível de enlace.', 3, 3, 2, TRUE),
+(48, 'Qual protocolo da camada de transporte é orientado à conexão e garante a entrega ordenada dos dados?', 3, 4, 1, NULL),
 
 -- ============================================================
 -- SEGURANÇA DIGITAL
@@ -77,6 +92,10 @@ VALUES
 (14, 'Qual é uma boa prática para proteger uma conta online?', 4, 1, 1, NULL),
 (15, 'Uma senha forte deve ser utilizada em várias contas diferentes para facilitar o gerenciamento.', 4, 2, 2, FALSE),
 (16, 'O que caracteriza um ataque de ransomware?', 4, 3, 1, NULL),
+(49, 'O que é autenticação multifator (MFA)?', 4, 1, 1, NULL),
+(50, 'Qual prática ajuda a evitar a perda de dados caso um computador seja comprometido?', 4, 2, 1, NULL),
+(51, 'Manter sistemas e aplicativos atualizados pode ajudar a corrigir vulnerabilidades de segurança.', 4, 2, 2, TRUE),
+(52, 'Qual técnica de ataque tenta induzir usuários a executar ações por meio de manipulação psicológica?', 4, 4, 1, NULL),
 
 -- ============================================================
 -- SISTEMAS OPERACIONAIS
@@ -86,6 +105,10 @@ VALUES
 (18, 'Qual dos sistemas abaixo é um sistema operacional?', 5, 1, 1, NULL),
 (19, 'O sistema operacional é responsável por gerenciar recursos de hardware e software.', 5, 2, 2, TRUE),
 (20, 'O que é um processo em um sistema operacional?', 5, 3, 1, NULL),
+(53, 'Qual sistema operacional é baseado no kernel Linux?', 5, 1, 1, NULL),
+(54, 'O que é um driver de dispositivo?', 5, 2, 1, NULL),
+(55, 'Um sistema operacional pode executar vários processos de forma concorrente.', 5, 2, 2, TRUE),
+(56, 'Qual mecanismo permite alternar rapidamente a execução entre diferentes processos?', 5, 4, 1, NULL),
 
 -- ============================================================
 -- FERRAMENTAS DE PRODUTIVIDADE
@@ -95,6 +118,10 @@ VALUES
 (22, 'Qual é a finalidade principal de um editor de texto?', 6, 1, 1, NULL),
 (23, 'Ferramentas de armazenamento em nuvem permitem acessar arquivos a partir de diferentes dispositivos.', 6, 2, 2, TRUE),
 (24, 'Qual recurso de uma planilha eletrônica pode ser utilizado para resumir grandes conjuntos de dados?', 6, 3, 1, NULL),
+(57, 'Qual ferramenta é mais adequada para criar apresentações de slides?', 6, 1, 1, NULL),
+(58, 'Qual recurso de um editor de texto pode ser utilizado para verificar erros ortográficos?', 6, 1, 1, NULL),
+(59, 'Uma fórmula em uma planilha normalmente começa com o símbolo de igual.', 6, 2, 2, TRUE),
+(60, 'Qual recurso permite restringir os valores que podem ser inseridos em uma célula de uma planilha?', 6, 3, 1, NULL),
 
 -- ============================================================
 -- HARDWARE - AVANÇADO
@@ -310,7 +337,7 @@ VALUES
 (84, 'Cabeçalho do documento', FALSE, 24),
 
 -- ============================================================
--- QUESTÃO 25 - HARDWARE AVANÇADO
+-- QUESTÃO 25
 -- ============================================================
 
 (85, 'Hyper-threading ou SMT', TRUE, 25),
@@ -319,7 +346,7 @@ VALUES
 (88, 'Cache L1', FALSE, 25),
 
 -- ============================================================
--- QUESTÃO 26 - HARDWARE AVANÇADO
+-- QUESTÃO 26
 -- ============================================================
 
 (89, 'A quantidade de ciclos de processamento por segundo', TRUE, 26),
@@ -328,7 +355,7 @@ VALUES
 (92, 'A resolução máxima do monitor', FALSE, 26),
 
 -- ============================================================
--- QUESTÃO 27 - PROGRAMAÇÃO AVANÇADO
+-- QUESTÃO 27
 -- ============================================================
 
 (93, 'Sobrescrita de método (override)', TRUE, 27),
@@ -337,7 +364,7 @@ VALUES
 (96, 'Serialização de objeto', FALSE, 27),
 
 -- ============================================================
--- QUESTÃO 28 - PROGRAMAÇÃO AVANÇADO
+-- QUESTÃO 28
 -- ============================================================
 
 (97, 'O(log n)', TRUE, 28),
@@ -346,7 +373,7 @@ VALUES
 (100, 'O(2ⁿ)', FALSE, 28),
 
 -- ============================================================
--- QUESTÃO 29 - REDES AVANÇADO
+-- QUESTÃO 29
 -- ============================================================
 
 (101, 'DHCP', TRUE, 29),
@@ -355,7 +382,7 @@ VALUES
 (104, 'FTP', FALSE, 29),
 
 -- ============================================================
--- QUESTÃO 30 - REDES AVANÇADO
+-- QUESTÃO 30
 -- ============================================================
 
 (105, 'NAT', TRUE, 30),
@@ -364,7 +391,7 @@ VALUES
 (108, 'SMTP', FALSE, 30),
 
 -- ============================================================
--- QUESTÃO 31 - SEGURANÇA DIGITAL AVANÇADO
+-- QUESTÃO 31
 -- ============================================================
 
 (109, 'Princípio do menor privilégio', TRUE, 31),
@@ -373,7 +400,7 @@ VALUES
 (112, 'Negação de serviço', FALSE, 31),
 
 -- ============================================================
--- QUESTÃO 32 - SEGURANÇA DIGITAL AVANÇADO
+-- QUESTÃO 32
 -- ============================================================
 
 (113, 'Autoridade Certificadora (CA)', TRUE, 32),
@@ -382,7 +409,7 @@ VALUES
 (116, 'Servidor DHCP', FALSE, 32),
 
 -- ============================================================
--- QUESTÃO 33 - SISTEMAS OPERACIONAIS AVANÇADO
+-- QUESTÃO 33
 -- ============================================================
 
 (117, 'Memória virtual', TRUE, 33),
@@ -391,7 +418,7 @@ VALUES
 (120, 'Fragmentação externa', FALSE, 33),
 
 -- ============================================================
--- QUESTÃO 34 - SISTEMAS OPERACIONAIS AVANÇADO
+-- QUESTÃO 34
 -- ============================================================
 
 (121, 'Deadlock', TRUE, 34),
@@ -400,7 +427,7 @@ VALUES
 (124, 'Context switch', FALSE, 34),
 
 -- ============================================================
--- QUESTÃO 35 - FERRAMENTAS DE PRODUTIVIDADE AVANÇADO
+-- QUESTÃO 35
 -- ============================================================
 
 (125, 'Tabela dinâmica', TRUE, 35),
@@ -409,10 +436,172 @@ VALUES
 (128, 'Validação de dados', FALSE, 35),
 
 -- ============================================================
--- QUESTÃO 36 - FERRAMENTAS DE PRODUTIVIDADE AVANÇADO
+-- QUESTÃO 36
 -- ============================================================
 
 (129, 'PROCV ou PROCX', TRUE, 36),
 (130, 'CONT.SE', FALSE, 36),
 (131, 'SOMA', FALSE, 36),
-(132, 'MÉDIA', FALSE, 36);
+(132, 'MÉDIA', FALSE, 36),
+
+-- ============================================================
+-- QUESTÃO 37
+-- ============================================================
+
+(133, 'Memória RAM', TRUE, 37),
+(134, 'Fonte de alimentação', FALSE, 37),
+(135, 'Placa de vídeo', FALSE, 37),
+(136, 'Disco rígido', FALSE, 37),
+
+-- ============================================================
+-- QUESTÃO 38
+-- ============================================================
+
+(137, 'SSD', TRUE, 38),
+(138, 'HD mecânico', FALSE, 38),
+(139, 'DVD', FALSE, 38),
+(140, 'Disquete', FALSE, 38),
+
+-- ============================================================
+-- QUESTÃO 40
+-- ============================================================
+
+(141, 'Grande quantidade de núcleos capazes de executar operações em paralelo', TRUE, 40),
+(142, 'Grande quantidade de conectores USB', FALSE, 40),
+(143, 'Maior capacidade de armazenamento interno', FALSE, 40),
+(144, 'Maior quantidade de memória cache da CPU', FALSE, 40),
+
+-- ============================================================
+-- QUESTÃO 41
+-- ============================================================
+
+(145, 'def', TRUE, 41),
+(146, 'func', FALSE, 41),
+(147, 'function', FALSE, 41),
+(148, 'method', FALSE, 41),
+
+-- ============================================================
+-- QUESTÃO 42
+-- ============================================================
+
+(149, 'Um loop que continua executando porque sua condição nunca se torna falsa', TRUE, 42),
+(150, 'Um loop que executa exatamente uma vez', FALSE, 42),
+(151, 'Um loop que sempre produz um erro de sintaxe', FALSE, 42),
+(152, 'Um loop utilizado exclusivamente para acessar arquivos', FALSE, 42),
+
+-- ============================================================
+-- QUESTÃO 44
+-- ============================================================
+
+(153, 'Pilha (Stack)', TRUE, 44),
+(154, 'Fila (Queue)', FALSE, 44),
+(155, 'Árvore binária', FALSE, 44),
+(156, 'Tabela hash', FALSE, 44),
+
+-- ============================================================
+-- QUESTÃO 45
+-- ============================================================
+
+(157, 'Switch', TRUE, 45),
+(158, 'Monitor', FALSE, 45),
+(159, 'Scanner', FALSE, 45),
+(160, 'Fonte de alimentação', FALSE, 45),
+
+-- ============================================================
+-- QUESTÃO 46
+-- ============================================================
+
+(161, 'FTP', TRUE, 46),
+(162, 'DNS', FALSE, 46),
+(163, 'DHCP', FALSE, 46),
+(164, 'ICMP', FALSE, 46),
+
+-- ============================================================
+-- QUESTÃO 48
+-- ============================================================
+
+(165, 'TCP', TRUE, 48),
+(166, 'UDP', FALSE, 48),
+(167, 'IP', FALSE, 48),
+(168, 'ARP', FALSE, 48),
+
+-- ============================================================
+-- QUESTÃO 49
+-- ============================================================
+
+(169, 'Utilizar dois ou mais fatores diferentes para confirmar a identidade do usuário', TRUE, 49),
+(170, 'Utilizar a mesma senha em vários serviços', FALSE, 49),
+(171, 'Armazenar todas as senhas em um arquivo de texto', FALSE, 49),
+(172, 'Desativar a senha de uma conta', FALSE, 49),
+
+-- ============================================================
+-- QUESTÃO 50
+-- ============================================================
+
+(173, 'Realizar backups regulares dos dados importantes', TRUE, 50),
+(174, 'Desativar o firewall', FALSE, 50),
+(175, 'Compartilhar arquivos sem restrições', FALSE, 50),
+(176, 'Utilizar a mesma senha para todos os serviços', FALSE, 50),
+
+-- ============================================================
+-- QUESTÃO 52
+-- ============================================================
+
+(177, 'Engenharia social', TRUE, 52),
+(178, 'Fragmentação de disco', FALSE, 52),
+(179, 'Balanceamento de carga', FALSE, 52),
+(180, 'Compressão de dados', FALSE, 52),
+
+-- ============================================================
+-- QUESTÃO 53
+-- ============================================================
+
+(181, 'Ubuntu', TRUE, 53),
+(182, 'Microsoft Word', FALSE, 53),
+(183, 'Google Chrome', FALSE, 53),
+(184, 'Adobe Photoshop', FALSE, 53),
+
+-- ============================================================
+-- QUESTÃO 54
+-- ============================================================
+
+(185, 'Software que permite ao sistema operacional se comunicar com um dispositivo de hardware', TRUE, 54),
+(186, 'Um componente responsável por armazenar arquivos', FALSE, 54),
+(187, 'Um tipo de vírus de computador', FALSE, 54),
+(188, 'Um protocolo utilizado exclusivamente para navegação web', FALSE, 54),
+
+-- ============================================================
+-- QUESTÃO 56
+-- ============================================================
+
+(189, 'Escalonamento e troca de contexto', TRUE, 56),
+(190, 'Formatação do disco', FALSE, 56),
+(191, 'Compactação de arquivos', FALSE, 56),
+(192, 'Criptografia de documentos', FALSE, 56),
+
+-- ============================================================
+-- QUESTÃO 57
+-- ============================================================
+
+(193, 'Microsoft PowerPoint', TRUE, 57),
+(194, 'Microsoft Excel', FALSE, 57),
+(195, 'Microsoft Access', FALSE, 57),
+(196, 'Bloco de Notas', FALSE, 57),
+
+-- ============================================================
+-- QUESTÃO 58
+-- ============================================================
+
+(197, 'Corretor ortográfico', TRUE, 58),
+(198, 'Gerenciador de dispositivos', FALSE, 58),
+(199, 'Firewall', FALSE, 58),
+(200, 'Desfragmentador de disco', FALSE, 58),
+
+-- ============================================================
+-- QUESTÃO 60
+-- ============================================================
+
+(201, 'Validação de dados', TRUE, 60),
+(202, 'Tabela dinâmica', FALSE, 60),
+(203, 'Quebra de página', FALSE, 60),
+(204, 'Congelar painéis', FALSE, 60);
