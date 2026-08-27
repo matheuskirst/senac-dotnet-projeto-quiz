@@ -4,7 +4,7 @@ using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
 using SenacQuizApp.Telas.Componentes.Quiz;
-using SenacQuizApp.Telas.Quiz_Diario;
+using SenacQuizApp.Telas.QuizDiario;
 
 namespace SenacQuizApp.Telas
 {

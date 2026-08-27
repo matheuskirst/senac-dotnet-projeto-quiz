@@ -1,26 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
-using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
-using SenacQuizApp.Modelos;
 using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Services
 {
     public class AutenticacaoService
     {
-        private readonly QuizAppContexto _contexto;
-
-        public AutenticacaoService(QuizAppContexto contexto)
-        {
-            _contexto = contexto;
-        }
-
         // Determina se o nome já está sendo usado
         public async Task<bool> VerificarUsername(string username)
         {
-            var usuario = await _contexto.Usuarios
+            using var contexto = new QuizAppContexto();
+
+            var usuario = await contexto.Usuarios
                 .FirstOrDefaultAsync(u => u.Username == username);
             return usuario != null;
         }
@@ -28,7 +21,9 @@ namespace SenacQuizApp.Services
         // Login
         public async Task<bool> RealizarLogin(string username, string senha)
         {
-            Usuario? usuario = await _contexto.Usuarios
+            using var contexto = new QuizAppContexto();
+
+            Usuario? usuario = await contexto.Usuarios
                                 .FirstOrDefaultAsync(u => u.Username == username);
 
             if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(senha, usuario.Senha))
@@ -70,9 +65,10 @@ namespace SenacQuizApp.Services
                     }
                 };
 
+                using var contexto = new QuizAppContexto();
 
-                _contexto.Usuarios.Add(usuario);
-                await _contexto.SaveChangesAsync();
+                contexto.Usuarios.Add(usuario);
+                await contexto.SaveChangesAsync();
 
                 bool loginSucesso = await RealizarLogin(username, senha);
                 if (loginSucesso)
@@ -93,8 +89,10 @@ namespace SenacQuizApp.Services
 
         public async Task AtualizarSenha(string senha, string novaSenha)
         {
+            using var contexto = new QuizAppContexto();
+
             int usuarioId = UsuarioAtual.Id;
-            Usuario? usuario = await _contexto.Usuarios
+            Usuario? usuario = await contexto.Usuarios
                                 .FirstOrDefaultAsync(u => u.Id == usuarioId);
 
             if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(senha, usuario.Senha))

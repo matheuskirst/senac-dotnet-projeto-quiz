@@ -1,4 +1,4 @@
-﻿namespace SenacQuizApp.Telas
+﻿namespace SenacQuizApp.Telas.QuizRush
 {
     partial class PaginaQuizRush
     {

@@ -3,7 +3,7 @@
 -- ============================================================
 
 INSERT INTO "QuestaoNiveis"
-    ("Id", "Nome", "Pontos")
+    ("Id", "Nome", "Valor")
 VALUES
 (1, 'Iniciante', 10),
 (2, 'Fácil', 20),
@@ -42,7 +42,7 @@ VALUES
 -- ============================================================
 
 INSERT INTO "Questoes"
-    ("Id", "Enunciado", "TemaId", "NivelId", "TipoId", "Verdadeira")
+    ("Id", "Enunciado", "TemaId", "NivelId", "TipoId", "VerdadeiroFalso")
 VALUES
 
 -- ============================================================
@@ -171,7 +171,7 @@ VALUES
 -- ============================================================
 
 INSERT INTO "Alternativas"
-    ("Id", "Texto", "Correta", "QuestaoId")
+    ("Id", "Texto", "EhCorreta", "QuestaoId")
 VALUES
 
 -- ============================================================

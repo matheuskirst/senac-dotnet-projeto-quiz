@@ -22,7 +22,7 @@ namespace SenacQuizApp.Modelos.Questoes
         public QuestaoTipo Tipo { get; set; } = null!;
 
         public string Enunciado { get; set; } = null!;
-        public bool? Verdadeira { get; set; }
+        public bool? VerdadeiroFalso { get; set; }
 
         public ICollection<Alternativa> Alternativas { get; set; } = new List<Alternativa>();
         public ICollection<QuizDiario> Quizzes { get; set; } = new List<QuizDiario>();

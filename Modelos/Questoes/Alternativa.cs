@@ -14,6 +14,6 @@ namespace SenacQuizApp.Modelos.Questoes
         public Questao Questao { get; set; } = null!;
 
         public string Texto { get; set; } = null!;
-        public bool Correta { get; set; }
+        public bool EhCorreta { get; set; }
     }
 }

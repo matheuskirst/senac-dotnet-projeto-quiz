@@ -9,15 +9,15 @@ namespace SenacQuizApp.Modelos
         public int UsuarioId {  get; set; }
         public Usuario Usuario { get; set; } = null!;
 
-        public DateTime DataIniciado { get; set; } = DateTime.UtcNow;
-        public DateTime? DataFinalizado { get; set; }
+        public DateTimeOffset DataIniciado { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset? DataFinalizado { get; set; }
         public TimeSpan? TempoDeQuiz { get; set; }
         public int QuantidadeAcertos { get; set; }
         public int PontuacaoTotal { get; set; } = 0;
 
         public void Finalizar()
         {
-            DataFinalizado = DateTime.UtcNow;
+            DataFinalizado = DateTimeOffset.UtcNow;
             TempoDeQuiz = DataFinalizado - DataIniciado;
         }
     }

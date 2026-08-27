@@ -42,7 +42,7 @@
             // 
             // PageHeader
             // 
-            PageHeader.BackColor = SystemColors.ControlDark;
+            PageHeader.BackColor = SystemColors.ActiveBorder;
             PageHeader.ColorScheme = AntdUI.TAMode.Light;
             PageHeader.Dock = DockStyle.Top;
             PageHeader.Location = new Point(0, 0);
@@ -103,7 +103,7 @@
             // PanelAppHeader
             // 
             PanelAppHeader.Back = Color.Transparent;
-            PanelAppHeader.BackColor = SystemColors.ControlDark;
+            PanelAppHeader.BackColor = SystemColors.ActiveBorder;
             PanelAppHeader.Controls.Add(ButtonHeaderMenu);
             PanelAppHeader.Controls.Add(ButtonHeaderPerfil);
             PanelAppHeader.Controls.Add(ButtonHeaderRanking);
@@ -117,7 +117,7 @@
             // PanelAppFooter
             // 
             PanelAppFooter.Back = Color.Transparent;
-            PanelAppFooter.BackColor = SystemColors.ControlDark;
+            PanelAppFooter.BackColor = SystemColors.ActiveBorder;
             PanelAppFooter.Dock = DockStyle.Bottom;
             PanelAppFooter.Location = new Point(0, 680);
             PanelAppFooter.Name = "PanelAppFooter";

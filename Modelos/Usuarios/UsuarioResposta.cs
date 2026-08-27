@@ -14,6 +14,7 @@ namespace SenacQuizApp.Modelos.Usuarios
         public Questao Questao { get; set; } = null!;
 
         public bool Acertou { get; set; }
+        public int QuestaoValor { get; set; }
         public int PontuacaoFinal { get; set; } = 0;
         public DateTime? DataDeResposta { get; set; } = DateTime.UtcNow;
     }

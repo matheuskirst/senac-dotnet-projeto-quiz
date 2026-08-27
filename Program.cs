@@ -12,12 +12,10 @@ namespace SenacQuizApp
         [STAThread]
         static void Main()
         {
-            QuizAppContexto contexto = new();
-
-            AutenticacaoService usuarioService = new(contexto);
-            QuizDiarioService quizDiarioService = new(contexto);
-            UsuarioPerfilService usuarioPerfilService = new(contexto);
-            RankingService rankingService = new(contexto);
+            AutenticacaoService usuarioService = new();
+            QuizDiarioService quizDiarioService = new();
+            UsuarioPerfilService usuarioPerfilService = new();
+            RankingService rankingService = new();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

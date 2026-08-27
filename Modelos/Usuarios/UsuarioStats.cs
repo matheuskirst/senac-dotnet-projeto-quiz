@@ -9,7 +9,8 @@ namespace SenacQuizApp.Modelos.Usuarios
 {
     public class UsuarioStats
     {
-        public int Id { get; set; }
+        public int UsuarioId { get; set; }
+        public Usuario Usuario { get; set; } = null!;
 
         public UsuarioNivelId NivelId { get; set; } = UsuarioNivelId.Iniciante;
         public UsuarioNivel Nivel { get; set; } = null!;
@@ -20,7 +21,6 @@ namespace SenacQuizApp.Modelos.Usuarios
         public int AtualAcertosConsecutivos { get; set; } = 0;
         public int MaxAcertosConsecutivos { get; set; } = 0;
 
-        public Usuario Usuario { get; set; } = null!;
 
         public void AdicionarPontos(int pontos)
         {

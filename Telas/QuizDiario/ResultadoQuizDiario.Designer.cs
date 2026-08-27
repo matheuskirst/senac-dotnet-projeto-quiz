@@ -1,4 +1,4 @@
-﻿namespace SenacQuizApp.Telas.Quiz_Diario
+﻿namespace SenacQuizApp.Telas.QuizDiario
 {
     partial class ResultadoQuizDiario
     {

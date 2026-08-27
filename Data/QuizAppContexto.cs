@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Modelos;
-using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
-using AntdUI;
 using SenacQuizApp.Modelos.Usuarios;
 using SenacQuizApp.Modelos.Questoes;
 
@@ -86,7 +78,7 @@ namespace SenacQuizApp.Data
 
                 entity.HasOne(u => u.Stats)
                     .WithOne(s => s.Usuario)
-                    .HasForeignKey<UsuarioStats>(s => s.Id)
+                    .HasForeignKey<UsuarioStats>(s => s.UsuarioId)
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);
 
@@ -104,6 +96,8 @@ namespace SenacQuizApp.Data
                     .HasMaxLength(ModelosConstantes.Usuario.MaxSenhaLength);
             });
 
+            modelBuilder.Entity<UsuarioStats>()
+                .HasKey(s => s.UsuarioId);
 
             modelBuilder.Entity<QuestaoTema>()
                 .Property(tm => tm.Nome)

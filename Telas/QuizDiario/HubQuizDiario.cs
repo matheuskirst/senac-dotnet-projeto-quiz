@@ -2,7 +2,7 @@
 using SenacQuizApp.Dtos.QuizDiario.Detalhe;
 using SenacQuizApp.Dtos.QuizDiario.Resultado;
 
-namespace SenacQuizApp.Telas.Quiz_Diario
+namespace SenacQuizApp.Telas.QuizDiario
 {
     public partial class HubQuizDiario : UserControl
     {

@@ -1,4 +1,4 @@
-﻿namespace SenacQuizApp.Telas.Quiz_Diario
+﻿namespace SenacQuizApp.Telas.QuizDiario
 {
     partial class ExecutarQuizDiario
     {
@@ -34,11 +34,12 @@
             PanelQuizHeaderQuestao = new AntdUI.Panel();
             LabelQuizQuestaoPontos = new AntdUI.Label();
             LabelQuizQuestaoBonus = new AntdUI.Label();
-            LabelQuizQuestaoIndex = new AntdUI.Label();
+            LabelQuizQuestaoAtual = new AntdUI.Label();
             PanelQuizHeaderUsuario = new AntdUI.Panel();
             LabelUsuarioNivel = new AntdUI.Label();
             LabelUsuarioNick = new AntdUI.Label();
             LabelQuizSequenciaAcertos = new AntdUI.Label();
+            PanelQuestoes = new AntdUI.Panel();
             PanelHeader.SuspendLayout();
             PanelQuizHeaderQuestao.SuspendLayout();
             PanelQuizHeaderUsuario.SuspendLayout();
@@ -58,7 +59,6 @@
             PanelHeader.Name = "PanelHeader";
             PanelHeader.Size = new Size(1024, 120);
             PanelHeader.TabIndex = 3;
-            PanelHeader.Text = "panel1";
             // 
             // LabelQuizDiarioData
             // 
@@ -86,7 +86,7 @@
             // 
             PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoPontos);
             PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoBonus);
-            PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoIndex);
+            PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoAtual);
             PanelQuizHeaderQuestao.Dock = DockStyle.Right;
             PanelQuizHeaderQuestao.Location = new Point(724, 0);
             PanelQuizHeaderQuestao.Margin = new Padding(0);
@@ -124,18 +124,18 @@
             LabelQuizQuestaoBonus.TabIndex = 6;
             LabelQuizQuestaoBonus.Text = "0%";
             // 
-            // LabelQuizQuestaoIndex
+            // LabelQuizQuestaoAtual
             // 
-            LabelQuizQuestaoIndex.Anchor = AnchorStyles.Right;
-            LabelQuizQuestaoIndex.AutoSizeMode = AntdUI.TAutoSize.Width;
-            LabelQuizQuestaoIndex.BackColor = Color.Transparent;
-            LabelQuizQuestaoIndex.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuizQuestaoIndex.Location = new Point(13, 13);
-            LabelQuizQuestaoIndex.Name = "LabelQuizQuestaoIndex";
-            LabelQuizQuestaoIndex.Prefix = "Questão Atual:  ";
-            LabelQuizQuestaoIndex.Size = new Size(146, 30);
-            LabelQuizQuestaoIndex.TabIndex = 5;
-            LabelQuizQuestaoIndex.Text = "0";
+            LabelQuizQuestaoAtual.Anchor = AnchorStyles.Right;
+            LabelQuizQuestaoAtual.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelQuizQuestaoAtual.BackColor = Color.Transparent;
+            LabelQuizQuestaoAtual.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelQuizQuestaoAtual.Location = new Point(13, 13);
+            LabelQuizQuestaoAtual.Name = "LabelQuizQuestaoAtual";
+            LabelQuizQuestaoAtual.Prefix = "Questão Atual:  ";
+            LabelQuizQuestaoAtual.Size = new Size(146, 30);
+            LabelQuizQuestaoAtual.TabIndex = 5;
+            LabelQuizQuestaoAtual.Text = "0";
             // 
             // PanelQuizHeaderUsuario
             // 
@@ -192,10 +192,22 @@
             LabelQuizSequenciaAcertos.TabIndex = 5;
             LabelQuizSequenciaAcertos.Text = "0";
             // 
+            // PanelQuestoes
+            // 
+            PanelQuestoes.Back = Color.Transparent;
+            PanelQuestoes.BackColor = Color.Transparent;
+            PanelQuestoes.Dock = DockStyle.Fill;
+            PanelQuestoes.Location = new Point(0, 120);
+            PanelQuestoes.Name = "PanelQuestoes";
+            PanelQuestoes.Size = new Size(1024, 600);
+            PanelQuestoes.TabIndex = 4;
+            PanelQuestoes.Text = "panel1";
+            // 
             // ExecutarQuizDiario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(PanelQuestoes);
             Controls.Add(PanelHeader);
             Name = "ExecutarQuizDiario";
             Size = new Size(1024, 720);
@@ -220,6 +232,7 @@
         private AntdUI.Label LabelQuizSequenciaAcertos;
         private AntdUI.Label LabelQuizQuestaoPontos;
         private AntdUI.Label LabelQuizQuestaoBonus;
-        private AntdUI.Label LabelQuizQuestaoIndex;
+        private AntdUI.Label LabelQuizQuestaoAtual;
+        private AntdUI.Panel PanelQuestoes;
     }
 }

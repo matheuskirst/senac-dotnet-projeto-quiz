@@ -10,10 +10,10 @@ namespace SenacQuizApp.Dtos.QuizDiario.Historico
     public class QuizDiarioHistorico
     {
         public int Id { get; set; }
-        public DateTime DataInicio { get; set; }
+        public DateTimeOffset DataInicio { get; set; }
         public DateOnly DataExibido { get; set; }
         public bool FoiConcluido { get; set; }
-        public DateTime? DataConcluido { get; set; }
+        public DateTimeOffset? DataConcluido { get; set; }
         public TimeSpan? TempoDeConclusao { get; set; }
         public int TotalQuestoes { get; set; }
         public int TotalAcertos { get; set; }

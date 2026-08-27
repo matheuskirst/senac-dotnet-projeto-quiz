@@ -11,16 +11,11 @@ namespace SenacQuizApp.Services
 {
     public class UsuarioPerfilService
     {
-        private readonly QuizAppContexto _contexto;
-
-        public UsuarioPerfilService(QuizAppContexto contexto)
-        {
-            _contexto = contexto;
-        }
-
         public async Task<UsuarioPerfilDto?> ObterPerfilPorId(int usuarioId)
         {
-            return await _contexto.Usuarios
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.Usuarios
                 .AsNoTracking()
                 .Where(usuario => usuario.Id == usuarioId)
                 .Select(usuario => new UsuarioPerfilDto

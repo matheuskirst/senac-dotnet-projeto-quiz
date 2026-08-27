@@ -7,23 +7,19 @@ using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Modelos.Questoes;
+using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Services
 {
     public class QuizDiarioService
     {
-        private readonly QuizAppContexto _contexto;
-
-        public QuizDiarioService(QuizAppContexto contexto)
-        {
-            _contexto = contexto;
-        }
-
         public async Task<QuizDiarioDetalhes?> CriarQuizDiario()
         {
+            using var contexto = new QuizAppContexto();
+
             int usuarioId = UsuarioAtual.Id;
 
-            var questaoAvancada = _contexto.Questoes
+            var questaoAvancada = contexto.Questoes
                 .Where(q => q.NivelId == QuestaoNivelId.Avancado)
                 .Include(q => q.Tema)
                 .Include(q => q.Nivel)
@@ -36,7 +32,7 @@ namespace SenacQuizApp.Services
 
             int? idAvancada = questaoAvancada?.Id;
 
-            var questoesAleatorias = await _contexto.Questoes
+            var questoesAleatorias = await contexto.Questoes
                 .Where(q => q.Id != idAvancada)
                 .Include(q => q.Tema)
                 .Include(q => q.Nivel)
@@ -58,10 +54,10 @@ namespace SenacQuizApp.Services
                 Questoes = questoes
             };
 
-            _contexto.QuizzesDiarios.Add(novoQuiz);
-            await _contexto.SaveChangesAsync();
+            contexto.QuizzesDiarios.Add(novoQuiz);
+            await contexto.SaveChangesAsync();
 
-            return await _contexto.QuizzesDiarios
+            return await contexto.QuizzesDiarios
                 .Where(quiz => quiz.UsuarioId == usuarioId && quiz.DataExibido == hoje)
                 .QuizDetalhes()
                 .FirstOrDefaultAsync();
@@ -69,10 +65,12 @@ namespace SenacQuizApp.Services
 
         public async Task<QuizDiarioDetalhes?> ObterQuizDiario()
         {
+            using var contexto = new QuizAppContexto();
+
             int usuarioId = UsuarioAtual.Id;
             var hoje = DateOnly.FromDateTime(ObterHora.ObterHoraBrasilia());
 
-            return await _contexto.QuizzesDiarios
+            return await contexto.QuizzesDiarios
                 .Where(quiz => quiz.UsuarioId == usuarioId && quiz.DataExibido == hoje)
                 .QuizDetalhes()
                 .FirstOrDefaultAsync();
@@ -80,7 +78,9 @@ namespace SenacQuizApp.Services
 
         public async Task<QuizDiarioDetalhes?> ObterDetalhePorId(int quizId)
         {
-            return await _contexto.QuizzesDiarios
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.QuizzesDiarios
                 .Where(quiz => quiz.Id == quizId)
                 .QuizDetalhes()
                 .FirstOrDefaultAsync();
@@ -88,7 +88,9 @@ namespace SenacQuizApp.Services
 
         public async Task<QuizDiarioResultado?> ObterResultadoPorId(int quizId)
         {
-            return await _contexto.QuizzesDiarios
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.QuizzesDiarios
                 .Where(quiz => quiz.Id == quizId)
                 .QuizResultado()
                 .FirstOrDefaultAsync();
@@ -96,30 +98,106 @@ namespace SenacQuizApp.Services
 
         public async Task<List<QuizDiarioHistorico>> ObterTodosHistoricos()
         {
-            return await _contexto.QuizzesDiarios
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.QuizzesDiarios
                 .QuizHistorico()
                 .ToListAsync();
         }
 
         public async Task<List<QuizDiarioHistorico>> ObterHistoricosRecentes(int quantidade)
         {
-            return await _contexto.QuizzesDiarios
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.QuizzesDiarios
                 .OrderByDescending(quiz => quiz.DataInicio)
                 .Take(quantidade)
                 .QuizHistorico()
                 .ToListAsync();
         }
 
+        public async Task<bool> SalvarResposta(int quizId, int questaoId, bool ehCorreta, int sequenciaAcertos)
+        {
+            using var contexto = new QuizAppContexto();
+
+            int usuarioId = UsuarioAtual.Id;
+
+            UsuarioStats? usuarioStats = await contexto.Usuarios
+                .Where(usuario => usuario.Id == usuarioId)
+                .Select(usuario => usuario.Stats)
+                .FirstOrDefaultAsync();
+
+            if (usuarioStats == null) throw new Exception();
+
+            int questaoValor = await contexto.Questoes
+                .Where(questao => questao.Id == questaoId)
+                .Select(questao => questao.Nivel.Valor)
+                .FirstOrDefaultAsync();
+
+            // Em porcentagem (0%)
+            int bonus = 0;
+
+            int pontuacaoFinal = 0;
+
+            if (sequenciaAcertos >= 5) bonus = 20;
+            else if (sequenciaAcertos < 3) bonus = 10;
+            else bonus = 0;
+
+            if (ehCorreta == true) pontuacaoFinal = questaoValor + (questaoValor * bonus) / 100;
+
+            var resposta = new UsuarioResposta
+            {
+                QuizId = quizId,
+                UsuarioId = usuarioId,
+                QuestaoId = questaoId,
+                QuestaoValor = questaoValor,
+                Acertou = ehCorreta,
+                PontuacaoFinal = pontuacaoFinal
+            };
+
+            contexto.UsuarioRespostas.Add(resposta);
+            usuarioStats.AdicionarPontos(pontuacaoFinal);
+            usuarioStats.AtualizarAcertos(ehCorreta);
+            await contexto.SaveChangesAsync();
+
+            return ehCorreta;
+        }
+
+        public async Task<bool> SalvarRespostaAlternativa(int quizId, int questaoId, int alternativaId, int sequenciaAcertos)
+        {
+            using var contexto = new QuizAppContexto();
+
+            bool ehCorreta = await contexto.Alternativas
+                .Where(alternativa => alternativa.Id == alternativaId)
+                .Select(alternativa => alternativa.EhCorreta)
+                .FirstOrDefaultAsync();
+
+            return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos);
+        }
+
+        public async Task<bool> SalvarRespostaVerdadeiroFalso(int quizId, int questaoId, bool verdadeiroFalso, int sequenciaAcertos)
+        {
+            using var contexto = new QuizAppContexto();
+
+            bool ehCorreta = await contexto.Questoes
+                .Where(questao => questao.Id == questaoId)
+                .Select(questao => questao.VerdadeiroFalso)
+                .FirstOrDefaultAsync() ?? false;
+
+            return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos);
+        }
         public async Task ConcluirQuiz(int quizId)
         {
-            QuizDiario? quiz = await _contexto.QuizzesDiarios
+            using var contexto = new QuizAppContexto();
+
+            QuizDiario? quiz = await contexto.QuizzesDiarios
                 .FindAsync(quizId);
 
             if (quiz == null) return;
 
             quiz.Concluir();
-            _contexto.QuizzesDiarios.Update(quiz);
-            await _contexto.SaveChangesAsync();
+            contexto.QuizzesDiarios.Update(quiz);
+            await contexto.SaveChangesAsync();
         }
     }
 
@@ -157,7 +235,7 @@ namespace SenacQuizApp.Services
                             Nivel = questao.Nivel.Nome,
                             TipoId = questao.TipoId,
                             Tipo = questao.Tipo.Nome,
-                            Pontos = questao.Nivel.Pontos,
+                            Pontos = questao.Nivel.Valor,
 
                             Respondida = quiz.UsuarioRespostas
                                 .Any(resposta => resposta.UsuarioId == quiz.UsuarioId && resposta.QuestaoId == questao.Id),
@@ -207,7 +285,7 @@ namespace SenacQuizApp.Services
                             Nivel = questao.Nivel.Nome,
                             TipoId = questao.TipoId,
                             Tipo = questao.Tipo.Nome,
-                            Pontos = questao.Nivel.Pontos,
+                            Pontos = questao.Nivel.Valor,
 
                             Acertou = quiz.UsuarioRespostas
                                 .Where(resposta => resposta.UsuarioId == quiz.UsuarioId && resposta.QuizId == quiz.Id && resposta.QuestaoId == questao.Id)
@@ -219,7 +297,7 @@ namespace SenacQuizApp.Services
                             {
                                 Id = alternativa.Id,
                                 Texto = alternativa.Texto,
-                                Correta = alternativa.Correta
+                                Correta = alternativa.EhCorreta
                             }).ToList(),
                     }).ToList()
                 });
@@ -255,7 +333,7 @@ namespace SenacQuizApp.Services
                             Nivel = questao.Nivel.Nome,
                             TipoId = questao.TipoId,
                             Tipo = questao.Tipo.Nome,
-                            Pontos = questao.Nivel.Pontos,
+                            Pontos = questao.Nivel.Valor,
 
                             Acertou = quiz.UsuarioRespostas
                                 .Where(resposta => resposta.UsuarioId == quiz.UsuarioId && resposta.QuizId == quiz.Id && resposta.QuestaoId == questao.Id)
@@ -267,7 +345,7 @@ namespace SenacQuizApp.Services
                             {
                                 Id = alternativa.Id,
                                 Texto = alternativa.Texto,
-                                Correta = alternativa.Correta
+                                Correta = alternativa.EhCorreta
                             }).ToList(),
                     }).ToList()
                 });

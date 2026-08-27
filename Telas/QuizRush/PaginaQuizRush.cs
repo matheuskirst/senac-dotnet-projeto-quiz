@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SenacQuizApp.Telas
+namespace SenacQuizApp.Telas.QuizRush
 {
     public partial class PaginaQuizRush : UserControl
     {

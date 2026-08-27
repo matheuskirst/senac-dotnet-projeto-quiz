@@ -11,15 +11,11 @@ namespace SenacQuizApp.Services
 {
     public class RankingService
     {
-        private readonly QuizAppContexto _contexto;
-        public RankingService(QuizAppContexto contexto)
-        {
-            _contexto = contexto;
-        }
-
         public async Task<List<UsuarioRankDto>> ObterUsuariosRank()
         {
-            return await _contexto.Usuarios
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.Usuarios
                 .Select(usuario => new UsuarioRankDto
                 {
                     Id = usuario.Id,
