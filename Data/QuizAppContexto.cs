@@ -9,6 +9,8 @@ using SenacQuizApp.Modelos;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using AntdUI;
+using SenacQuizApp.Modelos.Usuarios;
+using SenacQuizApp.Modelos.Questoes;
 
 namespace SenacQuizApp.Data
 {

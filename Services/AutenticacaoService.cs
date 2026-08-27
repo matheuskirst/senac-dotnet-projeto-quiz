@@ -4,6 +4,7 @@ using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
+using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Services
 {

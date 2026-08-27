@@ -144,7 +144,7 @@ VALUES
 -- ============================================================
 
 INSERT INTO "Alternativas"
-    ("Id", "Texto", "IsCorreta", "QuestaoId")
+    ("Id", "Texto", "Correta", "QuestaoId")
 VALUES
 
 -- ============================================================

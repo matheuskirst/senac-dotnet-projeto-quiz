@@ -35,13 +35,14 @@
             ButtonHeaderPerfil = new AntdUI.Button();
             PanelAppHeader = new AntdUI.Panel();
             PanelAppFooter = new AntdUI.Panel();
+            PanelHeaderDivider = new AntdUI.Panel();
             PanelAppHeader.SuspendLayout();
             SuspendLayout();
             // 
             // PageHeader
             // 
-            PageHeader.BackColor = SystemColors.WindowFrame;
-            PageHeader.ColorScheme = AntdUI.TAMode.Dark;
+            PageHeader.BackColor = SystemColors.ControlDark;
+            PageHeader.ColorScheme = AntdUI.TAMode.Light;
             PageHeader.Dock = DockStyle.Top;
             PageHeader.Location = new Point(0, 0);
             PageHeader.Name = "PageHeader";
@@ -53,15 +54,16 @@
             // PanelAppBody
             // 
             PanelAppBody.Dock = DockStyle.Fill;
-            PanelAppBody.Location = new Point(0, 115);
+            PanelAppBody.Location = new Point(0, 116);
             PanelAppBody.Margin = new Padding(0);
             PanelAppBody.Name = "PanelAppBody";
-            PanelAppBody.Size = new Size(1024, 565);
+            PanelAppBody.Size = new Size(1024, 564);
             PanelAppBody.TabIndex = 4;
             // 
             // ButtonHeaderMenu
             // 
             ButtonHeaderMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderMenu.BorderWidth = 1F;
             ButtonHeaderMenu.DefaultBack = Color.White;
             ButtonHeaderMenu.Font = new Font("Segoe UI", 12F);
             ButtonHeaderMenu.Location = new Point(12, 34);
@@ -74,6 +76,7 @@
             // ButtonHeaderRanking
             // 
             ButtonHeaderRanking.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderRanking.BorderWidth = 1F;
             ButtonHeaderRanking.DefaultBack = Color.White;
             ButtonHeaderRanking.Font = new Font("Segoe UI", 12F);
             ButtonHeaderRanking.Location = new Point(138, 34);
@@ -86,6 +89,7 @@
             // ButtonHeaderPerfil
             // 
             ButtonHeaderPerfil.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderPerfil.BorderWidth = 1F;
             ButtonHeaderPerfil.DefaultBack = Color.White;
             ButtonHeaderPerfil.Font = new Font("Segoe UI", 12F);
             ButtonHeaderPerfil.Location = new Point(264, 34);
@@ -98,7 +102,7 @@
             // PanelAppHeader
             // 
             PanelAppHeader.Back = Color.Transparent;
-            PanelAppHeader.BackColor = SystemColors.WindowFrame;
+            PanelAppHeader.BackColor = SystemColors.ControlDark;
             PanelAppHeader.Controls.Add(ButtonHeaderMenu);
             PanelAppHeader.Controls.Add(ButtonHeaderPerfil);
             PanelAppHeader.Controls.Add(ButtonHeaderRanking);
@@ -120,6 +124,17 @@
             PanelAppFooter.TabIndex = 10;
             PanelAppFooter.Text = "panel1";
             // 
+            // PanelHeaderDivider
+            // 
+            PanelHeaderDivider.Back = SystemColors.ControlDarkDark;
+            PanelHeaderDivider.BackColor = SystemColors.ControlDarkDark;
+            PanelHeaderDivider.Dock = DockStyle.Top;
+            PanelHeaderDivider.Location = new Point(0, 115);
+            PanelHeaderDivider.Name = "PanelHeaderDivider";
+            PanelHeaderDivider.Size = new Size(1024, 1);
+            PanelHeaderDivider.TabIndex = 0;
+            PanelHeaderDivider.Text = "panel1";
+            // 
             // FormApp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -127,6 +142,7 @@
             ClientSize = new Size(1024, 720);
             Controls.Add(PanelAppBody);
             Controls.Add(PanelAppFooter);
+            Controls.Add(PanelHeaderDivider);
             Controls.Add(PanelAppHeader);
             Controls.Add(PageHeader);
             MinimumSize = new Size(854, 480);
@@ -148,5 +164,6 @@
         private AntdUI.Button ButtonHeaderRanking;
         private AntdUI.Panel PanelAppHeader;
         private AntdUI.Panel PanelAppFooter;
+        private AntdUI.Panel PanelHeaderDivider;
     }
 }

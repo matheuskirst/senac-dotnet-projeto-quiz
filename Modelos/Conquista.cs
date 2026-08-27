@@ -1,4 +1,5 @@
 ﻿using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos.Usuarios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

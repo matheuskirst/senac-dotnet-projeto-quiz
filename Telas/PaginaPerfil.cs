@@ -87,7 +87,7 @@ namespace SenacQuizApp.Telas
             ProgressUsuarioNivel.Value = (float)progressoNivel / totalNecessarioNoNivel;
 
 
-            LabelProgressoPontos.Text = $"% {pontosAtuais} / {pontosMaximosProximoNivel} Pontos";
+            LabelProgressoPontos.Text = $"{pontosAtuais} / {pontosMaximosProximoNivel} Pontos";
 
             LabelInsertPontuacaoTotal.Text = perfil.PontuacaoTotal.ToString();
             LabelInsertAcertos.Text = perfil.TotalAcertos.ToString();

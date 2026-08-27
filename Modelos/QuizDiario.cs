@@ -1,5 +1,7 @@
 ﻿using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
+using SenacQuizApp.Modelos.Usuarios;
+using SenacQuizApp.Modelos.Questoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

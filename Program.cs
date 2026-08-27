@@ -15,7 +15,7 @@ namespace SenacQuizApp
             QuizAppContexto contexto = new();
 
             AutenticacaoService usuarioService = new(contexto);
-            QuizService quizService = new(contexto);
+            QuizDiarioService quizDiarioService = new(contexto);
             UsuarioPerfilService usuarioPerfilService = new(contexto);
             RankingService rankingService = new(contexto);
 
@@ -28,7 +28,7 @@ namespace SenacQuizApp
             AntdUI.Localization.Provider = new AntdUIBrLocalizer();
             AntdUI.Localization.SetLanguage("pt-BR");
 
-            Application.Run(new FormApp(usuarioService, quizService, usuarioPerfilService, rankingService));
+            Application.Run(new FormApp(usuarioService, quizDiarioService, usuarioPerfilService, rankingService));
         }
     }
 }

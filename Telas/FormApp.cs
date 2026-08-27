@@ -3,20 +3,22 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
+using SenacQuizApp.Telas.Componentes.Quiz;
+using SenacQuizApp.Telas.Quiz_Diario;
 
 namespace SenacQuizApp.Telas
 {
     public partial class FormApp : Window
     {
         private readonly AutenticacaoService _autenticacaoService;
-        private readonly QuizService _quizService;
+        private readonly QuizDiarioService _quizDiarioService;
         private readonly UsuarioPerfilService _usuarioPerfilService;
         private readonly RankingService _rankingService;
 
-        public FormApp(AutenticacaoService autenticacaoService, QuizService quizService, UsuarioPerfilService usuarioPerfilService, RankingService rankingService)
+        public FormApp(AutenticacaoService autenticacaoService, QuizDiarioService quizDiarioService, UsuarioPerfilService usuarioPerfilService, RankingService rankingService)
         {
             _autenticacaoService = autenticacaoService;
-            _quizService = quizService;
+            _quizDiarioService = quizDiarioService;
             _usuarioPerfilService = usuarioPerfilService;
             _rankingService = rankingService;
             InitializeComponent();
@@ -91,7 +93,7 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaPrincipal(object? sender, EventArgs e)
         {
-            var paginaPrincipal = new PaginaPrincipal(_quizService);
+            var paginaPrincipal = new PaginaPrincipal(_quizDiarioService);
 
             ButtonHeaderRanking.Enabled = true;
             ButtonHeaderPerfil.Enabled = true;
@@ -99,7 +101,7 @@ namespace SenacQuizApp.Telas
             ButtonHeaderMenu.Enabled = false;
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
-            paginaPrincipal.AbrirQuizDiario += AbrirPaginaQuiz;
+            paginaPrincipal.AbrirHubQuizDiario += AbrirHubQuizDiario;
 
             MudarPagina(paginaPrincipal);
         }
@@ -130,18 +132,52 @@ namespace SenacQuizApp.Telas
             MudarPagina(paginaPerfil);
         }
 
-        public void AbrirPaginaQuiz(int quizId)
+        // ============================================================
+        // Quiz Diário
+        // ============================================================
+
+        public void AbrirHubQuizDiario(object? sender, EventArgs e)
         {
             ButtonHeaderRanking.Enabled = true;
             ButtonHeaderMenu.Enabled = true;
             ButtonHeaderPerfil.Enabled = true;
 
-            var paginaQuiz = new PaginaQuiz(quizId, _quizService, _usuarioPerfilService);
+            var hubQuizDiario = new HubQuizDiario(_quizDiarioService, _usuarioPerfilService);
 
-            paginaQuiz.VoltarParaOMenu += AbrirPaginaPrincipal;
+            hubQuizDiario.IniciarQuiz += AbrirExecutarQuizDiario;
+            hubQuizDiario.VerResultado += AbrirResultadoQuizDiario;
+            hubQuizDiario.CarregarQuiz += AbrirExecutarQuizDiario;
 
-            MudarPagina(paginaQuiz);
+            MudarPagina(hubQuizDiario);
         }
+
+        public void AbrirExecutarQuizDiario(int quizId)
+        {
+            ButtonHeaderRanking.Enabled = true;
+            ButtonHeaderMenu.Enabled = true;
+            ButtonHeaderPerfil.Enabled = true;
+
+            var executarQuizDiario = new ExecutarQuizDiario(quizId, _quizDiarioService, _usuarioPerfilService);
+
+            executarQuizDiario.VerResultado += AbrirResultadoQuizDiario;
+
+            MudarPagina(executarQuizDiario);
+        }
+
+        public void AbrirResultadoQuizDiario(int quizId)
+        {
+            ButtonHeaderRanking.Enabled = true;
+            ButtonHeaderMenu.Enabled = true;
+            ButtonHeaderPerfil.Enabled = true;
+
+            var resultadoQuizDiario = new ResultadoQuizDiario(quizId, _quizDiarioService);
+
+            MudarPagina(resultadoQuizDiario);
+        }
+
+        // ============================================================
+        // Botões Header
+        // ============================================================
 
         private void ButtonHeaderMenu_Click(object sender, EventArgs e)
         {

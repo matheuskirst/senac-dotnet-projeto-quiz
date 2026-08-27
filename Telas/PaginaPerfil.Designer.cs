@@ -32,6 +32,7 @@
             LabelUsuario = new AntdUI.Label();
             panel2 = new AntdUI.Panel();
             panel1 = new AntdUI.Panel();
+            LabelProgressoPontos = new AntdUI.Label();
             ProgressUsuarioNivel = new AntdUI.Progress();
             panel3 = new AntdUI.Panel();
             LabelInsertTaxaAcertos = new AntdUI.Label();
@@ -45,7 +46,6 @@
             divider1 = new AntdUI.Divider();
             LabelInsertPontuacaoTotal = new AntdUI.Label();
             LabelPontuacaoTotal = new AntdUI.Label();
-            LabelProgressoPontos = new AntdUI.Label();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -105,6 +105,15 @@
             panel1.Size = new Size(800, 720);
             panel1.TabIndex = 3;
             panel1.Text = "panel1";
+            // 
+            // LabelProgressoPontos
+            // 
+            LabelProgressoPontos.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelProgressoPontos.Location = new Point(573, 110);
+            LabelProgressoPontos.Name = "LabelProgressoPontos";
+            LabelProgressoPontos.Size = new Size(191, 28);
+            LabelProgressoPontos.TabIndex = 6;
+            LabelProgressoPontos.Text = "";
             // 
             // ProgressUsuarioNivel
             // 
@@ -283,15 +292,6 @@
             LabelPontuacaoTotal.Size = new Size(204, 35);
             LabelPontuacaoTotal.TabIndex = 2;
             LabelPontuacaoTotal.Text = "Pontuação Total:";
-            // 
-            // LabelProgressoPontos
-            // 
-            LabelProgressoPontos.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelProgressoPontos.Location = new Point(573, 110);
-            LabelProgressoPontos.Name = "LabelProgressoPontos";
-            LabelProgressoPontos.Size = new Size(191, 28);
-            LabelProgressoPontos.TabIndex = 6;
-            LabelProgressoPontos.Text = "";
             // 
             // PaginaPerfil
             // 

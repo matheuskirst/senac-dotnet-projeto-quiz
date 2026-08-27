@@ -1,10 +1,4 @@
-﻿using SenacQuizApp.Enums;
-using SenacQuizApp.Global;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Modelos
 {
@@ -18,13 +12,13 @@ namespace SenacQuizApp.Modelos
         public DateTime DataIniciado { get; set; } = DateTime.UtcNow;
         public DateTime? DataFinalizado { get; set; }
         public TimeSpan? TempoDeQuiz { get; set; }
-        public int QuantidadePerguntas { get; set; }
+        public int QuantidadeAcertos { get; set; }
         public int PontuacaoTotal { get; set; } = 0;
 
         public void Finalizar()
         {
             DataFinalizado = DateTime.UtcNow;
-            TempoDeQuiz = DataFinalizado - DataInicio;
+            TempoDeQuiz = DataFinalizado - DataIniciado;
         }
     }
 }
