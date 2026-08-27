@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Dtos.Quiz.Concluido
+namespace SenacQuizApp.Dtos.Quiz.Historico
 {
-    public class QuestaoConcluidaDto
+    public class QuestaoHistoricoDto
     {
         public int Id { get; set; }
         public string Enunciado { get; set; } = null!;
@@ -18,8 +18,9 @@ namespace SenacQuizApp.Dtos.Quiz.Concluido
         public QuestaoTipoId TipoId { get; set; }
         public string Tipo { get; set; } = null!;
         public int Pontos { get; set; }
-        public bool Acertou { get; set; }
-        public List<AlternativaCorretaDto> Alternativas { get; set; } = null!;
+        public bool Respondida { get; set; }
+        public bool? Acertou { get; set; }
+        public List<AlternativaHistoricoDto> Alternativas { get; set; } = null!;
     }
 }
 

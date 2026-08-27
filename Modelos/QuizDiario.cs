@@ -1,4 +1,5 @@
-﻿using SenacQuizApp.Global;
+﻿using SenacQuizApp.Enums;
+using SenacQuizApp.Global;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Modelos
 {
-    public class Quiz
+    public class QuizDiario
     {
         public int Id { get; set; }
 

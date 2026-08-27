@@ -12,7 +12,7 @@ namespace SenacQuizApp.Modelos
         public Usuario Usuario { get; set; } = null!;
 
         public int QuizId { get; set; }
-        public Quiz Quiz { get; set; } = null!;
+        public QuizDiario Quiz { get; set; } = null!;
 
         public int QuestaoId { get; set; }
         public Questao Questao { get; set; } = null!;

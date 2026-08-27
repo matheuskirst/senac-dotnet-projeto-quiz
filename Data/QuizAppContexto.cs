@@ -23,11 +23,12 @@ namespace SenacQuizApp.Data
         public DbSet<QuestaoTipo> QuestaoTipos { get; set; }
         public DbSet<Alternativa> Alternativas { get; set; }
         public DbSet<UsuarioResposta> UsuarioRespostas { get; set; }
-        public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizDiario> QuizzesDiarios { get; set; }
+        public DbSet<QuizRush> QuizzesRush { get; set; }
         public DbSet<Conquista> Conquistas { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
 
-        protected override async void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=projeto_quiz;Username=postgres;Password=admin;Trust Server Certificate=true");
 
@@ -158,7 +159,7 @@ namespace SenacQuizApp.Data
             });
 
 
-            modelBuilder.Entity<Quiz>(entity =>
+            modelBuilder.Entity<QuizDiario>(entity =>
             {
                 entity.HasIndex(ud => new { ud.UsuarioId, ud.DataExibido })
                     .IsUnique();

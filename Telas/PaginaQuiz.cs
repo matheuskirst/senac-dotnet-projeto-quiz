@@ -1,6 +1,6 @@
 ﻿using SenacQuizApp.Services;
 using SenacQuizApp.Dtos.Quiz;
-using SenacQuizApp.Dtos.Quiz.Concluido;
+using SenacQuizApp.Dtos.Quiz.Historico;
 using SenacQuizApp.Telas.Componentes.Quiz;
 using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Global;
@@ -209,11 +209,11 @@ namespace SenacQuizApp.Telas.Componentes
         private async Task MostrarQuizFinalizado(int quizId)
         {
             PanelQuizProgresso.Visible = false;
-            QuizConcluidoDto? quizConcluido = await _quizService.ObterQuizConcluido(quizId);
+            QuizHistoricoDto? quizConcluido = await _quizService.ObterQuizConcluido(quizId);
 
             if (quizConcluido != null)
             {
-                var painelResultado = new PainelResultado(quizConcluido);
+                var painelResultado = new PaginaResultado(quizConcluido);
                 painelResultado.Dock = DockStyle.Fill;
 
                 MudarPainel(painelResultado);

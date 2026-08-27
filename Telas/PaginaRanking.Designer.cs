@@ -54,6 +54,7 @@
             TableUsuariosRank.Bordered = true;
             TableUsuariosRank.Dock = DockStyle.Fill;
             TableUsuariosRank.EnableHeaderResizing = true;
+            TableUsuariosRank.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TableUsuariosRank.Gap = 12;
             TableUsuariosRank.Location = new Point(1, 1);
             TableUsuariosRank.LostFocusClearSelection = true;

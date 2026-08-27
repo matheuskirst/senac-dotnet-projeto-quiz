@@ -1,6 +1,6 @@
 ﻿namespace SenacQuizApp.Telas.Componentes.Quiz
 {
-    partial class PainelResultado
+    partial class PaginaResultado
     {
         /// <summary> 
         /// Variável de designer necessária.

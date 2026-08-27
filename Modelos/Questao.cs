@@ -24,7 +24,7 @@ namespace SenacQuizApp.Modelos
         public bool? Verdadeira { get; set; }
 
         public ICollection<Alternativa> Alternativas { get; set; } = new List<Alternativa>();
-        public ICollection<Quiz> Quizzes { get; set; } = new List<Quiz>();
+        public ICollection<QuizDiario> Quizzes { get; set; } = new List<QuizDiario>();
         public ICollection<UsuarioResposta> UsuarioRespostas { get; set; } = new List<UsuarioResposta>();
     }
 }

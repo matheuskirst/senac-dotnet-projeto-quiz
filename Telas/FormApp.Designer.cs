@@ -40,7 +40,8 @@
             // 
             // PageHeader
             // 
-            PageHeader.BackColor = SystemColors.ControlLight;
+            PageHeader.BackColor = SystemColors.WindowFrame;
+            PageHeader.ColorScheme = AntdUI.TAMode.Dark;
             PageHeader.Dock = DockStyle.Top;
             PageHeader.Location = new Point(0, 0);
             PageHeader.Name = "PageHeader";
@@ -61,6 +62,7 @@
             // ButtonHeaderMenu
             // 
             ButtonHeaderMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderMenu.DefaultBack = Color.White;
             ButtonHeaderMenu.Font = new Font("Segoe UI", 12F);
             ButtonHeaderMenu.Location = new Point(12, 34);
             ButtonHeaderMenu.Name = "ButtonHeaderMenu";
@@ -72,6 +74,7 @@
             // ButtonHeaderRanking
             // 
             ButtonHeaderRanking.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderRanking.DefaultBack = Color.White;
             ButtonHeaderRanking.Font = new Font("Segoe UI", 12F);
             ButtonHeaderRanking.Location = new Point(138, 34);
             ButtonHeaderRanking.Name = "ButtonHeaderRanking";
@@ -83,6 +86,7 @@
             // ButtonHeaderPerfil
             // 
             ButtonHeaderPerfil.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderPerfil.DefaultBack = Color.White;
             ButtonHeaderPerfil.Font = new Font("Segoe UI", 12F);
             ButtonHeaderPerfil.Location = new Point(264, 34);
             ButtonHeaderPerfil.Name = "ButtonHeaderPerfil";
@@ -94,7 +98,7 @@
             // PanelAppHeader
             // 
             PanelAppHeader.Back = Color.Transparent;
-            PanelAppHeader.BackColor = SystemColors.ControlLight;
+            PanelAppHeader.BackColor = SystemColors.WindowFrame;
             PanelAppHeader.Controls.Add(ButtonHeaderMenu);
             PanelAppHeader.Controls.Add(ButtonHeaderPerfil);
             PanelAppHeader.Controls.Add(ButtonHeaderRanking);

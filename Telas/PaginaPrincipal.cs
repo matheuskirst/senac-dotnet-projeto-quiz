@@ -1,5 +1,7 @@
 ﻿using SenacQuizApp.Services;
 using SenacQuizApp.Dtos.Quiz;
+using SenacQuizApp.Dtos.Quiz.Historico;
+using SenacQuizApp.Telas.Componentes.Quiz;
 
 namespace SenacQuizApp.Telas
 {
@@ -37,6 +39,17 @@ namespace SenacQuizApp.Telas
                     MessageBoxIcon.Error
                     );
             }
+
+            await CarregarHistoricoPreview();
+        }
+
+        private async Task CarregarHistoricoPreview()
+        {
+            List<QuizHistoricoDto> quizzes = await _quizService.ObterHistorico();
+            var painelHistorico = new PainelHistoricoQuiz(quizzes);
+            painelHistorico.Dock = DockStyle.Fill;
+            PanelHistoricoPreview.Controls.Add(painelHistorico);
+            painelHistorico.BringToFront();
         }
 
         private void QuizDiarioStatus()

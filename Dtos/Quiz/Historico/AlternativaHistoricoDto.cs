@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Dtos.Quiz.Concluido
+namespace SenacQuizApp.Dtos.Quiz.Historico
 {
-    public class AlternativaCorretaDto
+    public class AlternativaHistoricoDto
     {
         public int Id { get; set; }
         public string Texto { get; set; } = null!;

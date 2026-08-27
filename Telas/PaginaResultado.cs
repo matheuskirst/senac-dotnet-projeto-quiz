@@ -1,11 +1,11 @@
-﻿using SenacQuizApp.Dtos.Quiz.Concluido;
+﻿using SenacQuizApp.Dtos.Quiz.Historico;
 
 namespace SenacQuizApp.Telas.Componentes.Quiz
 {
-    public partial class PainelResultado : UserControl
+    public partial class PaginaResultado : UserControl
     {
-        private readonly QuizConcluidoDto _quiz;
-        public PainelResultado(QuizConcluidoDto quiz)
+        private readonly QuizHistoricoDto _quiz;
+        public PaginaResultado(QuizHistoricoDto quiz)
         {
             _quiz = quiz;
 
@@ -23,7 +23,7 @@ namespace SenacQuizApp.Telas.Componentes.Quiz
 
             CollapseQuestoes.Items.Clear();
 
-            foreach (QuestaoConcluidaDto questao in _quiz.Questoes)
+            foreach (QuestaoHistoricoDto questao in _quiz.Questoes)
             {
                 int questaoNumero = _quiz.Questoes.IndexOf(questao) + 1;
                 AntdUI.CollapseItem collapse = new AntdUI.CollapseItem 

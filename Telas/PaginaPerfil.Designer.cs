@@ -34,6 +34,9 @@
             panel1 = new AntdUI.Panel();
             ProgressUsuarioNivel = new AntdUI.Progress();
             panel3 = new AntdUI.Panel();
+            LabelInsertTaxaAcertos = new AntdUI.Label();
+            LabelTaxaAcertos = new AntdUI.Label();
+            divider3 = new AntdUI.Divider();
             LabelInsertTotalRespostas = new AntdUI.Label();
             LabelTotalRespostas = new AntdUI.Label();
             divider2 = new AntdUI.Divider();
@@ -42,9 +45,7 @@
             divider1 = new AntdUI.Divider();
             LabelInsertPontuacaoTotal = new AntdUI.Label();
             LabelPontuacaoTotal = new AntdUI.Label();
-            LabelInsertTaxaAcertos = new AntdUI.Label();
-            LabelTaxaAcertos = new AntdUI.Label();
-            divider3 = new AntdUI.Divider();
+            LabelProgressoPontos = new AntdUI.Label();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -54,11 +55,11 @@
             // 
             LabelNivel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LabelNivel.AutoSizeMode = AntdUI.TAutoSize.Width;
-            LabelNivel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelNivel.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelNivel.Location = new Point(573, 46);
             LabelNivel.Name = "LabelNivel";
             LabelNivel.Prefix = "Nivel: ";
-            LabelNivel.Size = new Size(73, 27);
+            LabelNivel.Size = new Size(100, 27);
             LabelNivel.TabIndex = 0;
             LabelNivel.Text = "#";
             // 
@@ -66,12 +67,12 @@
             // 
             LabelUsuario.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelUsuario.BackColor = Color.Transparent;
-            LabelUsuario.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelUsuario.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelUsuario.ForeColor = Color.Black;
             LabelUsuario.Location = new Point(48, 35);
             LabelUsuario.Name = "LabelUsuario";
             LabelUsuario.Prefix = "Usuario: ";
-            LabelUsuario.Size = new Size(96, 38);
+            LabelUsuario.Size = new Size(146, 38);
             LabelUsuario.TabIndex = 1;
             LabelUsuario.Text = "#";
             // 
@@ -94,6 +95,7 @@
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             panel1.Back = Color.Transparent;
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(LabelProgressoPontos);
             panel1.Controls.Add(ProgressUsuarioNivel);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(LabelUsuario);
@@ -106,13 +108,13 @@
             // 
             // ProgressUsuarioNivel
             // 
+            ProgressUsuarioNivel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProgressUsuarioNivel.Location = new Point(573, 79);
             ProgressUsuarioNivel.Name = "ProgressUsuarioNivel";
             ProgressUsuarioNivel.Shape = AntdUI.TShapeProgress.Default;
-            ProgressUsuarioNivel.Size = new Size(214, 74);
+            ProgressUsuarioNivel.Size = new Size(191, 41);
             ProgressUsuarioNivel.TabIndex = 5;
             ProgressUsuarioNivel.Text = "";
-            ProgressUsuarioNivel.TextUnit = "";
             // 
             // panel3
             // 
@@ -135,6 +137,46 @@
             panel3.Padding = new Padding(10);
             panel3.Size = new Size(224, 524);
             panel3.TabIndex = 4;
+            // 
+            // LabelInsertTaxaAcertos
+            // 
+            LabelInsertTaxaAcertos.BackColor = Color.Gray;
+            LabelInsertTaxaAcertos.Dock = DockStyle.Top;
+            LabelInsertTaxaAcertos.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelInsertTaxaAcertos.ForeColor = Color.White;
+            LabelInsertTaxaAcertos.Location = new Point(10, 360);
+            LabelInsertTaxaAcertos.Name = "LabelInsertTaxaAcertos";
+            LabelInsertTaxaAcertos.Prefix = "";
+            LabelInsertTaxaAcertos.Size = new Size(204, 40);
+            LabelInsertTaxaAcertos.TabIndex = 14;
+            LabelInsertTaxaAcertos.Text = "0";
+            LabelInsertTaxaAcertos.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LabelTaxaAcertos
+            // 
+            LabelTaxaAcertos.Dock = DockStyle.Top;
+            LabelTaxaAcertos.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelTaxaAcertos.ForeColor = Color.White;
+            LabelTaxaAcertos.Location = new Point(10, 325);
+            LabelTaxaAcertos.Name = "LabelTaxaAcertos";
+            LabelTaxaAcertos.Prefix = "";
+            LabelTaxaAcertos.Size = new Size(204, 35);
+            LabelTaxaAcertos.TabIndex = 13;
+            LabelTaxaAcertos.Text = "Taxa de Acertos:";
+            // 
+            // divider3
+            // 
+            divider3.ColorSplit = Color.Transparent;
+            divider3.Dock = DockStyle.Top;
+            divider3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            divider3.Location = new Point(10, 295);
+            divider3.Name = "divider3";
+            divider3.OrientationMargin = 0F;
+            divider3.Size = new Size(204, 30);
+            divider3.TabIndex = 15;
+            divider3.Text = "";
+            divider3.TextPadding = 0F;
+            divider3.Thickness = 1F;
             // 
             // LabelInsertTotalRespostas
             // 
@@ -242,45 +284,14 @@
             LabelPontuacaoTotal.TabIndex = 2;
             LabelPontuacaoTotal.Text = "Pontuação Total:";
             // 
-            // LabelInsertTaxaAcertos
+            // LabelProgressoPontos
             // 
-            LabelInsertTaxaAcertos.BackColor = Color.Gray;
-            LabelInsertTaxaAcertos.Dock = DockStyle.Top;
-            LabelInsertTaxaAcertos.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelInsertTaxaAcertos.ForeColor = Color.White;
-            LabelInsertTaxaAcertos.Location = new Point(10, 360);
-            LabelInsertTaxaAcertos.Name = "LabelInsertTaxaAcertos";
-            LabelInsertTaxaAcertos.Prefix = "";
-            LabelInsertTaxaAcertos.Size = new Size(204, 40);
-            LabelInsertTaxaAcertos.TabIndex = 14;
-            LabelInsertTaxaAcertos.Text = "0";
-            LabelInsertTaxaAcertos.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // LabelTaxaAcertos
-            // 
-            LabelTaxaAcertos.Dock = DockStyle.Top;
-            LabelTaxaAcertos.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelTaxaAcertos.ForeColor = Color.White;
-            LabelTaxaAcertos.Location = new Point(10, 325);
-            LabelTaxaAcertos.Name = "LabelTaxaAcertos";
-            LabelTaxaAcertos.Prefix = "";
-            LabelTaxaAcertos.Size = new Size(204, 35);
-            LabelTaxaAcertos.TabIndex = 13;
-            LabelTaxaAcertos.Text = "Taxa de Acertos:";
-            // 
-            // divider3
-            // 
-            divider3.ColorSplit = Color.Transparent;
-            divider3.Dock = DockStyle.Top;
-            divider3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            divider3.Location = new Point(10, 295);
-            divider3.Name = "divider3";
-            divider3.OrientationMargin = 0F;
-            divider3.Size = new Size(204, 30);
-            divider3.TabIndex = 15;
-            divider3.Text = "";
-            divider3.TextPadding = 0F;
-            divider3.Thickness = 1F;
+            LabelProgressoPontos.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelProgressoPontos.Location = new Point(573, 110);
+            LabelProgressoPontos.Name = "LabelProgressoPontos";
+            LabelProgressoPontos.Size = new Size(191, 28);
+            LabelProgressoPontos.TabIndex = 6;
+            LabelProgressoPontos.Text = "";
             // 
             // PaginaPerfil
             // 
@@ -317,5 +328,6 @@
         private AntdUI.Label LabelInsertTaxaAcertos;
         private AntdUI.Label LabelTaxaAcertos;
         private AntdUI.Divider divider3;
+        private AntdUI.Label LabelProgressoPontos;
     }
 }

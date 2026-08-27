@@ -33,7 +33,6 @@
             ButtonQuizDiario = new AntdUI.Button();
             LabelQuizDiario = new AntdUI.Label();
             PanelHistoricoPreview = new AntdUI.Panel();
-            CollapseQuizzesPartidas = new AntdUI.Collapse();
             LabelQuizzesPartidas = new AntdUI.Label();
             PanelQuizDiario.SuspendLayout();
             PanelHistoricoPreview.SuspendLayout();
@@ -93,23 +92,12 @@
             // 
             PanelHistoricoPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             PanelHistoricoPreview.AutoScroll = true;
-            PanelHistoricoPreview.Controls.Add(CollapseQuizzesPartidas);
             PanelHistoricoPreview.Controls.Add(LabelQuizzesPartidas);
-            PanelHistoricoPreview.Location = new Point(110, 80);
+            PanelHistoricoPreview.Location = new Point(13, 80);
             PanelHistoricoPreview.Name = "PanelHistoricoPreview";
-            PanelHistoricoPreview.Size = new Size(550, 560);
+            PanelHistoricoPreview.Size = new Size(750, 560);
             PanelHistoricoPreview.TabIndex = 1;
             PanelHistoricoPreview.Text = "panel2";
-            // 
-            // CollapseQuizzesPartidas
-            // 
-            CollapseQuizzesPartidas.BackColor = Color.Transparent;
-            CollapseQuizzesPartidas.Dock = DockStyle.Fill;
-            CollapseQuizzesPartidas.Location = new Point(0, 39);
-            CollapseQuizzesPartidas.Name = "CollapseQuizzesPartidas";
-            CollapseQuizzesPartidas.ResizingLineThickness = 2F;
-            CollapseQuizzesPartidas.Size = new Size(550, 521);
-            CollapseQuizzesPartidas.TabIndex = 1;
             // 
             // LabelQuizzesPartidas
             // 
@@ -118,7 +106,7 @@
             LabelQuizzesPartidas.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizzesPartidas.Location = new Point(0, 0);
             LabelQuizzesPartidas.Name = "LabelQuizzesPartidas";
-            LabelQuizzesPartidas.Size = new Size(550, 39);
+            LabelQuizzesPartidas.Size = new Size(750, 39);
             LabelQuizzesPartidas.TabIndex = 0;
             LabelQuizzesPartidas.Text = "Últimas 5 Partidas";
             LabelQuizzesPartidas.TextAlign = ContentAlignment.MiddleCenter;
@@ -146,7 +134,6 @@
         private AntdUI.Button ButtonQuizDiario;
         private AntdUI.Panel PanelHistoricoPreview;
         private AntdUI.Label LabelQuizzesPartidas;
-        private AntdUI.Collapse CollapseQuizzesPartidas;
         private AntdUI.Label LabelQuizDiarioStatus;
     }
 }

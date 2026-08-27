@@ -87,12 +87,16 @@ namespace SenacQuizApp.Telas
             ProgressUsuarioNivel.Value = (float)progressoNivel / totalNecessarioNoNivel;
 
 
-            ProgressUsuarioNivel.TextUnit = $"% {pontosAtuais} / {pontosMaximosProximoNivel} Pontos";
+            LabelProgressoPontos.Text = $"% {pontosAtuais} / {pontosMaximosProximoNivel} Pontos";
 
             LabelInsertPontuacaoTotal.Text = perfil.PontuacaoTotal.ToString();
             LabelInsertAcertos.Text = perfil.TotalAcertos.ToString();
             LabelInsertTotalRespostas.Text = perfil.TotalRespondidos.ToString();
-            LabelInsertTaxaAcertos.Text = $"{(double)perfil.TotalAcertos / perfil.TotalRespondidos:P0}";
+            if (perfil.TotalAcertos == 0 || perfil.TotalRespondidos == 0) { LabelInsertTaxaAcertos.Text = "0%"; }
+            else
+            {
+                LabelInsertTaxaAcertos.Text = $"{(double)perfil.TotalAcertos / perfil.TotalRespondidos:P0}";
+            }
         }
     }
 }
