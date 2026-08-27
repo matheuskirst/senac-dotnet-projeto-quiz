@@ -67,13 +67,14 @@ namespace SenacQuizApp.Telas.QuizDiario
             if (_quizSessao == null) return;
 
             int questaoIndex = _quizSessao.QuestaoAtualIndex;
-            QuizDiarioDetalhesQuestao questao = _quizSessao.Quiz.Questoes[questaoIndex];
 
             if (questaoIndex >= _quizSessao.Quiz.Questoes.Count)
             {
                 await FinalizarQuiz();
                 return;
             }
+            
+            QuizDiarioDetalhesQuestao questao = _quizSessao.Quiz.Questoes[questaoIndex];
 
             if (questao.Respondida)
             {

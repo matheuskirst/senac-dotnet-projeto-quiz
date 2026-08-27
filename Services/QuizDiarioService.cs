@@ -192,7 +192,9 @@ namespace SenacQuizApp.Services
             using var contexto = new QuizAppContexto();
 
             QuizDiario? quiz = await contexto.QuizzesDiarios
-                .FindAsync(quizId);
+                .Include(quiz => quiz.UsuarioRespostas)
+                .FirstOrDefaultAsync(quiz => quiz.Id == quizId);
+
             if (quiz == null) return;
 
             int pontuacaoReal = quiz.UsuarioRespostas
@@ -200,7 +202,6 @@ namespace SenacQuizApp.Services
                 .Sum(resposta => resposta.PontuacaoFinal);
 
             quiz.Concluir(pontuacaoReal);
-            contexto.QuizzesDiarios.Update(quiz);
             await contexto.SaveChangesAsync();
         }
     }

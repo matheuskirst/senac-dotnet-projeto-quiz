@@ -201,7 +201,6 @@
             PanelQuestoes.Name = "PanelQuestoes";
             PanelQuestoes.Size = new Size(1024, 600);
             PanelQuestoes.TabIndex = 4;
-            PanelQuestoes.Text = "panel1";
             // 
             // ExecutarQuizDiario
             // 
