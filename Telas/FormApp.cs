@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.Mapping;
 using SenacQuizApp.Dtos;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
@@ -48,6 +49,15 @@ namespace SenacQuizApp.Telas
 
         private void FormJanelaPrincipal_Load(object sender, EventArgs e)
         {
+            var dropdownItems = new object[]
+            {
+                new AntdUI.SelectItem("Ver Perfil") { Tag = MenuOpcoes.VerPerfil },
+                new AntdUI.SelectItem("Configurações") { Tag = MenuOpcoes.Configuracoes, },
+                new AntdUI.SelectItem("Sair...") { Tag = MenuOpcoes.Sair }
+            };
+
+            DropdownUsuarioMenu.Items.AddRange(dropdownItems);
+
             AbrirPaginaInicial(null, e);
         }
 
@@ -58,10 +68,14 @@ namespace SenacQuizApp.Telas
                 || pagina is PaginaSignup
             )
             {
+                DropdownUsuarioMenu.Visible = false;
+                DropdownUsuarioMenu.Enabled = false;
                 PanelAppHeader.Visible = false;
             }
             else
             {
+                DropdownUsuarioMenu.Visible = true;
+                DropdownUsuarioMenu.Enabled = true;
                 PanelAppHeader.Visible = true;
             }
 
@@ -124,6 +138,9 @@ namespace SenacQuizApp.Telas
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
             paginaPrincipal.AbrirHubQuizDiario += AbrirHubQuizDiario;
+
+            paginaPrincipal.ContinuarQuizDiario += AbrirExecutarQuizDiario;
+            paginaPrincipal.ResultadoQuizDiario += AbrirResultadoQuizDiario;
 
             MudarPagina(paginaPrincipal);
         }
@@ -208,6 +225,7 @@ namespace SenacQuizApp.Telas
             MudarPagina(resultadoQuizDiario);
         }
 
+
         // ============================================================
         // Botões Header
         // ============================================================
@@ -230,6 +248,24 @@ namespace SenacQuizApp.Telas
         private void AoDesbloquearConquista(object? sender, ConquistaDto conquista)
         {
             MessageBox.Show($"Conquista desbloqueada!\nConquista: {conquista.Nome}\nDescrição: {conquista.Descricao}");
+        }
+
+        private void DropdownUsuarioMenu_ItemClick(object sender, ObjectNEventArgs e)
+        {
+            if (e.Value is not MenuOpcoes opcao) return;
+
+            switch (opcao)
+            {
+                case MenuOpcoes.VerPerfil:
+                    AbrirPaginaPerfil(UsuarioAtual.Id);
+                    break;
+                case MenuOpcoes.Configuracoes:
+
+                    break;
+                case MenuOpcoes.Sair:
+                    AbrirPaginaInicial(null, EventArgs.Empty);
+                    break;
+            }
         }
     }
 }

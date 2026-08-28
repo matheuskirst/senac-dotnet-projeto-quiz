@@ -164,6 +164,7 @@
             TableQuizHistorico.Name = "TableQuizHistorico";
             TableQuizHistorico.Size = new Size(850, 521);
             TableQuizHistorico.TabIndex = 2;
+            TableQuizHistorico.CellClick += TableQuizHistorico_CellClick;
             // 
             // LabelQuizzesPartidas
             // 

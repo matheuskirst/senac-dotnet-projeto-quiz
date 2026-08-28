@@ -19,7 +19,9 @@ namespace SenacQuizApp.Telas
         public event EventHandler? AbrirHubQuizDiario;
         public event EventHandler? AbrirHubQuizRush;
 
-        public event Action<int>? AbrirQuizDiario;
+        public event Action<int>? ContinuarQuizDiario;
+        public event Action<int>? ResultadoQuizDiario;
+
         public event Action<int>? AbrirQuizRush;
 
         private readonly BindingList<ResumoQuiz> _quizList = [];
@@ -83,39 +85,69 @@ namespace SenacQuizApp.Telas
 
         private void MostrarMenuQuizDiario(ResumoQuiz quiz)
         {
+            var continuarItem = new AntdUI.ContextMenuStripItem()
+            {
+                Text = "Continuar",
+                Tag = "Continuar"
+            };
+            var resultadoItem = new AntdUI.ContextMenuStripItem("Ver Resultado")
+            {
+                Text = "Ver Resultado",
+                Tag = "Resultado"
+            };
+            var copiarItem = new AntdUI.ContextMenuStripItem("Copiar dados")
+            {
+                Text = "Copiar dados",
+                Tag = "Copiar"
+            };
+
+            if (quiz.DataFinalizado != null)
+            {
+                continuarItem.Enabled = false;
+                resultadoItem.Enabled = true;
+            }
+
+            if (quiz.DataFinalizado == null)
+            {
+                continuarItem.Enabled = true;
+                resultadoItem.Enabled = false;
+            }
+
             var menuItems = new AntdUI.IContextMenuStripItem[]
             {
-                new AntdUI.ContextMenuStripItem("Abrir perfil"),
+                continuarItem,
+                resultadoItem,
                 new AntdUI.ContextMenuStripItemDivider(),
-                new AntdUI.ContextMenuStripItem("Copiar nickname")
+                copiarItem
             };
 
             AntdUI.ContextMenuStrip.open(
                 TableQuizHistorico,
                 item =>
                 {
-                    switch (item.Text)
+                    switch (item.Tag)
                     {
                         case "Continuar":
-                            AbrirQuizDiario?.Invoke(quiz.Id);
-                            break;                        
-                        case "Ver Resultado":
-                            AbrirQuizDiario?.Invoke(quiz.Id);
+                            ContinuarQuizDiario?.Invoke(quiz.Id);
                             break;
-                        case "Copiar dados":
+                        case "Resultado":
+                            ResultadoQuizDiario?.Invoke(quiz.Id);
+                            break;
+                        case "Copiar":
                             Clipboard.SetText(
-                                $@"Tipo: {quiz.Tipo}
-                                   Data Iniciado: {quiz.DataIniciado}         
-                                   Finalizado: {quiz.Finalizado}         
-                                   Data Finalizado: {quiz.DataFinalizado}
-                                   Tempo: {quiz.Tempo}
-                                   Pontuação Total: {quiz.PontuacaoTotal}
-                                ");
+                                $"Tipo: {quiz.Tipo}\nData Iniciado: {quiz.DataIniciado}\nFinalizado: {quiz.Finalizado}\nData Finalizado: {quiz.DataFinalizado}\nTempo: {quiz.Tempo}\nPontuação Total: {quiz.PontuacaoTotal}");
                             break;
                     }
                 },
                 menuItems
             );
+        }
+
+        private void TableQuizHistorico_CellClick(object sender, AntdUI.TableClickEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right || e.Record is not ResumoQuiz quiz) return;
+
+            MostrarMenuQuizDiario(quiz);
         }
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             PageHeader = new AntdUI.PageHeader();
+            DropdownUsuarioMenu = new AntdUI.Dropdown();
             PanelAppBody = new Panel();
             ButtonHeaderMenu = new AntdUI.Button();
             ButtonHeaderRanking = new AntdUI.Button();
@@ -37,6 +38,7 @@
             PanelAppFooter = new AntdUI.Panel();
             PanelHeaderDivider = new AntdUI.Panel();
             PanelFooterDivider = new AntdUI.Panel();
+            PageHeader.SuspendLayout();
             PanelAppHeader.SuspendLayout();
             SuspendLayout();
             // 
@@ -44,6 +46,7 @@
             // 
             PageHeader.BackColor = Color.FromArgb(30, 41, 50);
             PageHeader.ColorScheme = AntdUI.TAMode.Dark;
+            PageHeader.Controls.Add(DropdownUsuarioMenu);
             PageHeader.Dock = DockStyle.Top;
             PageHeader.Location = new Point(0, 0);
             PageHeader.Name = "PageHeader";
@@ -51,6 +54,22 @@
             PageHeader.Size = new Size(1024, 35);
             PageHeader.TabIndex = 5;
             PageHeader.Text = "Quiz TI";
+            // 
+            // DropdownUsuarioMenu
+            // 
+            DropdownUsuarioMenu.Anchor = AnchorStyles.Right;
+            DropdownUsuarioMenu.BorderWidth = 1F;
+            DropdownUsuarioMenu.ColorScheme = AntdUI.TAMode.Dark;
+            DropdownUsuarioMenu.DefaultBack = Color.FromArgb(77, 84, 92);
+            DropdownUsuarioMenu.DropDownArrow = true;
+            DropdownUsuarioMenu.Location = new Point(770, 1);
+            DropdownUsuarioMenu.Name = "DropdownUsuarioMenu";
+            DropdownUsuarioMenu.Radius = 2;
+            DropdownUsuarioMenu.Size = new Size(110, 32);
+            DropdownUsuarioMenu.TabIndex = 1;
+            DropdownUsuarioMenu.Text = "Usuário";
+            DropdownUsuarioMenu.TextAlign = ContentAlignment.MiddleLeft;
+            DropdownUsuarioMenu.ItemClick += DropdownUsuarioMenu_ItemClick;
             // 
             // PanelAppBody
             // 
@@ -167,6 +186,7 @@
             Text = "Quiz TI";
             WindowState = FormWindowState.Maximized;
             Load += FormJanelaPrincipal_Load;
+            PageHeader.ResumeLayout(false);
             PanelAppHeader.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -181,5 +201,6 @@
         private AntdUI.Panel PanelHeaderDivider;
         private AntdUI.Panel PanelFooterDivider;
         private AntdUI.Button ButtonHeaderPerfil;
+        private AntdUI.Dropdown DropdownUsuarioMenu;
     }
 }

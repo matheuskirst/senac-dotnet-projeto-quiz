@@ -23,9 +23,9 @@ namespace SenacQuizApp.Services
                 {
                     Id = diario.Id,
                     Tipo = "Diário",
-                    DataIniciado = diario.DataIniciado,
+                    DataIniciado = diario.DataIniciado.DateTime,
                     Finalizado = diario.Concluido ? "Sim" : "Não",
-                    DataFinalizado = diario.DataConcluido,
+                    DataFinalizado = diario.DataConcluido != null ? diario.DataConcluido.Value.DateTime : null,
                     Tempo = diario.TempoDeConclusao,
                     PontuacaoTotal = diario.PontuacaoTotal
                 });
@@ -36,9 +36,9 @@ namespace SenacQuizApp.Services
                 {
                     Id = diario.Id,
                     Tipo = "Rush",
-                    DataIniciado = diario.DataIniciado,
+                    DataIniciado = diario.DataIniciado.DateTime,
                     Finalizado = "Sim",
-                    DataFinalizado = diario.DataFinalizado,
+                    DataFinalizado = diario.DataFinalizado.DateTime,
                     Tempo = diario.Tempo,
                     PontuacaoTotal = diario.PontuacaoTotal
                 }); ;;

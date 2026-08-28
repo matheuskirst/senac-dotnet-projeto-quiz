@@ -77,7 +77,6 @@
             Controls.Add(InputQuestaoEnunciado);
             Name = "PainelQuestaoDiario";
             Size = new Size(1000, 700);
-            Load += PainelPergunta_Load;
             ResumeLayout(false);
         }
 

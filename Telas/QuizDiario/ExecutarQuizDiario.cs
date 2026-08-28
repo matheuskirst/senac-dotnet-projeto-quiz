@@ -16,6 +16,8 @@ namespace SenacQuizApp.Telas.QuizDiario
 
         public event Action<int>? VerResultado;
 
+
+        private PainelQuestaoDiario _painelQuestao;
         private QuizSessao? _quizSessao;
 
         public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioService usuarioService)
@@ -24,6 +26,13 @@ namespace SenacQuizApp.Telas.QuizDiario
             _quizService = quizService;
             _usuarioService = usuarioService;
 
+            _painelQuestao = new PainelQuestaoDiario()
+            {
+                Dock = DockStyle.Fill
+            };
+            _painelQuestao.EscolheuAlternativa += AoResponderAlternativa;
+            _painelQuestao.EscolheuVerdadeiroFalso += AoResponderVerdadeiroFalso;
+
             InitializeComponent();
         }
 
@@ -31,6 +40,8 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
+                PanelQuestoes.Controls.Add(_painelQuestao);
+
                 QuizDiarioAndamentos? quiz = await _quizService.ObterDetalhePorId(_quizId);
                 UsuarioPerfilDto? usuario = await _usuarioService.ObterPerfilPorId(UsuarioAtual.Id);
 
@@ -58,23 +69,6 @@ namespace SenacQuizApp.Telas.QuizDiario
             catch
             {
 
-            }
-        }
-
-        private void MudarPainelQuestao(PainelQuestaoDiario painel)
-        {
-            PanelQuestoes.SuspendLayout();
-
-            try
-            {
-                PanelQuestoes.Controls.Clear();
-
-                painel.Dock = DockStyle.Fill;
-                PanelQuestoes.Controls.Add(painel);
-            }
-            finally
-            {
-                PanelQuestoes.ResumeLayout();
             }
         }
 
@@ -118,11 +112,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 LabelQuizQuestaoBonus.Text = $"{bonus}%";
                 LabelQuizQuestaoPontos.Text = $"{valorFinal} Pontos";
 
-                var painel = new PainelQuestaoDiario(questao);
-                painel.EscolheuAlternativa += AoResponderAlternativa;
-                painel.EscolheuVerdadeiroFalso += AoResponderVerdadeiroFalso;
-
-                MudarPainelQuestao(painel);
+                _painelQuestao.CarregarQuestao(questao);
             }
         }
 
