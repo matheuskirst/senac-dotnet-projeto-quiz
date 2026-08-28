@@ -3,6 +3,7 @@ using SenacQuizApp.Data;
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Dtos.QuizDiario.Historico;
 using SenacQuizApp.Dtos.QuizRush;
+using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Telas.Componentes;
 
@@ -14,7 +15,10 @@ namespace SenacQuizApp.Services
         {
             using var contexto = new QuizAppContexto();
 
+            int usuarioId = UsuarioAtual.Id;
+
             var diarios = contexto.QuizzesDiarios
+                .Where(quiz => quiz.UsuarioId == usuarioId)
                 .Select(diario => new ResumoQuiz
                 {
                     Id = diario.Id,
@@ -27,6 +31,7 @@ namespace SenacQuizApp.Services
                 });
 
             var rush = contexto.QuizzesRush
+                .Where(quiz => quiz.UsuarioId == usuarioId)
                 .Select(diario => new ResumoQuiz
                 {
                     Id = diario.Id,
@@ -42,7 +47,6 @@ namespace SenacQuizApp.Services
                 .Concat(rush)
                 .OrderByDescending(quiz => quiz.DataIniciado)
                 .ToListAsync();
-                
         }
 
         public async Task<List<QuizDiarioHistorico>> ObterHistoricoDiario()

@@ -31,9 +31,7 @@
             PanelRanking = new AntdUI.Panel();
             TableUsuariosRank = new AntdUI.Table();
             LabelTitulo = new AntdUI.Label();
-            panel1 = new AntdUI.Panel();
             PanelRanking.SuspendLayout();
-            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // PanelRanking
@@ -76,27 +74,16 @@
             LabelTitulo.Text = "Ranking";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panel1
-            // 
-            panel1.Controls.Add(PanelRanking);
-            panel1.Controls.Add(LabelTitulo);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1280, 720);
-            panel1.TabIndex = 2;
-            panel1.Text = "panel1";
-            // 
             // PaginaRanking
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(panel1);
+            Controls.Add(LabelTitulo);
+            Controls.Add(PanelRanking);
             Name = "PaginaRanking";
             Size = new Size(1280, 720);
             Load += PaginaRanking_Load;
             PanelRanking.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -105,6 +92,5 @@
         private AntdUI.Panel PanelRanking;
         private AntdUI.Table TableUsuariosRank;
         private AntdUI.Label LabelTitulo;
-        private AntdUI.Panel panel1;
     }
 }

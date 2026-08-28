@@ -45,7 +45,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                         Tag = alternativa.Id,
                         Text = alternativa.Texto,
                         TextMultiLine = true,
-                        BackHover = Color.FromArgb(255, 230, 170),
+                        BorderWidth = 1,
                         Font = new Font("Segoe UI", 16),
                         Dock = DockStyle.Fill
                     };
@@ -63,7 +63,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 {
                     Tag = false,
                     Text = "Falso",
-                    BackHover = Color.FromArgb(255, 230, 170),
+                    BorderWidth = 1,
                     Font = new Font("Segoe UI", 16),
                     Dock = DockStyle.Fill
                 };
@@ -74,7 +74,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 {
                     Tag = true,
                     Text = "Verdadeiro",
-                    BackHover = Color.FromArgb(255, 230, 170),
+                    BorderWidth = 1,
                     Font = new Font("Segoe UI", 16),
                     Dock = DockStyle.Fill
                 };

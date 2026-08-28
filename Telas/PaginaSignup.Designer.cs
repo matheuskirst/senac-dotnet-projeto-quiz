@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TableLayoutPanelSignup = new TableLayoutPanel();
             StackPanelSignup = new AntdUI.StackPanel();
             ButtonSignupRegistrar = new AntdUI.Button();
             InputSignupConfirmarSenha = new AntdUI.Input();
@@ -43,34 +42,13 @@
             LabelSignupUsername = new AntdUI.Label();
             LabelSignupTitulo = new AntdUI.Label();
             ButtonSignupVoltar = new AntdUI.Button();
-            TableLayoutPanelSignup.SuspendLayout();
             StackPanelSignup.SuspendLayout();
             SuspendLayout();
-            // 
-            // TableLayoutPanelSignup
-            // 
-            TableLayoutPanelSignup.BackColor = Color.Transparent;
-            TableLayoutPanelSignup.ColumnCount = 3;
-            TableLayoutPanelSignup.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelSignup.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TableLayoutPanelSignup.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelSignup.Controls.Add(StackPanelSignup, 1, 1);
-            TableLayoutPanelSignup.Controls.Add(ButtonSignupVoltar, 1, 2);
-            TableLayoutPanelSignup.Dock = DockStyle.Fill;
-            TableLayoutPanelSignup.Location = new Point(0, 0);
-            TableLayoutPanelSignup.Name = "TableLayoutPanelSignup";
-            TableLayoutPanelSignup.RowCount = 4;
-            TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
-            TableLayoutPanelSignup.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelSignup.Size = new Size(1024, 720);
-            TableLayoutPanelSignup.TabIndex = 0;
             // 
             // StackPanelSignup
             // 
             StackPanelSignup.Anchor = AnchorStyles.None;
-            StackPanelSignup.AutoScroll = true;
+            StackPanelSignup.ColorScheme = AntdUI.TAMode.Dark;
             StackPanelSignup.Controls.Add(ButtonSignupRegistrar);
             StackPanelSignup.Controls.Add(InputSignupConfirmarSenha);
             StackPanelSignup.Controls.Add(LabelSignupConfirmarSenha);
@@ -92,7 +70,8 @@
             // 
             // ButtonSignupRegistrar
             // 
-            ButtonSignupRegistrar.DefaultBack = Color.Wheat;
+            ButtonSignupRegistrar.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonSignupRegistrar.DefaultBack = Color.FromArgb(150, 75, 75);
             ButtonSignupRegistrar.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonSignupRegistrar.Location = new Point(3, 541);
             ButtonSignupRegistrar.Margin = new Padding(3, 50, 3, 3);
@@ -104,6 +83,9 @@
             // 
             // InputSignupConfirmarSenha
             // 
+            InputSignupConfirmarSenha.BackColor = Color.FromArgb(77, 84, 92);
+            InputSignupConfirmarSenha.BorderColor = Color.FromArgb(77, 84, 92);
+            InputSignupConfirmarSenha.ColorScheme = AntdUI.TAMode.Dark;
             InputSignupConfirmarSenha.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputSignupConfirmarSenha.Location = new Point(0, 441);
             InputSignupConfirmarSenha.Margin = new Padding(0);
@@ -119,6 +101,7 @@
             // 
             // LabelSignupConfirmarSenha
             // 
+            LabelSignupConfirmarSenha.ColorScheme = AntdUI.TAMode.Dark;
             LabelSignupConfirmarSenha.Font = new Font("Segoe UI", 14.25F);
             LabelSignupConfirmarSenha.Location = new Point(3, 415);
             LabelSignupConfirmarSenha.Name = "LabelSignupConfirmarSenha";
@@ -131,6 +114,9 @@
             // 
             // InputSignupSenha
             // 
+            InputSignupSenha.BackColor = Color.FromArgb(77, 84, 92);
+            InputSignupSenha.BorderColor = Color.FromArgb(77, 84, 92);
+            InputSignupSenha.ColorScheme = AntdUI.TAMode.Dark;
             InputSignupSenha.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputSignupSenha.Location = new Point(0, 362);
             InputSignupSenha.Margin = new Padding(0);
@@ -147,6 +133,7 @@
             // 
             // LabelSignupSenha
             // 
+            LabelSignupSenha.ColorScheme = AntdUI.TAMode.Dark;
             LabelSignupSenha.Font = new Font("Segoe UI", 14.25F);
             LabelSignupSenha.Location = new Point(3, 336);
             LabelSignupSenha.Name = "LabelSignupSenha";
@@ -159,6 +146,9 @@
             // 
             // DatePickerSignupDataNascimento
             // 
+            DatePickerSignupDataNascimento.BackColor = Color.FromArgb(77, 84, 92);
+            DatePickerSignupDataNascimento.BorderColor = Color.FromArgb(77, 84, 92);
+            DatePickerSignupDataNascimento.ColorScheme = AntdUI.TAMode.Dark;
             DatePickerSignupDataNascimento.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DatePickerSignupDataNascimento.Format = "dd/MM/yyyy";
             DatePickerSignupDataNascimento.Location = new Point(0, 283);
@@ -173,6 +163,7 @@
             // 
             // LabelSignupDataNascimento
             // 
+            LabelSignupDataNascimento.ColorScheme = AntdUI.TAMode.Dark;
             LabelSignupDataNascimento.Font = new Font("Segoe UI", 14.25F);
             LabelSignupDataNascimento.Location = new Point(3, 257);
             LabelSignupDataNascimento.Name = "LabelSignupDataNascimento";
@@ -185,6 +176,9 @@
             // 
             // InputSignupNick
             // 
+            InputSignupNick.BackColor = Color.FromArgb(77, 84, 92);
+            InputSignupNick.BorderColor = Color.FromArgb(77, 84, 92);
+            InputSignupNick.ColorScheme = AntdUI.TAMode.Dark;
             InputSignupNick.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputSignupNick.Location = new Point(0, 204);
             InputSignupNick.Margin = new Padding(0);
@@ -196,6 +190,7 @@
             // 
             // LabelSignupNick
             // 
+            LabelSignupNick.ColorScheme = AntdUI.TAMode.Dark;
             LabelSignupNick.Font = new Font("Segoe UI", 14.25F);
             LabelSignupNick.Location = new Point(3, 178);
             LabelSignupNick.Name = "LabelSignupNick";
@@ -206,6 +201,9 @@
             // 
             // InputSignupUsername
             // 
+            InputSignupUsername.BackColor = Color.FromArgb(77, 84, 92);
+            InputSignupUsername.BorderColor = Color.FromArgb(77, 84, 92);
+            InputSignupUsername.ColorScheme = AntdUI.TAMode.Dark;
             InputSignupUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputSignupUsername.Location = new Point(0, 125);
             InputSignupUsername.Margin = new Padding(0);
@@ -217,6 +215,7 @@
             // 
             // LabelSignupUsername
             // 
+            LabelSignupUsername.ColorScheme = AntdUI.TAMode.Dark;
             LabelSignupUsername.Font = new Font("Segoe UI", 14.25F);
             LabelSignupUsername.Location = new Point(3, 99);
             LabelSignupUsername.Name = "LabelSignupUsername";
@@ -231,6 +230,7 @@
             // LabelSignupTitulo
             // 
             LabelSignupTitulo.AutoSizeMode = AntdUI.TAutoSize.Height;
+            LabelSignupTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelSignupTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelSignupTitulo.Location = new Point(3, 3);
             LabelSignupTitulo.Margin = new Padding(3, 3, 3, 50);
@@ -244,33 +244,32 @@
             // 
             // ButtonSignupVoltar
             // 
-            ButtonSignupVoltar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonSignupVoltar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonSignupVoltar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonSignupVoltar.Location = new Point(23, 633);
             ButtonSignupVoltar.Name = "ButtonSignupVoltar";
             ButtonSignupVoltar.Radius = 4;
-            ButtonSignupVoltar.Size = new Size(170, 64);
+            ButtonSignupVoltar.Size = new Size(120, 60);
             ButtonSignupVoltar.TabIndex = 6;
-            ButtonSignupVoltar.Text = "Voltar para Tela Inicial";
+            ButtonSignupVoltar.Text = "Voltar";
             ButtonSignupVoltar.Click += ButtonSignupVoltar_Click;
             // 
             // PaginaSignup
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(TableLayoutPanelSignup);
+            BackColor = Color.FromArgb(58, 64, 70);
+            Controls.Add(ButtonSignupVoltar);
+            Controls.Add(StackPanelSignup);
             Name = "PaginaSignup";
             Size = new Size(1024, 720);
             Load += PaginaSignup_Load;
-            TableLayoutPanelSignup.ResumeLayout(false);
             StackPanelSignup.ResumeLayout(false);
             StackPanelSignup.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private TableLayoutPanel TableLayoutPanelSignup;
         private AntdUI.Button ButtonSignupVoltar;
         private AntdUI.StackPanel StackPanelSignup;
         private AntdUI.Label LabelSignupUsername;

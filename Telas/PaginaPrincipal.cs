@@ -36,12 +36,12 @@ namespace SenacQuizApp.Telas
         {
             TableQuizHistorico.Columns = new AntdUI.ColumnCollection
             {
-                new AntdUI.Column(nameof(ResumoQuiz.Tipo), "Tipo"),
-                new AntdUI.Column(nameof(ResumoQuiz.DataIniciado), "Data Iniciado"),
-                new AntdUI.Column(nameof(ResumoQuiz.Finalizado), "Finalizado"),
-                new AntdUI.Column(nameof(ResumoQuiz.DataFinalizado), "Data Finalizado"),
-                new AntdUI.Column(nameof(ResumoQuiz.Tempo), "Tempo"),
-                new AntdUI.Column(nameof(ResumoQuiz.PontuacaoTotal), "Pontuação Total")
+                new AntdUI.Column(nameof(ResumoQuiz.Tipo), "Tipo") { SortOrder = true },
+                new AntdUI.Column(nameof(ResumoQuiz.DataIniciado), "Data Iniciado") { SortOrder = true },
+                new AntdUI.Column(nameof(ResumoQuiz.Finalizado), "Finalizado ") { SortOrder = true },
+                new AntdUI.Column(nameof(ResumoQuiz.DataFinalizado), "Data Finalizado ") { SortOrder = true },
+                new AntdUI.Column(nameof(ResumoQuiz.Tempo), "Tempo") { SortOrder = true },
+                new AntdUI.Column(nameof(ResumoQuiz.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
             };
 
             TableQuizHistorico.DataSource = _quizList;

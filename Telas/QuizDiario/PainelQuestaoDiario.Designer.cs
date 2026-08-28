@@ -36,6 +36,7 @@
             // InputQuestaoEnunciado
             // 
             InputQuestaoEnunciado.Anchor = AnchorStyles.Top;
+            InputQuestaoEnunciado.AutoScroll = true;
             InputQuestaoEnunciado.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputQuestaoEnunciado.Location = new Point(50, 3);
             InputQuestaoEnunciado.Multiline = true;
@@ -47,7 +48,7 @@
             // 
             // ButtonConfirmar
             // 
-            ButtonConfirmar.Anchor = AnchorStyles.Bottom;
+            ButtonConfirmar.Anchor = AnchorStyles.Top;
             ButtonConfirmar.BorderWidth = 1F;
             ButtonConfirmar.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonConfirmar.Location = new Point(375, 622);
@@ -70,6 +71,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             Controls.Add(GridPanelAlternativas);
             Controls.Add(ButtonConfirmar);
             Controls.Add(InputQuestaoEnunciado);

@@ -12,8 +12,9 @@ namespace SenacQuizApp
         [STAThread]
         static void Main()
         {
+            ConquistaService conquistaService = new();
             AutenticacaoService usuarioService = new();
-            QuizDiarioService quizDiarioService = new();
+            QuizDiarioService quizDiarioService = new(conquistaService);
             UsuarioService usuarioPerfilService = new();
             RankingService rankingService = new();
             HistoricoService historicoService = new();
@@ -27,7 +28,7 @@ namespace SenacQuizApp
             AntdUI.Localization.Provider = new AntdUIBrLocalizer();
             AntdUI.Localization.SetLanguage("pt-BR");
 
-            Application.Run(new FormApp(usuarioService, quizDiarioService, usuarioPerfilService, rankingService, historicoService));
+            Application.Run(new FormApp(usuarioService, quizDiarioService, usuarioPerfilService, rankingService, historicoService, conquistaService));
         }
     }
 }

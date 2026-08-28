@@ -1,6 +1,7 @@
 ﻿using AntdUI;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.Mapping;
+using SenacQuizApp.Dtos;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
@@ -16,13 +17,15 @@ namespace SenacQuizApp.Telas
         private readonly UsuarioService _usuarioPerfilService;
         private readonly RankingService _rankingService;
         private readonly HistoricoService _historicoService;
+        private readonly ConquistaService _conquistaService;
 
         public FormApp(
             AutenticacaoService autenticacaoService,
             QuizDiarioService quizDiarioService,
             UsuarioService usuarioPerfilService,
             RankingService rankingService,
-            HistoricoService historicoService
+            HistoricoService historicoService,
+            ConquistaService conquistaService
             )
         {
             _autenticacaoService = autenticacaoService;
@@ -30,7 +33,9 @@ namespace SenacQuizApp.Telas
             _usuarioPerfilService = usuarioPerfilService;
             _rankingService = rankingService;
             _historicoService = historicoService;
+            _conquistaService = conquistaService;
 
+            _conquistaService.ConquistaDesbloqueada += AoDesbloquearConquista;
             InitializeComponent();
         }
 
@@ -130,6 +135,17 @@ namespace SenacQuizApp.Telas
             MudarPagina(paginaRanking);
         }
 
+        public void AbrirPaginaHistorico()
+        {
+            var paginaHistorico = new PaginaHistorico(_historicoService);
+
+            ButtonHeaderMenu.Enabled = true;
+            ButtonHeaderRanking.Enabled = true;
+            ButtonHeaderPerfil.Enabled = true;
+
+            MudarPagina(paginaHistorico);
+        }
+
         public void AbrirPaginaPerfil(int usuarioId)
         {
             var paginaPerfil = new PaginaPerfil(usuarioId, _usuarioPerfilService);
@@ -202,6 +218,11 @@ namespace SenacQuizApp.Telas
         private void ButtonHeaderPerfil_Click(object sender, EventArgs e)
         {
             AbrirPaginaPerfil(UsuarioAtual.Id);
+        }
+
+        private void AoDesbloquearConquista(object? sender, ConquistaDto conquista)
+        {
+            MessageBox.Show($"Conquista desbloqueada!\nConquista: {conquista.Nome}\nDescrição: {conquista.Descricao}");
         }
     }
 }

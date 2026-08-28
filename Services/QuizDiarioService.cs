@@ -13,6 +13,13 @@ namespace SenacQuizApp.Services
 {
     public class QuizDiarioService
     {
+        private readonly ConquistaService _conquistaService;
+
+        public QuizDiarioService(ConquistaService conquistaService)
+        {
+            _conquistaService = conquistaService;
+        }
+
         public async Task<QuizDiarioAndamentos?> CriarQuizDiario()
         {
             using var contexto = new QuizAppContexto();
@@ -139,6 +146,7 @@ namespace SenacQuizApp.Services
             usuarioStats.AdicionarPontos(pontuacaoFinal);
             usuarioStats.AtualizarAcertos(ehCorreta);
             await contexto.SaveChangesAsync();
+            await _conquistaService.ChecarEstadoConquistas();
 
             return ehCorreta;
         }
@@ -183,6 +191,8 @@ namespace SenacQuizApp.Services
 
             quiz.Concluir(pontuacaoReal);
             await contexto.SaveChangesAsync();
+
+            await _conquistaService.ChecarEstadoConquistas();
         }
     }
 

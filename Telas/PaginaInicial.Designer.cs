@@ -43,6 +43,7 @@
             // 
             TableLayoutPanelInicial.AutoSize = true;
             TableLayoutPanelInicial.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            TableLayoutPanelInicial.BackColor = Color.FromArgb(58, 64, 70);
             TableLayoutPanelInicial.ColumnCount = 1;
             TableLayoutPanelInicial.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             TableLayoutPanelInicial.Controls.Add(TableLayoutPanelInicial2, 0, 0);
@@ -72,6 +73,7 @@
             // 
             // LabelInicialTitulo
             // 
+            LabelInicialTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelInicialTitulo.Dock = DockStyle.Fill;
             LabelInicialTitulo.Font = new Font("Tahoma", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelInicialTitulo.Location = new Point(3, 3);
@@ -96,20 +98,24 @@
             // 
             // ButtonInicialLogin
             // 
+            ButtonInicialLogin.AutoToggle = true;
             ButtonInicialLogin.BackExtend = "";
-            ButtonInicialLogin.DefaultBack = Color.PaleGreen;
+            ButtonInicialLogin.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonInicialLogin.DefaultBack = Color.FromArgb(75, 150, 75);
             ButtonInicialLogin.Font = new Font("Tahoma", 14.25F);
             ButtonInicialLogin.Location = new Point(3, 3);
             ButtonInicialLogin.Name = "ButtonInicialLogin";
             ButtonInicialLogin.Size = new Size(400, 70);
             ButtonInicialLogin.TabIndex = 0;
             ButtonInicialLogin.Text = "Realizar Login";
+            ButtonInicialLogin.Toggle = true;
             ButtonInicialLogin.Click += ButtonInicialLogin_Click;
             // 
             // ButtonInicialSignup
             // 
             ButtonInicialSignup.BackExtend = "";
-            ButtonInicialSignup.DefaultBack = Color.Wheat;
+            ButtonInicialSignup.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonInicialSignup.DefaultBack = Color.FromArgb(150, 75, 75);
             ButtonInicialSignup.DialogResult = DialogResult.OK;
             ButtonInicialSignup.Font = new Font("Tahoma", 14.25F);
             ButtonInicialSignup.Location = new Point(3, 79);

@@ -21,12 +21,12 @@ namespace SenacQuizApp.Telas
 
             TableUsuariosRank.Columns = new AntdUI.ColumnCollection
             {
-                new AntdUI.Column(nameof(UsuarioRankDto.Nickname), "Usuário"),
-                new AntdUI.Column(nameof(UsuarioRankDto.PontuacaoTotal), "Pontuação"),
-                new AntdUI.Column(nameof(UsuarioRankDto.Nivel), "Nível"),
-                new AntdUI.Column(nameof(UsuarioRankDto.TotalAcertos), "Acertos"),
-                new AntdUI.Column(nameof(UsuarioRankDto.TotalRespondidos), "Respondidos"),
-                new AntdUI.Column(nameof(UsuarioRankDto.MaxAcertosConsecutivos), "Máx. Sequência")
+                new AntdUI.Column(nameof(UsuarioRankDto.Nickname), "Usuário") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.PontuacaoTotal), "Pontuação") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.Nivel), "Nível") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.TotalAcertos), "Acertos") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.TotalRespondidos), "Respondidos") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
             };
         }
 

@@ -24,7 +24,7 @@ namespace SenacQuizApp.Services
             using var contexto = new QuizAppContexto();
 
             Usuario? usuario = await contexto.Usuarios
-                                .FirstOrDefaultAsync(u => u.Username == username);
+                .FirstOrDefaultAsync(u => u.Username == username);
 
             if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(senha, usuario.Senha))
             {
