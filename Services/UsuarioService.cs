@@ -28,8 +28,8 @@ namespace SenacQuizApp.Services
                     PontuacaoTotal = usuario.Stats.PontuacaoTotal,
                     TotalAcertos = usuario.Stats.TotalAcertos,
                     TotalRespondidos = usuario.Stats.TotalRespondidos,
-                    AtualAcertosConsecutivos = usuario.Stats.AtualAcertosConsecutivos,
-                    MaxAcertosConsecutivos = usuario.Stats.MaxAcertosConsecutivos
+                    AtualAcertosConsecutivos = usuario.Stats.MaxAcertosSeguidos,
+                    MaxAcertosConsecutivos = usuario.Stats.AtualAcertosSeguidos
                 })
                 .FirstOrDefaultAsync();
         }

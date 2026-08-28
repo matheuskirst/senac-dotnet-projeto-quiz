@@ -11,7 +11,7 @@ namespace SenacQuizApp.Dtos.QuizDiario.Andamento
     {
         public int Id { get; set; }
         public string Enunciado { get; set; } = null!;
-        public QuestaoTemaId TemaId { get; set; }
+        public int TemaId { get; set; }
         public string Tema { get; set; } = null!;
         public QuestaoNivelId NivelId { get; set; }
         public string Nivel { get; set; } = null!;

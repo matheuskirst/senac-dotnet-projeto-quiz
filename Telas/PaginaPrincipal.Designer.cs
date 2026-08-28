@@ -142,7 +142,7 @@
             // 
             PanelResumoPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             PanelResumoPreview.AutoScroll = true;
-            PanelResumoPreview.BackColor = Color.FromArgb(50, 50, 55);
+            PanelResumoPreview.BackColor = Color.FromArgb(50, 45, 45);
             PanelResumoPreview.Controls.Add(TableQuizHistorico);
             PanelResumoPreview.Controls.Add(LabelQuizzesPartidas);
             PanelResumoPreview.Location = new Point(84, 80);

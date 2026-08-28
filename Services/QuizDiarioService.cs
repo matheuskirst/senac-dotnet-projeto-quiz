@@ -103,7 +103,7 @@ namespace SenacQuizApp.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> SalvarResposta(int quizId, int questaoId, bool ehCorreta, int sequenciaAcertos)
+        public async Task<bool?> SalvarResposta(int quizId, int questaoId, bool ehCorreta, int sequenciaAcertos)
         {
             using var contexto = new QuizAppContexto();
 
@@ -116,10 +116,16 @@ namespace SenacQuizApp.Services
 
             if (usuarioStats == null) throw new Exception();
 
-            int questaoValor = await contexto.Questoes
+            var questao = await contexto.Questoes
                 .Where(questao => questao.Id == questaoId)
-                .Select(questao => questao.Nivel.Valor)
+                .Select(questao => new
+                {
+                    TemaId = questao.TemaId,
+                    Valor = questao.Nivel.Valor
+                })
                 .FirstOrDefaultAsync();
+
+            if (questao == null) return null;
 
             // Em porcentagem (0%)
             int bonus = 0;
@@ -130,28 +136,52 @@ namespace SenacQuizApp.Services
             else if (sequenciaAcertos < 3) bonus = 10;
             else bonus = 0;
 
-            if (ehCorreta == true) pontuacaoFinal = questaoValor + (questaoValor * bonus) / 100;
+            if (ehCorreta == true) pontuacaoFinal = questao.Valor + (questao.Valor * bonus) / 100;
 
             var resposta = new UsuarioResposta
             {
                 QuizId = quizId,
                 UsuarioId = usuarioId,
                 QuestaoId = questaoId,
-                QuestaoValor = questaoValor,
+                QuestaoValor = questao.Valor,
                 Acertou = ehCorreta,
                 PontuacaoFinal = pontuacaoFinal
             };
 
             contexto.UsuarioRespostas.Add(resposta);
-            usuarioStats.AdicionarPontos(pontuacaoFinal);
             usuarioStats.AtualizarAcertos(ehCorreta);
+
+            if (ehCorreta)
+            {
+                usuarioStats.AdicionarPontos(pontuacaoFinal);
+
+                var temaProgresso = await contexto.UsuarioTemasProgressos
+                    .SingleOrDefaultAsync(p => p.UsuarioId == usuarioId && p.TemaId == questao.TemaId);
+
+                if (temaProgresso == null)
+                {
+                    temaProgresso = new UsuarioTemasProgresso
+                    {
+                        UsuarioId = usuarioId,
+                        TemaId = questao.TemaId,
+                        RespostasCorretas = 1
+                    };
+
+                    contexto.UsuarioTemasProgressos.Add(temaProgresso);
+                }
+                else
+                {
+                    temaProgresso.RespostasCorretas++;
+                }
+            }
+
             await contexto.SaveChangesAsync();
-            await _conquistaService.ChecarEstadoConquistas();
+            await _conquistaService.ChecarQuizConquistas();
 
             return ehCorreta;
         }
 
-        public async Task<bool> SalvarRespostaAlternativa(int quizId, int questaoId, int alternativaId, int sequenciaAcertos)
+        public async Task<bool?> SalvarRespostaAlternativa(int quizId, int questaoId, int alternativaId, int sequenciaAcertos)
         {
             using var contexto = new QuizAppContexto();
 
@@ -163,7 +193,7 @@ namespace SenacQuizApp.Services
             return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos);
         }
 
-        public async Task<bool> SalvarRespostaVerdadeiroFalso(int quizId, int questaoId, bool verdadeiroFalso, int sequenciaAcertos)
+        public async Task<bool?> SalvarRespostaVerdadeiroFalso(int quizId, int questaoId, bool verdadeiroFalso, int sequenciaAcertos)
         {
             using var contexto = new QuizAppContexto();
 
@@ -192,7 +222,7 @@ namespace SenacQuizApp.Services
             quiz.Concluir(pontuacaoReal);
             await contexto.SaveChangesAsync();
 
-            await _conquistaService.ChecarEstadoConquistas();
+            await _conquistaService.ChecarQuizConquistas();
         }
     }
 
@@ -234,7 +264,7 @@ namespace SenacQuizApp.Services
                             {
                                 Id = alternativa.Id,
                                 Texto = alternativa.Texto
-                            }).ToList(),
+                            }).OrderBy(a => EF.Functions.Random()).ToList(),
                     }).ToList()
                 });
         }

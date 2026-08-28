@@ -37,6 +37,13 @@ namespace SenacQuizApp.Telas
 
             _conquistaService.ConquistaDesbloqueada += AoDesbloquearConquista;
             InitializeComponent();
+
+            SetStyle(
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.UserPaint,
+                true);
+            UpdateStyles();
         }
 
         private void FormJanelaPrincipal_Load(object sender, EventArgs e)

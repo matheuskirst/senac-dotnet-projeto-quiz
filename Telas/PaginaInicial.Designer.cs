@@ -115,7 +115,7 @@
             // 
             ButtonInicialSignup.BackExtend = "";
             ButtonInicialSignup.ColorScheme = AntdUI.TAMode.Dark;
-            ButtonInicialSignup.DefaultBack = Color.FromArgb(150, 75, 75);
+            ButtonInicialSignup.DefaultBack = Color.FromArgb(180, 100, 80);
             ButtonInicialSignup.DialogResult = DialogResult.OK;
             ButtonInicialSignup.Font = new Font("Tahoma", 14.25F);
             ButtonInicialSignup.Location = new Point(3, 79);

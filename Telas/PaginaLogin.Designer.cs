@@ -78,7 +78,6 @@
             // LabelLoginErro
             // 
             LabelLoginErro.BackColor = Color.Transparent;
-            LabelLoginErro.ColorScheme = AntdUI.TAMode.Dark;
             LabelLoginErro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelLoginErro.Location = new Point(5, 5);
             LabelLoginErro.Name = "LabelLoginErro";

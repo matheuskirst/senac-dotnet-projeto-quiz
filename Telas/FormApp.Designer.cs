@@ -160,7 +160,7 @@
             Controls.Add(PanelHeaderDivider);
             Controls.Add(PanelAppHeader);
             Controls.Add(PageHeader);
-            MinimumSize = new Size(854, 480);
+            MinimumSize = new Size(1024, 720);
             Name = "FormApp";
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterScreen;

@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
+using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
-using SenacQuizApp.Dtos;
+using SenacQuizApp.Modelos;
 using SenacQuizApp.Modelos.Usuarios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SenacQuizApp.Dtos.Usuario;
+using static SenacQuizApp.Global.ModelosConstantes;
 
 namespace SenacQuizApp.Services
 {
@@ -17,23 +19,68 @@ namespace SenacQuizApp.Services
     {
         public event EventHandler<ConquistaDto>? ConquistaDesbloqueada;
 
-        public async Task ChecarEstadoConquistas()
+        public async Task ChecarQuizConquistas()
         {
             using var contexto = new QuizAppContexto();
-
             int usuarioId = UsuarioAtual.Id;
 
-            UsuarioStats? usuarioStats = await contexto.Usuarios
-                .Where(usuario => usuario.Id == usuarioId)
-                .Select(usuario => usuario.Stats)
-                .FirstOrDefaultAsync();
-            
-            if (usuarioStats == null) return;
+            var conquistas = await contexto.Conquistas
+                .Where(c => c.Tipo == ConquistaTipo.PrimeiroQuizTipoDiario ||
+                    c.Tipo == ConquistaTipo.AcertosSeguidos ||
+                    c.Tipo == ConquistaTipo.MaestriaTema
+                    )
+                .ToListAsync();
 
-            if (usuarioStats.MaxAcertosConsecutivos >= 10)
+            var primeiroQuizTipoDiario = await contexto.QuizzesDiarios
+                .AnyAsync(q => q.Concluido == true);
+
+            var acertosSeguidos = await contexto.UsuarioStats
+                .Where(us => us.UsuarioId == usuarioId)
+                .Select(us => us.MaxAcertosSeguidos)
+                .FirstOrDefaultAsync();
+
+            var progressoTemas = await contexto.UsuarioTemasProgressos
+                .Where(t => t.UsuarioId == usuarioId)
+                .ToListAsync();
+
+            foreach (var conquista in conquistas)
             {
-                await DesbloquearConquista(ConquistaId.DezAcertosSeguidos);
+                switch (conquista.Tipo)
+                {
+                    case ConquistaTipo.PrimeiroQuizTipoDiario:
+                        if (primeiroQuizTipoDiario) await DesbloquearConquista(conquista.Id);
+                        break;
+
+                    case ConquistaTipo.AcertosSeguidos:
+                        if (conquista.Meta != null && acertosSeguidos >= conquista.Meta) await DesbloquearConquista(conquista.Id);
+                        break;
+
+                    case ConquistaTipo.MaestriaTema:
+                        if (conquista.TemaId != null && conquista.Meta != null)
+                        {
+                            var progresso = progressoTemas
+                                .FirstOrDefault(p => p.TemaId == conquista.TemaId.Value);
+
+                            if (progresso != null && progresso.RespostasCorretas >= conquista.Meta.Value) await DesbloquearConquista(conquista.Id);
+                        }
+                        break;
+                }
             }
+        }
+
+        public async Task ChecarLoginConquistas()
+        {
+            using var contexto = new QuizAppContexto();
+            int usuarioId = UsuarioAtual.Id;
+
+            var conquistas = await contexto.Conquistas
+                .Where(c => c.Tipo == ConquistaTipo.AcessosConsecutivos)
+                .ToListAsync();
+
+            var acessos = await contexto.UsuariosAcessos
+                .Where(a => a.UsuarioId == usuarioId)
+                .OrderByDescending(a => a.DataAcesso)
+                .ToListAsync();
         }
 
         public async Task DesbloquearConquista(ConquistaId conquistaId)

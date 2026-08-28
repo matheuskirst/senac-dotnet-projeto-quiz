@@ -26,6 +26,13 @@ namespace SenacQuizApp.Telas.QuizDiario
             _questao = questao;
 
             InitializeComponent();
+
+            SetStyle(
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.UserPaint,
+                true);
+            UpdateStyles();
         }
 
         private void PainelPergunta_Load(object sender, EventArgs e)

@@ -63,14 +63,19 @@ namespace SenacQuizApp.Telas.QuizDiario
 
         private void MudarPainelQuestao(PainelQuestaoDiario painel)
         {
-            while (PanelQuestoes.Controls.Count > 0)
-            {
-                var controle = PanelQuestoes.Controls[0];
-                PanelQuestoes.Controls.Remove(controle);
-                controle.Dispose();
-            }
+            PanelQuestoes.SuspendLayout();
 
-            PanelQuestoes.Controls.Add(painel);
+            try
+            {
+                PanelQuestoes.Controls.Clear();
+
+                painel.Dock = DockStyle.Fill;
+                PanelQuestoes.Controls.Add(painel);
+            }
+            finally
+            {
+                PanelQuestoes.ResumeLayout();
+            }
         }
 
         private async void ProximaQuestao()
@@ -117,8 +122,6 @@ namespace SenacQuizApp.Telas.QuizDiario
                 painel.EscolheuAlternativa += AoResponderAlternativa;
                 painel.EscolheuVerdadeiroFalso += AoResponderVerdadeiroFalso;
 
-                painel.Dock = DockStyle.Fill;
-
                 MudarPainelQuestao(painel);
             }
         }
@@ -131,9 +134,9 @@ namespace SenacQuizApp.Telas.QuizDiario
             int questaoId = _quizSessao.Quiz.Questoes[questaoIndex].Id;
             int sequenciaAcertos = _quizSessao.SequenciaAcertos;
 
-            bool ehCorreta = await _quizService.SalvarRespostaAlternativa(quizId, questaoId, alternativaId, sequenciaAcertos);
+            bool? ehCorreta = await _quizService.SalvarRespostaAlternativa(quizId, questaoId, alternativaId, sequenciaAcertos);
 
-            if (ehCorreta) _quizSessao.SequenciaAcertos++;
+            if (ehCorreta != null && ehCorreta.Value) _quizSessao.SequenciaAcertos++;
             else _quizSessao.SequenciaAcertos = 0;
 
             _quizSessao.QuestaoAtualIndex++;
@@ -150,9 +153,9 @@ namespace SenacQuizApp.Telas.QuizDiario
             int sequenciaAcertos = _quizSessao.SequenciaAcertos;
 
 
-            bool ehCorreta = await _quizService.SalvarRespostaVerdadeiroFalso(quizId, questaoId, verdadeiroFalso, sequenciaAcertos);
+            bool? ehCorreta = await _quizService.SalvarRespostaVerdadeiroFalso(quizId, questaoId, verdadeiroFalso, sequenciaAcertos);
 
-            if (ehCorreta) _quizSessao.SequenciaAcertos++;
+            if (ehCorreta != null && ehCorreta.Value) _quizSessao.SequenciaAcertos++;
             else _quizSessao.SequenciaAcertos = 0;
 
             _quizSessao.QuestaoAtualIndex++;

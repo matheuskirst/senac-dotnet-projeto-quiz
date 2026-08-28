@@ -71,7 +71,7 @@
             // ButtonSignupRegistrar
             // 
             ButtonSignupRegistrar.ColorScheme = AntdUI.TAMode.Dark;
-            ButtonSignupRegistrar.DefaultBack = Color.FromArgb(150, 75, 75);
+            ButtonSignupRegistrar.DefaultBack = Color.FromArgb(180, 100, 80);
             ButtonSignupRegistrar.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonSignupRegistrar.Location = new Point(3, 541);
             ButtonSignupRegistrar.Margin = new Padding(3, 50, 3, 3);

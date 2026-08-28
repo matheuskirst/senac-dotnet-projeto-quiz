@@ -12,7 +12,7 @@ namespace SenacQuizApp.Modelos.Questoes
     {
         public int Id { get; set; }
 
-        public QuestaoTemaId TemaId { get; set; }
+        public int TemaId { get; set; }
         public QuestaoTema Tema { get; set; } = null!;
 
         public QuestaoNivelId NivelId { get; set; }

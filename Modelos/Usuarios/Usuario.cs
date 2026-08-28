@@ -30,6 +30,7 @@ namespace SenacQuizApp.Modelos.Usuarios
         public UsuarioStats Stats { get; set; } = null!;
 
         public ICollection<UsuarioResposta> Respostas { get; set; } = new List<UsuarioResposta>();
-        public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
+        public ICollection<UsuarioAcesso> Acessos { get; set; } = new List<UsuarioAcesso>();
+        public ICollection<UsuarioConquista> Conquistas { get; set; } = new List<UsuarioConquista>();
     }
 }

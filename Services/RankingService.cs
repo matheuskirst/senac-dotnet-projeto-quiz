@@ -24,7 +24,7 @@ namespace SenacQuizApp.Services
                     Nivel = usuario.Stats.Nivel.Nome,
                     TotalAcertos = usuario.Stats.TotalAcertos,
                     TotalRespondidos = usuario.Stats.TotalRespondidos,
-                    MaxAcertosConsecutivos = usuario.Stats.MaxAcertosConsecutivos
+                    MaxAcertosConsecutivos = usuario.Stats.MaxAcertosSeguidos
                 })
                 .OrderByDescending(rank => rank.PontuacaoTotal)
                 .ToListAsync();

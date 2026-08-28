@@ -32,6 +32,7 @@
             LabelUsuario = new AntdUI.Label();
             panel2 = new AntdUI.Panel();
             panel1 = new AntdUI.Panel();
+            LabelPontosProximoNivel = new AntdUI.Label();
             LabelProgressoPontos = new AntdUI.Label();
             ProgressUsuarioNivel = new AntdUI.Progress();
             panel3 = new AntdUI.Panel();
@@ -46,7 +47,6 @@
             divider1 = new AntdUI.Divider();
             LabelInsertPontuacaoTotal = new AntdUI.Label();
             LabelPontuacaoTotal = new AntdUI.Label();
-            panel4 = new AntdUI.Panel();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -56,8 +56,9 @@
             // 
             LabelNivel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LabelNivel.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelNivel.ColorScheme = AntdUI.TAMode.Dark;
             LabelNivel.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelNivel.Location = new Point(572, 47);
+            LabelNivel.Location = new Point(573, 46);
             LabelNivel.Name = "LabelNivel";
             LabelNivel.Prefix = "Nivel: ";
             LabelNivel.Size = new Size(100, 27);
@@ -68,20 +69,20 @@
             // 
             LabelUsuario.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelUsuario.BackColor = Color.Transparent;
+            LabelUsuario.ColorScheme = AntdUI.TAMode.Dark;
             LabelUsuario.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelUsuario.ForeColor = Color.Black;
-            LabelUsuario.Location = new Point(49, 36);
+            LabelUsuario.Location = new Point(48, 35);
             LabelUsuario.Name = "LabelUsuario";
-            LabelUsuario.Prefix = "Usuario: ";
-            LabelUsuario.Size = new Size(146, 38);
+            LabelUsuario.Prefix = "";
+            LabelUsuario.Size = new Size(0, 38);
             LabelUsuario.TabIndex = 1;
-            LabelUsuario.Text = "#";
+            LabelUsuario.Text = "";
             // 
             // panel2
             // 
             panel2.AutoScroll = true;
-            panel2.Back = Color.Transparent;
-            panel2.BackColor = SystemColors.ControlLight;
+            panel2.Back = Color.FromArgb(58, 64, 70);
+            panel2.BackColor = Color.Transparent;
             panel2.Controls.Add(panel1);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
@@ -93,12 +94,10 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top;
-            panel1.Back = Color.Transparent;
-            panel1.BackColor = Color.White;
-            panel1.BorderColor = SystemColors.ControlDark;
-            panel1.BorderWidth = 1F;
-            panel1.Controls.Add(panel4);
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            panel1.Back = Color.FromArgb(50, 45, 45);
+            panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(LabelPontosProximoNivel);
             panel1.Controls.Add(LabelProgressoPontos);
             panel1.Controls.Add(ProgressUsuarioNivel);
             panel1.Controls.Add(panel3);
@@ -111,17 +110,30 @@
             panel1.TabIndex = 3;
             panel1.Text = "panel1";
             // 
+            // LabelPontosProximoNivel
+            // 
+            LabelPontosProximoNivel.ColorScheme = AntdUI.TAMode.Dark;
+            LabelPontosProximoNivel.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelPontosProximoNivel.Location = new Point(573, 144);
+            LabelPontosProximoNivel.Name = "LabelPontosProximoNivel";
+            LabelPontosProximoNivel.Size = new Size(224, 43);
+            LabelPontosProximoNivel.TabIndex = 7;
+            LabelPontosProximoNivel.Text = "0 Pontos para o próximo nível";
+            LabelPontosProximoNivel.TextAlign = ContentAlignment.TopLeft;
+            // 
             // LabelProgressoPontos
             // 
+            LabelProgressoPontos.ColorScheme = AntdUI.TAMode.Dark;
             LabelProgressoPontos.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelProgressoPontos.Location = new Point(573, 110);
             LabelProgressoPontos.Name = "LabelProgressoPontos";
             LabelProgressoPontos.Size = new Size(191, 28);
             LabelProgressoPontos.TabIndex = 6;
-            LabelProgressoPontos.Text = "";
+            LabelProgressoPontos.Text = "0/0 Pontos";
             // 
             // ProgressUsuarioNivel
             // 
+            ProgressUsuarioNivel.ColorScheme = AntdUI.TAMode.Dark;
             ProgressUsuarioNivel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ProgressUsuarioNivel.Location = new Point(573, 79);
             ProgressUsuarioNivel.Name = "ProgressUsuarioNivel";
@@ -146,10 +158,10 @@
             panel3.Controls.Add(divider1);
             panel3.Controls.Add(LabelInsertPontuacaoTotal);
             panel3.Controls.Add(LabelPontuacaoTotal);
-            panel3.Location = new Point(572, 194);
+            panel3.Location = new Point(573, 193);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(10);
-            panel3.Size = new Size(224, 522);
+            panel3.Size = new Size(224, 524);
             panel3.TabIndex = 4;
             // 
             // LabelInsertTaxaAcertos
@@ -298,16 +310,6 @@
             LabelPontuacaoTotal.TabIndex = 2;
             LabelPontuacaoTotal.Text = "Pontuação Total:";
             // 
-            // panel4
-            // 
-            panel4.Back = Color.Transparent;
-            panel4.BackColor = SystemColors.ControlDarkDark;
-            panel4.Location = new Point(4, 194);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(562, 522);
-            panel4.TabIndex = 7;
-            panel4.Text = "panel4";
-            // 
             // PaginaPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -335,7 +337,6 @@
         private AntdUI.Label LabelPontuacaoTotal;
         private AntdUI.Label LabelInsertTotalRespostas;
         private AntdUI.Divider divider1;
-        private AntdUI.Label label1;
         private AntdUI.Label LabelAcertos;
         private AntdUI.Divider divider2;
         private AntdUI.Label LabelInsertAcertos;
@@ -344,6 +345,6 @@
         private AntdUI.Label LabelTaxaAcertos;
         private AntdUI.Divider divider3;
         private AntdUI.Label LabelProgressoPontos;
-        private AntdUI.Panel panel4;
+        private AntdUI.Label LabelPontosProximoNivel;
     }
 }
