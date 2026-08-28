@@ -1,6 +1,10 @@
-﻿using SenacQuizApp.Dtos.QuizDiario.Detalhe;
+﻿using SenacQuizApp.Dtos.QuizDiario.Andamento;
+using SenacQuizApp.Migrations;
+using SenacQuizApp.Modelos.Usuarios;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas;
+using SenacQuizApp.Global;
+using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
@@ -8,17 +12,17 @@ namespace SenacQuizApp.Telas.QuizDiario
     {
         private int _quizId;
         private readonly QuizDiarioService _quizService;
-        private readonly UsuarioPerfilService _usuarioPerfilService;
+        private readonly UsuarioService _usuarioService;
 
         public event Action<int>? VerResultado;
 
         private QuizSessao? _quizSessao;
 
-        public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioPerfilService usuarioPerfilService)
+        public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioService usuarioService)
         {
             _quizId = quizId;
             _quizService = quizService;
-            _usuarioPerfilService = usuarioPerfilService;
+            _usuarioService = usuarioService;
 
             InitializeComponent();
         }
@@ -27,11 +31,18 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-                QuizDiarioDetalhes? quiz = await _quizService.ObterDetalhePorId(_quizId);
+                QuizDiarioAndamentos? quiz = await _quizService.ObterDetalhePorId(_quizId);
+                UsuarioPerfilDto? usuario = await _usuarioService.ObterPerfilPorId(UsuarioAtual.Id);
 
                 if (quiz == null) return;
 
                 if (quiz.FoiConcluido) { MostrarResultado(); }
+
+                if (usuario != null)
+                {
+                    LabelUsuarioNick.Text = usuario.Nickname;
+                    LabelUsuarioNivel.Text = usuario.Nivel;
+                }
 
                 LabelQuizDiarioData.Text = quiz.DataExibido.ToString();
 
@@ -74,7 +85,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 return;
             }
             
-            QuizDiarioDetalhesQuestao questao = _quizSessao.Quiz.Questoes[questaoIndex];
+            QuizDiarioAndamentoQuestao questao = _quizSessao.Quiz.Questoes[questaoIndex];
 
             if (questao.Respondida)
             {
@@ -168,7 +179,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
     public class QuizSessao
     {
-        public QuizDiarioDetalhes Quiz { get; set; } = null!;
+        public QuizDiarioAndamentos Quiz { get; set; } = null!;
         public int QuestaoAtualIndex { get; set; }
         public int SequenciaAcertos { get; set; }
     }

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SenacQuizApp.Enums;
 
-namespace SenacQuizApp.Dtos.QuizDiario.Detalhe
+namespace SenacQuizApp.Dtos.QuizDiario.Andamento
 {
-    public class QuizDiarioDetalhesQuestao
+    public class QuizDiarioAndamentoQuestao
     {
         public int Id { get; set; }
         public string Enunciado { get; set; } = null!;
@@ -20,6 +20,6 @@ namespace SenacQuizApp.Dtos.QuizDiario.Detalhe
         public int Pontos { get; set; }
         public bool Respondida { get; set; }
         public bool? Acertou { get; set; }
-        public List<QuizDiarioDetalhesAlternativa> Alternativas { get; set; } = null!;
+        public List<QuizDiarioAndamentoAlternativa> Alternativas { get; set; } = null!;
     }
 }

@@ -1,5 +1,5 @@
 ﻿using SenacQuizApp.Services;
-using SenacQuizApp.Dtos.QuizDiario.Detalhe;
+using SenacQuizApp.Dtos.QuizDiario.Andamento;
 using SenacQuizApp.Dtos.QuizDiario.Resultado;
 
 namespace SenacQuizApp.Telas.QuizDiario
@@ -7,14 +7,14 @@ namespace SenacQuizApp.Telas.QuizDiario
     public partial class HubQuizDiario : UserControl
     {
         private readonly QuizDiarioService _quizDiarioService;
-        private readonly UsuarioPerfilService _usuarioPerfilService;
-        private QuizDiarioDetalhes? _quizDiarioDto;
+        private readonly UsuarioService _usuarioPerfilService;
+        private QuizDiarioAndamentos? _quizDiarioDto;
 
         public event Action<int>? IniciarQuiz;
         public event Action<int>? VerResultado;
         public event Action<int>? CarregarQuiz;
 
-        public HubQuizDiario(QuizDiarioService quizDiarioService, UsuarioPerfilService usuarioPerfilService)
+        public HubQuizDiario(QuizDiarioService quizDiarioService, UsuarioService usuarioPerfilService)
         {
             _quizDiarioService = quizDiarioService;
             _usuarioPerfilService = usuarioPerfilService;
@@ -26,7 +26,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-                QuizDiarioDetalhes? quiz = await _quizDiarioService.ObterQuizDiario();
+                QuizDiarioAndamentos? quiz = await _quizDiarioService.ObterQuizDiario();
 
                 if (quiz == null)
                 {
@@ -61,7 +61,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-                QuizDiarioDetalhes? quiz = await _quizDiarioService.CriarQuizDiario();
+                QuizDiarioAndamentos? quiz = await _quizDiarioService.CriarQuizDiario();
 
                 if (quiz == null) return;
 

@@ -9,7 +9,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SenacQuizApp.Services
 {
-    public class UsuarioPerfilService
+    public class UsuarioService
     {
         public async Task<UsuarioPerfilDto?> ObterPerfilPorId(int usuarioId)
         {

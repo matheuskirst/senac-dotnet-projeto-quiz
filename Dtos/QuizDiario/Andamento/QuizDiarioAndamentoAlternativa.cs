@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Dtos.QuizDiario.Historico
+namespace SenacQuizApp.Dtos.QuizDiario.Andamento
 {
-    public class QuizDiarioHistoricoAlternativa
+    public class QuizDiarioAndamentoAlternativa()
     {
         public int Id { get; set; }
         public string Texto { get; set; } = null!;
-        public bool Correta { get; set; }
     }
 }

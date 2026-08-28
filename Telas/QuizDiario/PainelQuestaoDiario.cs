@@ -1,4 +1,4 @@
-﻿using SenacQuizApp.Dtos.QuizDiario.Detalhe;
+﻿using SenacQuizApp.Dtos.QuizDiario.Andamento;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos;
 using System;
@@ -15,13 +15,13 @@ namespace SenacQuizApp.Telas.QuizDiario
 {
     public partial class PainelQuestaoDiario : UserControl
     {
-        private readonly QuizDiarioDetalhesQuestao _questao;
+        private readonly QuizDiarioAndamentoQuestao _questao;
         public event Action<int>? EscolheuAlternativa;
         public event Action<bool>? EscolheuVerdadeiroFalso;
 
         private AntdUI.Button? _botaoSelecionado;
 
-        public PainelQuestaoDiario(QuizDiarioDetalhesQuestao questao)
+        public PainelQuestaoDiario(QuizDiarioAndamentoQuestao questao)
         {
             _questao = questao;
 
@@ -38,14 +38,14 @@ namespace SenacQuizApp.Telas.QuizDiario
                 GridPanelAlternativas.Height = 300;
                 GridPanelAlternativas.Span = "50% 50%; 50% 50%";
 
-                foreach (QuizDiarioDetalhesAlternativa alternativa in _questao.Alternativas)
+                foreach (QuizDiarioAndamentoAlternativa alternativa in _questao.Alternativas)
                 {
                     var button = new AntdUI.Button
                     {
                         Tag = alternativa.Id,
                         Text = alternativa.Texto,
                         TextMultiLine = true,
-                        BackHover = Color.FromArgb(255, 223, 156),
+                        BackHover = Color.FromArgb(255, 230, 170),
                         Font = new Font("Segoe UI", 16),
                         Dock = DockStyle.Fill
                     };
@@ -63,7 +63,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 {
                     Tag = false,
                     Text = "Falso",
-                    BackHover = Color.FromArgb(224, 255, 156),
+                    BackHover = Color.FromArgb(255, 230, 170),
                     Font = new Font("Segoe UI", 16),
                     Dock = DockStyle.Fill
                 };
@@ -74,7 +74,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 {
                     Tag = true,
                     Text = "Verdadeiro",
-                    BackHover = Color.FromArgb(224, 255, 156),
+                    BackHover = Color.FromArgb(255, 230, 170),
                     Font = new Font("Segoe UI", 16),
                     Dock = DockStyle.Fill
                 };

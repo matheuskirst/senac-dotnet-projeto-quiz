@@ -164,7 +164,7 @@ namespace SenacQuizApp.Data
                     .WithMany(qt => qt.Quizzes)
                     .UsingEntity(qq => qq.ToTable("QuizQuestoes"));
 
-                entity.Property(q => q.DataInicio)
+                entity.Property(q => q.DataIniciado)
                     .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 

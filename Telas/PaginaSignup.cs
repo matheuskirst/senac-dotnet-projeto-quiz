@@ -232,8 +232,8 @@ namespace SenacQuizApp.Telas
             }
             else if (!string.IsNullOrWhiteSpace(confirmarSenha) && senha != confirmarSenha)
             {
-                PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "As senhas não são as mesmas!");
-                PintarErros.ErroNoCampo(InputSignupConfirmarSenha, mensagem: "As senhas não são as mesmas!");
+                PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "As senhas são diferentes!");
+                PintarErros.ErroNoCampo(InputSignupConfirmarSenha, mensagem: "As senhas são diferentes!");
                 validado = false;
             }
             else

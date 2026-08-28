@@ -29,16 +29,17 @@
         private void InitializeComponent()
         {
             PanelQuizDiario = new AntdUI.Panel();
-            ButtonQuizDiario = new AntdUI.Button();
-            PanelHistoricoPreview = new AntdUI.Panel();
-            LabelQuizzesPartidas = new AntdUI.Label();
-            divider1 = new AntdUI.Divider();
-            label1 = new AntdUI.Label();
-            divider2 = new AntdUI.Divider();
             ButtonQuizRush = new AntdUI.Button();
             divider3 = new AntdUI.Divider();
+            ButtonQuizDiario = new AntdUI.Button();
+            divider1 = new AntdUI.Divider();
+            LabelQuizzesTitulo = new AntdUI.Label();
+            divider2 = new AntdUI.Divider();
+            PanelResumoPreview = new AntdUI.Panel();
+            LabelQuizzesPartidas = new AntdUI.Label();
+            TableQuizHistorico = new AntdUI.Table();
             PanelQuizDiario.SuspendLayout();
-            PanelHistoricoPreview.SuspendLayout();
+            PanelResumoPreview.SuspendLayout();
             SuspendLayout();
             // 
             // PanelQuizDiario
@@ -49,88 +50,15 @@
             PanelQuizDiario.Controls.Add(divider3);
             PanelQuizDiario.Controls.Add(ButtonQuizDiario);
             PanelQuizDiario.Controls.Add(divider1);
-            PanelQuizDiario.Controls.Add(label1);
+            PanelQuizDiario.Controls.Add(LabelQuizzesTitulo);
             PanelQuizDiario.Controls.Add(divider2);
             PanelQuizDiario.Dock = DockStyle.Right;
-            PanelQuizDiario.Location = new Point(774, 0);
+            PanelQuizDiario.Location = new Point(1030, 0);
             PanelQuizDiario.Name = "PanelQuizDiario";
             PanelQuizDiario.Padding = new Padding(10);
             PanelQuizDiario.Size = new Size(250, 720);
             PanelQuizDiario.TabIndex = 0;
             PanelQuizDiario.Text = "panel1";
-            // 
-            // ButtonQuizDiario
-            // 
-            ButtonQuizDiario.Dock = DockStyle.Top;
-            ButtonQuizDiario.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonQuizDiario.Location = new Point(10, 141);
-            ButtonQuizDiario.Name = "ButtonQuizDiario";
-            ButtonQuizDiario.Size = new Size(230, 58);
-            ButtonQuizDiario.TabIndex = 1;
-            ButtonQuizDiario.Text = "Diário";
-            ButtonQuizDiario.Click += ButtonQuizDiario_Click;
-            // 
-            // PanelHistoricoPreview
-            // 
-            PanelHistoricoPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            PanelHistoricoPreview.AutoScroll = true;
-            PanelHistoricoPreview.Controls.Add(LabelQuizzesPartidas);
-            PanelHistoricoPreview.Location = new Point(13, 80);
-            PanelHistoricoPreview.Name = "PanelHistoricoPreview";
-            PanelHistoricoPreview.Size = new Size(750, 560);
-            PanelHistoricoPreview.TabIndex = 1;
-            PanelHistoricoPreview.Text = "panel2";
-            // 
-            // LabelQuizzesPartidas
-            // 
-            LabelQuizzesPartidas.BackColor = Color.Transparent;
-            LabelQuizzesPartidas.Dock = DockStyle.Top;
-            LabelQuizzesPartidas.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuizzesPartidas.Location = new Point(0, 0);
-            LabelQuizzesPartidas.Name = "LabelQuizzesPartidas";
-            LabelQuizzesPartidas.Size = new Size(750, 39);
-            LabelQuizzesPartidas.TabIndex = 0;
-            LabelQuizzesPartidas.Text = "Últimas 5 Partidas";
-            LabelQuizzesPartidas.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // divider1
-            // 
-            divider1.ColorSplit = Color.Transparent;
-            divider1.Dock = DockStyle.Top;
-            divider1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            divider1.Location = new Point(10, 105);
-            divider1.Name = "divider1";
-            divider1.OrientationMargin = 0F;
-            divider1.Size = new Size(230, 36);
-            divider1.TabIndex = 8;
-            divider1.Text = "";
-            divider1.TextPadding = 0F;
-            divider1.Thickness = 1F;
-            // 
-            // label1
-            // 
-            label1.Dock = DockStyle.Top;
-            label1.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(10, 61);
-            label1.Name = "label1";
-            label1.Size = new Size(230, 44);
-            label1.TabIndex = 9;
-            label1.Text = "Quizzes";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // divider2
-            // 
-            divider2.ColorSplit = Color.Transparent;
-            divider2.Dock = DockStyle.Top;
-            divider2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            divider2.Location = new Point(10, 10);
-            divider2.Name = "divider2";
-            divider2.OrientationMargin = 0F;
-            divider2.Size = new Size(230, 51);
-            divider2.TabIndex = 10;
-            divider2.Text = "";
-            divider2.TextPadding = 0F;
-            divider2.Thickness = 1F;
             // 
             // ButtonQuizRush
             // 
@@ -156,19 +84,103 @@
             divider3.TextPadding = 0F;
             divider3.Thickness = 1F;
             // 
+            // ButtonQuizDiario
+            // 
+            ButtonQuizDiario.Dock = DockStyle.Top;
+            ButtonQuizDiario.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonQuizDiario.Location = new Point(10, 141);
+            ButtonQuizDiario.Name = "ButtonQuizDiario";
+            ButtonQuizDiario.Size = new Size(230, 58);
+            ButtonQuizDiario.TabIndex = 1;
+            ButtonQuizDiario.Text = "Diário";
+            ButtonQuizDiario.Click += ButtonQuizDiario_Click;
+            // 
+            // divider1
+            // 
+            divider1.ColorSplit = Color.Transparent;
+            divider1.Dock = DockStyle.Top;
+            divider1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            divider1.Location = new Point(10, 105);
+            divider1.Name = "divider1";
+            divider1.OrientationMargin = 0F;
+            divider1.Size = new Size(230, 36);
+            divider1.TabIndex = 8;
+            divider1.Text = "";
+            divider1.TextPadding = 0F;
+            divider1.Thickness = 1F;
+            // 
+            // LabelQuizzesTitulo
+            // 
+            LabelQuizzesTitulo.Dock = DockStyle.Top;
+            LabelQuizzesTitulo.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelQuizzesTitulo.Location = new Point(10, 61);
+            LabelQuizzesTitulo.Name = "LabelQuizzesTitulo";
+            LabelQuizzesTitulo.Size = new Size(230, 44);
+            LabelQuizzesTitulo.TabIndex = 9;
+            LabelQuizzesTitulo.Text = "Quizzes";
+            LabelQuizzesTitulo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // divider2
+            // 
+            divider2.ColorSplit = Color.Transparent;
+            divider2.Dock = DockStyle.Top;
+            divider2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            divider2.Location = new Point(10, 10);
+            divider2.Name = "divider2";
+            divider2.OrientationMargin = 0F;
+            divider2.Size = new Size(230, 51);
+            divider2.TabIndex = 10;
+            divider2.Text = "";
+            divider2.TextPadding = 0F;
+            divider2.Thickness = 1F;
+            // 
+            // PanelResumoPreview
+            // 
+            PanelResumoPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            PanelResumoPreview.AutoScroll = true;
+            PanelResumoPreview.Controls.Add(TableQuizHistorico);
+            PanelResumoPreview.Controls.Add(LabelQuizzesPartidas);
+            PanelResumoPreview.Location = new Point(108, 80);
+            PanelResumoPreview.Name = "PanelResumoPreview";
+            PanelResumoPreview.Size = new Size(800, 560);
+            PanelResumoPreview.TabIndex = 1;
+            PanelResumoPreview.Text = "panel2";
+            // 
+            // LabelQuizzesPartidas
+            // 
+            LabelQuizzesPartidas.BackColor = Color.Transparent;
+            LabelQuizzesPartidas.Dock = DockStyle.Top;
+            LabelQuizzesPartidas.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelQuizzesPartidas.Location = new Point(0, 0);
+            LabelQuizzesPartidas.Name = "LabelQuizzesPartidas";
+            LabelQuizzesPartidas.Size = new Size(800, 39);
+            LabelQuizzesPartidas.TabIndex = 0;
+            LabelQuizzesPartidas.Text = "Últimos 10 Quizzes";
+            LabelQuizzesPartidas.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TableQuizHistorico
+            // 
+            TableQuizHistorico.Dock = DockStyle.Fill;
+            TableQuizHistorico.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TableQuizHistorico.Gap = 12;
+            TableQuizHistorico.Location = new Point(0, 39);
+            TableQuizHistorico.Name = "TableQuizHistorico";
+            TableQuizHistorico.Size = new Size(800, 521);
+            TableQuizHistorico.TabIndex = 2;
+            // 
             // PaginaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            Controls.Add(PanelHistoricoPreview);
+            Controls.Add(PanelResumoPreview);
             Controls.Add(PanelQuizDiario);
             Margin = new Padding(2);
             Name = "PaginaPrincipal";
-            Size = new Size(1024, 720);
+            Size = new Size(1280, 720);
             Load += PaginaPrincipal_Load;
             PanelQuizDiario.ResumeLayout(false);
-            PanelHistoricoPreview.ResumeLayout(false);
+            PanelResumoPreview.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -176,12 +188,13 @@
 
         private AntdUI.Panel PanelQuizDiario;
         private AntdUI.Button ButtonQuizDiario;
-        private AntdUI.Panel PanelHistoricoPreview;
+        private AntdUI.Panel PanelResumoPreview;
         private AntdUI.Label LabelQuizzesPartidas;
         private AntdUI.Button ButtonQuizRush;
         private AntdUI.Divider divider3;
         private AntdUI.Divider divider1;
-        private AntdUI.Label label1;
+        private AntdUI.Label LabelQuizzesTitulo;
         private AntdUI.Divider divider2;
+        private AntdUI.Table TableQuizHistorico;
     }
 }

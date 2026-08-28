@@ -1,6 +1,6 @@
-﻿namespace SenacQuizApp.Telas.Componentes.Quiz
+﻿namespace SenacQuizApp.Telas.Componentes
 {
-    partial class PainelHistoricoQuiz
+    partial class HistoricoQuizRush
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -38,17 +38,16 @@
             TableQuizHistorico.Gap = 12;
             TableQuizHistorico.Location = new Point(0, 0);
             TableQuizHistorico.Name = "TableQuizHistorico";
-            TableQuizHistorico.Size = new Size(956, 709);
-            TableQuizHistorico.TabIndex = 0;
+            TableQuizHistorico.Size = new Size(950, 700);
+            TableQuizHistorico.TabIndex = 1;
             // 
-            // PainelHistórico
+            // HistoricoQuizRush
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(TableQuizHistorico);
-            Name = "PainelHistórico";
-            Size = new Size(956, 709);
-            Load += PainelHistórico_Load;
+            Name = "HistoricoQuizRush";
+            Size = new Size(950, 700);
             ResumeLayout(false);
         }
 

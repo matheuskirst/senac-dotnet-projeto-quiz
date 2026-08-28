@@ -3,43 +3,36 @@ using SenacQuizApp.Dtos.QuizDiario.Historico;
 
 namespace SenacQuizApp.Telas.Componentes.Quiz
 {
-    public partial class PainelHistoricoQuiz : UserControl
+    public partial class HistoricoQuizDiario : UserControl
     {
-        private readonly List<QuizDiarioHistorico> _quizzes;
         private readonly BindingList<QuizDiarioHistorico> _quizList = [];
-        public PainelHistoricoQuiz(List<QuizDiarioHistorico> quizzes)
+        public HistoricoQuizDiario(List<QuizDiarioHistorico> quizzes)
         {
-            _quizzes = quizzes;
-
             InitializeComponent();
 
             TableQuizHistorico.Columns = new AntdUI.ColumnCollection
             {
+                new AntdUI.Column(nameof(QuizDiarioHistorico.Tipo), "Tipo"),
                 new AntdUI.Column(nameof(QuizDiarioHistorico.DataExibido), "Data Exibido"),
-                new AntdUI.Column(nameof(QuizDiarioHistorico.DataInicio), "Data Iniciado"),
-                new AntdUI.Column(nameof(QuizDiarioHistorico.FoiConcluido), "Concluído"),
+                new AntdUI.Column(nameof(QuizDiarioHistorico.DataIniciado), "Data Iniciado"),
+                new AntdUI.Column(nameof(QuizDiarioHistorico.Concluido), "Concluído"),
                 new AntdUI.Column(nameof(QuizDiarioHistorico.DataConcluido), "Data Concluído"),
                 new AntdUI.Column(nameof(QuizDiarioHistorico.TempoDeConclusao), "Tempo para concluir"),
                 new AntdUI.Column(nameof(QuizDiarioHistorico.TotalQuestoes), "Total Questões"),
                 new AntdUI.Column(nameof(QuizDiarioHistorico.TotalAcertos), "Acertos"),
                 new AntdUI.Column(nameof(QuizDiarioHistorico.PontuacaoTotal), "Pontuação Final"),
             };
-        }
-
-        private void PainelHistórico_Load(object sender, EventArgs e)
-        {
             TableQuizHistorico.DataSource = _quizList;
-            AtualizarTabelaQuizzes();
         }
 
-        private void AtualizarTabelaQuizzes()
+        public void AtualizarTabelaQuizzes(List<QuizDiarioHistorico> quizzes)
         {
             TableQuizHistorico.PauseLayout = true;
             try
             {
                 _quizList.Clear();
 
-                foreach (QuizDiarioHistorico quiz in _quizzes)
+                foreach (QuizDiarioHistorico quiz in quizzes)
                 {
                     _quizList.Add(quiz);
                 }

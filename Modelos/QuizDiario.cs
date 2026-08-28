@@ -17,9 +17,9 @@ namespace SenacQuizApp.Modelos
         public int UsuarioId {  get; set; }
         public Usuario Usuario { get; set; } = null!;
 
-        public DateTimeOffset DataInicio { get; set; } = DateTimeOffset.UtcNow;
         public DateOnly DataExibido { get; set; } = DateOnly.FromDateTime(ObterHora.ObterHoraBrasilia());
-        public bool FoiConcluido { get; set; } = false;
+        public DateTimeOffset DataIniciado { get; set; } = DateTimeOffset.UtcNow;
+        public bool Concluido { get; set; } = false;
         public DateTimeOffset? DataConcluido { get; set; }
         public TimeSpan? TempoDeConclusao { get; set; }
         public int PontuacaoTotal { get; set; } = 0;
@@ -29,16 +29,16 @@ namespace SenacQuizApp.Modelos
 
         public void Concluir(int pontuacaoReal)
         {
-            if (FoiConcluido) throw new InvalidOperationException("Esse quiz já foi concluido");
+            if (Concluido) throw new InvalidOperationException("Esse quiz já foi concluido");
 
             if (PontuacaoTotal != pontuacaoReal)
             {
                 PontuacaoTotal = pontuacaoReal;
             }
 
-            FoiConcluido = true;
+            Concluido = true;
             DataConcluido = DateTimeOffset.UtcNow;
-            TempoDeConclusao = DataConcluido - DataInicio;
+            TempoDeConclusao = DataConcluido - DataIniciado;
         }
     }
 }

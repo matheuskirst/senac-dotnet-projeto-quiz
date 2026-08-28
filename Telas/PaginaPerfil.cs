@@ -18,11 +18,11 @@ namespace SenacQuizApp.Telas
     public partial class PaginaPerfil : UserControl
     {
         private readonly int _usuarioId;
-        private readonly UsuarioPerfilService _usuarioPerfilService;
+        private readonly UsuarioService _usuarioPerfilService;
 
         public event Action<int>? AbrirConquistas;
 
-        public PaginaPerfil(int usuarioId, UsuarioPerfilService usuarioPerfilService)
+        public PaginaPerfil(int usuarioId, UsuarioService usuarioPerfilService)
         {
             _usuarioId = usuarioId;
             _usuarioPerfilService = usuarioPerfilService;

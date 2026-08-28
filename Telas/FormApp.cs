@@ -1,5 +1,6 @@
 ﻿using AntdUI;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.Mapping;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
@@ -12,15 +13,24 @@ namespace SenacQuizApp.Telas
     {
         private readonly AutenticacaoService _autenticacaoService;
         private readonly QuizDiarioService _quizDiarioService;
-        private readonly UsuarioPerfilService _usuarioPerfilService;
+        private readonly UsuarioService _usuarioPerfilService;
         private readonly RankingService _rankingService;
+        private readonly HistoricoService _historicoService;
 
-        public FormApp(AutenticacaoService autenticacaoService, QuizDiarioService quizDiarioService, UsuarioPerfilService usuarioPerfilService, RankingService rankingService)
+        public FormApp(
+            AutenticacaoService autenticacaoService,
+            QuizDiarioService quizDiarioService,
+            UsuarioService usuarioPerfilService,
+            RankingService rankingService,
+            HistoricoService historicoService
+            )
         {
             _autenticacaoService = autenticacaoService;
             _quizDiarioService = quizDiarioService;
             _usuarioPerfilService = usuarioPerfilService;
             _rankingService = rankingService;
+            _historicoService = historicoService;
+
             InitializeComponent();
         }
 
@@ -93,7 +103,7 @@ namespace SenacQuizApp.Telas
 
         public void AbrirPaginaPrincipal(object? sender, EventArgs e)
         {
-            var paginaPrincipal = new PaginaPrincipal(_quizDiarioService);
+            var paginaPrincipal = new PaginaPrincipal(_quizDiarioService, _historicoService);
 
             ButtonHeaderRanking.Enabled = true;
             ButtonHeaderPerfil.Enabled = true;

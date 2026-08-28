@@ -55,12 +55,7 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private void ButtonLoginEntrar_Click(object sender, EventArgs e)
-        {
-            ValidarLogin();
-        }
-
-        private async void ValidarLogin()
+        private async void ButtonLoginEntrar_Click(object sender, EventArgs e)
         {
             LimparBordas();
             StackPanelLoginErro.Visible = false;

@@ -50,9 +50,9 @@
             ButtonConfirmar.Anchor = AnchorStyles.Bottom;
             ButtonConfirmar.BorderWidth = 1F;
             ButtonConfirmar.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonConfirmar.Location = new Point(406, 646);
+            ButtonConfirmar.Location = new Point(375, 622);
             ButtonConfirmar.Name = "ButtonConfirmar";
-            ButtonConfirmar.Size = new Size(189, 51);
+            ButtonConfirmar.Size = new Size(250, 75);
             ButtonConfirmar.TabIndex = 5;
             ButtonConfirmar.Text = "Confirmar";
             ButtonConfirmar.Click += ButtonConfirmar_Click;
