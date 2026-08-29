@@ -61,14 +61,14 @@
             DropdownUsuarioMenu.BorderWidth = 1F;
             DropdownUsuarioMenu.ColorScheme = AntdUI.TAMode.Dark;
             DropdownUsuarioMenu.DefaultBack = Color.FromArgb(77, 84, 92);
-            DropdownUsuarioMenu.DropDownArrow = true;
-            DropdownUsuarioMenu.Location = new Point(770, 1);
+            DropdownUsuarioMenu.IsLink = true;
+            DropdownUsuarioMenu.Location = new Point(787, 1);
             DropdownUsuarioMenu.Name = "DropdownUsuarioMenu";
             DropdownUsuarioMenu.Radius = 2;
-            DropdownUsuarioMenu.Size = new Size(110, 32);
+            DropdownUsuarioMenu.ShowArrow = true;
+            DropdownUsuarioMenu.Size = new Size(93, 32);
             DropdownUsuarioMenu.TabIndex = 1;
             DropdownUsuarioMenu.Text = "Usuário";
-            DropdownUsuarioMenu.TextAlign = ContentAlignment.MiddleLeft;
             DropdownUsuarioMenu.ItemClick += DropdownUsuarioMenu_ItemClick;
             // 
             // PanelAppBody

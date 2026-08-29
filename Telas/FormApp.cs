@@ -6,7 +6,6 @@ using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
-using SenacQuizApp.Telas.Componentes.Quiz;
 using SenacQuizApp.Telas.QuizDiario;
 
 namespace SenacQuizApp.Telas
@@ -52,7 +51,8 @@ namespace SenacQuizApp.Telas
             var dropdownItems = new object[]
             {
                 new AntdUI.SelectItem("Ver Perfil") { Tag = MenuOpcoes.VerPerfil },
-                new AntdUI.SelectItem("Configurações") { Tag = MenuOpcoes.Configuracoes, },
+                new AntdUI.SelectItem("Ver Histórico") { Tag = MenuOpcoes.VerHistorico },
+                new AntdUI.SelectItem("Configurações") { Tag = MenuOpcoes.Configuracoes },
                 new AntdUI.SelectItem("Sair...") { Tag = MenuOpcoes.Sair }
             };
 
@@ -167,6 +167,9 @@ namespace SenacQuizApp.Telas
             ButtonHeaderRanking.Enabled = true;
             ButtonHeaderPerfil.Enabled = true;
 
+            paginaHistorico.ContinuarQuiz += AbrirExecutarQuizDiario;
+            paginaHistorico.VerResultado += AbrirResultadoQuizDiario;
+
             MudarPagina(paginaHistorico);
         }
 
@@ -258,6 +261,9 @@ namespace SenacQuizApp.Telas
             {
                 case MenuOpcoes.VerPerfil:
                     AbrirPaginaPerfil(UsuarioAtual.Id);
+                    break;
+                case MenuOpcoes.VerHistorico:
+                    AbrirPaginaHistorico();
                     break;
                 case MenuOpcoes.Configuracoes:
 

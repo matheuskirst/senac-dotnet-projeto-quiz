@@ -55,6 +55,7 @@
             PanelQuizDiario.Location = new Point(1030, 0);
             PanelQuizDiario.Name = "PanelQuizDiario";
             PanelQuizDiario.Padding = new Padding(10);
+            PanelQuizDiario.Radius = 0;
             PanelQuizDiario.Size = new Size(250, 720);
             PanelQuizDiario.TabIndex = 0;
             PanelQuizDiario.Text = "panel1";
@@ -143,6 +144,7 @@
             PanelResumoPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             PanelResumoPreview.AutoScroll = true;
             PanelResumoPreview.BackColor = Color.FromArgb(50, 45, 45);
+            PanelResumoPreview.ColorScheme = AntdUI.TAMode.Dark;
             PanelResumoPreview.Controls.Add(TableQuizHistorico);
             PanelResumoPreview.Controls.Add(LabelQuizzesPartidas);
             PanelResumoPreview.Location = new Point(84, 80);
@@ -154,6 +156,7 @@
             // TableQuizHistorico
             // 
             TableQuizHistorico.AutoSizeColumnsMode = AntdUI.ColumnsMode.Fill;
+            TableQuizHistorico.ColorScheme = AntdUI.TAMode.Dark;
             TableQuizHistorico.Dock = DockStyle.Fill;
             TableQuizHistorico.EmptyText = "Nenhum Quiz Encontrado";
             TableQuizHistorico.EnableHeaderResizing = true;
@@ -168,6 +171,7 @@
             // 
             // LabelQuizzesPartidas
             // 
+            LabelQuizzesPartidas.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizzesPartidas.Dock = DockStyle.Top;
             LabelQuizzesPartidas.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizzesPartidas.Location = new Point(0, 0);

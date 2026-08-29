@@ -3,6 +3,7 @@ using SenacQuizApp.Data;
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Dtos.QuizDiario.Historico;
 using SenacQuizApp.Dtos.QuizRush;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Telas.Componentes;
@@ -22,6 +23,7 @@ namespace SenacQuizApp.Services
                 .Select(diario => new ResumoQuiz
                 {
                     Id = diario.Id,
+                    TipoId = QuizTipoId.Diario,
                     Tipo = "Diário",
                     DataIniciado = diario.DataIniciado.DateTime,
                     Finalizado = diario.Concluido ? "Sim" : "Não",
@@ -35,13 +37,55 @@ namespace SenacQuizApp.Services
                 .Select(diario => new ResumoQuiz
                 {
                     Id = diario.Id,
+                    TipoId = QuizTipoId.Rush,
                     Tipo = "Rush",
                     DataIniciado = diario.DataIniciado.DateTime,
                     Finalizado = "Sim",
                     DataFinalizado = diario.DataFinalizado.DateTime,
                     Tempo = diario.Tempo,
                     PontuacaoTotal = diario.PontuacaoTotal
-                }); ;;
+                });
+
+            return await diarios
+                .Concat(rush)
+                .OrderByDescending(quiz => quiz.DataIniciado)
+                .Take(10)
+                .ToListAsync();
+        }        
+        
+        public async Task<List<ResumoQuiz>> ObterTodos()
+        {
+            using var contexto = new QuizAppContexto();
+
+            int usuarioId = UsuarioAtual.Id;
+
+            var diarios = contexto.QuizzesDiarios
+                .Where(quiz => quiz.UsuarioId == usuarioId)
+                .Select(diario => new ResumoQuiz
+                {
+                    Id = diario.Id,
+                    TipoId = QuizTipoId.Diario,
+                    Tipo = "Diário",
+                    DataIniciado = diario.DataIniciado.DateTime,
+                    Finalizado = diario.Concluido ? "Sim" : "Não",
+                    DataFinalizado = diario.DataConcluido != null ? diario.DataConcluido.Value.DateTime : null,
+                    Tempo = diario.TempoDeConclusao,
+                    PontuacaoTotal = diario.PontuacaoTotal
+                });
+
+            var rush = contexto.QuizzesRush
+                .Where(quiz => quiz.UsuarioId == usuarioId)
+                .Select(diario => new ResumoQuiz
+                {
+                    Id = diario.Id,
+                    TipoId = QuizTipoId.Rush,
+                    Tipo = "Rush",
+                    DataIniciado = diario.DataIniciado.DateTime,
+                    Finalizado = "Sim",
+                    DataFinalizado = diario.DataFinalizado.DateTime,
+                    Tempo = diario.Tempo,
+                    PontuacaoTotal = diario.PontuacaoTotal
+                });
 
             return await diarios
                 .Concat(rush)
@@ -49,7 +93,7 @@ namespace SenacQuizApp.Services
                 .ToListAsync();
         }
 
-        public async Task<List<QuizDiarioHistorico>> ObterHistoricoDiario()
+        public async Task<List<QuizDiarioHistorico>> ObterHistoricosDiario()
         {
             using var contexto = new QuizAppContexto();
 
@@ -58,7 +102,7 @@ namespace SenacQuizApp.Services
                 .ToListAsync();
         }
 
-        public async Task<List<QuizRushEntrada>> ObterEntradaRush()
+        public async Task<List<QuizRushEntrada>> ObterEntradasRush()
         {
             using var contexto = new QuizAppContexto();
 

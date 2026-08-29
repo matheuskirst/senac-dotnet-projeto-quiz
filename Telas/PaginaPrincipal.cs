@@ -1,5 +1,4 @@
 ﻿using SenacQuizApp.Services;
-using SenacQuizApp.Telas.Componentes.Quiz;
 using SenacQuizApp.Dtos.QuizDiario.Andamento;
 using SenacQuizApp.Dtos.QuizDiario.Historico;
 using SenacQuizApp.Dtos;

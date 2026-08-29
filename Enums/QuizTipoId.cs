@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Enums
 {
-    public enum MenuOpcoes
+    public enum QuizTipoId
     {
-        VerPerfil = 1,
-        VerHistorico = 2,
-        Configuracoes = 3,
-        Sair = 4
+        Diario = 1,
+        Rush = 2
     }
 }

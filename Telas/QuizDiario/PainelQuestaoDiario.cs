@@ -40,7 +40,12 @@ namespace SenacQuizApp.Telas.QuizDiario
             try
             {
                 InputQuestaoEnunciado.Clear();
-                GridPanelAlternativas.Controls.Clear();
+
+                while (GridPanelAlternativas.Controls.Count > 0)
+                {
+                    var controle = GridPanelAlternativas.Controls[0];
+                    controle.Dispose();
+                }
 
                 InputQuestaoEnunciado.Text = _questao.Enunciado;
 

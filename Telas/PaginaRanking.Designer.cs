@@ -40,7 +40,7 @@
             PanelRanking.BorderColor = Color.Black;
             PanelRanking.BorderWidth = 1F;
             PanelRanking.Controls.Add(TableUsuariosRank);
-            PanelRanking.Location = new Point(240, 91);
+            PanelRanking.Location = new Point(240, 90);
             PanelRanking.Name = "PanelRanking";
             PanelRanking.Size = new Size(800, 620);
             PanelRanking.TabIndex = 0;
@@ -65,6 +65,7 @@
             // LabelTitulo
             // 
             LabelTitulo.BackColor = Color.Transparent;
+            LabelTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelTitulo.Dock = DockStyle.Top;
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelTitulo.Location = new Point(0, 0);
@@ -78,6 +79,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(58, 64, 70);
             Controls.Add(LabelTitulo);
             Controls.Add(PanelRanking);
             Name = "PaginaRanking";

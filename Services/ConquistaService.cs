@@ -32,7 +32,7 @@ namespace SenacQuizApp.Services
                 .ToListAsync();
 
             var primeiroQuizTipoDiario = await contexto.QuizzesDiarios
-                .AnyAsync(q => q.Concluido == true);
+                .AnyAsync(q => q.UsuarioId == usuarioId && q.Concluido == true);
 
             var acertosSeguidos = await contexto.UsuarioStats
                 .Where(us => us.UsuarioId == usuarioId)
