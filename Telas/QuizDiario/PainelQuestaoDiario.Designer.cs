@@ -37,6 +37,8 @@
             // 
             InputQuestaoEnunciado.Anchor = AnchorStyles.Top;
             InputQuestaoEnunciado.AutoScroll = true;
+            InputQuestaoEnunciado.BackColor = Color.FromArgb(66, 66, 66);
+            InputQuestaoEnunciado.ColorScheme = AntdUI.TAMode.Dark;
             InputQuestaoEnunciado.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputQuestaoEnunciado.Location = new Point(50, 3);
             InputQuestaoEnunciado.Multiline = true;
@@ -49,8 +51,10 @@
             // ButtonConfirmar
             // 
             ButtonConfirmar.Anchor = AnchorStyles.Top;
-            ButtonConfirmar.BorderWidth = 1F;
-            ButtonConfirmar.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonConfirmar.BorderWidth = 2F;
+            ButtonConfirmar.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonConfirmar.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonConfirmar.Ghost = true;
             ButtonConfirmar.Location = new Point(375, 622);
             ButtonConfirmar.Name = "ButtonConfirmar";
             ButtonConfirmar.Size = new Size(250, 75);
@@ -61,6 +65,7 @@
             // GridPanelAlternativas
             // 
             GridPanelAlternativas.Anchor = AnchorStyles.Top;
+            GridPanelAlternativas.ColorScheme = AntdUI.TAMode.Dark;
             GridPanelAlternativas.Location = new Point(100, 242);
             GridPanelAlternativas.Name = "GridPanelAlternativas";
             GridPanelAlternativas.Size = new Size(800, 300);
@@ -72,6 +77,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
+            BackColor = Color.FromArgb(50, 50, 50);
             Controls.Add(GridPanelAlternativas);
             Controls.Add(ButtonConfirmar);
             Controls.Add(InputQuestaoEnunciado);

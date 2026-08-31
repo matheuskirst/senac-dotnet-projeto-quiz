@@ -13,7 +13,7 @@ namespace SenacQuizApp
         static void Main()
         {
             ConquistaService conquistaService = new();
-            AutenticacaoService usuarioService = new();
+            AutenticacaoService usuarioService = new(conquistaService);
             QuizDiarioService quizDiarioService = new(conquistaService);
             UsuarioService usuarioPerfilService = new();
             RankingService rankingService = new();

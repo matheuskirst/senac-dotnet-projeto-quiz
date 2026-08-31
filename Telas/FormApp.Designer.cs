@@ -44,7 +44,7 @@
             // 
             // PageHeader
             // 
-            PageHeader.BackColor = Color.FromArgb(30, 41, 50);
+            PageHeader.BackColor = Color.FromArgb(18, 18, 18);
             PageHeader.ColorScheme = AntdUI.TAMode.Dark;
             PageHeader.Controls.Add(DropdownUsuarioMenu);
             PageHeader.Dock = DockStyle.Top;
@@ -57,24 +57,28 @@
             // 
             // DropdownUsuarioMenu
             // 
-            DropdownUsuarioMenu.Anchor = AnchorStyles.Right;
+            DropdownUsuarioMenu.AutoSizeMode = AntdUI.TAutoSize.Width;
             DropdownUsuarioMenu.BorderWidth = 1F;
             DropdownUsuarioMenu.ColorScheme = AntdUI.TAMode.Dark;
-            DropdownUsuarioMenu.DefaultBack = Color.FromArgb(77, 84, 92);
+            DropdownUsuarioMenu.DefaultBack = Color.FromArgb(66, 66, 66);
+            DropdownUsuarioMenu.DefaultBorderColor = Color.FromArgb(20, 20, 20);
+            DropdownUsuarioMenu.Dock = DockStyle.Right;
             DropdownUsuarioMenu.IsLink = true;
-            DropdownUsuarioMenu.Location = new Point(787, 1);
+            DropdownUsuarioMenu.Location = new Point(800, 0);
             DropdownUsuarioMenu.Name = "DropdownUsuarioMenu";
             DropdownUsuarioMenu.Radius = 2;
+            DropdownUsuarioMenu.RightToLeft = RightToLeft.Yes;
             DropdownUsuarioMenu.ShowArrow = true;
-            DropdownUsuarioMenu.Size = new Size(93, 32);
+            DropdownUsuarioMenu.Size = new Size(80, 35);
             DropdownUsuarioMenu.TabIndex = 1;
             DropdownUsuarioMenu.Text = "Usuário";
+            DropdownUsuarioMenu.ToggleText = "";
             DropdownUsuarioMenu.ItemClick += DropdownUsuarioMenu_ItemClick;
             // 
             // PanelAppBody
             // 
             PanelAppBody.AutoScroll = true;
-            PanelAppBody.BackColor = Color.FromArgb(58, 64, 70);
+            PanelAppBody.BackColor = Color.FromArgb(50, 50, 50);
             PanelAppBody.Dock = DockStyle.Fill;
             PanelAppBody.Location = new Point(0, 116);
             PanelAppBody.Margin = new Padding(0);
@@ -86,31 +90,39 @@
             // 
             ButtonHeaderMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonHeaderMenu.BorderWidth = 1F;
-            ButtonHeaderMenu.DefaultBack = Color.White;
+            ButtonHeaderMenu.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonHeaderMenu.DefaultBorderColor = Color.FromArgb(40, 40, 40);
             ButtonHeaderMenu.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonHeaderMenu.ForeHover = Color.White;
+            ButtonHeaderMenu.Ghost = true;
             ButtonHeaderMenu.Location = new Point(12, 34);
             ButtonHeaderMenu.Name = "ButtonHeaderMenu";
             ButtonHeaderMenu.Size = new Size(120, 43);
             ButtonHeaderMenu.TabIndex = 1;
             ButtonHeaderMenu.Text = "Menu";
+            ButtonHeaderMenu.ToggleFore = Color.FromArgb(66, 160, 245);
             ButtonHeaderMenu.Click += ButtonHeaderMenu_Click;
             // 
             // ButtonHeaderRanking
             // 
             ButtonHeaderRanking.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonHeaderRanking.BorderWidth = 1F;
-            ButtonHeaderRanking.DefaultBack = Color.White;
+            ButtonHeaderRanking.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonHeaderRanking.DefaultBorderColor = Color.FromArgb(40, 40, 40);
             ButtonHeaderRanking.Font = new Font("Segoe UI", 14.25F);
+            ButtonHeaderRanking.ForeHover = Color.White;
+            ButtonHeaderRanking.Ghost = true;
             ButtonHeaderRanking.Location = new Point(138, 34);
             ButtonHeaderRanking.Name = "ButtonHeaderRanking";
             ButtonHeaderRanking.Size = new Size(120, 43);
             ButtonHeaderRanking.TabIndex = 7;
             ButtonHeaderRanking.Text = "Ranking";
+            ButtonHeaderRanking.ToggleFore = Color.FromArgb(66, 160, 245);
             ButtonHeaderRanking.Click += ButtonHeaderRanking_Click;
             // 
             // PanelAppHeader
             // 
-            PanelAppHeader.Back = Color.FromArgb(30, 41, 50);
+            PanelAppHeader.Back = Color.FromArgb(18, 18, 18);
             PanelAppHeader.Controls.Add(ButtonHeaderMenu);
             PanelAppHeader.Controls.Add(ButtonHeaderRanking);
             PanelAppHeader.Controls.Add(ButtonHeaderPerfil);
@@ -126,18 +138,22 @@
             // 
             ButtonHeaderPerfil.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonHeaderPerfil.BorderWidth = 1F;
-            ButtonHeaderPerfil.DefaultBack = Color.White;
+            ButtonHeaderPerfil.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonHeaderPerfil.DefaultBorderColor = Color.FromArgb(40, 40, 40);
             ButtonHeaderPerfil.Font = new Font("Segoe UI", 14.25F);
+            ButtonHeaderPerfil.ForeHover = Color.White;
+            ButtonHeaderPerfil.Ghost = true;
             ButtonHeaderPerfil.Location = new Point(264, 34);
             ButtonHeaderPerfil.Name = "ButtonHeaderPerfil";
             ButtonHeaderPerfil.Size = new Size(120, 43);
             ButtonHeaderPerfil.TabIndex = 9;
             ButtonHeaderPerfil.Text = "Perfil";
+            ButtonHeaderPerfil.ToggleFore = Color.FromArgb(66, 160, 245);
             ButtonHeaderPerfil.Click += ButtonHeaderPerfil_Click;
             // 
             // PanelAppFooter
             // 
-            PanelAppFooter.Back = Color.FromArgb(30, 41, 50);
+            PanelAppFooter.Back = Color.FromArgb(18, 18, 18);
             PanelAppFooter.Dock = DockStyle.Bottom;
             PanelAppFooter.Location = new Point(0, 680);
             PanelAppFooter.Name = "PanelAppFooter";
@@ -148,7 +164,7 @@
             // 
             // PanelHeaderDivider
             // 
-            PanelHeaderDivider.Back = SystemColors.ControlDarkDark;
+            PanelHeaderDivider.Back = Color.Black;
             PanelHeaderDivider.BackColor = SystemColors.ControlDarkDark;
             PanelHeaderDivider.Dock = DockStyle.Top;
             PanelHeaderDivider.Location = new Point(0, 115);
@@ -159,7 +175,7 @@
             // 
             // PanelFooterDivider
             // 
-            PanelFooterDivider.Back = SystemColors.ControlDarkDark;
+            PanelFooterDivider.Back = Color.Black;
             PanelFooterDivider.BackColor = SystemColors.ControlDarkDark;
             PanelFooterDivider.Dock = DockStyle.Bottom;
             PanelFooterDivider.Location = new Point(0, 679);
@@ -187,6 +203,7 @@
             WindowState = FormWindowState.Maximized;
             Load += FormJanelaPrincipal_Load;
             PageHeader.ResumeLayout(false);
+            PageHeader.PerformLayout();
             PanelAppHeader.ResumeLayout(false);
             ResumeLayout(false);
         }

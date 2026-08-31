@@ -1,5 +1,4 @@
 ﻿using SenacQuizApp.Dtos;
-using SenacQuizApp.Dtos.QuizDiario.Historico;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

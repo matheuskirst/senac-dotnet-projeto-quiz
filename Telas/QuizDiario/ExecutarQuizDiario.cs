@@ -1,10 +1,7 @@
-﻿using SenacQuizApp.Dtos.QuizDiario.Andamento;
-using SenacQuizApp.Migrations;
-using SenacQuizApp.Modelos.Usuarios;
-using SenacQuizApp.Services;
-using SenacQuizApp.Telas;
+﻿using SenacQuizApp.Services;
 using SenacQuizApp.Global;
 using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Dtos;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
@@ -84,7 +81,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 return;
             }
             
-            QuizDiarioAndamentoQuestao questao = _quizSessao.Quiz.Questoes[questaoIndex];
+            QuestaoAndamento questao = _quizSessao.Quiz.Questoes[questaoIndex];
 
             if (questao.Respondida)
             {

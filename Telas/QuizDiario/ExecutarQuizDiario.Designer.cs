@@ -47,8 +47,7 @@
             // 
             // PanelHeader
             // 
-            PanelHeader.Back = Color.Transparent;
-            PanelHeader.BackColor = Color.Transparent;
+            PanelHeader.Back = Color.FromArgb(33, 33, 33);
             PanelHeader.Controls.Add(LabelQuizDiarioData);
             PanelHeader.Controls.Add(LabelQuizDiarioTitulo);
             PanelHeader.Controls.Add(PanelQuizHeaderQuestao);
@@ -62,6 +61,8 @@
             // 
             // LabelQuizDiarioData
             // 
+            LabelQuizDiarioData.BackColor = Color.Transparent;
+            LabelQuizDiarioData.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizDiarioData.Dock = DockStyle.Top;
             LabelQuizDiarioData.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizDiarioData.Location = new Point(300, 50);
@@ -73,6 +74,8 @@
             // 
             // LabelQuizDiarioTitulo
             // 
+            LabelQuizDiarioTitulo.BackColor = Color.Transparent;
+            LabelQuizDiarioTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizDiarioTitulo.Dock = DockStyle.Top;
             LabelQuizDiarioTitulo.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizDiarioTitulo.Location = new Point(300, 0);
@@ -84,6 +87,8 @@
             // 
             // PanelQuizHeaderQuestao
             // 
+            PanelQuizHeaderQuestao.Back = Color.FromArgb(50, 45, 45);
+            PanelQuizHeaderQuestao.BackColor = Color.Transparent;
             PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoPontos);
             PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoBonus);
             PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoAtual);
@@ -103,6 +108,7 @@
             LabelQuizQuestaoPontos.Anchor = AnchorStyles.Right;
             LabelQuizQuestaoPontos.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelQuizQuestaoPontos.BackColor = Color.Transparent;
+            LabelQuizQuestaoPontos.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizQuestaoPontos.Font = new Font("Segoe UI", 14.25F);
             LabelQuizQuestaoPontos.Location = new Point(13, 83);
             LabelQuizQuestaoPontos.Name = "LabelQuizQuestaoPontos";
@@ -116,6 +122,7 @@
             LabelQuizQuestaoBonus.Anchor = AnchorStyles.Right;
             LabelQuizQuestaoBonus.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelQuizQuestaoBonus.BackColor = Color.Transparent;
+            LabelQuizQuestaoBonus.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizQuestaoBonus.Font = new Font("Segoe UI", 14.25F);
             LabelQuizQuestaoBonus.Location = new Point(13, 49);
             LabelQuizQuestaoBonus.Name = "LabelQuizQuestaoBonus";
@@ -129,6 +136,7 @@
             LabelQuizQuestaoAtual.Anchor = AnchorStyles.Right;
             LabelQuizQuestaoAtual.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelQuizQuestaoAtual.BackColor = Color.Transparent;
+            LabelQuizQuestaoAtual.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizQuestaoAtual.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizQuestaoAtual.Location = new Point(13, 13);
             LabelQuizQuestaoAtual.Name = "LabelQuizQuestaoAtual";
@@ -139,6 +147,8 @@
             // 
             // PanelQuizHeaderUsuario
             // 
+            PanelQuizHeaderUsuario.Back = Color.FromArgb(50, 45, 45);
+            PanelQuizHeaderUsuario.BackColor = Color.Transparent;
             PanelQuizHeaderUsuario.Controls.Add(LabelUsuarioNivel);
             PanelQuizHeaderUsuario.Controls.Add(LabelUsuarioNick);
             PanelQuizHeaderUsuario.Controls.Add(LabelQuizSequenciaAcertos);
@@ -158,6 +168,7 @@
             LabelUsuarioNivel.Anchor = AnchorStyles.Left;
             LabelUsuarioNivel.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelUsuarioNivel.BackColor = Color.Transparent;
+            LabelUsuarioNivel.ColorScheme = AntdUI.TAMode.Dark;
             LabelUsuarioNivel.Font = new Font("Segoe UI", 14.25F);
             LabelUsuarioNivel.Location = new Point(13, 49);
             LabelUsuarioNivel.Name = "LabelUsuarioNivel";
@@ -171,6 +182,7 @@
             LabelUsuarioNick.Anchor = AnchorStyles.Left;
             LabelUsuarioNick.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelUsuarioNick.BackColor = Color.Transparent;
+            LabelUsuarioNick.ColorScheme = AntdUI.TAMode.Dark;
             LabelUsuarioNick.Font = new Font("Segoe UI", 14.25F);
             LabelUsuarioNick.Location = new Point(13, 13);
             LabelUsuarioNick.Name = "LabelUsuarioNick";
@@ -184,6 +196,7 @@
             LabelQuizSequenciaAcertos.Anchor = AnchorStyles.Left;
             LabelQuizSequenciaAcertos.AutoSizeMode = AntdUI.TAutoSize.Auto;
             LabelQuizSequenciaAcertos.BackColor = Color.Transparent;
+            LabelQuizSequenciaAcertos.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizSequenciaAcertos.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizSequenciaAcertos.Location = new Point(13, 83);
             LabelQuizSequenciaAcertos.Name = "LabelQuizSequenciaAcertos";
@@ -194,8 +207,7 @@
             // 
             // PanelQuestoes
             // 
-            PanelQuestoes.Back = Color.Transparent;
-            PanelQuestoes.BackColor = Color.Transparent;
+            PanelQuestoes.Back = Color.FromArgb(33, 33, 33);
             PanelQuestoes.Dock = DockStyle.Fill;
             PanelQuestoes.Location = new Point(0, 120);
             PanelQuestoes.Name = "PanelQuestoes";

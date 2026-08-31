@@ -1,8 +1,7 @@
 ﻿using AntdUI;
-using SenacQuizApp.Enums;
+using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Utils;
-using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Telas
 {
@@ -38,12 +37,12 @@ namespace SenacQuizApp.Telas
             if (InputLoginSenha.UseSystemPasswordChar == false)
             {
                 InputLoginSenha.UseSystemPasswordChar = true;
-                InputLoginSenha.SuffixText = "Mostrar";
+                InputLoginSenha.SuffixSvg = SvgIcons.EyeCrossedIcon;
             }
             else
             {
                 InputLoginSenha.UseSystemPasswordChar = false;
-                InputLoginSenha.SuffixText = "Esconder";
+                InputLoginSenha.SuffixSvg = SvgIcons.EyeIcon;
             }
         }
 

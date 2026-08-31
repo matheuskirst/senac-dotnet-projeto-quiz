@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenacQuizApp.Global;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace SenacQuizApp.Modelos.Usuarios
     {
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; } = null!;
-        public DateOnly DataAcesso { get; set; }
+        public DateOnly DataAcesso { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
     }
 }

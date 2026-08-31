@@ -1,6 +1,5 @@
 ﻿using SenacQuizApp.Services;
-using SenacQuizApp.Dtos.QuizDiario.Andamento;
-using SenacQuizApp.Dtos.QuizDiario.Resultado;
+using SenacQuizApp.Dtos;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
@@ -67,9 +66,14 @@ namespace SenacQuizApp.Telas.QuizDiario
 
                 IniciarQuiz?.Invoke(quiz.Id);
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show(
+                    $"Ocorreu um erro ao criar o quiz diário {ex.ToString()}.",
+                    "Erro de Conexão",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 

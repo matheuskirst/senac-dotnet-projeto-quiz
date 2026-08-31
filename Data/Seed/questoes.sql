@@ -27,22 +27,11 @@ VALUES
 
 
 -- ============================================================
--- QUESTÃO TIPOS
--- ============================================================
-
-INSERT INTO "QuestaoTipos"
-    ("Id", "Nome")
-VALUES
-(1, 'Alternativas'),
-(2, 'Verdadeiro ou Falso');
-
-
--- ============================================================
 -- QUESTÕES
 -- ============================================================
 
 INSERT INTO "Questoes"
-    ("Id", "Enunciado", "TemaId", "NivelId", "TipoId", "VerdadeiroFalso")
+    ("Id", "Enunciado", "TemaId", "NivelId", "Tipo", "VerdadeiroFalso")
 VALUES
 
 -- ============================================================

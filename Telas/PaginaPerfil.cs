@@ -1,17 +1,6 @@
-﻿using AntdUI;
-using SenacQuizApp.Dtos.Usuario;
+﻿using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Enums;
-using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas
 {

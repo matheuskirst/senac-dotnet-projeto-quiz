@@ -1,11 +1,8 @@
 ﻿using AntdUI;
 using SenacQuizApp.Dtos;
-using SenacQuizApp.Dtos.QuizDiario.Historico;
-using SenacQuizApp.Dtos.QuizRush;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
-using System.Linq;
 
 namespace SenacQuizApp.Telas
 {
@@ -20,35 +17,41 @@ namespace SenacQuizApp.Telas
         private AntdUI.ContextMenuStripItem _copiarItem;
         private AntdUI.IContextMenuStripItem[] _menuItems;
 
+        private TabelaHistoricoTodos _tabelaTodos = new();
+
         public PaginaHistorico(HistoricoService historicoService)
         {
             _historicoService = historicoService;
 
-            InitializeComponent();
-
-            _continuarItem = new AntdUI.ContextMenuStripItem()
+            _continuarItem = new AntdUI.ContextMenuStripItem("Continuar")
             {
-                Text = "Continuar",
                 Tag = "Continuar"
             };
             _resultadoItem = new AntdUI.ContextMenuStripItem("Ver Resultado")
             {
-                Text = "Ver Resultado",
                 Tag = "Resultado"
             };
             _copiarItem = new AntdUI.ContextMenuStripItem("Copiar dados")
             {
-                Text = "Copiar dados",
                 Tag = "Copiar"
             };
 
-            _menuItems = new AntdUI.IContextMenuStripItem[]
-            {
+            _menuItems =
+            [
                 _continuarItem,
                 _resultadoItem,
                 new AntdUI.ContextMenuStripItemDivider(),
                 _copiarItem
+            ];
+
+            _tabelaTodos.CellClick += (sender, e) =>
+            {
+                if (e.Button != MouseButtons.Right || e.Record is not QuizResumo quiz) return;
+
+                MostrarMenuTodos(quiz);
             };
+
+            InitializeComponent();
         }
 
         private async void PaginaHistorico_Load(object sender, EventArgs e)
@@ -82,19 +85,13 @@ namespace SenacQuizApp.Telas
         {
             try
             {
-                List<ResumoQuiz> quizzes = await _historicoService.ObterTodos();
+                List<QuizResumo> quizzes = await _historicoService.ObterTodos();
 
                 if (quizzes == null) return;
 
-                var tabela = new TabelaHistoricoTodos(quizzes);
-                tabela.CellClick += (sender, e) =>
-                {
-                    if (e.Button != MouseButtons.Right || e.Record is not ResumoQuiz quiz) return;
+                _tabelaTodos.DataSource = quizzes;
 
-                    MostrarMenuTodos(quiz);
-                };
-
-                InserirTabela(tabela);
+                InserirTabela(_tabelaTodos);
             }
             catch
             {
@@ -118,6 +115,7 @@ namespace SenacQuizApp.Telas
 
             }
         }
+
         private async Task CarregarTabelaRush()
         {
             try
@@ -136,21 +134,21 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private void MostrarMenuTodos(ResumoQuiz quiz)
+        private void MostrarMenuTodos(QuizResumo quiz)
         {
-            if (quiz.TipoId == QuizTipoId.Diario && quiz.DataFinalizado == null)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.DataFinalizado == null)
             {
                 _continuarItem.Enabled = true;
                 _resultadoItem.Enabled = false;
             }
 
-            if (quiz.TipoId == QuizTipoId.Diario && quiz.DataFinalizado != null)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.DataFinalizado != null)
             {
                 _continuarItem.Enabled = false;
                 _resultadoItem.Enabled = true;
             }
 
-            if (quiz.TipoId == QuizTipoId.Rush)
+            if (quiz.TipoId == QuizTipo.Rush)
             {
                 _continuarItem.Enabled = false;
             }

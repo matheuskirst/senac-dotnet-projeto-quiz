@@ -3,25 +3,28 @@ using SenacQuizApp.Modelos;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos.Usuarios;
 using SenacQuizApp.Modelos.Questoes;
+using SenacQuizApp.Enums;
 
 namespace SenacQuizApp.Data
 {
     public class QuizAppContexto : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<UsuarioAcesso> UsuariosAcessos { get; set; }
+        public DbSet<UsuarioAcesso> Acessos { get; set; }
         public DbSet<UsuarioStats> UsuarioStats { get; set; }
         public DbSet<UsuarioNivel> UsuarioNiveis { get; set; }
         public DbSet<UsuarioResposta> UsuarioRespostas { get; set; }
         public DbSet<UsuarioTemasProgresso> UsuarioTemasProgressos { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
+
         public DbSet<Questao> Questoes { get; set; }
         public DbSet<QuestaoTema> QuestaoTemas { get; set; }
         public DbSet<QuestaoNivel> QuestaoNiveis { get; set; }
-        public DbSet<QuestaoTipo> QuestaoTipos { get; set; }
         public DbSet<Alternativa> Alternativas { get; set; }
+
         public DbSet<QuizDiario> QuizzesDiarios { get; set; }
         public DbSet<QuizRush> QuizzesRush { get; set; }
+
         public DbSet<Conquista> Conquistas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -84,6 +87,9 @@ namespace SenacQuizApp.Data
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);
 
+                entity.Property(u => u.DataDeNascimento)
+                    .HasColumnType("date");
+
                 entity.Property(u => u.DataDeCadastro)
                     .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -105,7 +111,11 @@ namespace SenacQuizApp.Data
 
             modelBuilder.Entity<UsuarioAcesso>(entity =>
             {
-                entity.HasKey(uc => new { uc.UsuarioId, uc.DataAcesso });
+                entity.HasKey(ua => new { ua.UsuarioId, ua.DataAcesso });
+
+                entity.Property(ua => ua.DataAcesso)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("CURRENT_DATE");
             });
 
 
@@ -113,6 +123,7 @@ namespace SenacQuizApp.Data
             {
                 entity.HasKey(uc => new { uc.UsuarioId, uc.TemaId });
             });
+
 
             modelBuilder.Entity<UsuarioConquista>(entity =>
             {
@@ -155,14 +166,12 @@ namespace SenacQuizApp.Data
                 .HasMaxLength(ModelosConstantes.QuestaoTema.MaxNomeLength);
 
 
+            modelBuilder.HasPostgresEnum<QuestaoTipo>(name: "Tipo");
+
+
             modelBuilder.Entity<QuestaoNivel>()
                 .Property(n => n.Nome)
                 .HasMaxLength(ModelosConstantes.QuestaoNivel.MaxNomeLength);
-
-
-            modelBuilder.Entity<QuestaoTipo>()
-                .Property(tp => tp.Nome)
-                .HasMaxLength(ModelosConstantes.QuestaoTipo.MaxNomeLength);
 
 
             modelBuilder.Entity<Questao>(entity =>
@@ -179,11 +188,8 @@ namespace SenacQuizApp.Data
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(q => q.Tipo)
-                    .WithMany(tp => tp.Questoes)
-                    .HasForeignKey(q => q.TipoId)
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.Restrict);
+                entity.Property(q => q.Tipo)
+                    .HasConversion<string>();
 
                 entity.HasMany(q => q.Alternativas)
                     .WithOne(a => a.Questao)
@@ -214,6 +220,10 @@ namespace SenacQuizApp.Data
                 entity.HasMany(qz => qz.Questoes)
                     .WithMany(qt => qt.Quizzes)
                     .UsingEntity(qq => qq.ToTable("QuizQuestoes"));
+
+                entity.Property(q => q.DataExibido)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("CURRENT_DATE");
 
                 entity.Property(q => q.DataIniciado)
                     .HasColumnType("timestamptz")

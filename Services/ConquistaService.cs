@@ -34,10 +34,11 @@ namespace SenacQuizApp.Services
             var primeiroQuizTipoDiario = await contexto.QuizzesDiarios
                 .AnyAsync(q => q.UsuarioId == usuarioId && q.Concluido == true);
 
-            var acertosSeguidos = await contexto.UsuarioStats
-                .Where(us => us.UsuarioId == usuarioId)
-                .Select(us => us.MaxAcertosSeguidos)
-                .FirstOrDefaultAsync();
+            var acertosSeguidos = await contexto.QuizzesDiarios
+                .AnyAsync(q => q.UsuarioId == usuarioId && q.MaxAcertosSeguidos >= 10);
+
+            var errosSeguidos = await contexto.QuizzesDiarios
+                .AnyAsync(q => q.UsuarioId == usuarioId && q.MaxAcertosSeguidos <= 0);
 
             var progressoTemas = await contexto.UsuarioTemasProgressos
                 .Where(t => t.UsuarioId == usuarioId)
@@ -52,7 +53,7 @@ namespace SenacQuizApp.Services
                         break;
 
                     case ConquistaTipo.AcertosSeguidos:
-                        if (conquista.Meta != null && acertosSeguidos >= conquista.Meta) await DesbloquearConquista(conquista.Id);
+                        if (conquista.Meta != null && acertosSeguidos == true) await DesbloquearConquista(conquista.Id);
                         break;
 
                     case ConquistaTipo.MaestriaTema:
@@ -64,10 +65,14 @@ namespace SenacQuizApp.Services
                             if (progresso != null && progresso.RespostasCorretas >= conquista.Meta.Value) await DesbloquearConquista(conquista.Id);
                         }
                         break;
+
+                    case ConquistaTipo.ErrosSeguidos:
+                        if (conquista.Meta != null && errosSeguidos == true) await DesbloquearConquista(conquista.Id);
+                        break;
                 }
             }
         }
-
+        
         public async Task ChecarLoginConquistas()
         {
             using var contexto = new QuizAppContexto();
@@ -77,7 +82,7 @@ namespace SenacQuizApp.Services
                 .Where(c => c.Tipo == ConquistaTipo.AcessosConsecutivos)
                 .ToListAsync();
 
-            var acessos = await contexto.UsuariosAcessos
+            var acessos = await contexto.Acessos
                 .Where(a => a.UsuarioId == usuarioId)
                 .OrderByDescending(a => a.DataAcesso)
                 .ToListAsync();
@@ -104,11 +109,19 @@ namespace SenacQuizApp.Services
             contexto.UsuarioConquistas.Add(usuarioConquista);
             await contexto.SaveChangesAsync();
 
-            var conquista = await contexto.Conquistas.FindAsync(conquistaId);
+            var conquista = await contexto.Conquistas
+                .Where(c => c.Id == conquistaId)
+                .Select(c => new ConquistaDto
+                {
+                    Nome = c.Nome,
+                    Descricao = c.Descricao,
+                    DataAquisicao = usuarioConquista.DataDeAquisicao
+                })
+                .FirstOrDefaultAsync();
+
             if (conquista != null)
             {
-                var dto = new ConquistaDto(Nome: conquista.Nome, Descricao: conquista.Descricao);
-                ConquistaDesbloqueada?.Invoke(this, dto);
+                ConquistaDesbloqueada?.Invoke(this, conquista);
             }
         }
     }

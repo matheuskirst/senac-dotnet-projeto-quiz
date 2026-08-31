@@ -11,6 +11,7 @@ namespace SenacQuizApp.Enums
         PrimeiroQuizTipoDiario = 1,
         AcertosSeguidos = 2,
         MaestriaTema = 3,
-        AcessosConsecutivos = 4
+        AcessosConsecutivos = 4,
+        ErrosSeguidos = 5
     }
 }

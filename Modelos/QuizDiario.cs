@@ -17,12 +17,13 @@ namespace SenacQuizApp.Modelos
         public int UsuarioId {  get; set; }
         public Usuario Usuario { get; set; } = null!;
 
-        public DateOnly DataExibido { get; set; } = DateOnly.FromDateTime(ObterHora.ObterHoraBrasilia());
+        public DateOnly DataExibido { get; set; } = DateOnly.FromDateTime(DateTime.Today);
         public DateTimeOffset DataIniciado { get; set; } = DateTimeOffset.UtcNow;
         public bool Concluido { get; set; } = false;
         public DateTimeOffset? DataConcluido { get; set; }
         public TimeSpan? TempoDeConclusao { get; set; }
         public int PontuacaoTotal { get; set; } = 0;
+        public int MaxAcertosSeguidos { get; set; } = 0;
 
         public ICollection<Questao> Questoes { get; set; } = new List<Questao>();
         public ICollection<UsuarioResposta> UsuarioRespostas { get; set; } = new List<UsuarioResposta>();

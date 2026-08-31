@@ -1,16 +1,14 @@
-﻿using SenacQuizApp.Services;
-using SenacQuizApp.Dtos.QuizDiario.Andamento;
-using SenacQuizApp.Dtos.QuizDiario.Historico;
+﻿using System.ComponentModel;
+using AntdUI;
+using SenacQuizApp.Services;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Dtos;
-using System.ComponentModel;
 using SenacQuizApp.Telas.Componentes;
-using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Telas
 {
     public partial class PaginaPrincipal : UserControl
     {
-        private readonly QuizDiarioService _quizService;
         private readonly HistoricoService _historicoService;
 
         public event EventHandler? RealizarLogout;
@@ -20,55 +18,64 @@ namespace SenacQuizApp.Telas
 
         public event Action<int>? ContinuarQuizDiario;
         public event Action<int>? ResultadoQuizDiario;
-
         public event Action<int>? AbrirQuizRush;
 
-        private readonly BindingList<ResumoQuiz> _quizList = [];
+        private TabelaHistoricoTodos _tabelaHistorico = new();
 
-        public PaginaPrincipal(QuizDiarioService quizService, HistoricoService historicoService)
+        public PaginaPrincipal(HistoricoService historicoService)
         {
-            _quizService = quizService;
             _historicoService = historicoService;
 
+            ConfigurarTabelaPreview();
+
             InitializeComponent();
+
+            PanelResumoQuizzes.Controls.Add(_tabelaHistorico);
+            _tabelaHistorico.BringToFront();
         }
 
         private async void PaginaPrincipal_Load(object sender, EventArgs e)
         {
-            TableQuizHistorico.Columns = new AntdUI.ColumnCollection
-            {
-                new AntdUI.Column(nameof(ResumoQuiz.Tipo), "Tipo") { SortOrder = true },
-                new AntdUI.Column(nameof(ResumoQuiz.DataIniciado), "Data Iniciado") { SortOrder = true },
-                new AntdUI.Column(nameof(ResumoQuiz.Finalizado), "Finalizado ") { SortOrder = true },
-                new AntdUI.Column(nameof(ResumoQuiz.DataFinalizado), "Data Finalizado ") { SortOrder = true },
-                new AntdUI.Column(nameof(ResumoQuiz.Tempo), "Tempo") { SortOrder = true },
-                new AntdUI.Column(nameof(ResumoQuiz.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
-            };
-
-            TableQuizHistorico.DataSource = _quizList;
-
             await AtualizarPreviewResumos();
+        }
+
+        private void ConfigurarTabelaPreview()
+        {
+            _tabelaHistorico.Dock = DockStyle.Fill;
+            _tabelaHistorico.ColorScheme = TAMode.Dark;
+            _tabelaHistorico.AutoSizeColumnsMode = ColumnsMode.Fill;
+            _tabelaHistorico.ColumnDragSort = true;
+            _tabelaHistorico.EnableHeaderResizing = true;
+
+            _tabelaHistorico.CellClick += (sender, e) =>
+            {
+                if (e.Button != MouseButtons.Right || e.Record is not QuizResumo quiz) return;
+
+                MostrarMenuQuizzes(quiz);
+            };
         }
 
         private async Task AtualizarPreviewResumos()
         {
-            List<ResumoQuiz> quizzes = await _historicoService.ObterResumoRecentes();
-            if (quizzes == null) return;
-
-            TableQuizHistorico.PauseLayout = true;
             try
             {
-                _quizList.Clear();
+                List<QuizResumo> quizzes = await _historicoService.ObterResumoRecentes();
+                if (quizzes == null) return;
 
-                foreach (ResumoQuiz quiz in quizzes)
+                try
                 {
-                    _quizList.Add(quiz);
+                    _tabelaHistorico.PauseLayout = true;
+                    _tabelaHistorico.DataSource = null;
+                    _tabelaHistorico.DataSource = quizzes;
+                }
+                finally
+                {
+                    _tabelaHistorico.PauseLayout = false;
                 }
             }
-            finally
+            catch
             {
-                TableQuizHistorico.PauseLayout = false;
-                TableQuizHistorico.Refresh();
+
             }
         }
 
@@ -82,34 +89,28 @@ namespace SenacQuizApp.Telas
             AbrirHubQuizDiario?.Invoke(this, EventArgs.Empty);
         }
 
-        private void MostrarMenuQuizDiario(ResumoQuiz quiz)
+        private void MostrarMenuQuizzes(QuizResumo quiz)
         {
-            var continuarItem = new AntdUI.ContextMenuStripItem()
-            {
-                Text = "Continuar",
-                Tag = "Continuar"
-            };
-            var resultadoItem = new AntdUI.ContextMenuStripItem("Ver Resultado")
-            {
-                Text = "Ver Resultado",
-                Tag = "Resultado"
-            };
-            var copiarItem = new AntdUI.ContextMenuStripItem("Copiar dados")
-            {
-                Text = "Copiar dados",
-                Tag = "Copiar"
-            };
+            var continuarItem = new AntdUI.ContextMenuStripItem("Continuar") { Tag = "Continuar" };
+            var resultadoItem = new AntdUI.ContextMenuStripItem("Ver Resultado") { Tag = "Resultado" };
+            var copiarItem = new AntdUI.ContextMenuStripItem("Copiar dados") { Tag = "Copiar" };
 
-            if (quiz.DataFinalizado != null)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.DataFinalizado != null)
             {
                 continuarItem.Enabled = false;
                 resultadoItem.Enabled = true;
             }
 
-            if (quiz.DataFinalizado == null)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.DataFinalizado == null)
             {
                 continuarItem.Enabled = true;
                 resultadoItem.Enabled = false;
+            }
+
+            if (quiz.TipoId == QuizTipo.Rush)
+            {
+                continuarItem.Enabled = false;
+                resultadoItem.Enabled = true;
             }
 
             var menuItems = new AntdUI.IContextMenuStripItem[]
@@ -120,33 +121,29 @@ namespace SenacQuizApp.Telas
                 copiarItem
             };
 
-            AntdUI.ContextMenuStrip.open(
-                TableQuizHistorico,
-                item =>
+            var menuStrip = new AntdUI.ContextMenuStrip.Config(this, item =>
+            {
+                switch (item.Tag)
                 {
-                    switch (item.Tag)
-                    {
-                        case "Continuar":
-                            ContinuarQuizDiario?.Invoke(quiz.Id);
-                            break;
-                        case "Resultado":
-                            ResultadoQuizDiario?.Invoke(quiz.Id);
-                            break;
-                        case "Copiar":
-                            Clipboard.SetText(
-                                $"Tipo: {quiz.Tipo}\nData Iniciado: {quiz.DataIniciado}\nFinalizado: {quiz.Finalizado}\nData Finalizado: {quiz.DataFinalizado}\nTempo: {quiz.Tempo}\nPontuação Total: {quiz.PontuacaoTotal}");
-                            break;
-                    }
-                },
-                menuItems
-            );
-        }
+                    case "Continuar":
+                        ContinuarQuizDiario?.Invoke(quiz.Id);
+                        break;
+                    case "Resultado":
+                        ResultadoQuizDiario?.Invoke(quiz.Id);
+                        break;
+                    case "Copiar":
+                        Clipboard.SetText(
+                            $"Tipo: {quiz.Tipo}\nData Iniciado: {quiz.DataIniciado}\nFinalizado: {quiz.Finalizado}\nData Finalizado: {quiz.DataFinalizado}\nTempo: {quiz.Tempo}\nPontuação Total: {quiz.PontuacaoTotal}");
+                        break;
+                }
+            },
+            menuItems
+            )
+            {
+                ColorScheme = TAMode.Dark
+            };
 
-        private void TableQuizHistorico_CellClick(object sender, AntdUI.TableClickEventArgs e)
-        {
-            if (e.Button != MouseButtons.Right || e.Record is not ResumoQuiz quiz) return;
-
-            MostrarMenuQuizDiario(quiz);
+            menuStrip.open();
         }
     }
 }

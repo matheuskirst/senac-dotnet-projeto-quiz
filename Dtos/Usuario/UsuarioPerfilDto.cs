@@ -1,4 +1,5 @@
 ﻿using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos.Questoes;
 
 namespace SenacQuizApp.Dtos.Usuario
 {
@@ -6,13 +7,15 @@ namespace SenacQuizApp.Dtos.Usuario
     {
         public int Id { get; set; }
         public string Nickname { get; set; } = null!;
-        public DateTime? DataDeCadastro { get; set; }
+        public DateTimeOffset DataDeCadastro { get; set; }
         public UsuarioNivelId NivelId { get; set; }
         public string Nivel { get; set; } = null!;
         public int PontuacaoTotal { get; set; }
         public int TotalAcertos { get; set; }
         public int TotalRespondidos { get; set; }
-        public int AtualAcertosConsecutivos { get; set; }
-        public int MaxAcertosConsecutivos { get; set; }
+        public int AtualAcertosSeguidos { get; set; }
+        public int MaxAcertosSeguidos { get; set; }
+        public string TemaMaisAcertado { get; set; } = null!;
+        public int QuantidadeTemaMaisAcertado { get; set; }
     }
 }

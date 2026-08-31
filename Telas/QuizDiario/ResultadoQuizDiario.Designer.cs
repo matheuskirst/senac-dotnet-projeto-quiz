@@ -38,18 +38,16 @@
             LabelDataInicio = new AntdUI.Label();
             LabelSubTitulo = new AntdUI.Label();
             PanelQuizResultados = new AntdUI.Panel();
-            CollapsePanel = new AntdUI.Panel();
-            CollapseQuestoes = new AntdUI.Collapse();
+            PanelCollapse = new AntdUI.Panel();
             button1 = new AntdUI.Button();
             button2 = new AntdUI.Button();
             PanelQuizConclusao.SuspendLayout();
             PanelQuizResultados.SuspendLayout();
-            CollapsePanel.SuspendLayout();
             SuspendLayout();
             // 
             // LabelTitulo
             // 
-            LabelTitulo.BackColor = Color.FromArgb(50, 45, 45);
+            LabelTitulo.BackColor = Color.FromArgb(18, 18, 18);
             LabelTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelTitulo.Dock = DockStyle.Top;
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -63,7 +61,7 @@
             // PanelQuizConclusao
             // 
             PanelQuizConclusao.Back = Color.Transparent;
-            PanelQuizConclusao.BackColor = Color.FromArgb(50, 45, 45);
+            PanelQuizConclusao.BackColor = Color.FromArgb(18, 18, 18);
             PanelQuizConclusao.Controls.Add(LabelPontuacaoTotal);
             PanelQuizConclusao.Controls.Add(LabelTotalAcertos);
             PanelQuizConclusao.Controls.Add(LabelTotalQuestoes);
@@ -173,9 +171,8 @@
             // 
             // PanelQuizResultados
             // 
-            PanelQuizResultados.Back = Color.Transparent;
-            PanelQuizResultados.BackColor = Color.Transparent;
-            PanelQuizResultados.Controls.Add(CollapsePanel);
+            PanelQuizResultados.Back = Color.FromArgb(50, 50, 50);
+            PanelQuizResultados.Controls.Add(PanelCollapse);
             PanelQuizResultados.Dock = DockStyle.Fill;
             PanelQuizResultados.Location = new Point(400, 45);
             PanelQuizResultados.Name = "PanelQuizResultados";
@@ -184,28 +181,17 @@
             PanelQuizResultados.TabIndex = 2;
             PanelQuizResultados.Text = "panel1";
             // 
-            // CollapsePanel
+            // PanelCollapse
             // 
-            CollapsePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            CollapsePanel.AutoScroll = true;
-            CollapsePanel.Back = Color.Transparent;
-            CollapsePanel.BackColor = Color.WhiteSmoke;
-            CollapsePanel.Controls.Add(CollapseQuestoes);
-            CollapsePanel.Location = new Point(95, 49);
-            CollapsePanel.Name = "CollapsePanel";
-            CollapsePanel.Size = new Size(439, 631);
-            CollapsePanel.TabIndex = 0;
-            CollapsePanel.Text = "panel1";
-            // 
-            // CollapseQuestoes
-            // 
-            CollapseQuestoes.Dock = DockStyle.Fill;
-            CollapseQuestoes.Location = new Point(0, 0);
-            CollapseQuestoes.Name = "CollapseQuestoes";
-            CollapseQuestoes.ResizingLineThickness = 2F;
-            CollapseQuestoes.Size = new Size(439, 631);
-            CollapseQuestoes.TabIndex = 4;
-            CollapseQuestoes.Text = "collapse1";
+            PanelCollapse.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            PanelCollapse.AutoScroll = true;
+            PanelCollapse.Back = Color.FromArgb(33, 33, 33);
+            PanelCollapse.Location = new Point(103, 48);
+            PanelCollapse.Name = "PanelCollapse";
+            PanelCollapse.Radius = 0;
+            PanelCollapse.Size = new Size(440, 580);
+            PanelCollapse.TabIndex = 0;
+            PanelCollapse.Text = "panel1";
             // 
             // button1
             // 
@@ -236,7 +222,6 @@
             Load += PainelResultado_Load;
             PanelQuizConclusao.ResumeLayout(false);
             PanelQuizResultados.ResumeLayout(false);
-            CollapsePanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -253,7 +238,6 @@
         private AntdUI.Panel PanelQuizResultados;
         private AntdUI.Button button1;
         private AntdUI.Button button2;
-        private AntdUI.Panel CollapsePanel;
-        private AntdUI.Collapse CollapseQuestoes;
+        private AntdUI.Panel PanelCollapse;
     }
 }

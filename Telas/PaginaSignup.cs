@@ -1,6 +1,4 @@
 ﻿using AntdUI;
-using SenacQuizApp.Dtos.Usuario;
-using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Utils;
@@ -47,37 +45,26 @@ namespace SenacQuizApp.Telas
             bool numeroSuperior = (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) && !e.Modifiers.HasFlag(Keys.Shift);
             bool numeroLateral = (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9);
 
-            if (!numeroSuperior  && !numeroLateral)
+            if (!numeroSuperior && !numeroLateral)
             {
                 e.SuppressKeyPress = true;
             }
         }
 
-        private void InputSignupSenha_SuffixClick(object sender, MouseEventArgs e)
+        private void AlternatVisibilidadeSenha_SuffixClick(object sender, MouseEventArgs e)
         {
-            if (InputSignupSenha.UseSystemPasswordChar == false)
+            if (sender is AntdUI.Input input)
             {
-                InputSignupSenha.UseSystemPasswordChar = true;
-                InputSignupSenha.SuffixText = "Mostrar";
-            }
-            else
-            {
-                InputSignupSenha.UseSystemPasswordChar = false;
-                InputSignupSenha.SuffixText = "Esconder";
-            }
-        }
-
-        private void InputSignupConfirmarSenha_SuffixClick(object sender, MouseEventArgs e)
-        {
-            if (InputSignupConfirmarSenha.UseSystemPasswordChar == false)
-            {
-                InputSignupConfirmarSenha.UseSystemPasswordChar = true;
-                InputSignupConfirmarSenha.SuffixText = "Mostrar";
-            }
-            else
-            {
-                InputSignupConfirmarSenha.UseSystemPasswordChar = false;
-                InputSignupConfirmarSenha.SuffixText = "Esconder";
+                if (input.UseSystemPasswordChar == false)
+                {
+                    input.UseSystemPasswordChar = true;
+                    input.SuffixSvg = SvgIcons.EyeIcon;
+                }
+                else
+                {
+                    input.UseSystemPasswordChar = false;
+                    input.SuffixSvg = SvgIcons.EyeCrossedIcon;
+                }
             }
         }
 
@@ -150,8 +137,7 @@ namespace SenacQuizApp.Telas
 
             if (usernameValido && nickValido && dataNascimentoValido && senhaValida)
             {
-
-                RequisitarSignup(username, nick, dataNascimento, senha);
+                RequisitarSignup(username, nick, dataNascimento!.Value, senha);
                 ButtonSignupRegistrar.Enabled = false;
                 ButtonSignupRegistrar.Loading = true;
             }
@@ -251,7 +237,7 @@ namespace SenacQuizApp.Telas
                 && senha.Any(ch => !char.IsLetterOrDigit(ch));
         }
 
-        private async void RequisitarSignup(string username, string nickname, DateOnly? dataNascimento, string senha)
+        private async void RequisitarSignup(string username, string nickname, DateOnly dataNascimento, string senha)
         {
             try
             {

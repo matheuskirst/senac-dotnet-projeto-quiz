@@ -43,7 +43,7 @@
             // 
             TableLayoutPanelInicial.AutoSize = true;
             TableLayoutPanelInicial.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            TableLayoutPanelInicial.BackColor = Color.FromArgb(58, 64, 70);
+            TableLayoutPanelInicial.BackColor = Color.FromArgb(50, 50, 50);
             TableLayoutPanelInicial.ColumnCount = 1;
             TableLayoutPanelInicial.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             TableLayoutPanelInicial.Controls.Add(TableLayoutPanelInicial2, 0, 0);

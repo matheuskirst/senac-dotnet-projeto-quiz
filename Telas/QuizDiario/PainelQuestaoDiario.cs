@@ -1,21 +1,11 @@
-﻿using SenacQuizApp.Dtos.QuizDiario.Andamento;
+﻿using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
-using SenacQuizApp.Modelos;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
     public partial class PainelQuestaoDiario : UserControl
     {
-        private QuizDiarioAndamentoQuestao? _questao;
+        private QuestaoAndamento? _questao;
         public event Action<int>? EscolheuAlternativa;
         public event Action<bool>? EscolheuVerdadeiroFalso;
 
@@ -33,7 +23,7 @@ namespace SenacQuizApp.Telas.QuizDiario
             UpdateStyles();
         }
 
-        public void CarregarQuestao(QuizDiarioAndamentoQuestao questao)
+        public void CarregarQuestao(QuestaoAndamento questao)
         {
             _questao = questao;
             this.SuspendLayout();
@@ -49,18 +39,19 @@ namespace SenacQuizApp.Telas.QuizDiario
 
                 InputQuestaoEnunciado.Text = _questao.Enunciado;
 
-                if (_questao.TipoId == QuestaoTipoId.Alternativas)
+                if (_questao.Tipo == QuestaoTipo.Alternativas)
                 {
                     GridPanelAlternativas.Height = 300;
                     GridPanelAlternativas.Span = "50% 50%; 50% 50%";
 
-                    foreach (QuizDiarioAndamentoAlternativa alternativa in _questao.Alternativas)
+                    foreach (AlternativaAndamento alternativa in _questao.Alternativas)
                     {
                         var button = new AntdUI.Button
                         {
                             Tag = alternativa.Id,
                             Text = alternativa.Texto,
                             TextMultiLine = true,
+                            ColorScheme = AntdUI.TAMode.Dark,
                             BorderWidth = 1,
                             Font = new Font("Segoe UI", 16),
                             Dock = DockStyle.Fill
@@ -79,6 +70,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                     {
                         Tag = false,
                         Text = "Falso",
+                        ColorScheme = AntdUI.TAMode.Dark,
                         BorderWidth = 1,
                         Font = new Font("Segoe UI", 16),
                         Dock = DockStyle.Fill
@@ -90,6 +82,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                     {
                         Tag = true,
                         Text = "Verdadeiro",
+                        ColorScheme = AntdUI.TAMode.Dark,
                         BorderWidth = 1,
                         Font = new Font("Segoe UI", 16),
                         Dock = DockStyle.Fill
@@ -122,7 +115,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             if (_botaoSelecionado == null) return;
 
-            if (_questao?.TipoId == QuestaoTipoId.Alternativas && _botaoSelecionado.Tag is int alternativaId)
+            if (_questao?.Tipo == QuestaoTipo.Alternativas && _botaoSelecionado.Tag is int alternativaId)
             {
                 EscolheuAlternativa?.Invoke(alternativaId);
             }
@@ -130,6 +123,8 @@ namespace SenacQuizApp.Telas.QuizDiario
             {
                 EscolheuVerdadeiroFalso?.Invoke(opcao);
             }
+
+            _botaoSelecionado = null;
         }
     }
 }

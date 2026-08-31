@@ -35,16 +35,15 @@
             divider1 = new AntdUI.Divider();
             LabelQuizzesTitulo = new AntdUI.Label();
             divider2 = new AntdUI.Divider();
-            PanelResumoPreview = new AntdUI.Panel();
-            TableQuizHistorico = new AntdUI.Table();
-            LabelQuizzesPartidas = new AntdUI.Label();
+            PanelResumoQuizzes = new AntdUI.Panel();
+            LabelResumoQuizzes = new AntdUI.Label();
             PanelQuizDiario.SuspendLayout();
-            PanelResumoPreview.SuspendLayout();
+            PanelResumoQuizzes.SuspendLayout();
             SuspendLayout();
             // 
             // PanelQuizDiario
             // 
-            PanelQuizDiario.Back = Color.FromArgb(30, 41, 50);
+            PanelQuizDiario.Back = Color.FromArgb(18, 18, 18);
             PanelQuizDiario.Controls.Add(ButtonQuizRush);
             PanelQuizDiario.Controls.Add(divider3);
             PanelQuizDiario.Controls.Add(ButtonQuizDiario);
@@ -62,8 +61,11 @@
             // 
             // ButtonQuizRush
             // 
+            ButtonQuizRush.BorderWidth = 1F;
+            ButtonQuizRush.ColorScheme = AntdUI.TAMode.Dark;
             ButtonQuizRush.Dock = DockStyle.Top;
             ButtonQuizRush.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonQuizRush.Ghost = true;
             ButtonQuizRush.Location = new Point(10, 229);
             ButtonQuizRush.Name = "ButtonQuizRush";
             ButtonQuizRush.Size = new Size(230, 58);
@@ -87,8 +89,11 @@
             // 
             // ButtonQuizDiario
             // 
+            ButtonQuizDiario.BorderWidth = 1F;
+            ButtonQuizDiario.ColorScheme = AntdUI.TAMode.Dark;
             ButtonQuizDiario.Dock = DockStyle.Top;
             ButtonQuizDiario.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonQuizDiario.Ghost = true;
             ButtonQuizDiario.Location = new Point(10, 141);
             ButtonQuizDiario.Name = "ButtonQuizDiario";
             ButtonQuizDiario.Size = new Size(230, 58);
@@ -139,61 +144,45 @@
             divider2.TextPadding = 0F;
             divider2.Thickness = 1F;
             // 
-            // PanelResumoPreview
+            // PanelResumoQuizzes
             // 
-            PanelResumoPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            PanelResumoPreview.AutoScroll = true;
-            PanelResumoPreview.BackColor = Color.FromArgb(50, 45, 45);
-            PanelResumoPreview.ColorScheme = AntdUI.TAMode.Dark;
-            PanelResumoPreview.Controls.Add(TableQuizHistorico);
-            PanelResumoPreview.Controls.Add(LabelQuizzesPartidas);
-            PanelResumoPreview.Location = new Point(84, 80);
-            PanelResumoPreview.Name = "PanelResumoPreview";
-            PanelResumoPreview.Size = new Size(850, 560);
-            PanelResumoPreview.TabIndex = 1;
-            PanelResumoPreview.Text = "panel2";
+            PanelResumoQuizzes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            PanelResumoQuizzes.AutoScroll = true;
+            PanelResumoQuizzes.Back = Color.FromArgb(33, 33, 33);
+            PanelResumoQuizzes.ColorScheme = AntdUI.TAMode.Dark;
+            PanelResumoQuizzes.Controls.Add(LabelResumoQuizzes);
+            PanelResumoQuizzes.Location = new Point(84, 80);
+            PanelResumoQuizzes.Name = "PanelResumoQuizzes";
+            PanelResumoQuizzes.Size = new Size(850, 560);
+            PanelResumoQuizzes.TabIndex = 1;
+            PanelResumoQuizzes.Text = "panel2";
             // 
-            // TableQuizHistorico
+            // LabelResumoQuizzes
             // 
-            TableQuizHistorico.AutoSizeColumnsMode = AntdUI.ColumnsMode.Fill;
-            TableQuizHistorico.ColorScheme = AntdUI.TAMode.Dark;
-            TableQuizHistorico.Dock = DockStyle.Fill;
-            TableQuizHistorico.EmptyText = "Nenhum Quiz Encontrado";
-            TableQuizHistorico.EnableHeaderResizing = true;
-            TableQuizHistorico.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            TableQuizHistorico.Gap = 12;
-            TableQuizHistorico.Location = new Point(0, 39);
-            TableQuizHistorico.LostFocusClearSelection = true;
-            TableQuizHistorico.Name = "TableQuizHistorico";
-            TableQuizHistorico.Size = new Size(850, 521);
-            TableQuizHistorico.TabIndex = 2;
-            TableQuizHistorico.CellClick += TableQuizHistorico_CellClick;
-            // 
-            // LabelQuizzesPartidas
-            // 
-            LabelQuizzesPartidas.ColorScheme = AntdUI.TAMode.Dark;
-            LabelQuizzesPartidas.Dock = DockStyle.Top;
-            LabelQuizzesPartidas.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuizzesPartidas.Location = new Point(0, 0);
-            LabelQuizzesPartidas.Name = "LabelQuizzesPartidas";
-            LabelQuizzesPartidas.Size = new Size(850, 39);
-            LabelQuizzesPartidas.TabIndex = 0;
-            LabelQuizzesPartidas.Text = "Últimos 10 Quizzes";
-            LabelQuizzesPartidas.TextAlign = ContentAlignment.MiddleCenter;
+            LabelResumoQuizzes.BackColor = Color.Transparent;
+            LabelResumoQuizzes.ColorScheme = AntdUI.TAMode.Dark;
+            LabelResumoQuizzes.Dock = DockStyle.Top;
+            LabelResumoQuizzes.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelResumoQuizzes.Location = new Point(0, 0);
+            LabelResumoQuizzes.Name = "LabelResumoQuizzes";
+            LabelResumoQuizzes.Size = new Size(850, 40);
+            LabelResumoQuizzes.TabIndex = 0;
+            LabelResumoQuizzes.Text = "Últimas 10 Partidas";
+            LabelResumoQuizzes.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PaginaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(58, 64, 70);
-            Controls.Add(PanelResumoPreview);
+            BackColor = Color.FromArgb(50, 50, 50);
+            Controls.Add(PanelResumoQuizzes);
             Controls.Add(PanelQuizDiario);
             Margin = new Padding(2);
             Name = "PaginaPrincipal";
             Size = new Size(1280, 720);
             Load += PaginaPrincipal_Load;
             PanelQuizDiario.ResumeLayout(false);
-            PanelResumoPreview.ResumeLayout(false);
+            PanelResumoQuizzes.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -201,13 +190,12 @@
 
         private AntdUI.Panel PanelQuizDiario;
         private AntdUI.Button ButtonQuizDiario;
-        private AntdUI.Panel PanelResumoPreview;
-        private AntdUI.Label LabelQuizzesPartidas;
+        private AntdUI.Panel PanelResumoQuizzes;
         private AntdUI.Button ButtonQuizRush;
         private AntdUI.Divider divider3;
         private AntdUI.Divider divider1;
         private AntdUI.Label LabelQuizzesTitulo;
         private AntdUI.Divider divider2;
-        private AntdUI.Table TableQuizHistorico;
+        private AntdUI.Label LabelResumoQuizzes;
     }
 }

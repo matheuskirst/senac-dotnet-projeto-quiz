@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AntdUI;
+using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
-using SenacQuizApp.Dtos.QuizDiario.Andamento;
-using SenacQuizApp.Dtos.QuizDiario.Historico;
-using SenacQuizApp.Dtos.QuizDiario.Resultado;
+using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.QuizDiario;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
@@ -30,7 +30,6 @@ namespace SenacQuizApp.Services
                 .Where(q => q.NivelId == QuestaoNivelId.Avancado)
                 .Include(q => q.Tema)
                 .Include(q => q.Nivel)
-                .Include(q => q.Tipo)
                 .Include(q => q.Alternativas)
                 .OrderBy(q => EF.Functions.Random())
                 .FirstOrDefault();
@@ -43,7 +42,6 @@ namespace SenacQuizApp.Services
                 .Where(q => q.Id != idAvancada)
                 .Include(q => q.Tema)
                 .Include(q => q.Nivel)
-                .Include(q => q.Tipo)
                 .Include(q => q.Alternativas)
                 .OrderBy(q => EF.Functions.Random())
                 .Take(9)
@@ -103,7 +101,7 @@ namespace SenacQuizApp.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<bool?> SalvarResposta(int quizId, int questaoId, bool ehCorreta, int sequenciaAcertos)
+        public async Task<bool?> SalvarResposta(int quizId, int questaoId, bool ehCorreta, int sequenciaAcertos, int? alternativaId = null, bool? verdadeiroFalso = null)
         {
             using var contexto = new QuizAppContexto();
 
@@ -125,7 +123,12 @@ namespace SenacQuizApp.Services
                 })
                 .FirstOrDefaultAsync();
 
-            if (questao == null) return null;
+            int? quizSequenciaAcertos = await contexto.QuizzesDiarios
+                .Where(quiz => quiz.Id == quizId)
+                .Select(quiz => quiz.MaxAcertosSeguidos)
+                .FirstOrDefaultAsync();
+
+            if (questao == null || quizSequenciaAcertos == null) return null;
 
             // Em porcentagem (0%)
             int bonus = 0;
@@ -138,12 +141,16 @@ namespace SenacQuizApp.Services
 
             if (ehCorreta == true) pontuacaoFinal = questao.Valor + (questao.Valor * bonus) / 100;
 
+            if (sequenciaAcertos > quizSequenciaAcertos) quizSequenciaAcertos = sequenciaAcertos;
+
             var resposta = new UsuarioResposta
             {
                 QuizId = quizId,
                 UsuarioId = usuarioId,
                 QuestaoId = questaoId,
                 QuestaoValor = questao.Valor,
+                AlternativaId = alternativaId,
+                VerdadeiroFalso = verdadeiroFalso,
                 Acertou = ehCorreta,
                 PontuacaoFinal = pontuacaoFinal
             };
@@ -190,7 +197,7 @@ namespace SenacQuizApp.Services
                 .Select(alternativa => alternativa.EhCorreta)
                 .FirstOrDefaultAsync();
 
-            return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos);
+            return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos, alternativaId: alternativaId);
         }
 
         public async Task<bool?> SalvarRespostaVerdadeiroFalso(int quizId, int questaoId, bool verdadeiroFalso, int sequenciaAcertos)
@@ -202,7 +209,7 @@ namespace SenacQuizApp.Services
                 .Select(questao => questao.VerdadeiroFalso)
                 .FirstOrDefaultAsync() ?? false;
 
-            return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos);
+            return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos, verdadeiroFalso: verdadeiroFalso);
         }
 
         public async Task ConcluirQuiz(int quizId)
@@ -239,7 +246,7 @@ namespace SenacQuizApp.Services
                     PontuacaoTotal = quiz.PontuacaoTotal,
 
                     Questoes = quiz.Questoes
-                        .Select(questao => new QuizDiarioAndamentoQuestao
+                        .Select(questao => new QuestaoAndamento
                         {
                             Id = questao.Id,
                             Enunciado = questao.Enunciado,
@@ -247,8 +254,7 @@ namespace SenacQuizApp.Services
                             Tema = questao.Tema.Nome,
                             NivelId = questao.NivelId,
                             Nivel = questao.Nivel.Nome,
-                            TipoId = questao.TipoId,
-                            Tipo = questao.Tipo.Nome,
+                            Tipo = questao.Tipo,
                             Pontos = questao.Nivel.Valor,
 
                             Respondida = quiz.UsuarioRespostas
@@ -260,7 +266,7 @@ namespace SenacQuizApp.Services
                                 .FirstOrDefault(),
 
                             Alternativas = questao.Alternativas
-                            .Select(alternativa => new QuizDiarioAndamentoAlternativa
+                            .Select(alternativa => new AlternativaAndamento
                             {
                                 Id = alternativa.Id,
                                 Texto = alternativa.Texto
@@ -275,7 +281,7 @@ namespace SenacQuizApp.Services
                 .Select(quiz => new QuizDiarioResultado
                 {
                     Id = quiz.Id,
-                    DataInicio = quiz.DataIniciado,
+                    DataIniciado = quiz.DataIniciado,
                     DataExibido = quiz.DataExibido,
                     DataConcluido = quiz.DataConcluido,
                     TempoDeConclusao = quiz.TempoDeConclusao,
@@ -289,7 +295,7 @@ namespace SenacQuizApp.Services
                     PontuacaoTotal = quiz.PontuacaoTotal,
 
                     Questoes = quiz.Questoes
-                        .Select(questao => new QuizDiarioResultadoQuestao
+                        .Select(questao => new QuestaoResultado
                         {
                             Id = questao.Id,
                             Enunciado = questao.Enunciado,
@@ -297,8 +303,7 @@ namespace SenacQuizApp.Services
                             Tema = questao.Tema.Nome,
                             NivelId = questao.NivelId,
                             Nivel = questao.Nivel.Nome,
-                            TipoId = questao.TipoId,
-                            Tipo = questao.Tipo.Nome,
+                            Tipo = questao.Tipo,
                             Pontos = questao.Nivel.Valor,
 
                             Acertou = quiz.UsuarioRespostas
@@ -307,7 +312,7 @@ namespace SenacQuizApp.Services
                                 .FirstOrDefault(),
 
                             Alternativas = questao.Alternativas
-                            .Select(alternativa => new QuizDiarioResultadoAlternativa
+                            .Select(alternativa => new AlternativaCorreta
                             {
                                 Id = alternativa.Id,
                                 Texto = alternativa.Texto,

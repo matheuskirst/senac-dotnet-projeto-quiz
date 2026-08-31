@@ -1,4 +1,6 @@
-﻿namespace SenacQuizApp.Telas
+﻿using SenacQuizApp.Telas.Componentes;
+
+namespace SenacQuizApp.Telas
 {
     partial class PaginaLogin
     {
@@ -28,11 +30,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaginaLogin));
             StackPanelLogin = new AntdUI.StackPanel();
             StackPanelLoginErro = new AntdUI.StackPanel();
             LabelLoginErro = new AntdUI.Label();
             ButtonLoginEntrar = new AntdUI.Button();
-            InputLoginSenha = new AntdUI.Input();
+            InputLoginSenha = new PasswordInput();
             LabelLoginSenha = new AntdUI.Label();
             InputLoginUsername = new AntdUI.Input();
             LabelLoginUsername = new AntdUI.Label();
@@ -56,7 +59,8 @@
             StackPanelLogin.Location = new Point(292, 100);
             StackPanelLogin.Name = "StackPanelLogin";
             StackPanelLogin.Size = new Size(440, 450);
-            StackPanelLogin.TabIndex = 1;
+            StackPanelLogin.TabIndex = 0;
+            StackPanelLogin.TabStop = false;
             StackPanelLogin.Text = "stackPanel1";
             StackPanelLogin.Vertical = true;
             // 
@@ -68,7 +72,7 @@
             StackPanelLoginErro.BorderWidth = 2F;
             StackPanelLoginErro.ColorScheme = AntdUI.TAMode.Dark;
             StackPanelLoginErro.Controls.Add(LabelLoginErro);
-            StackPanelLoginErro.Location = new Point(3, 370);
+            StackPanelLoginErro.Location = new Point(3, 372);
             StackPanelLoginErro.Name = "StackPanelLoginErro";
             StackPanelLoginErro.Radius = 6;
             StackPanelLoginErro.Size = new Size(434, 50);
@@ -77,12 +81,12 @@
             // 
             // LabelLoginErro
             // 
-            LabelLoginErro.BackColor = Color.Transparent;
             LabelLoginErro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelLoginErro.Location = new Point(5, 5);
             LabelLoginErro.Name = "LabelLoginErro";
             LabelLoginErro.Size = new Size(428, 40);
-            LabelLoginErro.TabIndex = 1;
+            LabelLoginErro.TabIndex = 0;
+            LabelLoginErro.TabStop = false;
             LabelLoginErro.Text = "";
             LabelLoginErro.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -91,7 +95,7 @@
             ButtonLoginEntrar.ColorScheme = AntdUI.TAMode.Dark;
             ButtonLoginEntrar.DefaultBack = Color.FromArgb(75, 150, 75);
             ButtonLoginEntrar.Font = new Font("Segoe UI", 14.25F);
-            ButtonLoginEntrar.Location = new Point(3, 304);
+            ButtonLoginEntrar.Location = new Point(3, 306);
             ButtonLoginEntrar.Margin = new Padding(3, 50, 3, 3);
             ButtonLoginEntrar.Name = "ButtonLoginEntrar";
             ButtonLoginEntrar.Size = new Size(434, 60);
@@ -101,17 +105,16 @@
             // 
             // InputLoginSenha
             // 
-            InputLoginSenha.BackColor = Color.FromArgb(77, 84, 92);
-            InputLoginSenha.BorderColor = Color.FromArgb(61, 61, 61);
+            InputLoginSenha.BackColor = Color.FromArgb(66, 66, 66);
+            InputLoginSenha.BorderColor = Color.FromArgb(20, 20, 20);
             InputLoginSenha.ColorScheme = AntdUI.TAMode.Dark;
-            InputLoginSenha.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InputLoginSenha.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputLoginSenha.Location = new Point(0, 204);
             InputLoginSenha.Margin = new Padding(0);
-            InputLoginSenha.MaxLength = 50;
             InputLoginSenha.Name = "InputLoginSenha";
             InputLoginSenha.Radius = 4;
-            InputLoginSenha.Size = new Size(440, 50);
-            InputLoginSenha.SuffixText = "Mostrar";
+            InputLoginSenha.Size = new Size(440, 52);
+            InputLoginSenha.SuffixSvg = resources.GetString("InputLoginSenha.SuffixSvg");
             InputLoginSenha.TabIndex = 1;
             InputLoginSenha.UseSystemPasswordChar = true;
             InputLoginSenha.SuffixClick += InputLoginSenha_SuffixClick;
@@ -129,10 +132,10 @@
             // 
             // InputLoginUsername
             // 
-            InputLoginUsername.BackColor = Color.FromArgb(77, 84, 92);
-            InputLoginUsername.BorderColor = Color.FromArgb(61, 61, 61);
+            InputLoginUsername.BackColor = Color.FromArgb(66, 66, 66);
+            InputLoginUsername.BorderColor = Color.FromArgb(20, 20, 20);
             InputLoginUsername.ColorScheme = AntdUI.TAMode.Dark;
-            InputLoginUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            InputLoginUsername.Font = new Font("Segoe UI", 12F);
             InputLoginUsername.Location = new Point(0, 125);
             InputLoginUsername.Margin = new Padding(0);
             InputLoginUsername.Name = "InputLoginUsername";
@@ -161,18 +164,22 @@
             LabelLoginTitulo.MinimumSize = new Size(0, 40);
             LabelLoginTitulo.Name = "LabelLoginTitulo";
             LabelLoginTitulo.Size = new Size(434, 43);
-            LabelLoginTitulo.TabIndex = 1;
+            LabelLoginTitulo.TabIndex = 0;
+            LabelLoginTitulo.TabStop = false;
             LabelLoginTitulo.Text = "Realizar Login";
             LabelLoginTitulo.TextAlign = ContentAlignment.TopCenter;
             // 
             // ButtonLoginVoltar
             // 
             ButtonLoginVoltar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonLoginVoltar.BorderWidth = 2F;
+            ButtonLoginVoltar.ColorScheme = AntdUI.TAMode.Dark;
             ButtonLoginVoltar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonLoginVoltar.Ghost = true;
             ButtonLoginVoltar.Location = new Point(23, 633);
             ButtonLoginVoltar.Name = "ButtonLoginVoltar";
             ButtonLoginVoltar.Radius = 4;
-            ButtonLoginVoltar.Size = new Size(120, 60);
+            ButtonLoginVoltar.Size = new Size(120, 40);
             ButtonLoginVoltar.TabIndex = 3;
             ButtonLoginVoltar.Text = "Voltar";
             ButtonLoginVoltar.Click += ButtonLoginVoltar_Click;
@@ -182,7 +189,7 @@
             AutoScaleDimensions = new SizeF(18F, 45F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            BackColor = Color.FromArgb(58, 64, 70);
+            BackColor = Color.FromArgb(50, 50, 50);
             Controls.Add(StackPanelLogin);
             Controls.Add(ButtonLoginVoltar);
             Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -199,15 +206,15 @@
 
         #endregion
 
-        private AntdUI.StackPanel StackPanelLogin;
-        private AntdUI.Button ButtonLoginEntrar;
-        private AntdUI.Input InputLoginSenha;
-        private AntdUI.Label LabelLoginSenha;
-        private AntdUI.Input InputLoginUsername;
-        private AntdUI.Label LabelLoginUsername;
-        private AntdUI.Label LabelLoginTitulo;
         private AntdUI.Button ButtonLoginVoltar;
+        private AntdUI.StackPanel StackPanelLogin;
+        private AntdUI.Label LabelLoginTitulo;
+        private AntdUI.Label LabelLoginUsername;
+        private AntdUI.Input InputLoginUsername;
+        private AntdUI.Label LabelLoginSenha;
+        private PasswordInput InputLoginSenha;
         private AntdUI.StackPanel StackPanelLoginErro;
         private AntdUI.Label LabelLoginErro;
+        private AntdUI.Button ButtonLoginEntrar;
     }
 }

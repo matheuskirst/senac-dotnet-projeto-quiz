@@ -6,5 +6,10 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Dtos
 {
-    public record ConquistaDto(string Nome, string Descricao);
+    public class ConquistaDto
+    {
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        public DateTimeOffset DataAquisicao { get; set; }
+    }
 }

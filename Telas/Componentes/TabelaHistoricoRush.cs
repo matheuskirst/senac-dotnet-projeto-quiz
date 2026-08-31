@@ -1,12 +1,5 @@
-﻿using SenacQuizApp.Dtos.QuizDiario.Historico;
-using SenacQuizApp.Dtos;
-using System;
-using System.Collections.Generic;
+﻿using SenacQuizApp.Dtos;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SenacQuizApp.Dtos.QuizRush;
 
 namespace SenacQuizApp.Telas.Componentes
 {
