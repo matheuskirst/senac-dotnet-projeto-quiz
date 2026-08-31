@@ -113,7 +113,16 @@ namespace SenacQuizApp.Telas.QuizDiario
 
         private void ButtonConfirmar_Click(object sender, EventArgs e)
         {
-            if (_botaoSelecionado == null) return;
+            if (_botaoSelecionado == null)
+            {
+                AntdUI.Modal.open(new AntdUI.Modal.Config(this.FindForm(), "Resposta inválida", "Selecione uma alternativa.")
+                {
+                    ColorScheme = AntdUI.TAMode.Dark,
+                    OkText = "Ok",
+                    CancelText = null
+                });
+                return;
+            }
 
             if (_questao?.Tipo == QuestaoTipo.Alternativas && _botaoSelecionado.Tag is int alternativaId)
             {
