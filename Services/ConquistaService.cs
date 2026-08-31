@@ -19,6 +19,21 @@ namespace SenacQuizApp.Services
     {
         public event EventHandler<ConquistaDto>? ConquistaDesbloqueada;
 
+        public async Task<List<ConquistaDto>> ObterConquistasUsuario(int usuarioId)
+        {
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.UsuarioConquistas
+                .Where(uc => uc.UsuarioId == usuarioId)
+                .Select(uc => new ConquistaDto
+                {
+                    Nome = uc.Conquista.Nome,
+                    Descricao = uc.Conquista.Descricao,
+                    DataAquisicao = uc.DataDeAquisicao
+                })
+                .ToListAsync();
+        }
+
         public async Task ChecarQuizConquistas()
         {
             using var contexto = new QuizAppContexto();

@@ -47,21 +47,23 @@
             LabelPontuacaoTotal = new AntdUI.Label();
             PanelCentral = new AntdUI.Panel();
             PanelNivel = new AntdUI.Panel();
+            PanelConquistas = new AntdUI.Panel();
+            PanelUsuario = new AntdUI.Panel();
             PanelStats.SuspendLayout();
             PanelCentral.SuspendLayout();
             PanelNivel.SuspendLayout();
+            PanelUsuario.SuspendLayout();
             SuspendLayout();
             // 
             // LabelUsuario
             // 
-            LabelUsuario.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelUsuario.BackColor = Color.Transparent;
             LabelUsuario.ColorScheme = AntdUI.TAMode.Dark;
             LabelUsuario.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelUsuario.Location = new Point(48, 35);
+            LabelUsuario.Location = new Point(13, 11);
             LabelUsuario.Name = "LabelUsuario";
             LabelUsuario.Prefix = "";
-            LabelUsuario.Size = new Size(0, 38);
+            LabelUsuario.Size = new Size(497, 58);
             LabelUsuario.TabIndex = 1;
             LabelUsuario.Text = "";
             // 
@@ -296,9 +298,10 @@
             PanelCentral.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             PanelCentral.Back = Color.FromArgb(33, 33, 33);
             PanelCentral.BackColor = Color.Transparent;
+            PanelCentral.Controls.Add(PanelUsuario);
+            PanelCentral.Controls.Add(PanelConquistas);
             PanelCentral.Controls.Add(PanelNivel);
             PanelCentral.Controls.Add(PanelStats);
-            PanelCentral.Controls.Add(LabelUsuario);
             PanelCentral.Location = new Point(240, 0);
             PanelCentral.Name = "PanelCentral";
             PanelCentral.Radius = 0;
@@ -322,6 +325,29 @@
             PanelNivel.Size = new Size(224, 152);
             PanelNivel.TabIndex = 8;
             // 
+            // PanelConquistas
+            // 
+            PanelConquistas.AutoScroll = true;
+            PanelConquistas.Back = Color.FromArgb(33, 30, 30);
+            PanelConquistas.Location = new Point(12, 193);
+            PanelConquistas.Name = "PanelConquistas";
+            PanelConquistas.Radius = 0;
+            PanelConquistas.Size = new Size(545, 524);
+            PanelConquistas.TabIndex = 9;
+            // 
+            // PanelUsuario
+            // 
+            PanelUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PanelUsuario.Back = Color.FromArgb(33, 30, 30);
+            PanelUsuario.BackColor = Color.DimGray;
+            PanelUsuario.Controls.Add(LabelUsuario);
+            PanelUsuario.Location = new Point(12, 26);
+            PanelUsuario.Name = "PanelUsuario";
+            PanelUsuario.Padding = new Padding(10);
+            PanelUsuario.Radius = 0;
+            PanelUsuario.Size = new Size(545, 152);
+            PanelUsuario.TabIndex = 10;
+            // 
             // PaginaPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -333,9 +359,9 @@
             Load += PaginaPerfil_Load;
             PanelStats.ResumeLayout(false);
             PanelCentral.ResumeLayout(false);
-            PanelCentral.PerformLayout();
             PanelNivel.ResumeLayout(false);
             PanelNivel.PerformLayout();
+            PanelUsuario.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -360,5 +386,7 @@
         private AntdUI.Label LabelPontuacaoTotal;
         private AntdUI.Panel PanelCentral;
         private AntdUI.Panel PanelNivel;
+        private AntdUI.Panel PanelConquistas;
+        private AntdUI.Panel PanelUsuario;
     }
 }

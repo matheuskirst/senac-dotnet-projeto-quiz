@@ -25,4 +25,10 @@ VALUES
 
 (10, 'Acessou por 7 Dias Seguidos', 'Faça login a cada dia por uma semana', 4, 7, NULL),
 
-(11, '0 Acertos Seguidos', 'Burro! Incompetente! Soneca... Medíocre.. Medíocre... MEDÍOCRE! MEDÍOCRE!! MEDÍOCRE!!! Um Troglodita.. Troglodita! Troglodita! Troglodita! Psicologicamente destruído, moralmente abalado.. e tecnicamente não existe.', 5, 0, NULL);
+(11, 'Erre TODAS questões', 'Burro!, Burro!, Burro!... Incompetente. Soneca...
+Medíocre.. Medíocre... MEDÍOCRE!, MEDÍOCRE!!, MEDÍOCRE!!!
+Um Troglodita.. Troglodita!, Troglodita!, Troglodita!
+Psicologicamente destruído, moralmente abalado.. e tecnicamente não existe.
+LIXO! LIXO!-
+Me desculpe eu tô alterado, TÔ ALTERADO! TÔ ALTERADO!
+POR QUE É BURRO!, BURRO!!, BURRO!!, BURRO!!, BURRO!!, BURRO!!, BURRO!!!', 5, 0, NULL);
