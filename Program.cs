@@ -12,10 +12,12 @@ namespace SenacQuizApp
         [STAThread]
         static void Main()
         {
-            AutenticacaoService usuarioService = new();
-            QuizDiarioService quizDiarioService = new();
-            UsuarioPerfilService usuarioPerfilService = new();
+            ConquistaService conquistaService = new();
+            AutenticacaoService usuarioService = new(conquistaService);
+            QuizDiarioService quizDiarioService = new(conquistaService);
+            UsuarioService usuarioPerfilService = new();
             RankingService rankingService = new();
+            HistoricoService historicoService = new();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -26,7 +28,7 @@ namespace SenacQuizApp
             AntdUI.Localization.Provider = new AntdUIBrLocalizer();
             AntdUI.Localization.SetLanguage("pt-BR");
 
-            Application.Run(new FormApp(usuarioService, quizDiarioService, usuarioPerfilService, rankingService));
+            Application.Run(new FormApp(usuarioService, quizDiarioService, usuarioPerfilService, rankingService, historicoService, conquistaService));
         }
     }
 }

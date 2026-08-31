@@ -37,11 +37,13 @@
             // 
             // LabelQuizDiarioTitulo
             // 
+            LabelQuizDiarioTitulo.BackColor = Color.Transparent;
+            LabelQuizDiarioTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizDiarioTitulo.Dock = DockStyle.Top;
             LabelQuizDiarioTitulo.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizDiarioTitulo.Location = new Point(0, 0);
             LabelQuizDiarioTitulo.Name = "LabelQuizDiarioTitulo";
-            LabelQuizDiarioTitulo.Size = new Size(1024, 50);
+            LabelQuizDiarioTitulo.Size = new Size(400, 64);
             LabelQuizDiarioTitulo.TabIndex = 2;
             LabelQuizDiarioTitulo.Text = "Quiz Diário";
             LabelQuizDiarioTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -49,19 +51,22 @@
             // PanelQuizDiario
             // 
             PanelQuizDiario.Anchor = AnchorStyles.None;
+            PanelQuizDiario.Back = Color.FromArgb(33, 33, 33);
             PanelQuizDiario.Controls.Add(ButtonQuizDiario);
             PanelQuizDiario.Controls.Add(LabelStatus);
-            PanelQuizDiario.Location = new Point(312, 260);
+            PanelQuizDiario.Controls.Add(LabelQuizDiarioTitulo);
+            PanelQuizDiario.Location = new Point(312, 212);
             PanelQuizDiario.Name = "PanelQuizDiario";
-            PanelQuizDiario.Size = new Size(400, 200);
+            PanelQuizDiario.Size = new Size(400, 248);
             PanelQuizDiario.TabIndex = 3;
             PanelQuizDiario.Text = "panel1";
             // 
             // ButtonQuizDiario
             // 
             ButtonQuizDiario.BorderWidth = 1F;
+            ButtonQuizDiario.ColorScheme = AntdUI.TAMode.Dark;
             ButtonQuizDiario.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonQuizDiario.Location = new Point(121, 91);
+            ButtonQuizDiario.Location = new Point(121, 125);
             ButtonQuizDiario.Name = "ButtonQuizDiario";
             ButtonQuizDiario.Size = new Size(158, 58);
             ButtonQuizDiario.TabIndex = 5;
@@ -70,9 +75,10 @@
             // LabelStatus
             // 
             LabelStatus.BackColor = Color.Transparent;
+            LabelStatus.ColorScheme = AntdUI.TAMode.Dark;
             LabelStatus.Dock = DockStyle.Top;
             LabelStatus.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelStatus.Location = new Point(0, 0);
+            LabelStatus.Location = new Point(0, 64);
             LabelStatus.Name = "LabelStatus";
             LabelStatus.Prefix = "Status: ";
             LabelStatus.Size = new Size(400, 64);
@@ -84,8 +90,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(50, 50, 50);
             Controls.Add(PanelQuizDiario);
-            Controls.Add(LabelQuizDiarioTitulo);
             Name = "HubQuizDiario";
             Size = new Size(1024, 720);
             Load += PaginaQuiz_Load;

@@ -1,4 +1,6 @@
-﻿namespace SenacQuizApp.Dtos.Usuario
+﻿using SenacQuizApp.Modelos.Questoes;
+
+namespace SenacQuizApp.Dtos.Usuario
 {
     public class UsuarioRankDto
     {
@@ -9,5 +11,7 @@
         public int TotalAcertos { get; set; }
         public int TotalRespondidos { get; set; }
         public int MaxAcertosConsecutivos { get; set; }
+        public string TemaMaisAcertado { get; set; } = null!;
+        public int QuantidadeTemaMaisAcertado { get; set; }
     }
 }

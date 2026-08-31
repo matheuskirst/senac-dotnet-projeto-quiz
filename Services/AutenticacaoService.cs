@@ -8,6 +8,13 @@ namespace SenacQuizApp.Services
 {
     public class AutenticacaoService
     {
+        private readonly ConquistaService _conquistaService;
+
+        public AutenticacaoService(ConquistaService conquistaService)
+        {
+            _conquistaService = conquistaService;
+        }
+
         // Determina se o nome já está sendo usado
         public async Task<bool> VerificarUsername(string username)
         {
@@ -24,12 +31,32 @@ namespace SenacQuizApp.Services
             using var contexto = new QuizAppContexto();
 
             Usuario? usuario = await contexto.Usuarios
-                                .FirstOrDefaultAsync(u => u.Username == username);
+                .FirstOrDefaultAsync(u => u.Username == username);
 
             if (usuario == null || !BCrypt.Net.BCrypt.EnhancedVerify(senha, usuario.Senha))
             {
                 throw new LoginException("O Nome ou a Senha são inválidos!");
             }
+
+            var hoje = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            bool acessouHoje = await contexto.Acessos
+                .AnyAsync(a => a.UsuarioId == usuario.Id && a.DataAcesso == hoje);
+
+            if (!acessouHoje)
+            {
+                var acesso = new UsuarioAcesso
+                {
+                    UsuarioId = usuario.Id,
+                    DataAcesso = hoje
+                };
+
+                contexto.Acessos.Add(acesso);
+            }
+
+            await contexto.SaveChangesAsync();
+
+            await _conquistaService.ChecarLoginConquistas();
 
             UsuarioAtual.IniciarSessao(id: usuario.Id, username: usuario.Username);
             return true;
@@ -39,7 +66,7 @@ namespace SenacQuizApp.Services
         public async Task<bool> RealizarSignup(
             string username,
             string nickname,
-            DateOnly? dataDeNascimento,
+            DateOnly dataDeNascimento,
             string senha
             )
         {

@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaginaRanking));
             PanelRanking = new AntdUI.Panel();
             TableUsuariosRank = new AntdUI.Table();
-            LabelTitulo = new AntdUI.Label();
             panel1 = new AntdUI.Panel();
+            input1 = new AntdUI.Input();
+            LabelTitulo = new AntdUI.Label();
             PanelRanking.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -39,34 +41,67 @@
             // PanelRanking
             // 
             PanelRanking.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            PanelRanking.Back = Color.FromArgb(33, 33, 33);
             PanelRanking.BorderColor = Color.Black;
             PanelRanking.BorderWidth = 1F;
             PanelRanking.Controls.Add(TableUsuariosRank);
-            PanelRanking.Location = new Point(240, 91);
+            PanelRanking.Controls.Add(panel1);
+            PanelRanking.Location = new Point(240, 90);
             PanelRanking.Name = "PanelRanking";
+            PanelRanking.Radius = 0;
             PanelRanking.Size = new Size(800, 620);
             PanelRanking.TabIndex = 0;
             // 
             // TableUsuariosRank
             // 
             TableUsuariosRank.AutoSizeColumnsMode = AntdUI.ColumnsMode.Fill;
-            TableUsuariosRank.BackColor = Color.Transparent;
+            TableUsuariosRank.BackColor = Color.FromArgb(33, 33, 33);
             TableUsuariosRank.Bordered = true;
+            TableUsuariosRank.ColorScheme = AntdUI.TAMode.Dark;
+            TableUsuariosRank.ColumnDragSort = true;
             TableUsuariosRank.Dock = DockStyle.Fill;
+            TableUsuariosRank.EmptyText = "Nenhum usuário encontrado";
             TableUsuariosRank.EnableHeaderResizing = true;
-            TableUsuariosRank.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TableUsuariosRank.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TableUsuariosRank.Gap = 12;
-            TableUsuariosRank.Location = new Point(1, 1);
+            TableUsuariosRank.Location = new Point(1, 36);
             TableUsuariosRank.LostFocusClearSelection = true;
             TableUsuariosRank.Name = "TableUsuariosRank";
-            TableUsuariosRank.Size = new Size(798, 618);
+            TableUsuariosRank.Size = new Size(798, 583);
             TableUsuariosRank.TabIndex = 3;
             TableUsuariosRank.CellClick += TableUsuariosRank_CellClick;
             TableUsuariosRank.CellDoubleClick += TableUsuariosRank_CellDoubleClick;
             // 
+            // panel1
+            // 
+            panel1.Back = Color.FromArgb(33, 33, 33);
+            panel1.Controls.Add(input1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(1, 1);
+            panel1.Name = "panel1";
+            panel1.Radius = 0;
+            panel1.Size = new Size(798, 35);
+            panel1.TabIndex = 4;
+            panel1.Text = "panel1";
+            // 
+            // input1
+            // 
+            input1.BackColor = Color.FromArgb(66, 66, 66);
+            input1.ColorScheme = AntdUI.TAMode.Dark;
+            input1.Dock = DockStyle.Left;
+            input1.Location = new Point(0, 0);
+            input1.Name = "input1";
+            input1.PlaceholderText = "Buscar...";
+            input1.PrefixFore = Color.White;
+            input1.PrefixSvg = resources.GetString("input1.PrefixSvg");
+            input1.Size = new Size(149, 35);
+            input1.SuffixSvg = "";
+            input1.TabIndex = 0;
+            // 
             // LabelTitulo
             // 
             LabelTitulo.BackColor = Color.Transparent;
+            LabelTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelTitulo.Dock = DockStyle.Top;
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelTitulo.Location = new Point(0, 0);
@@ -76,22 +111,13 @@
             LabelTitulo.Text = "Ranking";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panel1
-            // 
-            panel1.Controls.Add(PanelRanking);
-            panel1.Controls.Add(LabelTitulo);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1280, 720);
-            panel1.TabIndex = 2;
-            panel1.Text = "panel1";
-            // 
             // PaginaRanking
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(panel1);
+            BackColor = Color.FromArgb(50, 50, 50);
+            Controls.Add(LabelTitulo);
+            Controls.Add(PanelRanking);
             Name = "PaginaRanking";
             Size = new Size(1280, 720);
             Load += PaginaRanking_Load;
@@ -106,5 +132,6 @@
         private AntdUI.Table TableUsuariosRank;
         private AntdUI.Label LabelTitulo;
         private AntdUI.Panel panel1;
+        private AntdUI.Input input1;
     }
 }

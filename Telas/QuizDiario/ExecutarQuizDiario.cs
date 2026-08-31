@@ -1,6 +1,7 @@
-﻿using SenacQuizApp.Dtos.QuizDiario.Detalhe;
-using SenacQuizApp.Services;
-using SenacQuizApp.Telas;
+﻿using SenacQuizApp.Services;
+using SenacQuizApp.Global;
+using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Dtos;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
@@ -8,17 +9,26 @@ namespace SenacQuizApp.Telas.QuizDiario
     {
         private int _quizId;
         private readonly QuizDiarioService _quizService;
-        private readonly UsuarioPerfilService _usuarioPerfilService;
+        private readonly UsuarioService _usuarioService;
 
         public event Action<int>? VerResultado;
 
+
+        private PainelQuestaoDiario _painelQuestao;
         private QuizSessao? _quizSessao;
 
-        public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioPerfilService usuarioPerfilService)
+        public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioService usuarioService)
         {
             _quizId = quizId;
             _quizService = quizService;
-            _usuarioPerfilService = usuarioPerfilService;
+            _usuarioService = usuarioService;
+
+            _painelQuestao = new PainelQuestaoDiario()
+            {
+                Dock = DockStyle.Fill
+            };
+            _painelQuestao.EscolheuAlternativa += AoResponderAlternativa;
+            _painelQuestao.EscolheuVerdadeiroFalso += AoResponderVerdadeiroFalso;
 
             InitializeComponent();
         }
@@ -27,11 +37,20 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-                QuizDiarioDetalhes? quiz = await _quizService.ObterDetalhePorId(_quizId);
+                PanelQuestoes.Controls.Add(_painelQuestao);
+
+                QuizDiarioAndamentos? quiz = await _quizService.ObterDetalhePorId(_quizId);
+                UsuarioPerfilDto? usuario = await _usuarioService.ObterPerfilPorId(UsuarioAtual.Id);
 
                 if (quiz == null) return;
 
                 if (quiz.FoiConcluido) { MostrarResultado(); }
+
+                if (usuario != null)
+                {
+                    LabelUsuarioNick.Text = usuario.Nickname;
+                    LabelUsuarioNivel.Text = usuario.Nivel;
+                }
 
                 LabelQuizDiarioData.Text = quiz.DataExibido.ToString();
 
@@ -50,18 +69,6 @@ namespace SenacQuizApp.Telas.QuizDiario
             }
         }
 
-        private void MudarPainelQuestao(PainelQuestaoDiario painel)
-        {
-            while (PanelQuestoes.Controls.Count > 0)
-            {
-                var controle = PanelQuestoes.Controls[0];
-                PanelQuestoes.Controls.Remove(controle);
-                controle.Dispose();
-            }
-
-            PanelQuestoes.Controls.Add(painel);
-        }
-
         private async void ProximaQuestao()
         {
             if (_quizSessao == null) return;
@@ -74,7 +81,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 return;
             }
             
-            QuizDiarioDetalhesQuestao questao = _quizSessao.Quiz.Questoes[questaoIndex];
+            QuestaoAndamento questao = _quizSessao.Quiz.Questoes[questaoIndex];
 
             if (questao.Respondida)
             {
@@ -102,13 +109,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 LabelQuizQuestaoBonus.Text = $"{bonus}%";
                 LabelQuizQuestaoPontos.Text = $"{valorFinal} Pontos";
 
-                var painel = new PainelQuestaoDiario(questao);
-                painel.EscolheuAlternativa += AoResponderAlternativa;
-                painel.EscolheuVerdadeiroFalso += AoResponderVerdadeiroFalso;
-
-                painel.Dock = DockStyle.Fill;
-
-                MudarPainelQuestao(painel);
+                _painelQuestao.CarregarQuestao(questao);
             }
         }
 
@@ -120,9 +121,9 @@ namespace SenacQuizApp.Telas.QuizDiario
             int questaoId = _quizSessao.Quiz.Questoes[questaoIndex].Id;
             int sequenciaAcertos = _quizSessao.SequenciaAcertos;
 
-            bool ehCorreta = await _quizService.SalvarRespostaAlternativa(quizId, questaoId, alternativaId, sequenciaAcertos);
+            bool? ehCorreta = await _quizService.SalvarRespostaAlternativa(quizId, questaoId, alternativaId, sequenciaAcertos);
 
-            if (ehCorreta) _quizSessao.SequenciaAcertos++;
+            if (ehCorreta != null && ehCorreta.Value) _quizSessao.SequenciaAcertos++;
             else _quizSessao.SequenciaAcertos = 0;
 
             _quizSessao.QuestaoAtualIndex++;
@@ -139,9 +140,9 @@ namespace SenacQuizApp.Telas.QuizDiario
             int sequenciaAcertos = _quizSessao.SequenciaAcertos;
 
 
-            bool ehCorreta = await _quizService.SalvarRespostaVerdadeiroFalso(quizId, questaoId, verdadeiroFalso, sequenciaAcertos);
+            bool? ehCorreta = await _quizService.SalvarRespostaVerdadeiroFalso(quizId, questaoId, verdadeiroFalso, sequenciaAcertos);
 
-            if (ehCorreta) _quizSessao.SequenciaAcertos++;
+            if (ehCorreta != null && ehCorreta.Value) _quizSessao.SequenciaAcertos++;
             else _quizSessao.SequenciaAcertos = 0;
 
             _quizSessao.QuestaoAtualIndex++;
@@ -168,7 +169,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
     public class QuizSessao
     {
-        public QuizDiarioDetalhes Quiz { get; set; } = null!;
+        public QuizDiarioAndamentos Quiz { get; set; } = null!;
         public int QuestaoAtualIndex { get; set; }
         public int SequenciaAcertos { get; set; }
     }

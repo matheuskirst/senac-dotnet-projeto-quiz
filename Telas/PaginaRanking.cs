@@ -1,6 +1,5 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
-using SenacQuizApp.Modelos;
+﻿using AntdUI;
+using System.ComponentModel;
 using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Services;
 
@@ -11,7 +10,7 @@ namespace SenacQuizApp.Telas
         private readonly RankingService _rankingService;
         private BindingList<UsuarioRankDto> _rankingList = [];
 
-        public event Action<int>? AbrirPerfil;
+        public event EventHandler<int>? AbrirPerfil;
 
         public PaginaRanking(RankingService rankingService)
         {
@@ -21,12 +20,12 @@ namespace SenacQuizApp.Telas
 
             TableUsuariosRank.Columns = new AntdUI.ColumnCollection
             {
-                new AntdUI.Column(nameof(UsuarioRankDto.Nickname), "Usuário"),
-                new AntdUI.Column(nameof(UsuarioRankDto.PontuacaoTotal), "Pontuação"),
-                new AntdUI.Column(nameof(UsuarioRankDto.Nivel), "Nível"),
-                new AntdUI.Column(nameof(UsuarioRankDto.TotalAcertos), "Acertos"),
-                new AntdUI.Column(nameof(UsuarioRankDto.TotalRespondidos), "Respondidos"),
-                new AntdUI.Column(nameof(UsuarioRankDto.MaxAcertosConsecutivos), "Máx. Sequência")
+                new AntdUI.Column(nameof(UsuarioRankDto.Nickname), "Usuário") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.PontuacaoTotal), "Pontuação") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.Nivel), "Nível") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.TotalAcertos), "Acertos") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.TotalRespondidos), "Respondidos") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRankDto.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
             };
         }
 
@@ -67,22 +66,24 @@ namespace SenacQuizApp.Telas
                 new AntdUI.ContextMenuStripItem("Copiar nickname")
             };
 
-            AntdUI.ContextMenuStrip.open(
-                TableUsuariosRank,
-                item =>
+            var menuStrip = new AntdUI.ContextMenuStrip.Config(TableUsuariosRank, item =>
                 {
                     switch (item.Text)
                     {
                         case "Abrir perfil":
-                            AbrirPerfil?.Invoke(usuario.Id);
+                            AbrirPerfil?.Invoke(this, usuario.Id);
                             break;
                         case "Copiar nickname":
                             Clipboard.SetText(usuario.Nickname);
                             break;
                     }
                 },
-                menuItems
-            );
+                menuItems)
+            {
+                ColorScheme = TAMode.Dark
+            };
+
+            menuStrip.open();
         }
 
         private void TableUsuariosRank_CellClick(object sender, AntdUI.TableClickEventArgs e)
@@ -96,7 +97,7 @@ namespace SenacQuizApp.Telas
         {
             if (e.Button == MouseButtons.Right || e.Record is not UsuarioRankDto usuario) return;
 
-            AbrirPerfil?.Invoke(usuario.Id);
+            AbrirPerfil?.Invoke(this, usuario.Id);
         }
     }
 }

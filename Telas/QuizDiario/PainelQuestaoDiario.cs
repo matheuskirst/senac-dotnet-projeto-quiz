@@ -1,85 +1,99 @@
-﻿using SenacQuizApp.Dtos.QuizDiario.Detalhe;
+﻿using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
-using SenacQuizApp.Modelos;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
     public partial class PainelQuestaoDiario : UserControl
     {
-        private readonly QuizDiarioDetalhesQuestao _questao;
+        private QuestaoAndamento? _questao;
         public event Action<int>? EscolheuAlternativa;
         public event Action<bool>? EscolheuVerdadeiroFalso;
 
         private AntdUI.Button? _botaoSelecionado;
 
-        public PainelQuestaoDiario(QuizDiarioDetalhesQuestao questao)
+        public PainelQuestaoDiario()
         {
-            _questao = questao;
-
             InitializeComponent();
+
+            SetStyle(
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.UserPaint,
+                true);
+            UpdateStyles();
         }
 
-        private void PainelPergunta_Load(object sender, EventArgs e)
+        public void CarregarQuestao(QuestaoAndamento questao)
         {
-            InputQuestaoEnunciado.WordWrap = true;
-            InputQuestaoEnunciado.Text = _questao.Enunciado;
-
-            if (_questao.TipoId == QuestaoTipoId.Alternativas)
+            _questao = questao;
+            this.SuspendLayout();
+            try
             {
-                GridPanelAlternativas.Height = 300;
-                GridPanelAlternativas.Span = "50% 50%; 50% 50%";
+                InputQuestaoEnunciado.Clear();
 
-                foreach (QuizDiarioDetalhesAlternativa alternativa in _questao.Alternativas)
+                while (GridPanelAlternativas.Controls.Count > 0)
                 {
-                    var button = new AntdUI.Button
+                    var controle = GridPanelAlternativas.Controls[0];
+                    controle.Dispose();
+                }
+
+                InputQuestaoEnunciado.Text = _questao.Enunciado;
+
+                if (_questao.Tipo == QuestaoTipo.Alternativas)
+                {
+                    GridPanelAlternativas.Height = 300;
+                    GridPanelAlternativas.Span = "50% 50%; 50% 50%";
+
+                    foreach (AlternativaAndamento alternativa in _questao.Alternativas)
                     {
-                        Tag = alternativa.Id,
-                        Text = alternativa.Texto,
-                        TextMultiLine = true,
-                        BackHover = Color.FromArgb(255, 223, 156),
+                        var button = new AntdUI.Button
+                        {
+                            Tag = alternativa.Id,
+                            Text = alternativa.Texto,
+                            TextMultiLine = true,
+                            ColorScheme = AntdUI.TAMode.Dark,
+                            BorderWidth = 1,
+                            Font = new Font("Segoe UI", 16),
+                            Dock = DockStyle.Fill
+                        };
+
+                        button.Click += AlternativaEscolhida;
+
+                        GridPanelAlternativas.Controls.Add(button);
+                    }
+                }
+                else
+                {
+                    GridPanelAlternativas.Height = 150;
+                    GridPanelAlternativas.Span = "50% 50%";
+                    var buttonFalso = new AntdUI.Button
+                    {
+                        Tag = false,
+                        Text = "Falso",
+                        ColorScheme = AntdUI.TAMode.Dark,
+                        BorderWidth = 1,
                         Font = new Font("Segoe UI", 16),
                         Dock = DockStyle.Fill
                     };
+                    buttonFalso.Click += AlternativaEscolhida;
+                    GridPanelAlternativas.Controls.Add(buttonFalso);
 
-                    button.Click += AlternativaEscolhida;
-
-                    GridPanelAlternativas.Controls.Add(button);
+                    var buttonVerdade = new AntdUI.Button
+                    {
+                        Tag = true,
+                        Text = "Verdadeiro",
+                        ColorScheme = AntdUI.TAMode.Dark,
+                        BorderWidth = 1,
+                        Font = new Font("Segoe UI", 16),
+                        Dock = DockStyle.Fill
+                    };
+                    buttonVerdade.Click += AlternativaEscolhida;
+                    GridPanelAlternativas.Controls.Add(buttonVerdade);
                 }
             }
-            else
+            finally
             {
-                GridPanelAlternativas.Height = 150;
-                GridPanelAlternativas.Span = "50% 50%";
-                var buttonFalso = new AntdUI.Button
-                {
-                    Tag = false,
-                    Text = "Falso",
-                    BackHover = Color.FromArgb(224, 255, 156),
-                    Font = new Font("Segoe UI", 16),
-                    Dock = DockStyle.Fill
-                };
-                buttonFalso.Click += AlternativaEscolhida;
-                GridPanelAlternativas.Controls.Add(buttonFalso);
-
-                var buttonVerdade = new AntdUI.Button
-                {
-                    Tag = true,
-                    Text = "Verdadeiro",
-                    BackHover = Color.FromArgb(224, 255, 156),
-                    Font = new Font("Segoe UI", 16),
-                    Dock = DockStyle.Fill
-                };
-                buttonVerdade.Click += AlternativaEscolhida;
-                GridPanelAlternativas.Controls.Add(buttonVerdade);
+                this.ResumeLayout();
             }
         }
 
@@ -99,9 +113,18 @@ namespace SenacQuizApp.Telas.QuizDiario
 
         private void ButtonConfirmar_Click(object sender, EventArgs e)
         {
-            if (_botaoSelecionado == null) return;
+            if (_botaoSelecionado == null)
+            {
+                AntdUI.Modal.open(new AntdUI.Modal.Config(this.FindForm(), "Resposta inválida", "Selecione uma alternativa.")
+                {
+                    ColorScheme = AntdUI.TAMode.Dark,
+                    OkText = "Ok",
+                    CancelText = null
+                });
+                return;
+            }
 
-            if (_questao.TipoId == QuestaoTipoId.Alternativas && _botaoSelecionado.Tag is int alternativaId)
+            if (_questao?.Tipo == QuestaoTipo.Alternativas && _botaoSelecionado.Tag is int alternativaId)
             {
                 EscolheuAlternativa?.Invoke(alternativaId);
             }
@@ -109,6 +132,8 @@ namespace SenacQuizApp.Telas.QuizDiario
             {
                 EscolheuVerdadeiroFalso?.Invoke(opcao);
             }
+
+            _botaoSelecionado = null;
         }
     }
 }

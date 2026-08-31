@@ -1,5 +1,4 @@
-﻿using SenacQuizApp.Dtos.QuizDiario.Historico;
-using SenacQuizApp.Dtos.QuizDiario.Resultado;
+﻿using SenacQuizApp.Dtos.QuizDiario;
 using SenacQuizApp.Services;
 
 namespace SenacQuizApp.Telas.QuizDiario
@@ -25,16 +24,15 @@ namespace SenacQuizApp.Telas.QuizDiario
 
                 if (resultado == null) return;
 
-                LabelDataInicio.Text = resultado.DataInicio.ToString();
-                LabelDataConcluido.Text = resultado.DataConcluido.ToString();
+                LabelDataInicio.Text = resultado.DataIniciado.ToString(@"dd/MM/yyyy HH\:mm\:ss");
+                LabelDataConcluido.Text = resultado.DataConcluido?.ToString(@"dd/MM/yyyy HH\:mm\:ss") ?? "Não disponível";
                 LabelTempoDeConclusao.Text = resultado.TempoDeConclusao?.ToString(@"hh\:mm\:ss\.fff") ?? "Não disponível";
                 LabelTotalQuestoes.Text = resultado.TotalQuestoes.ToString();
                 LabelTotalAcertos.Text = resultado.TotalAcertos.ToString();
                 LabelPontuacaoTotal.Text = resultado.PontuacaoTotal.ToString();
 
-                CollapseQuestoes.Items.Clear();
 
-                foreach (QuizDiarioResultadoQuestao questao in resultado.Questoes)
+                foreach (QuestaoResultado questao in resultado.Questoes)
                 {
                     int questaoNumero = resultado.Questoes.IndexOf(questao) + 1;
                     AntdUI.CollapseItem collapse = new AntdUI.CollapseItem
@@ -48,15 +46,12 @@ namespace SenacQuizApp.Telas.QuizDiario
                         TextMultiLine = true,
                         AutoSize = true,
                         Location = new Point(20, 20),
-                        Width = CollapseQuestoes.Width - 40
+                        ColorScheme = AntdUI.TAMode.Dark,
                     };
 
                     collapse.Controls.Add(questaoEnunciado);
 
-                    CollapseQuestoes.Items.Add(collapse);
                 }
-
-                CollapseQuestoes.Refresh();
             }
             catch
             {

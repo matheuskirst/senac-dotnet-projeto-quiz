@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Json;
-using SenacQuizApp.Enums;
+﻿using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Modelos.Questoes
@@ -12,14 +7,13 @@ namespace SenacQuizApp.Modelos.Questoes
     {
         public int Id { get; set; }
 
-        public QuestaoTemaId TemaId { get; set; }
+        public int TemaId { get; set; }
         public QuestaoTema Tema { get; set; } = null!;
 
         public QuestaoNivelId NivelId { get; set; }
         public QuestaoNivel Nivel { get; set; } = null!;
 
-        public QuestaoTipoId TipoId { get; set; }
-        public QuestaoTipo Tipo { get; set; } = null!;
+        public QuestaoTipo Tipo { get; set; }
 
         public string Enunciado { get; set; } = null!;
         public bool? VerdadeiroFalso { get; set; }

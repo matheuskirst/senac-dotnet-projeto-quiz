@@ -1,9 +1,8 @@
 ﻿using AntdUI;
-using Microsoft.EntityFrameworkCore.Metadata;
+using SenacQuizApp.Dtos;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
-using SenacQuizApp.Telas.Componentes;
-using SenacQuizApp.Telas.Componentes.Quiz;
 using SenacQuizApp.Telas.QuizDiario;
 
 namespace SenacQuizApp.Telas
@@ -12,34 +11,68 @@ namespace SenacQuizApp.Telas
     {
         private readonly AutenticacaoService _autenticacaoService;
         private readonly QuizDiarioService _quizDiarioService;
-        private readonly UsuarioPerfilService _usuarioPerfilService;
+        private readonly UsuarioService _usuarioPerfilService;
         private readonly RankingService _rankingService;
+        private readonly HistoricoService _historicoService;
+        private readonly ConquistaService _conquistaService;
 
-        public FormApp(AutenticacaoService autenticacaoService, QuizDiarioService quizDiarioService, UsuarioPerfilService usuarioPerfilService, RankingService rankingService)
+        private PaginaAtual? _paginaAtual;
+
+        public FormApp(
+            AutenticacaoService autenticacaoService,
+            QuizDiarioService quizDiarioService,
+            UsuarioService usuarioPerfilService,
+            RankingService rankingService,
+            HistoricoService historicoService,
+            ConquistaService conquistaService
+            )
         {
             _autenticacaoService = autenticacaoService;
             _quizDiarioService = quizDiarioService;
             _usuarioPerfilService = usuarioPerfilService;
             _rankingService = rankingService;
+            _historicoService = historicoService;
+            _conquistaService = conquistaService;
+
+            _conquistaService.ConquistaDesbloqueada += AoDesbloquearConquista;
             InitializeComponent();
+
+            this.DoubleBuffered = true;
         }
 
         private void FormJanelaPrincipal_Load(object sender, EventArgs e)
         {
+            var dropdownItems = new object[]
+            {
+                new AntdUI.SelectItem("Ver Perfil") { Tag = MenuOpcoes.VerPerfil },
+                new AntdUI.SelectItem("Ver Histórico") { Tag = MenuOpcoes.VerHistorico },
+                new AntdUI.SelectItem("Configurações") { Tag = MenuOpcoes.Configuracoes },
+                new AntdUI.SelectItem("Sair...") { Tag = MenuOpcoes.Sair }
+            };
+
+            DropdownUsuarioMenu.Items.AddRange(dropdownItems);
+
+            AlternarBotaoHeader(ButtonHeaderMenu);
             AbrirPaginaInicial(null, e);
         }
 
         public void MudarPagina(UserControl pagina)
         {
+            PanelAppBody.SuspendLayout();
+
             if (pagina is PaginaInicial
                 || pagina is PaginaLogin
                 || pagina is PaginaSignup
             )
             {
+                DropdownUsuarioMenu.Visible = false;
+                DropdownUsuarioMenu.Enabled = false;
                 PanelAppHeader.Visible = false;
             }
             else
             {
+                DropdownUsuarioMenu.Visible = true;
+                DropdownUsuarioMenu.Enabled = true;
                 PanelAppHeader.Visible = true;
             }
 
@@ -54,6 +87,7 @@ namespace SenacQuizApp.Telas
 
             pagina.Dock = DockStyle.Fill;
             PanelAppBody.Controls.Add(pagina);
+            PanelAppBody.ResumeLayout();
         }
 
         public void AbrirPaginaInicial(object? sender, EventArgs e)
@@ -65,6 +99,8 @@ namespace SenacQuizApp.Telas
             paginaInicial.EscolheuSignup += AbrirPaginaSignup;
 
             MudarPagina(paginaInicial);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaInicial, Propriedade = null };
         }
 
         public void AbrirPaginaLogin(object? sender, EventArgs e)
@@ -75,6 +111,8 @@ namespace SenacQuizApp.Telas
             paginaLogin.ConcluiuLogin += AoConcluirLogin;
 
             MudarPagina(paginaLogin);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaLogin, Propriedade = null };
         }
 
         public void AbrirPaginaSignup(object? sender, EventArgs e)
@@ -85,51 +123,68 @@ namespace SenacQuizApp.Telas
             paginaSignup.ConcluiuSignup += AoConcluirLogin;
 
             MudarPagina(paginaSignup);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaSignup, Propriedade = null };
         }
         private void AoConcluirLogin(object? sender, EventArgs e)
         {
             AbrirPaginaPrincipal(sender, EventArgs.Empty);
+            DropdownUsuarioMenu.Text = UsuarioAtual.Username;
         }
 
         public void AbrirPaginaPrincipal(object? sender, EventArgs e)
         {
-            var paginaPrincipal = new PaginaPrincipal(_quizDiarioService);
+            var paginaPrincipal = new PaginaPrincipal(_historicoService);
 
-            ButtonHeaderRanking.Enabled = true;
-            ButtonHeaderPerfil.Enabled = true;
-
-            ButtonHeaderMenu.Enabled = false;
+            AlternarBotaoHeader(ButtonHeaderMenu);
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
             paginaPrincipal.AbrirHubQuizDiario += AbrirHubQuizDiario;
 
+            paginaPrincipal.ContinuarQuizDiario += AbrirExecutarQuizDiario;
+            paginaPrincipal.ResultadoQuizDiario += AbrirResultadoQuizDiario;
+
             MudarPagina(paginaPrincipal);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaPrincipal, Propriedade = null };
         }
 
         public void AbrirPaginaRanking(object? sender, EventArgs e)
         {
             var paginaRanking = new PaginaRanking(_rankingService);
 
-            ButtonHeaderMenu.Enabled = true;
-            ButtonHeaderPerfil.Enabled = true;
-
-            ButtonHeaderRanking.Enabled = false;
+            AlternarBotaoHeader(ButtonHeaderRanking);
 
             paginaRanking.AbrirPerfil += AbrirPaginaPerfil;
 
             MudarPagina(paginaRanking);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaRanking, Propriedade = null };
         }
 
-        public void AbrirPaginaPerfil(int usuarioId)
+
+        public void AbrirPaginaPerfil(object? sender, int usuarioId)
         {
             var paginaPerfil = new PaginaPerfil(usuarioId, _usuarioPerfilService);
 
-            ButtonHeaderMenu.Enabled = true;
-            ButtonHeaderRanking.Enabled = true;
-
-            ButtonHeaderPerfil.Enabled = false;
+            AlternarBotaoHeader(ButtonHeaderPerfil);
 
             MudarPagina(paginaPerfil);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaPerfil, Propriedade = usuarioId };
+        }
+        public void AbrirPaginaHistorico()
+        {
+            var paginaHistorico = new PaginaHistorico(_historicoService);
+
+            AlternarBotaoHeader();
+
+            paginaHistorico.ContinuarQuiz += AbrirExecutarQuizDiario;
+            paginaHistorico.VerResultado += AbrirResultadoQuizDiario;
+
+            MudarPagina(paginaHistorico);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaHistorico, Propriedade = null };
         }
 
         // ============================================================
@@ -138,9 +193,7 @@ namespace SenacQuizApp.Telas
 
         public void AbrirHubQuizDiario(object? sender, EventArgs e)
         {
-            ButtonHeaderRanking.Enabled = true;
-            ButtonHeaderMenu.Enabled = true;
-            ButtonHeaderPerfil.Enabled = true;
+            AlternarBotaoHeader();
 
             var hubQuizDiario = new HubQuizDiario(_quizDiarioService, _usuarioPerfilService);
 
@@ -149,49 +202,118 @@ namespace SenacQuizApp.Telas
             hubQuizDiario.CarregarQuiz += AbrirExecutarQuizDiario;
 
             MudarPagina(hubQuizDiario);
+
+            _paginaAtual = new PaginaAtual { Pagina = hubQuizDiario, Propriedade = null };
         }
 
         public void AbrirExecutarQuizDiario(int quizId)
         {
-            ButtonHeaderRanking.Enabled = true;
-            ButtonHeaderMenu.Enabled = true;
-            ButtonHeaderPerfil.Enabled = true;
+            AlternarBotaoHeader();
 
             var executarQuizDiario = new ExecutarQuizDiario(quizId, _quizDiarioService, _usuarioPerfilService);
 
             executarQuizDiario.VerResultado += AbrirResultadoQuizDiario;
 
             MudarPagina(executarQuizDiario);
+
+            _paginaAtual = new PaginaAtual { Pagina = executarQuizDiario, Propriedade = quizId };
         }
 
         public void AbrirResultadoQuizDiario(int quizId)
         {
-            ButtonHeaderRanking.Enabled = true;
-            ButtonHeaderMenu.Enabled = true;
-            ButtonHeaderPerfil.Enabled = true;
+            AlternarBotaoHeader();
 
             var resultadoQuizDiario = new ResultadoQuizDiario(quizId, _quizDiarioService);
 
             MudarPagina(resultadoQuizDiario);
+
+            _paginaAtual = new PaginaAtual { Pagina = resultadoQuizDiario, Propriedade = quizId };
         }
+
 
         // ============================================================
         // Botões Header
         // ============================================================
 
+        private void AlternarBotaoHeader(object? sender = null)
+        {
+            ButtonHeaderMenu.Toggle = false;
+            ButtonHeaderMenu.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+
+            ButtonHeaderRanking.Toggle = false;
+            ButtonHeaderRanking.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+
+            ButtonHeaderPerfil.Toggle = false;
+            ButtonHeaderPerfil.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+
+            if (sender is AntdUI.Button button)
+            {
+                button.DefaultBorderColor = Color.FromArgb(66, 160, 245);
+                button.Toggle = true;
+            }
+        }
+
         private void ButtonHeaderMenu_Click(object sender, EventArgs e)
         {
-            AbrirPaginaPrincipal(sender, EventArgs.Empty);
+            if (_paginaAtual?.Pagina is not PaginaPrincipal)
+            {
+                AbrirPaginaPrincipal(sender, EventArgs.Empty);
+            }
         }
 
         private void ButtonHeaderRanking_Click(object sender, EventArgs e)
         {
-            AbrirPaginaRanking(sender, EventArgs.Empty);
+            if (_paginaAtual?.Pagina is not PaginaRanking)
+            {
+                AbrirPaginaRanking(sender, EventArgs.Empty);
+            }
         }
 
         private void ButtonHeaderPerfil_Click(object sender, EventArgs e)
         {
-            AbrirPaginaPerfil(UsuarioAtual.Id);
+            if (_paginaAtual?.Pagina is not PaginaPerfil || _paginaAtual?.Propriedade != UsuarioAtual.Id)
+            {
+                AbrirPaginaPerfil(sender, UsuarioAtual.Id);
+            }
         }
+
+        private void AoDesbloquearConquista(object? sender, ConquistaDto conquista)
+        {
+            AntdUI.Notification.open(new AntdUI.Notification.Config(this)
+            {
+                Title = $"Conquista desbloqueada!",
+                Text = $"Conquista: { conquista.Nome}\nDescrição: { conquista.Descricao}",
+                Align = AntdUI.TAlignFrom.BR
+        });
+
+            //MessageBox.Show($"Conquista desbloqueada!\nConquista: {conquista.Nome}\nDescrição: {conquista.Descricao}");
+        }
+
+        private void DropdownUsuarioMenu_ItemClick(object sender, ObjectNEventArgs e)
+        {
+            if (e.Value is not MenuOpcoes opcao) return;
+
+            switch (opcao)
+            {
+                case MenuOpcoes.VerPerfil:
+                    AbrirPaginaPerfil(null, UsuarioAtual.Id);
+                    break;
+                case MenuOpcoes.VerHistorico:
+                    AbrirPaginaHistorico();
+                    break;
+                case MenuOpcoes.Configuracoes:
+
+                    break;
+                case MenuOpcoes.Sair:
+                    AbrirPaginaInicial(null, EventArgs.Empty);
+                    break;
+            }
+        }
+    }
+
+    public class PaginaAtual
+    {
+        public UserControl? Pagina { get; set; }
+        public int? Propriedade { get; set; }
     }
 }

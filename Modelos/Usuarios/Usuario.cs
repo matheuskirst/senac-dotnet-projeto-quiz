@@ -23,13 +23,14 @@ namespace SenacQuizApp.Modelos.Usuarios
 
         public string Username { get; set; } = null!;
         public string Nickname { get; set; } = null!;
-        public DateOnly? DataDeNascimento { get; set; }
+        public DateOnly DataDeNascimento { get; set; }
         public string Senha { get; set; } = null!;
-        public DateTime? DataDeCadastro { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset DataDeCadastro { get; set; } = DateTimeOffset.UtcNow;
 
         public UsuarioStats Stats { get; set; } = null!;
 
         public ICollection<UsuarioResposta> Respostas { get; set; } = new List<UsuarioResposta>();
-        public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
+        public ICollection<UsuarioAcesso> Acessos { get; set; } = new List<UsuarioAcesso>();
+        public ICollection<UsuarioConquista> Conquistas { get; set; } = new List<UsuarioConquista>();
     }
 }

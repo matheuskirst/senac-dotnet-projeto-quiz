@@ -1,28 +1,17 @@
-﻿using AntdUI;
-using SenacQuizApp.Dtos.Usuario;
+﻿using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Enums;
-using SenacQuizApp.Modelos;
 using SenacQuizApp.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas
 {
     public partial class PaginaPerfil : UserControl
     {
         private readonly int _usuarioId;
-        private readonly UsuarioPerfilService _usuarioPerfilService;
+        private readonly UsuarioService _usuarioPerfilService;
 
         public event Action<int>? AbrirConquistas;
 
-        public PaginaPerfil(int usuarioId, UsuarioPerfilService usuarioPerfilService)
+        public PaginaPerfil(int usuarioId, UsuarioService usuarioPerfilService)
         {
             _usuarioId = usuarioId;
             _usuarioPerfilService = usuarioPerfilService;
@@ -86,8 +75,8 @@ namespace SenacQuizApp.Telas
 
             ProgressUsuarioNivel.Value = (float)progressoNivel / totalNecessarioNoNivel;
 
-
             LabelProgressoPontos.Text = $"{pontosAtuais} / {pontosMaximosProximoNivel} Pontos";
+            LabelPontosProximoNivel.Text = $"{pontosMaximosProximoNivel - pontosAtuais} pontos para o próximo nível";
 
             LabelInsertPontuacaoTotal.Text = perfil.PontuacaoTotal.ToString();
             LabelInsertAcertos.Text = perfil.TotalAcertos.ToString();

@@ -15,6 +15,6 @@ namespace SenacQuizApp.Modelos.Usuarios
         public ConquistaId ConquistaId { get; set; }
         public Conquista Conquista { get; set; } = null!;
 
-        public DateTime? DataDeAquisicao { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset DataDeAquisicao { get; set; } = DateTimeOffset.UtcNow;
     }
 }

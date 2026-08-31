@@ -3,24 +3,29 @@ using SenacQuizApp.Modelos;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos.Usuarios;
 using SenacQuizApp.Modelos.Questoes;
+using SenacQuizApp.Enums;
 
 namespace SenacQuizApp.Data
 {
     public class QuizAppContexto : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<UsuarioAcesso> Acessos { get; set; }
         public DbSet<UsuarioStats> UsuarioStats { get; set; }
         public DbSet<UsuarioNivel> UsuarioNiveis { get; set; }
+        public DbSet<UsuarioResposta> UsuarioRespostas { get; set; }
+        public DbSet<UsuarioTemasProgresso> UsuarioTemasProgressos { get; set; }
+        public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
+
         public DbSet<Questao> Questoes { get; set; }
         public DbSet<QuestaoTema> QuestaoTemas { get; set; }
         public DbSet<QuestaoNivel> QuestaoNiveis { get; set; }
-        public DbSet<QuestaoTipo> QuestaoTipos { get; set; }
         public DbSet<Alternativa> Alternativas { get; set; }
-        public DbSet<UsuarioResposta> UsuarioRespostas { get; set; }
+
         public DbSet<QuizDiario> QuizzesDiarios { get; set; }
         public DbSet<QuizRush> QuizzesRush { get; set; }
+
         public DbSet<Conquista> Conquistas { get; set; }
-        public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -82,6 +87,9 @@ namespace SenacQuizApp.Data
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);
 
+                entity.Property(u => u.DataDeNascimento)
+                    .HasColumnType("date");
+
                 entity.Property(u => u.DataDeCadastro)
                     .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -96,22 +104,74 @@ namespace SenacQuizApp.Data
                     .HasMaxLength(ModelosConstantes.Usuario.MaxSenhaLength);
             });
 
+
             modelBuilder.Entity<UsuarioStats>()
                 .HasKey(s => s.UsuarioId);
+
+
+            modelBuilder.Entity<UsuarioAcesso>(entity =>
+            {
+                entity.HasKey(ua => new { ua.UsuarioId, ua.DataAcesso });
+
+                entity.Property(ua => ua.DataAcesso)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("CURRENT_DATE");
+            });
+
+
+            modelBuilder.Entity<UsuarioTemasProgresso>(entity =>
+            {
+                entity.HasKey(uc => new { uc.UsuarioId, uc.TemaId });
+            });
+
+
+            modelBuilder.Entity<UsuarioConquista>(entity =>
+            {
+                entity.HasKey(uc => new { uc.UsuarioId, uc.ConquistaId });
+
+                entity.Property(uc => uc.DataDeAquisicao)
+                    .HasColumnType("timestamptz")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            });
+
+
+            modelBuilder.Entity<UsuarioResposta>(entity =>
+            {
+                entity.HasKey(ur => new { ur.UsuarioId, ur.QuizId, ur.QuestaoId });
+                entity.ToTable("UsuarioRespostas");
+
+                entity.HasOne(ur => ur.Usuario)
+                    .WithMany(u => u.Respostas)
+                    .HasForeignKey(ur => ur.UsuarioId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ur => ur.Quiz)
+                    .WithMany(qz => qz.UsuarioRespostas)
+                    .HasForeignKey(ur => ur.QuizId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(ur => ur.Questao)
+                    .WithMany(qt => qt.UsuarioRespostas)
+                    .HasForeignKey(ur => ur.QuestaoId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.Property(ur => ur.DataDeResposta)
+                    .HasColumnType("timestamptz")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            });
+
 
             modelBuilder.Entity<QuestaoTema>()
                 .Property(tm => tm.Nome)
                 .HasMaxLength(ModelosConstantes.QuestaoTema.MaxNomeLength);
 
 
+            modelBuilder.HasPostgresEnum<QuestaoTipo>(name: "Tipo");
+
+
             modelBuilder.Entity<QuestaoNivel>()
                 .Property(n => n.Nome)
                 .HasMaxLength(ModelosConstantes.QuestaoNivel.MaxNomeLength);
-
-
-            modelBuilder.Entity<QuestaoTipo>()
-                .Property(tp => tp.Nome)
-                .HasMaxLength(ModelosConstantes.QuestaoTipo.MaxNomeLength);
 
 
             modelBuilder.Entity<Questao>(entity =>
@@ -128,11 +188,8 @@ namespace SenacQuizApp.Data
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(q => q.Tipo)
-                    .WithMany(tp => tp.Questoes)
-                    .HasForeignKey(q => q.TipoId)
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.Restrict);
+                entity.Property(q => q.Tipo)
+                    .HasConversion<string>();
 
                 entity.HasMany(q => q.Alternativas)
                     .WithOne(a => a.Questao)
@@ -164,38 +221,16 @@ namespace SenacQuizApp.Data
                     .WithMany(qt => qt.Quizzes)
                     .UsingEntity(qq => qq.ToTable("QuizQuestoes"));
 
-                entity.Property(q => q.DataInicio)
+                entity.Property(q => q.DataExibido)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("CURRENT_DATE");
+
+                entity.Property(q => q.DataIniciado)
                     .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.Property(q => q.DataConcluido)
                     .HasColumnType("timestamptz");
-            });
-
-
-            modelBuilder.Entity<UsuarioResposta>(entity =>
-            {
-                entity.HasKey(ur => new { ur.UsuarioId, ur.QuizId, ur.QuestaoId });
-                entity.ToTable("UsuarioRespostas");
-
-                entity.HasOne(ur => ur.Usuario)
-                    .WithMany(u => u.Respostas)
-                    .HasForeignKey(ur => ur.UsuarioId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(ur => ur.Quiz)
-                    .WithMany(qz => qz.UsuarioRespostas)
-                    .HasForeignKey(ur => ur.QuizId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(ur => ur.Questao)
-                    .WithMany(qt => qt.UsuarioRespostas)
-                    .HasForeignKey(ur => ur.QuestaoId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                entity.Property(ur => ur.DataDeResposta)
-                    .HasColumnType("timestamptz")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
 
 
@@ -209,14 +244,6 @@ namespace SenacQuizApp.Data
             });
 
 
-            modelBuilder.Entity<UsuarioConquista>(entity =>
-            {
-                entity.HasKey(uc => new { uc.UsuarioId, uc.ConquistaId });
-
-                entity.Property(uc => uc.DataDeAquisicao)
-                    .HasColumnType("timestamptz")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            });
         }
     }
 }

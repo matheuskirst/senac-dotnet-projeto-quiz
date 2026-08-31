@@ -38,18 +38,17 @@
             LabelDataInicio = new AntdUI.Label();
             LabelSubTitulo = new AntdUI.Label();
             PanelQuizResultados = new AntdUI.Panel();
-            CollapsePanel = new AntdUI.Panel();
-            CollapseQuestoes = new AntdUI.Collapse();
+            PanelCollapse = new AntdUI.Panel();
             button1 = new AntdUI.Button();
             button2 = new AntdUI.Button();
             PanelQuizConclusao.SuspendLayout();
             PanelQuizResultados.SuspendLayout();
-            CollapsePanel.SuspendLayout();
             SuspendLayout();
             // 
             // LabelTitulo
             // 
-            LabelTitulo.BackColor = Color.White;
+            LabelTitulo.BackColor = Color.FromArgb(18, 18, 18);
+            LabelTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelTitulo.Dock = DockStyle.Top;
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelTitulo.Location = new Point(0, 0);
@@ -57,14 +56,12 @@
             LabelTitulo.Size = new Size(1024, 45);
             LabelTitulo.TabIndex = 0;
             LabelTitulo.Text = "Resultado do Quiz";
-            LabelTitulo.TextAlign = ContentAlignment.BottomCenter;
+            LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PanelQuizConclusao
             // 
             PanelQuizConclusao.Back = Color.Transparent;
-            PanelQuizConclusao.BackColor = Color.GhostWhite;
-            PanelQuizConclusao.BorderColor = Color.Black;
-            PanelQuizConclusao.BorderWidth = 1F;
+            PanelQuizConclusao.BackColor = Color.FromArgb(18, 18, 18);
             PanelQuizConclusao.Controls.Add(LabelPontuacaoTotal);
             PanelQuizConclusao.Controls.Add(LabelTotalAcertos);
             PanelQuizConclusao.Controls.Add(LabelTotalQuestoes);
@@ -83,93 +80,99 @@
             // LabelPontuacaoTotal
             // 
             LabelPontuacaoTotal.BackColor = Color.Transparent;
+            LabelPontuacaoTotal.ColorScheme = AntdUI.TAMode.Dark;
             LabelPontuacaoTotal.Dock = DockStyle.Top;
             LabelPontuacaoTotal.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelPontuacaoTotal.Location = new Point(11, 239);
+            LabelPontuacaoTotal.Location = new Point(10, 238);
             LabelPontuacaoTotal.Name = "LabelPontuacaoTotal";
             LabelPontuacaoTotal.Prefix = "Pontuação Total: ";
-            LabelPontuacaoTotal.Size = new Size(378, 38);
+            LabelPontuacaoTotal.Size = new Size(380, 38);
             LabelPontuacaoTotal.TabIndex = 14;
             LabelPontuacaoTotal.Text = "*";
             // 
             // LabelTotalAcertos
             // 
             LabelTotalAcertos.BackColor = Color.Transparent;
+            LabelTotalAcertos.ColorScheme = AntdUI.TAMode.Dark;
             LabelTotalAcertos.Dock = DockStyle.Top;
             LabelTotalAcertos.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelTotalAcertos.Location = new Point(11, 201);
+            LabelTotalAcertos.Location = new Point(10, 200);
             LabelTotalAcertos.Name = "LabelTotalAcertos";
             LabelTotalAcertos.Prefix = "Total Acertos ";
-            LabelTotalAcertos.Size = new Size(378, 38);
+            LabelTotalAcertos.Size = new Size(380, 38);
             LabelTotalAcertos.TabIndex = 13;
             LabelTotalAcertos.Text = "*";
             // 
             // LabelTotalQuestoes
             // 
             LabelTotalQuestoes.BackColor = Color.Transparent;
+            LabelTotalQuestoes.ColorScheme = AntdUI.TAMode.Dark;
             LabelTotalQuestoes.Dock = DockStyle.Top;
             LabelTotalQuestoes.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelTotalQuestoes.Location = new Point(11, 163);
+            LabelTotalQuestoes.Location = new Point(10, 162);
             LabelTotalQuestoes.Name = "LabelTotalQuestoes";
             LabelTotalQuestoes.Prefix = "Total Questões: ";
-            LabelTotalQuestoes.Size = new Size(378, 38);
+            LabelTotalQuestoes.Size = new Size(380, 38);
             LabelTotalQuestoes.TabIndex = 12;
             LabelTotalQuestoes.Text = "*";
             // 
             // LabelTempoDeConclusao
             // 
             LabelTempoDeConclusao.BackColor = Color.Transparent;
+            LabelTempoDeConclusao.ColorScheme = AntdUI.TAMode.Dark;
             LabelTempoDeConclusao.Dock = DockStyle.Top;
             LabelTempoDeConclusao.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelTempoDeConclusao.Location = new Point(11, 125);
+            LabelTempoDeConclusao.Location = new Point(10, 124);
             LabelTempoDeConclusao.Name = "LabelTempoDeConclusao";
             LabelTempoDeConclusao.Prefix = "Tempo de Conclusão: ";
-            LabelTempoDeConclusao.Size = new Size(378, 38);
+            LabelTempoDeConclusao.Size = new Size(380, 38);
             LabelTempoDeConclusao.TabIndex = 11;
             LabelTempoDeConclusao.Text = "*";
             // 
             // LabelDataConcluido
             // 
             LabelDataConcluido.BackColor = Color.Transparent;
+            LabelDataConcluido.ColorScheme = AntdUI.TAMode.Dark;
             LabelDataConcluido.Dock = DockStyle.Top;
             LabelDataConcluido.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelDataConcluido.Location = new Point(11, 87);
+            LabelDataConcluido.Location = new Point(10, 86);
             LabelDataConcluido.Name = "LabelDataConcluido";
             LabelDataConcluido.Prefix = "Data Concluido: ";
-            LabelDataConcluido.Size = new Size(378, 38);
+            LabelDataConcluido.Size = new Size(380, 38);
             LabelDataConcluido.TabIndex = 10;
             LabelDataConcluido.Text = "*";
             // 
             // LabelDataInicio
             // 
             LabelDataInicio.BackColor = Color.Transparent;
+            LabelDataInicio.ColorScheme = AntdUI.TAMode.Dark;
             LabelDataInicio.Dock = DockStyle.Top;
             LabelDataInicio.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelDataInicio.Location = new Point(11, 49);
+            LabelDataInicio.Location = new Point(10, 48);
             LabelDataInicio.Name = "LabelDataInicio";
             LabelDataInicio.Prefix = "Data Iniciado: ";
-            LabelDataInicio.Size = new Size(378, 38);
+            LabelDataInicio.Size = new Size(380, 38);
             LabelDataInicio.TabIndex = 8;
             LabelDataInicio.Text = "*";
             // 
             // LabelSubTitulo
             // 
             LabelSubTitulo.BackColor = Color.Transparent;
+            LabelSubTitulo.ColorScheme = AntdUI.TAMode.Dark;
             LabelSubTitulo.Dock = DockStyle.Top;
             LabelSubTitulo.Font = new Font("Segoe UI", 14.25F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            LabelSubTitulo.Location = new Point(11, 11);
+            LabelSubTitulo.Location = new Point(10, 10);
             LabelSubTitulo.Name = "LabelSubTitulo";
             LabelSubTitulo.Prefix = "";
-            LabelSubTitulo.Size = new Size(378, 38);
+            LabelSubTitulo.Size = new Size(380, 38);
             LabelSubTitulo.TabIndex = 15;
             LabelSubTitulo.Text = "Estátisticas";
             LabelSubTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PanelQuizResultados
             // 
-            PanelQuizResultados.Back = Color.Transparent;
-            PanelQuizResultados.BackColor = Color.White;
-            PanelQuizResultados.Controls.Add(CollapsePanel);
+            PanelQuizResultados.Back = Color.FromArgb(50, 50, 50);
+            PanelQuizResultados.Controls.Add(PanelCollapse);
             PanelQuizResultados.Dock = DockStyle.Fill;
             PanelQuizResultados.Location = new Point(400, 45);
             PanelQuizResultados.Name = "PanelQuizResultados";
@@ -178,28 +181,17 @@
             PanelQuizResultados.TabIndex = 2;
             PanelQuizResultados.Text = "panel1";
             // 
-            // CollapsePanel
+            // PanelCollapse
             // 
-            CollapsePanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            CollapsePanel.AutoScroll = true;
-            CollapsePanel.Back = Color.Transparent;
-            CollapsePanel.BackColor = Color.WhiteSmoke;
-            CollapsePanel.Controls.Add(CollapseQuestoes);
-            CollapsePanel.Location = new Point(95, 49);
-            CollapsePanel.Name = "CollapsePanel";
-            CollapsePanel.Size = new Size(439, 589);
-            CollapsePanel.TabIndex = 0;
-            CollapsePanel.Text = "panel1";
-            // 
-            // CollapseQuestoes
-            // 
-            CollapseQuestoes.Dock = DockStyle.Fill;
-            CollapseQuestoes.Location = new Point(0, 0);
-            CollapseQuestoes.Name = "CollapseQuestoes";
-            CollapseQuestoes.ResizingLineThickness = 2F;
-            CollapseQuestoes.Size = new Size(439, 589);
-            CollapseQuestoes.TabIndex = 4;
-            CollapseQuestoes.Text = "collapse1";
+            PanelCollapse.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            PanelCollapse.AutoScroll = true;
+            PanelCollapse.Back = Color.FromArgb(33, 33, 33);
+            PanelCollapse.Location = new Point(103, 48);
+            PanelCollapse.Name = "PanelCollapse";
+            PanelCollapse.Radius = 0;
+            PanelCollapse.Size = new Size(440, 580);
+            PanelCollapse.TabIndex = 0;
+            PanelCollapse.Text = "panel1";
             // 
             // button1
             // 
@@ -221,6 +213,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(58, 64, 70);
             Controls.Add(PanelQuizResultados);
             Controls.Add(PanelQuizConclusao);
             Controls.Add(LabelTitulo);
@@ -229,7 +222,6 @@
             Load += PainelResultado_Load;
             PanelQuizConclusao.ResumeLayout(false);
             PanelQuizResultados.ResumeLayout(false);
-            CollapsePanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -246,7 +238,6 @@
         private AntdUI.Panel PanelQuizResultados;
         private AntdUI.Button button1;
         private AntdUI.Button button2;
-        private AntdUI.Panel CollapsePanel;
-        private AntdUI.Collapse CollapseQuestoes;
+        private AntdUI.Panel PanelCollapse;
     }
 }

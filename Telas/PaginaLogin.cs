@@ -1,8 +1,7 @@
 ﻿using AntdUI;
-using SenacQuizApp.Enums;
+using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Utils;
-using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Telas
 {
@@ -38,12 +37,12 @@ namespace SenacQuizApp.Telas
             if (InputLoginSenha.UseSystemPasswordChar == false)
             {
                 InputLoginSenha.UseSystemPasswordChar = true;
-                InputLoginSenha.SuffixText = "Mostrar";
+                InputLoginSenha.SuffixSvg = SvgIcons.EyeCrossedIcon;
             }
             else
             {
                 InputLoginSenha.UseSystemPasswordChar = false;
-                InputLoginSenha.SuffixText = "Esconder";
+                InputLoginSenha.SuffixSvg = SvgIcons.EyeIcon;
             }
         }
 
@@ -55,12 +54,7 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private void ButtonLoginEntrar_Click(object sender, EventArgs e)
-        {
-            ValidarLogin();
-        }
-
-        private async void ValidarLogin()
+        private async void ButtonLoginEntrar_Click(object sender, EventArgs e)
         {
             LimparBordas();
             StackPanelLoginErro.Visible = false;
@@ -90,11 +84,11 @@ namespace SenacQuizApp.Telas
 
             if (string.IsNullOrWhiteSpace(username))
             {
-                PintarErros.ErroNoCampo(InputLoginUsername, mensagem:"Por favor preencha o campo.");
+                PintarErros.ErroNoCampo(InputLoginUsername, mensagem: "Por favor preencha o campo.");
             }
             else if (username.Length < 3 || username.Length > 32)
             {
-                PintarErros.ErroNoCampo(InputLoginUsername, mensagem:"O Nome de Usuário deve ter entre 3 e 32 caracteres.");
+                PintarErros.ErroNoCampo(InputLoginUsername, mensagem: "O Nome de Usuário deve ter entre 3 e 32 caracteres.");
             }
             else
             {
@@ -107,7 +101,7 @@ namespace SenacQuizApp.Telas
         {
             if (string.IsNullOrWhiteSpace(senha))
             {
-                PintarErros.ErroNoCampo(InputLoginSenha, mensagem:"Por favor preencha o campo.");
+                PintarErros.ErroNoCampo(InputLoginSenha, mensagem: "Por favor preencha o campo.");
                 return false;
             }
             else
@@ -167,6 +161,14 @@ namespace SenacQuizApp.Telas
             {
                 ErroDeConexao();
             }
+        }
+
+        private void PaginaLogin_Resize(object sender, EventArgs e)
+        {
+            int x = Math.Max(0, (this.ClientSize.Width - StackPanelLogin.Width) / 2);
+            int y = Math.Max(0, (this.ClientSize.Height - StackPanelLogin.Height) / 2);
+
+            StackPanelLogin.Location = new Point(x, y);
         }
     }
 }

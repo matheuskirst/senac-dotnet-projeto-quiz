@@ -1,4 +1,5 @@
 ﻿using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos.Questoes;
 using SenacQuizApp.Modelos.Usuarios;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,10 @@ namespace SenacQuizApp.Modelos
 
         public string Nome { get; set; } = null!;
         public string Descricao { get; set; } = null!;
+        public ConquistaTipo Tipo { get; set; }
+        public int? Meta { get; set; }
+        public int? TemaId { get; set; }
+        public QuestaoTema Tema { get; set; } = null!;
 
         public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }
