@@ -80,24 +80,24 @@
             PanelAppBody.AutoScroll = true;
             PanelAppBody.BackColor = Color.FromArgb(50, 50, 50);
             PanelAppBody.Dock = DockStyle.Fill;
-            PanelAppBody.Location = new Point(0, 116);
+            PanelAppBody.Location = new Point(0, 86);
             PanelAppBody.Margin = new Padding(0);
             PanelAppBody.Name = "PanelAppBody";
-            PanelAppBody.Size = new Size(1024, 563);
+            PanelAppBody.Size = new Size(1024, 593);
             PanelAppBody.TabIndex = 4;
             // 
             // ButtonHeaderMenu
             // 
-            ButtonHeaderMenu.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderMenu.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonHeaderMenu.BorderWidth = 1F;
             ButtonHeaderMenu.ColorScheme = AntdUI.TAMode.Dark;
             ButtonHeaderMenu.DefaultBorderColor = Color.FromArgb(40, 40, 40);
             ButtonHeaderMenu.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonHeaderMenu.ForeHover = Color.White;
             ButtonHeaderMenu.Ghost = true;
-            ButtonHeaderMenu.Location = new Point(12, 34);
+            ButtonHeaderMenu.Location = new Point(12, 4);
             ButtonHeaderMenu.Name = "ButtonHeaderMenu";
-            ButtonHeaderMenu.Size = new Size(120, 43);
+            ButtonHeaderMenu.Size = new Size(120, 45);
             ButtonHeaderMenu.TabIndex = 1;
             ButtonHeaderMenu.Text = "Menu";
             ButtonHeaderMenu.ToggleFore = Color.FromArgb(66, 160, 245);
@@ -105,16 +105,16 @@
             // 
             // ButtonHeaderRanking
             // 
-            ButtonHeaderRanking.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderRanking.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonHeaderRanking.BorderWidth = 1F;
             ButtonHeaderRanking.ColorScheme = AntdUI.TAMode.Dark;
             ButtonHeaderRanking.DefaultBorderColor = Color.FromArgb(40, 40, 40);
             ButtonHeaderRanking.Font = new Font("Segoe UI", 14.25F);
             ButtonHeaderRanking.ForeHover = Color.White;
             ButtonHeaderRanking.Ghost = true;
-            ButtonHeaderRanking.Location = new Point(138, 34);
+            ButtonHeaderRanking.Location = new Point(138, 4);
             ButtonHeaderRanking.Name = "ButtonHeaderRanking";
-            ButtonHeaderRanking.Size = new Size(120, 43);
+            ButtonHeaderRanking.Size = new Size(120, 45);
             ButtonHeaderRanking.TabIndex = 7;
             ButtonHeaderRanking.Text = "Ranking";
             ButtonHeaderRanking.ToggleFore = Color.FromArgb(66, 160, 245);
@@ -130,22 +130,22 @@
             PanelAppHeader.Location = new Point(0, 35);
             PanelAppHeader.Name = "PanelAppHeader";
             PanelAppHeader.Radius = 0;
-            PanelAppHeader.Size = new Size(1024, 80);
+            PanelAppHeader.Size = new Size(1024, 50);
             PanelAppHeader.TabIndex = 9;
             PanelAppHeader.Text = "panel1";
             // 
             // ButtonHeaderPerfil
             // 
-            ButtonHeaderPerfil.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderPerfil.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonHeaderPerfil.BorderWidth = 1F;
             ButtonHeaderPerfil.ColorScheme = AntdUI.TAMode.Dark;
             ButtonHeaderPerfil.DefaultBorderColor = Color.FromArgb(40, 40, 40);
             ButtonHeaderPerfil.Font = new Font("Segoe UI", 14.25F);
             ButtonHeaderPerfil.ForeHover = Color.White;
             ButtonHeaderPerfil.Ghost = true;
-            ButtonHeaderPerfil.Location = new Point(264, 34);
+            ButtonHeaderPerfil.Location = new Point(264, 4);
             ButtonHeaderPerfil.Name = "ButtonHeaderPerfil";
-            ButtonHeaderPerfil.Size = new Size(120, 43);
+            ButtonHeaderPerfil.Size = new Size(120, 45);
             ButtonHeaderPerfil.TabIndex = 9;
             ButtonHeaderPerfil.Text = "Perfil";
             ButtonHeaderPerfil.ToggleFore = Color.FromArgb(66, 160, 245);
@@ -167,7 +167,7 @@
             PanelHeaderDivider.Back = Color.Black;
             PanelHeaderDivider.BackColor = SystemColors.ControlDarkDark;
             PanelHeaderDivider.Dock = DockStyle.Top;
-            PanelHeaderDivider.Location = new Point(0, 115);
+            PanelHeaderDivider.Location = new Point(0, 85);
             PanelHeaderDivider.Name = "PanelHeaderDivider";
             PanelHeaderDivider.Size = new Size(1024, 1);
             PanelHeaderDivider.TabIndex = 0;
