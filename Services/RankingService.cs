@@ -1,21 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
 using SenacQuizApp.Dtos.Usuario;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Services
 {
     public class RankingService
     {
-        public async Task<List<UsuarioRankDto>> ObterUsuariosRank()
+        public async Task<List<UsuarioRankDto>> ObterUsuariosRank(string? nickname=null)
         {
             using var contexto = new QuizAppContexto();
 
-            return await contexto.Usuarios
+            IQueryable<Usuario> query = contexto.Usuarios;
+
+            if (nickname != null)
+            {
+                query = query.Where(ur => ur.Nickname.ToLower().StartsWith(nickname.ToLower()));
+            }
+
+            return await query
                 .Select(usuario => new UsuarioRankDto
                 {
                     Id = usuario.Id,

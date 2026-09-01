@@ -122,7 +122,7 @@ namespace SenacQuizApp.Telas
                 {
                     new AntdUI.Column(nameof(QuizDiarioHistorico.Tipo), "Tipo") { SortOrder = true },
                     new AntdUI.Column(nameof(QuizDiarioHistorico.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
-                    new AntdUI.Column(nameof(QuizDiarioHistorico.Concluido), "Concluído"),
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.ConcluidoDisplay), "Concluído"),
                     new AntdUI.Column(nameof(QuizDiarioHistorico.DataConcluido), "Data Concluído") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
                     new AntdUI.Column(nameof(QuizDiarioHistorico.TempoDeConclusao), "Tempo para concluir") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
                     new AntdUI.Column(nameof(QuizDiarioHistorico.TotalQuestoes), "Total Questões"),

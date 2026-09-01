@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="input1.PrefixSvg" xml:space="preserve">
+  <data name="InputBuscarUsuario.PrefixSvg" xml:space="preserve">
     <value>&lt;svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"&gt;&lt;path d="M23.707,22.293l-5.969-5.969a10.016,10.016,0,1,0-1.414,1.414l5.969,5.969a1,1,0,0,0,1.414-1.414ZM10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18Z"/&gt;&lt;/svg&gt;</value>
+  </data>
+  <data name="InputBuscarUsuario.SuffixSvg" xml:space="preserve">
+    <value>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"&gt;
+  &lt;path d="M301.26 256.01L502.65 54.65c12.5-12.5 12.5-32.77 0-45.27-12.5-12.5-32.77-12.5-45.27 0L256.01 210.76 54.65 9.38c-12.5-12.5-32.77-12.5-45.27 0s-12.5 32.77 0 45.27L210.76 256.01 9.38 457.38c-12.5 12.5-12.5 32.77 0 45.27 12.5 12.5 32.77 12.5 45.27 0L256.01 301.26l201.37 201.39c12.5 12.5 32.77 12.5 45.27 0 12.5-12.5 12.5-32.77 0-45.27L301.26 256.01z"/&gt;
+&lt;/svg&gt;
+</value>
   </data>
 </root>

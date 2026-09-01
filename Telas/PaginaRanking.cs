@@ -34,14 +34,14 @@ namespace SenacQuizApp.Telas
             await AtualizarTabelaRanks();
         }
 
-        private async Task AtualizarTabelaRanks()
+        private async Task AtualizarTabelaRanks(string? nickname = null)
         {
             TableUsuariosRank.PauseLayout = true;
             try
             {
                 TableUsuariosRank.DataSource = false;
 
-                List<UsuarioRankDto> usuarios = await _rankingService.ObterUsuariosRank();
+                List<UsuarioRankDto> usuarios = await _rankingService.ObterUsuariosRank(nickname);
                 if (usuarios == null) return;
 
                 TableUsuariosRank.DataSource = usuarios;
@@ -93,6 +93,36 @@ namespace SenacQuizApp.Telas
             if (e.Button == MouseButtons.Right || e.Record is not UsuarioRankDto usuario) return;
 
             AbrirPerfil?.Invoke(this, usuario.Id);
+        }
+
+        private async Task BuscarUsuario()
+        {
+            string? nickname = InputBuscarUsuario.Text;
+
+            if (string.IsNullOrWhiteSpace(nickname))
+            {
+                nickname = null;
+            }
+
+            await AtualizarTabelaRanks(nickname);
+        }
+
+        private async void ButtonBuscarUsuario_Click(object sender, EventArgs e)
+        {
+            await BuscarUsuario();
+        }
+
+        private async void InputBuscarUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                await BuscarUsuario();
+            }
+        }
+
+        private void InputBuscarUsuario_SuffixClick(object sender, MouseEventArgs e)
+        {
+            InputBuscarUsuario.Text = "";
         }
     }
 }

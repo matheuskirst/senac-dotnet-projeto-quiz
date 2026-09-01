@@ -32,7 +32,8 @@
             PanelRanking = new AntdUI.Panel();
             TableUsuariosRank = new AntdUI.Table();
             panel1 = new AntdUI.Panel();
-            input1 = new AntdUI.Input();
+            ButtonBuscarUsuario = new AntdUI.Button();
+            InputBuscarUsuario = new AntdUI.Input();
             LabelTitulo = new AntdUI.Label();
             PanelRanking.SuspendLayout();
             panel1.SuspendLayout();
@@ -75,7 +76,8 @@
             // panel1
             // 
             panel1.Back = Color.FromArgb(33, 33, 33);
-            panel1.Controls.Add(input1);
+            panel1.Controls.Add(ButtonBuscarUsuario);
+            panel1.Controls.Add(InputBuscarUsuario);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(1, 1);
             panel1.Name = "panel1";
@@ -84,19 +86,36 @@
             panel1.TabIndex = 4;
             panel1.Text = "panel1";
             // 
-            // input1
+            // ButtonBuscarUsuario
             // 
-            input1.BackColor = Color.FromArgb(66, 66, 66);
-            input1.ColorScheme = AntdUI.TAMode.Dark;
-            input1.Dock = DockStyle.Left;
-            input1.Location = new Point(0, 0);
-            input1.Name = "input1";
-            input1.PlaceholderText = "Buscar...";
-            input1.PrefixFore = Color.White;
-            input1.PrefixSvg = resources.GetString("input1.PrefixSvg");
-            input1.Size = new Size(149, 35);
-            input1.SuffixSvg = "";
-            input1.TabIndex = 0;
+            ButtonBuscarUsuario.BorderWidth = 2F;
+            ButtonBuscarUsuario.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonBuscarUsuario.Dock = DockStyle.Left;
+            ButtonBuscarUsuario.Ghost = true;
+            ButtonBuscarUsuario.Location = new Point(200, 0);
+            ButtonBuscarUsuario.Margin = new Padding(6);
+            ButtonBuscarUsuario.Name = "ButtonBuscarUsuario";
+            ButtonBuscarUsuario.Radius = 2;
+            ButtonBuscarUsuario.Size = new Size(75, 35);
+            ButtonBuscarUsuario.TabIndex = 8;
+            ButtonBuscarUsuario.Text = "Buscar";
+            ButtonBuscarUsuario.Click += ButtonBuscarUsuario_Click;
+            // 
+            // InputBuscarUsuario
+            // 
+            InputBuscarUsuario.BackColor = Color.FromArgb(66, 66, 66);
+            InputBuscarUsuario.ColorScheme = AntdUI.TAMode.Dark;
+            InputBuscarUsuario.Dock = DockStyle.Left;
+            InputBuscarUsuario.Location = new Point(0, 0);
+            InputBuscarUsuario.Name = "InputBuscarUsuario";
+            InputBuscarUsuario.PlaceholderText = "Buscar...";
+            InputBuscarUsuario.PrefixFore = Color.White;
+            InputBuscarUsuario.PrefixSvg = resources.GetString("InputBuscarUsuario.PrefixSvg");
+            InputBuscarUsuario.Size = new Size(200, 35);
+            InputBuscarUsuario.SuffixSvg = resources.GetString("InputBuscarUsuario.SuffixSvg");
+            InputBuscarUsuario.TabIndex = 0;
+            InputBuscarUsuario.SuffixClick += InputBuscarUsuario_SuffixClick;
+            InputBuscarUsuario.KeyDown += InputBuscarUsuario_KeyDown;
             // 
             // LabelTitulo
             // 
@@ -132,6 +151,7 @@
         private AntdUI.Table TableUsuariosRank;
         private AntdUI.Label LabelTitulo;
         private AntdUI.Panel panel1;
-        private AntdUI.Input input1;
+        private AntdUI.Input InputBuscarUsuario;
+        private AntdUI.Button ButtonBuscarUsuario;
     }
 }
