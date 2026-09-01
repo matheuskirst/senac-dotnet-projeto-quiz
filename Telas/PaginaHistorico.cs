@@ -17,8 +17,6 @@ namespace SenacQuizApp.Telas
         private AntdUI.ContextMenuStripItem _copiarItem;
         private AntdUI.IContextMenuStripItem[] _menuItems;
 
-        private TabelaHistoricoTodos _tabelaTodos = new();
-
         public PaginaHistorico(HistoricoService historicoService)
         {
             _historicoService = historicoService;
@@ -44,13 +42,6 @@ namespace SenacQuizApp.Telas
                 _copiarItem
             ];
 
-            _tabelaTodos.CellClick += (sender, e) =>
-            {
-                if (e.Button != MouseButtons.Right || e.Record is not QuizResumo quiz) return;
-
-                MostrarMenuTodos(quiz);
-            };
-
             InitializeComponent();
         }
 
@@ -61,6 +52,9 @@ namespace SenacQuizApp.Telas
 
         private void InserirTabela(AntdUI.Table tabela)
         {
+            DatePickerRangeQuiz.Clear();
+            CheckboxQuizFinalizado.Checked = false;
+
             PanelInserirHistorico.SuspendLayout();
             try
             {
@@ -85,17 +79,32 @@ namespace SenacQuizApp.Telas
         {
             try
             {
-                List<QuizResumo> quizzes = await _historicoService.ObterTodos();
+                TableHistorico.PauseLayout = true;
 
+                List<QuizResumo> quizzes = await _historicoService.ObterTodos();
                 if (quizzes == null) return;
 
-                _tabelaTodos.DataSource = quizzes;
+                TableHistorico.Columns = new AntdUI.ColumnCollection
+                {
+                    new AntdUI.Column(nameof(QuizResumo.Tipo), "Tipo") { SortOrder = true },
+                    new AntdUI.Column(nameof(QuizResumo.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                    new AntdUI.Column(nameof(QuizResumo.FinalizadoDisplay), "Finalizado ") { SortOrder = true },
+                    new AntdUI.Column(nameof(QuizResumo.DataFinalizado), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                    new AntdUI.Column(nameof(QuizResumo.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
+                    new AntdUI.Column(nameof(QuizResumo.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
+                };
 
-                InserirTabela(_tabelaTodos);
+
+                TableHistorico.DataSource = null;
+                TableHistorico.DataSource = quizzes;
             }
             catch
             {
 
+            }
+            finally
+            {
+                TableHistorico.PauseLayout = false;
             }
         }
         private async Task CarregarTabelaDiario()
@@ -173,6 +182,13 @@ namespace SenacQuizApp.Telas
                 },
                 _menuItems
             );
+        }
+
+        private void TableHistorico_CellClick(object sender, TableClickEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right || e.Record is not QuizResumo quiz) return;
+
+            MostrarMenuTodos(quiz);
         }
     }
 }

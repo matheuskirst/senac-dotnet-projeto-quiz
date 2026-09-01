@@ -4,6 +4,7 @@ using SenacQuizApp.Services;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Telas.Componentes;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace SenacQuizApp.Telas
 {
@@ -20,43 +21,21 @@ namespace SenacQuizApp.Telas
         public event Action<int>? ResultadoQuizDiario;
         public event Action<int>? AbrirQuizRush;
 
-        private TabelaHistoricoTodos _tabelaHistorico = new();
-
         public PaginaPrincipal(HistoricoService historicoService)
         {
             _historicoService = historicoService;
 
-            ConfigurarTabelaPreview();
-
             InitializeComponent();
-
-            PanelResumoQuizzes.Controls.Add(_tabelaHistorico);
-            _tabelaHistorico.BringToFront();
         }
 
         private async void PaginaPrincipal_Load(object sender, EventArgs e)
         {
-            await AtualizarPreviewResumos();
+            await AtualizarTabelaResumos();
         }
 
-        private void ConfigurarTabelaPreview()
+        private async Task AtualizarTabelaResumos()
         {
-            _tabelaHistorico.Dock = DockStyle.Fill;
-            _tabelaHistorico.ColorScheme = TAMode.Dark;
-            _tabelaHistorico.AutoSizeColumnsMode = ColumnsMode.Fill;
-            _tabelaHistorico.ColumnDragSort = true;
-            _tabelaHistorico.EnableHeaderResizing = true;
-
-            _tabelaHistorico.CellClick += (sender, e) =>
-            {
-                if (e.Button != MouseButtons.Right || e.Record is not QuizResumo quiz) return;
-
-                MostrarMenuQuizzes(quiz);
-            };
-        }
-
-        private async Task AtualizarPreviewResumos()
-        {
+            CarregarColunasTabelaResumo();
             try
             {
                 List<QuizResumo> quizzes = await _historicoService.ObterResumoRecentes();
@@ -64,19 +43,32 @@ namespace SenacQuizApp.Telas
 
                 try
                 {
-                    _tabelaHistorico.PauseLayout = true;
-                    _tabelaHistorico.DataSource = null;
-                    _tabelaHistorico.DataSource = quizzes;
+                    TableResumo.PauseLayout = true;
+                    TableResumo.DataSource = null;
+                    TableResumo.DataSource = quizzes;
                 }
                 finally
                 {
-                    _tabelaHistorico.PauseLayout = false;
+                    TableResumo.PauseLayout = false;
                 }
             }
             catch
             {
 
             }
+        }
+
+        private void CarregarColunasTabelaResumo()
+        {
+            TableResumo.Columns = new AntdUI.ColumnCollection
+            {
+                new AntdUI.Column(nameof(QuizResumo.Tipo), "Tipo") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizResumo.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                new AntdUI.Column(nameof(QuizResumo.FinalizadoDisplay), "Finalizado ") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizResumo.DataFinalizado), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                new AntdUI.Column(nameof(QuizResumo.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
+                new AntdUI.Column(nameof(QuizResumo.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
+            };
         }
 
         private void ButtonPrincipalSair_Click(object sender, EventArgs e)
@@ -95,13 +87,13 @@ namespace SenacQuizApp.Telas
             var resultadoItem = new AntdUI.ContextMenuStripItem("Ver Resultado") { Tag = "Resultado" };
             var copiarItem = new AntdUI.ContextMenuStripItem("Copiar dados") { Tag = "Copiar" };
 
-            if (quiz.TipoId == QuizTipo.Diario && quiz.DataFinalizado != null)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.Finalizado == true)
             {
                 continuarItem.Enabled = false;
                 resultadoItem.Enabled = true;
             }
 
-            if (quiz.TipoId == QuizTipo.Diario && quiz.DataFinalizado == null)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.Finalizado == false)
             {
                 continuarItem.Enabled = true;
                 resultadoItem.Enabled = false;
@@ -144,6 +136,13 @@ namespace SenacQuizApp.Telas
             };
 
             menuStrip.open();
+        }
+
+        private void TableResumo_CellClick(object sender, TableClickEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right || e.Record is not QuizResumo quiz) return;
+
+            MostrarMenuQuizzes(quiz);
         }
     }
 }

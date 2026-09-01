@@ -36,6 +36,7 @@
             LabelQuizzesTitulo = new AntdUI.Label();
             divider2 = new AntdUI.Divider();
             PanelResumoQuizzes = new AntdUI.Panel();
+            TableResumo = new AntdUI.Table();
             LabelResumoQuizzes = new AntdUI.Label();
             PanelQuizDiario.SuspendLayout();
             PanelResumoQuizzes.SuspendLayout();
@@ -150,12 +151,30 @@
             PanelResumoQuizzes.AutoScroll = true;
             PanelResumoQuizzes.Back = Color.FromArgb(33, 33, 33);
             PanelResumoQuizzes.ColorScheme = AntdUI.TAMode.Dark;
+            PanelResumoQuizzes.Controls.Add(TableResumo);
             PanelResumoQuizzes.Controls.Add(LabelResumoQuizzes);
             PanelResumoQuizzes.Location = new Point(84, 80);
             PanelResumoQuizzes.Name = "PanelResumoQuizzes";
             PanelResumoQuizzes.Size = new Size(850, 560);
             PanelResumoQuizzes.TabIndex = 1;
             PanelResumoQuizzes.Text = "panel2";
+            // 
+            // TableResumo
+            // 
+            TableResumo.AutoSizeColumnsMode = AntdUI.ColumnsMode.Fill;
+            TableResumo.BackColor = Color.FromArgb(33, 33, 33);
+            TableResumo.ColorScheme = AntdUI.TAMode.Dark;
+            TableResumo.ColumnDragSort = true;
+            TableResumo.Dock = DockStyle.Fill;
+            TableResumo.EmptyText = "Nenhum quiz encontrado";
+            TableResumo.EnableHeaderResizing = true;
+            TableResumo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TableResumo.Gap = 12;
+            TableResumo.Location = new Point(0, 40);
+            TableResumo.Name = "TableResumo";
+            TableResumo.Size = new Size(850, 520);
+            TableResumo.TabIndex = 1;
+            TableResumo.CellClick += TableResumo_CellClick;
             // 
             // LabelResumoQuizzes
             // 
@@ -197,5 +216,6 @@
         private AntdUI.Label LabelQuizzesTitulo;
         private AntdUI.Divider divider2;
         private AntdUI.Label LabelResumoQuizzes;
+        private AntdUI.Table TableResumo;
     }
 }

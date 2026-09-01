@@ -284,7 +284,7 @@ namespace SenacQuizApp.Telas
                 Title = $"Conquista desbloqueada!",
                 Text = $"Conquista: { conquista.Nome}\nDescrição: { conquista.Descricao}",
                 Align = AntdUI.TAlignFrom.BR
-        });
+            });
 
             //MessageBox.Show($"Conquista desbloqueada!\nConquista: {conquista.Nome}\nDescrição: {conquista.Descricao}");
         }
