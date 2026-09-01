@@ -124,7 +124,7 @@ namespace SenacQuizApp.Telas
             // 
             LabelLoginSenha.ColorScheme = AntdUI.TAMode.Dark;
             LabelLoginSenha.Font = new Font("Segoe UI", 14.25F);
-            LabelLoginSenha.Location = new Point(3, 199);
+            LabelLoginSenha.Location = new Point(3, 178);
             LabelLoginSenha.Name = "LabelLoginSenha";
             LabelLoginSenha.Size = new Size(434, 23);
             LabelLoginSenha.TabIndex = 19;
@@ -148,7 +148,7 @@ namespace SenacQuizApp.Telas
             // 
             LabelLoginUsername.ColorScheme = AntdUI.TAMode.Dark;
             LabelLoginUsername.Font = new Font("Segoe UI", 14.25F);
-            LabelLoginUsername.Location = new Point(3, 120);
+            LabelLoginUsername.Location = new Point(3, 99);
             LabelLoginUsername.Name = "LabelLoginUsername";
             LabelLoginUsername.Size = new Size(434, 23);
             LabelLoginUsername.TabIndex = 2;
@@ -186,8 +186,7 @@ namespace SenacQuizApp.Telas
             // 
             // PaginaLogin
             // 
-            AutoScaleDimensions = new SizeF(27F, 65F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             AutoScroll = true;
             BackColor = Color.FromArgb(50, 50, 50);
             Controls.Add(StackPanelLogin);
