@@ -1,5 +1,6 @@
 ﻿using SenacQuizApp.Dtos.QuizDiario;
 using SenacQuizApp.Services;
+using SenacQuizApp.Telas.Componentes;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
@@ -20,6 +21,8 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
+
+
                 QuizDiarioResultado? resultado = await _quizDiarioService.ObterResultadoPorId(_quizId);
 
                 if (resultado == null) return;
@@ -31,29 +34,23 @@ namespace SenacQuizApp.Telas.QuizDiario
                 LabelTotalAcertos.Text = resultado.TotalAcertos.ToString();
                 LabelPontuacaoTotal.Text = resultado.PontuacaoTotal.ToString();
 
-
-                foreach (QuestaoResultado questao in resultado.Questoes)
+                for (int i = resultado.Questoes.Count - 1; i >= 0; i--)
                 {
-                    int questaoNumero = resultado.Questoes.IndexOf(questao) + 1;
-                    AntdUI.CollapseItem collapse = new AntdUI.CollapseItem
-                    {
-                        Text = $"Questão {questaoNumero}"
-                    };
+                    QuestaoResultado questao = resultado.Questoes[i];
 
-                    AntdUI.Label questaoEnunciado = new AntdUI.Label
-                    {
-                        Text = questao.Enunciado,
-                        TextMultiLine = true,
-                        AutoSize = true,
-                        Location = new Point(20, 20),
-                        ColorScheme = AntdUI.TAMode.Dark,
-                    };
+                    int questaoNumero = i + 1;
+                    string questaoEnunciado = questao.Enunciado;
 
-                    collapse.Controls.Add(questaoEnunciado);
+                    var cardQuestao = new CardQuestao(questaoNumero.ToString(), questao);
+
 
                 }
             }
             catch
+            {
+
+            }
+            finally
             {
 
             }

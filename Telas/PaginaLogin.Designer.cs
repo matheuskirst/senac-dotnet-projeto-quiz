@@ -186,8 +186,7 @@ namespace SenacQuizApp.Telas
             // 
             // PaginaLogin
             // 
-            AutoScaleDimensions = new SizeF(18F, 45F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             AutoScroll = true;
             BackColor = Color.FromArgb(50, 50, 50);
             Controls.Add(StackPanelLogin);

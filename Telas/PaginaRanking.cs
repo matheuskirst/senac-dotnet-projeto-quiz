@@ -2,13 +2,13 @@
 using System.ComponentModel;
 using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Services;
+using SenacQuizApp.Enums;
 
 namespace SenacQuizApp.Telas
 {
     public partial class PaginaRanking : UserControl
     {
         private readonly RankingService _rankingService;
-        private BindingList<UsuarioRankDto> _rankingList = [];
 
         public event EventHandler<int>? AbrirPerfil;
 
@@ -31,8 +31,6 @@ namespace SenacQuizApp.Telas
 
         private async void PaginaRanking_Load(object sender, EventArgs e)
         {
-            TableUsuariosRank.DataSource = _rankingList;
-
             await AtualizarTabelaRanks();
         }
 
@@ -41,19 +39,16 @@ namespace SenacQuizApp.Telas
             TableUsuariosRank.PauseLayout = true;
             try
             {
-                _rankingList.Clear();
+                TableUsuariosRank.DataSource = false;
 
                 List<UsuarioRankDto> usuarios = await _rankingService.ObterUsuariosRank();
-                foreach (UsuarioRankDto usuario in usuarios)
-                {
-                    _rankingList.Add(usuario);
-                }
+                if (usuarios == null) return;
 
+                TableUsuariosRank.DataSource = usuarios;
             }
             finally
             {
                 TableUsuariosRank.PauseLayout = false;
-                TableUsuariosRank.Refresh();
             }
         }
 

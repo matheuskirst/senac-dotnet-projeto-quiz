@@ -173,6 +173,7 @@ namespace SenacQuizApp.Telas
 
             _paginaAtual = new PaginaAtual { Pagina = paginaPerfil, Propriedade = usuarioId };
         }
+
         public void AbrirPaginaHistorico()
         {
             var paginaHistorico = new PaginaHistorico(_historicoService);
@@ -185,6 +186,14 @@ namespace SenacQuizApp.Telas
             MudarPagina(paginaHistorico);
 
             _paginaAtual = new PaginaAtual { Pagina = paginaHistorico, Propriedade = null };
+        }
+        public void AbrirConfiguracoes()
+        {
+            var formConfig = new PaginaConfig();
+
+            formConfig.ShowDialog();
+
+            AlternarBotaoHeader();
         }
 
         // ============================================================
@@ -284,7 +293,7 @@ namespace SenacQuizApp.Telas
                 Title = $"Conquista desbloqueada!",
                 Text = $"Conquista: { conquista.Nome}\nDescrição: { conquista.Descricao}",
                 Align = AntdUI.TAlignFrom.BR
-        });
+            });
 
             //MessageBox.Show($"Conquista desbloqueada!\nConquista: {conquista.Nome}\nDescrição: {conquista.Descricao}");
         }
@@ -302,7 +311,7 @@ namespace SenacQuizApp.Telas
                     AbrirPaginaHistorico();
                     break;
                 case MenuOpcoes.Configuracoes:
-
+                    AbrirConfiguracoes();
                     break;
                 case MenuOpcoes.Sair:
                     AbrirPaginaInicial(null, EventArgs.Empty);
