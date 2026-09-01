@@ -30,6 +30,7 @@
         {
             PanelHistorico = new AntdUI.Panel();
             PanelInserirHistorico = new AntdUI.Panel();
+            TableHistorico = new AntdUI.Table();
             PanelHistoricoFiltros = new AntdUI.Panel();
             CheckboxQuizFinalizado = new AntdUI.Checkbox();
             DatePickerRangeQuiz = new AntdUI.DatePickerRange();
@@ -37,6 +38,7 @@
             LabelTitulo = new AntdUI.Label();
             divider1 = new AntdUI.Divider();
             PanelHistorico.SuspendLayout();
+            PanelInserirHistorico.SuspendLayout();
             PanelHistoricoFiltros.SuspendLayout();
             SuspendLayout();
             // 
@@ -47,22 +49,40 @@
             PanelHistorico.Back = Color.FromArgb(33, 33, 33);
             PanelHistorico.Controls.Add(PanelInserirHistorico);
             PanelHistorico.Controls.Add(PanelHistoricoFiltros);
-            PanelHistorico.Location = new Point(240, 90);
+            PanelHistorico.Location = new Point(215, 90);
             PanelHistorico.Name = "PanelHistorico";
-            PanelHistorico.Size = new Size(800, 620);
+            PanelHistorico.Size = new Size(850, 620);
             PanelHistorico.TabIndex = 2;
             PanelHistorico.Text = "panel2";
             // 
             // PanelInserirHistorico
             // 
             PanelInserirHistorico.Back = Color.FromArgb(33, 33, 33);
+            PanelInserirHistorico.Controls.Add(TableHistorico);
             PanelInserirHistorico.Dock = DockStyle.Fill;
             PanelInserirHistorico.Location = new Point(0, 35);
             PanelInserirHistorico.Name = "PanelInserirHistorico";
             PanelInserirHistorico.Radius = 0;
-            PanelInserirHistorico.Size = new Size(800, 585);
+            PanelInserirHistorico.Size = new Size(850, 585);
             PanelInserirHistorico.TabIndex = 5;
             PanelInserirHistorico.Text = "panel1";
+            // 
+            // TableHistorico
+            // 
+            TableHistorico.AutoSizeColumnsMode = AntdUI.ColumnsMode.Fill;
+            TableHistorico.BackColor = Color.FromArgb(33, 33, 33);
+            TableHistorico.ColorScheme = AntdUI.TAMode.Dark;
+            TableHistorico.ColumnDragSort = true;
+            TableHistorico.Dock = DockStyle.Fill;
+            TableHistorico.EmptyText = "Nenhum quiz encontrado";
+            TableHistorico.EnableHeaderResizing = true;
+            TableHistorico.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TableHistorico.Gap = 12;
+            TableHistorico.Location = new Point(0, 0);
+            TableHistorico.Name = "TableHistorico";
+            TableHistorico.Size = new Size(850, 585);
+            TableHistorico.TabIndex = 0;
+            TableHistorico.CellClick += TableHistorico_CellClick;
             // 
             // PanelHistoricoFiltros
             // 
@@ -75,7 +95,7 @@
             PanelHistoricoFiltros.Location = new Point(0, 0);
             PanelHistoricoFiltros.Name = "PanelHistoricoFiltros";
             PanelHistoricoFiltros.Radius = 0;
-            PanelHistoricoFiltros.Size = new Size(800, 35);
+            PanelHistoricoFiltros.Size = new Size(850, 35);
             PanelHistoricoFiltros.TabIndex = 4;
             PanelHistoricoFiltros.Text = "panel1";
             // 
@@ -109,7 +129,7 @@
             SelectQuizTipo.ColorScheme = AntdUI.TAMode.Dark;
             SelectQuizTipo.Dock = DockStyle.Right;
             SelectQuizTipo.List = true;
-            SelectQuizTipo.Location = new Point(683, 0);
+            SelectQuizTipo.Location = new Point(733, 0);
             SelectQuizTipo.Name = "SelectQuizTipo";
             SelectQuizTipo.Size = new Size(117, 35);
             SelectQuizTipo.TabIndex = 0;
@@ -154,6 +174,7 @@
             Size = new Size(1280, 720);
             Load += PaginaHistorico_Load;
             PanelHistorico.ResumeLayout(false);
+            PanelInserirHistorico.ResumeLayout(false);
             PanelHistoricoFiltros.ResumeLayout(false);
             PanelHistoricoFiltros.PerformLayout();
             ResumeLayout(false);
@@ -169,5 +190,6 @@
         private AntdUI.DatePickerRange DatePickerRangeQuiz;
         private AntdUI.Panel PanelInserirHistorico;
         private AntdUI.Divider divider1;
+        private AntdUI.Table TableHistorico;
     }
 }

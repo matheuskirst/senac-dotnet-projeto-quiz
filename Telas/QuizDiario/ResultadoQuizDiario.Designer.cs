@@ -38,9 +38,9 @@
             LabelDataInicio = new AntdUI.Label();
             LabelSubTitulo = new AntdUI.Label();
             PanelQuizResultados = new AntdUI.Panel();
-            PanelCollapse = new AntdUI.Panel();
             button1 = new AntdUI.Button();
             button2 = new AntdUI.Button();
+            PanelQuestoes = new AntdUI.Panel();
             PanelQuizConclusao.SuspendLayout();
             PanelQuizResultados.SuspendLayout();
             SuspendLayout();
@@ -172,7 +172,7 @@
             // PanelQuizResultados
             // 
             PanelQuizResultados.Back = Color.FromArgb(50, 50, 50);
-            PanelQuizResultados.Controls.Add(PanelCollapse);
+            PanelQuizResultados.Controls.Add(PanelQuestoes);
             PanelQuizResultados.Dock = DockStyle.Fill;
             PanelQuizResultados.Location = new Point(400, 45);
             PanelQuizResultados.Name = "PanelQuizResultados";
@@ -180,18 +180,6 @@
             PanelQuizResultados.Size = new Size(624, 675);
             PanelQuizResultados.TabIndex = 2;
             PanelQuizResultados.Text = "panel1";
-            // 
-            // PanelCollapse
-            // 
-            PanelCollapse.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            PanelCollapse.AutoScroll = true;
-            PanelCollapse.Back = Color.FromArgb(33, 33, 33);
-            PanelCollapse.Location = new Point(103, 48);
-            PanelCollapse.Name = "PanelCollapse";
-            PanelCollapse.Radius = 0;
-            PanelCollapse.Size = new Size(440, 580);
-            PanelCollapse.TabIndex = 0;
-            PanelCollapse.Text = "panel1";
             // 
             // button1
             // 
@@ -208,6 +196,16 @@
             button2.Size = new Size(75, 23);
             button2.TabIndex = 1;
             button2.Text = "button2";
+            // 
+            // PanelQuestoes
+            // 
+            PanelQuestoes.Back = Color.FromArgb(33, 33, 33);
+            PanelQuestoes.Location = new Point(103, 47);
+            PanelQuestoes.Name = "PanelQuestoes";
+            PanelQuestoes.Radius = 0;
+            PanelQuestoes.Size = new Size(440, 580);
+            PanelQuestoes.TabIndex = 3;
+            PanelQuestoes.Text = "panel1";
             // 
             // ResultadoQuizDiario
             // 
@@ -238,6 +236,6 @@
         private AntdUI.Panel PanelQuizResultados;
         private AntdUI.Button button1;
         private AntdUI.Button button2;
-        private AntdUI.Panel PanelCollapse;
+        private AntdUI.Panel PanelQuestoes;
     }
 }
