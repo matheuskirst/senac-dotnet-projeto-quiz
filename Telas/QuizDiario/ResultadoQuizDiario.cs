@@ -21,7 +21,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-                FlowPanelQuestoes.PauseLayout = true;
+
 
                 QuizDiarioResultado? resultado = await _quizDiarioService.ObterResultadoPorId(_quizId);
 
@@ -43,7 +43,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
                     var cardQuestao = new CardQuestao(questaoNumero.ToString(), questao);
 
-                    FlowPanelQuestoes.Controls.Add(cardQuestao);
+
                 }
             }
             catch
@@ -52,7 +52,7 @@ namespace SenacQuizApp.Telas.QuizDiario
             }
             finally
             {
-                FlowPanelQuestoes.PauseLayout = false;
+
             }
         }
     }

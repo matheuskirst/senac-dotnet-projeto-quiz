@@ -184,26 +184,6 @@ namespace SenacQuizApp.Telas
             ButtonLoginVoltar.Text = "Voltar";
             ButtonLoginVoltar.Click += ButtonLoginVoltar_Click;
             // 
-            // TableLayoutPanelLogin
-            // 
-            TableLayoutPanelLogin.BackColor = Color.Transparent;
-            TableLayoutPanelLogin.ColumnCount = 3;
-            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.Controls.Add(ButtonLoginVoltar, 1, 2);
-            TableLayoutPanelLogin.Controls.Add(StackPanelLogin, 1, 1);
-            TableLayoutPanelLogin.Dock = DockStyle.Fill;
-            TableLayoutPanelLogin.Location = new Point(0, 0);
-            TableLayoutPanelLogin.Name = "TableLayoutPanelLogin";
-            TableLayoutPanelLogin.RowCount = 4;
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
-            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutPanelLogin.Size = new Size(1024, 720);
-            TableLayoutPanelLogin.TabIndex = 5;
-            // 
             // PaginaLogin
             // 
             AutoScaleDimensions = new SizeF(27F, 65F);
