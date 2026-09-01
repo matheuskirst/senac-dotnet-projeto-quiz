@@ -124,7 +124,7 @@ namespace SenacQuizApp.Telas
             // 
             LabelLoginSenha.ColorScheme = AntdUI.TAMode.Dark;
             LabelLoginSenha.Font = new Font("Segoe UI", 14.25F);
-            LabelLoginSenha.Location = new Point(3, 178);
+            LabelLoginSenha.Location = new Point(3, 199);
             LabelLoginSenha.Name = "LabelLoginSenha";
             LabelLoginSenha.Size = new Size(434, 23);
             LabelLoginSenha.TabIndex = 19;
@@ -148,7 +148,7 @@ namespace SenacQuizApp.Telas
             // 
             LabelLoginUsername.ColorScheme = AntdUI.TAMode.Dark;
             LabelLoginUsername.Font = new Font("Segoe UI", 14.25F);
-            LabelLoginUsername.Location = new Point(3, 99);
+            LabelLoginUsername.Location = new Point(3, 120);
             LabelLoginUsername.Name = "LabelLoginUsername";
             LabelLoginUsername.Size = new Size(434, 23);
             LabelLoginUsername.TabIndex = 2;
@@ -184,9 +184,29 @@ namespace SenacQuizApp.Telas
             ButtonLoginVoltar.Text = "Voltar";
             ButtonLoginVoltar.Click += ButtonLoginVoltar_Click;
             // 
+            // TableLayoutPanelLogin
+            // 
+            TableLayoutPanelLogin.BackColor = Color.Transparent;
+            TableLayoutPanelLogin.ColumnCount = 3;
+            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TableLayoutPanelLogin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.Controls.Add(ButtonLoginVoltar, 1, 2);
+            TableLayoutPanelLogin.Controls.Add(StackPanelLogin, 1, 1);
+            TableLayoutPanelLogin.Dock = DockStyle.Fill;
+            TableLayoutPanelLogin.Location = new Point(0, 0);
+            TableLayoutPanelLogin.Name = "TableLayoutPanelLogin";
+            TableLayoutPanelLogin.RowCount = 4;
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+            TableLayoutPanelLogin.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TableLayoutPanelLogin.Size = new Size(1024, 720);
+            TableLayoutPanelLogin.TabIndex = 5;
+            // 
             // PaginaLogin
             // 
-            AutoScaleDimensions = new SizeF(18F, 45F);
+            AutoScaleDimensions = new SizeF(27F, 65F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(50, 50, 50);

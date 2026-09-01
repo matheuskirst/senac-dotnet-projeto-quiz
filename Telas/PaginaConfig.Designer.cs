@@ -29,54 +29,81 @@
         private void InitializeComponent()
         {
             button1 = new AntdUI.Button();
-            button3 = new AntdUI.Button();
-            button4 = new AntdUI.Button();
+            btnTrocarSenha = new Button();
+            txtSenhaAtual = new TextBox();
+            txtNovSenha = new TextBox();
+            txtConfirmarSenha = new TextBox();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(12, 12);
+            button1.Location = new Point(17, 20);
+            button1.Margin = new Padding(4, 5, 4, 5);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(107, 38);
             button1.TabIndex = 0;
             button1.Text = "Conta";
             // 
-            // button3
+            // btnTrocarSenha
             // 
-            button3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button3.Location = new Point(502, 12);
-            button3.Name = "button3";
-            button3.Size = new Size(270, 68);
-            button3.TabIndex = 3;
-            button3.Text = "Trocar Usuário: (Usuário atual)";
+            btnTrocarSenha.BackColor = Color.Tomato;
+            btnTrocarSenha.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnTrocarSenha.Location = new Point(315, 244);
+            btnTrocarSenha.Name = "btnTrocarSenha";
+            btnTrocarSenha.Size = new Size(283, 52);
+            btnTrocarSenha.TabIndex = 1;
+            btnTrocarSenha.Text = "Trocar Senha";
+            btnTrocarSenha.UseVisualStyleBackColor = false;
+            btnTrocarSenha.Click += btnTrocarSenha_Click;
             // 
-            // button4
+            // txtSenhaAtual
             // 
-            button4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.Location = new Point(502, 86);
-            button4.Name = "button4";
-            button4.Size = new Size(270, 68);
-            button4.TabIndex = 4;
-            button4.Text = "Trocar Senha: (senha atual)";
+            txtSenhaAtual.Location = new Point(285, 50);
+            txtSenhaAtual.Name = "txtSenhaAtual";
+            txtSenhaAtual.PlaceholderText = "Senha Atual";
+            txtSenhaAtual.Size = new Size(375, 31);
+            txtSenhaAtual.TabIndex = 2;
+            // 
+            // txtNovSenha
+            // 
+            txtNovSenha.Location = new Point(285, 106);
+            txtNovSenha.Name = "txtNovSenha";
+            txtNovSenha.PlaceholderText = "Nova Senha";
+            txtNovSenha.Size = new Size(379, 31);
+            txtNovSenha.TabIndex = 3;
+            // 
+            // txtConfirmarSenha
+            // 
+            txtConfirmarSenha.Location = new Point(288, 169);
+            txtConfirmarSenha.Name = "txtConfirmarSenha";
+            txtConfirmarSenha.PlaceholderText = "Confirmar senha";
+            txtConfirmarSenha.Size = new Size(376, 31);
+            txtConfirmarSenha.TabIndex = 4;
             // 
             // PaginaConfig
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(784, 561);
-            Controls.Add(button4);
-            Controls.Add(button3);
+            ClientSize = new Size(1120, 935);
+            Controls.Add(txtConfirmarSenha);
+            Controls.Add(txtNovSenha);
+            Controls.Add(txtSenhaAtual);
+            Controls.Add(btnTrocarSenha);
             Controls.Add(button1);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "PaginaConfig";
             Text = "Form1";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private AntdUI.Button button1;
-        private AntdUI.Button button3;
-        private AntdUI.Button button4;
+        private Button btnTrocarSenha;
+        private TextBox txtSenhaAtual;
+        private TextBox txtNovSenha;
+        private TextBox txtConfirmarSenha;
     }
 }
