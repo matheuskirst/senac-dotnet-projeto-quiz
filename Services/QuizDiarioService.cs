@@ -298,18 +298,19 @@ namespace SenacQuizApp.Services
                         .Select(questao => new QuestaoResultado
                         {
                             Id = questao.Id,
-                            Enunciado = questao.Enunciado,
+
                             TemaId = questao.TemaId,
                             Tema = questao.Tema.Nome,
+
                             NivelId = questao.NivelId,
                             Nivel = questao.Nivel.Nome,
-                            Tipo = questao.Tipo,
-                            Pontos = questao.Nivel.Valor,
 
+                            Tipo = questao.Tipo,
+
+                            Enunciado = questao.Enunciado,
+                            Pontos = questao.Nivel.Valor,
                             Acertou = quiz.UsuarioRespostas
-                                .Where(resposta => resposta.UsuarioId == quiz.UsuarioId && resposta.QuizId == quiz.Id && resposta.QuestaoId == questao.Id)
-                                .Select(resposta => resposta.Acertou)
-                                .FirstOrDefault(),
+                                .Any(resposta => resposta.UsuarioId == quiz.UsuarioId && resposta.QuestaoId == questao.Id && resposta.Acertou),
 
                             Alternativas = questao.Alternativas
                             .Select(alternativa => new AlternativaCorreta
@@ -318,6 +319,8 @@ namespace SenacQuizApp.Services
                                 Texto = alternativa.Texto,
                                 Correta = alternativa.EhCorreta
                             }).ToList(),
+
+                            VerdadeiroFalso = questao.VerdadeiroFalso
                     }).ToList()
                 });
         }

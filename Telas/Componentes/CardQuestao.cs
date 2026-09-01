@@ -1,4 +1,4 @@
-﻿using SenacQuizApp.Dtos;
+﻿using SenacQuizApp.Enums;
 using SenacQuizApp.Dtos.QuizDiario;
 
 namespace SenacQuizApp.Telas.Componentes
@@ -9,18 +9,75 @@ namespace SenacQuizApp.Telas.Componentes
         {
             InitializeComponent();
 
-            // Habilita o buffer duplo e força o redesenho completo ao mover/rolar
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
-                          ControlStyles.AllPaintingInWmPaint |
-                          ControlStyles.ResizeRedraw, true);
-
-            // Opcional: Garante que o suporte a fundos transparentes do WinForms não quebre a rolagem
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor, false);
-
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
             this.UpdateStyles();
 
             LabelIndex.Text = questaoIndex;
             LabelEnunciado.Text = questao.Enunciado;
+
+            if (questao.Acertou)
+            {
+                LabelAcertou.Text = "Sim";
+            }
+            else
+            {
+                LabelAcertou.Text = "Não";
+            }
+
+            if (questao.Tipo == QuestaoTipo.Alternativas && questao.Alternativas != null)
+            {
+                foreach(AlternativaCorreta alternativa in questao.Alternativas)
+                {
+                    var label = new AntdUI.Label
+                    {
+                        Text = alternativa.Texto,
+                        ColorScheme = AntdUI.TAMode.Dark
+                    };
+
+                    if (alternativa.Correta)
+                    {
+                        label.ForeColor = Color.LimeGreen;
+                    }
+                    else
+                    {
+                        label.ForeColor = Color.Red;
+                    }
+
+                    label.AutoSize = true;
+                    StackPanelAlternativas.Controls.Add(label);
+                }
+            }
+            else if (questao.Tipo == QuestaoTipo.VerdadeiroOuFalso)
+            {
+                var labelV = new AntdUI.Label
+                {
+                    Text = "Verdadeiro",
+                    ColorScheme = AntdUI.TAMode.Dark
+                };
+
+                var labelF = new AntdUI.Label
+                {
+                    Text = "Falso",
+                    ColorScheme = AntdUI.TAMode.Dark
+                };
+
+                if (questao.VerdadeiroFalso == true)
+                {
+                    labelV.ForeColor = Color.LimeGreen;
+                    labelF.ForeColor = Color.Red;
+                }
+                else
+                {
+                    labelV.ForeColor = Color.Red;
+                    labelF.ForeColor = Color.LimeGreen;
+                }
+
+                labelF.AutoSize = true;
+                StackPanelAlternativas.Controls.Add(labelF);
+                labelV.AutoSize = true;
+                StackPanelAlternativas.Controls.Add(labelV);
+            }
         }
     }
 }

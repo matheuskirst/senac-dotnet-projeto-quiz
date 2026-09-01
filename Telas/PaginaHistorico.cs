@@ -1,4 +1,5 @@
 ﻿using AntdUI;
+using Microsoft.VisualBasic;
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Services;
@@ -16,6 +17,9 @@ namespace SenacQuizApp.Telas
         private AntdUI.ContextMenuStripItem _resultadoItem;
         private AntdUI.ContextMenuStripItem _copiarItem;
         private AntdUI.IContextMenuStripItem[] _menuItems;
+
+        private QuizStatus _statusAtual;
+        private QuizTipo _tipoAtual;
 
         public PaginaHistorico(HistoricoService historicoService)
         {
@@ -47,49 +51,40 @@ namespace SenacQuizApp.Telas
 
         private async void PaginaHistorico_Load(object sender, EventArgs e)
         {
+            SelectQuizTipo.Items.Add(new AntdUI.SelectItem("Todos", QuizTipo.Todos));
+            SelectQuizTipo.Items.Add(new AntdUI.SelectItem("Diário", QuizTipo.Diario));
+            SelectQuizTipo.Items.Add(new AntdUI.SelectItem("Rush", QuizTipo.Rush));
+
+            SelectQuizTipo.SelectedValue = QuizTipo.Todos;
+
+            SelectStatus.Items.Add(new AntdUI.SelectItem("Todos", QuizStatus.Todos));
+            SelectStatus.Items.Add(new AntdUI.SelectItem("Concluído", QuizStatus.Concluido));
+            SelectStatus.Items.Add(new AntdUI.SelectItem("Não concluído", QuizStatus.NaoConcluido));
+
+            SelectStatus.SelectedValue = QuizTipo.Todos;
+
             await CarregarTabelaTodos();
         }
 
-        private void InserirTabela(AntdUI.Table tabela)
-        {
-            DatePickerRangeQuiz.Clear();
-            CheckboxQuizFinalizado.Checked = false;
-
-            PanelInserirHistorico.SuspendLayout();
-            try
-            {
-                while (PanelInserirHistorico.Controls.Count > 0)
-                {
-                    var controle = PanelInserirHistorico.Controls[0];
-                    controle.Dispose();
-                }
-
-                tabela.Dock = DockStyle.Fill;
-                tabela.ColorScheme = TAMode.Dark;
-                tabela.AutoSizeColumnsMode = ColumnsMode.Fill;
-                PanelInserirHistorico.Controls.Add(tabela);
-            }
-            finally
-            {
-                PanelInserirHistorico.ResumeLayout();
-            }
-        }
-
-        private async Task CarregarTabelaTodos()
+        private async Task CarregarTabelaTodos(DateTime? minDate = null, DateTime? maxDate = null)
         {
             try
             {
+                _tipoAtual = QuizTipo.Todos;
+                LabelStatus.Visible = false;
+                SelectStatus.Visible = false;
+
                 TableHistorico.PauseLayout = true;
 
-                List<QuizResumo> quizzes = await _historicoService.ObterTodos();
+                List<QuizResumo> quizzes = await _historicoService.ObterTodos(minDate, maxDate);
                 if (quizzes == null) return;
 
                 TableHistorico.Columns = new AntdUI.ColumnCollection
                 {
                     new AntdUI.Column(nameof(QuizResumo.Tipo), "Tipo") { SortOrder = true },
                     new AntdUI.Column(nameof(QuizResumo.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
-                    new AntdUI.Column(nameof(QuizResumo.FinalizadoDisplay), "Finalizado ") { SortOrder = true },
-                    new AntdUI.Column(nameof(QuizResumo.DataFinalizado), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                    new AntdUI.Column(nameof(QuizResumo.ConcluidoDisplay), "Concluído ") { SortOrder = true },
+                    new AntdUI.Column(nameof(QuizResumo.DataConcluido), "Data Concluído ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
                     new AntdUI.Column(nameof(QuizResumo.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
                     new AntdUI.Column(nameof(QuizResumo.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
                 };
@@ -107,17 +102,37 @@ namespace SenacQuizApp.Telas
                 TableHistorico.PauseLayout = false;
             }
         }
-        private async Task CarregarTabelaDiario()
+        private async Task CarregarTabelaDiario(DateTime? minDate = null, DateTime? maxDate = null)
         {
             try
             {
-                List<QuizDiarioHistorico> quizzes = await _historicoService.ObterHistoricosDiario();
+                _tipoAtual = QuizTipo.Diario;
+                LabelStatus.Visible = true;
+                SelectStatus.Visible = true;
+
+                var status = _statusAtual;
+
+                List<QuizDiarioHistorico> quizzes = await _historicoService.ObterHistoricosDiario(status, minDate, maxDate);
 
                 if (quizzes == null) return;
 
                 var tabela = new TabelaHistoricoDiario(quizzes);
 
-                InserirTabela(tabela);
+                TableHistorico.Columns = new AntdUI.ColumnCollection
+                {
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.Tipo), "Tipo") { SortOrder = true },
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.Concluido), "Concluído"),
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.DataConcluido), "Data Concluído") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.TempoDeConclusao), "Tempo para concluir") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.TotalQuestoes), "Total Questões"),
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.TotalAcertos), "Acertos"),
+                    new AntdUI.Column(nameof(QuizDiarioHistorico.PontuacaoTotal), "Pontuação Final"),
+                };
+
+
+                TableHistorico.DataSource = null;
+                TableHistorico.DataSource = quizzes;
             }
             catch
             {
@@ -125,17 +140,33 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private async Task CarregarTabelaRush()
+        private async Task CarregarTabelaRush(DateTime? minDate = null, DateTime? maxDate = null)
         {
             try
             {
-                List<QuizRushEntrada> quizzes = await _historicoService.ObterEntradasRush();
+                _tipoAtual = QuizTipo.Rush;
+                LabelStatus.Visible = false;
+                SelectStatus.Visible = false;
+
+                List<QuizRushEntrada> quizzes = await _historicoService.ObterEntradasRush(minDate, maxDate);
 
                 if (quizzes == null) return;
 
                 var tabela = new TabelaHistoricoRush(quizzes);
 
-                InserirTabela(tabela);
+                TableHistorico.Columns = new AntdUI.ColumnCollection
+                {
+                    new AntdUI.Column(nameof(QuizRushEntrada.Tipo), "Tipo"),
+                    new AntdUI.Column(nameof(QuizRushEntrada.DataIniciado), "Data Iniciado"),
+                    new AntdUI.Column(nameof(QuizRushEntrada.DataConcluido), "Data Concluído"),
+                    new AntdUI.Column(nameof(QuizRushEntrada.Tempo), "Tempo"),
+                    new AntdUI.Column(nameof(QuizRushEntrada.Streak), "Streak"),
+                    new AntdUI.Column(nameof(QuizRushEntrada.PontuacaoTotal), "Pontuação Total")
+                };
+
+
+                TableHistorico.DataSource = null;
+                TableHistorico.DataSource = quizzes;
             }
             catch
             {
@@ -143,15 +174,20 @@ namespace SenacQuizApp.Telas
             }
         }
 
+        private void FiltrarData()
+        {
+
+        }
+
         private void MostrarMenuTodos(QuizResumo quiz)
         {
-            if (quiz.TipoId == QuizTipo.Diario && quiz.DataFinalizado == null)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.DataConcluido == null)
             {
                 _continuarItem.Enabled = true;
                 _resultadoItem.Enabled = false;
             }
 
-            if (quiz.TipoId == QuizTipo.Diario && quiz.DataFinalizado != null)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.DataConcluido != null)
             {
                 _continuarItem.Enabled = false;
                 _resultadoItem.Enabled = true;
@@ -176,7 +212,7 @@ namespace SenacQuizApp.Telas
                             break;
                         case "Copiar":
                             Clipboard.SetText(
-                                $"Tipo: {quiz.Tipo}\nData Iniciado: {quiz.DataIniciado}\nFinalizado: {quiz.Finalizado}\nData Finalizado: {quiz.DataFinalizado}\nTempo: {quiz.Tempo}\nPontuação Total: {quiz.PontuacaoTotal}");
+                                $"Tipo: {quiz.Tipo}\nData Iniciado: {quiz.DataIniciado}\nFinalizado: {quiz.Concluido}\nData Finalizado: {quiz.DataConcluido}\nTempo: {quiz.Tempo}\nPontuação Total: {quiz.PontuacaoTotal}");
                             break;
                     }
                 },
@@ -189,6 +225,51 @@ namespace SenacQuizApp.Telas
             if (e.Button != MouseButtons.Right || e.Record is not QuizResumo quiz) return;
 
             MostrarMenuTodos(quiz);
+        }
+
+        private async void SelectQuizTipo_SelectedValueChanged(object sender, ObjectNEventArgs e)
+        {
+            if (e.Value is not QuizTipo tipo) return;
+
+            switch (tipo)
+            {
+                case QuizTipo.Todos:
+                    await CarregarTabelaTodos();
+                    break;
+                case QuizTipo.Diario:
+                    await CarregarTabelaDiario();
+                    break;
+                case QuizTipo.Rush:
+                    await CarregarTabelaRush();
+                    break;
+            }
+        }
+
+        private async void SelectStatus_SelectedValueChanged(object sender, ObjectNEventArgs e)
+        {
+            if (e.Value is not QuizStatus status) return;
+
+            _statusAtual = status;
+            if (_tipoAtual == QuizTipo.Diario) await CarregarTabelaDiario();
+        }
+
+        private async void ButtonBuscarData_Click(object sender, EventArgs e)
+        {
+            DateTime? minDate = DatePickerRangeQuiz.MinDate;
+            DateTime? maxDate = DatePickerRangeQuiz.MaxDate;
+
+            switch (_tipoAtual)
+            {
+                case QuizTipo.Todos:
+                    await CarregarTabelaTodos(minDate, maxDate);
+                    break;
+                case QuizTipo.Diario:
+                    await CarregarTabelaDiario(minDate, maxDate);
+                    break;
+                case QuizTipo.Rush:
+                    await CarregarTabelaRush(minDate, maxDate);
+                    break;
+            }
         }
     }
 }

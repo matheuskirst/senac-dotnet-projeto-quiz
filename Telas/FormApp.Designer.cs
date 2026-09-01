@@ -30,7 +30,6 @@
         {
             PageHeader = new AntdUI.PageHeader();
             DropdownUsuarioMenu = new AntdUI.Dropdown();
-            PanelAppBody = new Panel();
             ButtonHeaderMenu = new AntdUI.Button();
             ButtonHeaderRanking = new AntdUI.Button();
             PanelAppHeader = new AntdUI.Panel();
@@ -38,6 +37,7 @@
             PanelAppFooter = new AntdUI.Panel();
             PanelHeaderDivider = new AntdUI.Panel();
             PanelFooterDivider = new AntdUI.Panel();
+            PanelAppBody = new AntdUI.Panel();
             PageHeader.SuspendLayout();
             PanelAppHeader.SuspendLayout();
             SuspendLayout();
@@ -74,17 +74,6 @@
             DropdownUsuarioMenu.Text = "Usuário";
             DropdownUsuarioMenu.ToggleText = "";
             DropdownUsuarioMenu.ItemClick += DropdownUsuarioMenu_ItemClick;
-            // 
-            // PanelAppBody
-            // 
-            PanelAppBody.AutoScroll = true;
-            PanelAppBody.BackColor = Color.FromArgb(50, 50, 50);
-            PanelAppBody.Dock = DockStyle.Fill;
-            PanelAppBody.Location = new Point(0, 86);
-            PanelAppBody.Margin = new Padding(0);
-            PanelAppBody.Name = "PanelAppBody";
-            PanelAppBody.Size = new Size(1024, 593);
-            PanelAppBody.TabIndex = 4;
             // 
             // ButtonHeaderMenu
             // 
@@ -184,6 +173,16 @@
             PanelFooterDivider.TabIndex = 1;
             PanelFooterDivider.Text = "panel1";
             // 
+            // PanelAppBody
+            // 
+            PanelAppBody.Back = Color.FromArgb(50, 50, 50);
+            PanelAppBody.Dock = DockStyle.Fill;
+            PanelAppBody.Location = new Point(0, 86);
+            PanelAppBody.Name = "PanelAppBody";
+            PanelAppBody.Radius = 0;
+            PanelAppBody.Size = new Size(1024, 593);
+            PanelAppBody.TabIndex = 11;
+            // 
             // FormApp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -210,7 +209,6 @@
 
         #endregion
         private AntdUI.PageHeader PageHeader;
-        private Panel PanelAppBody;
         private AntdUI.Button ButtonHeaderMenu;
         private AntdUI.Button ButtonHeaderRanking;
         private AntdUI.Panel PanelAppHeader;
@@ -219,5 +217,6 @@
         private AntdUI.Panel PanelFooterDivider;
         private AntdUI.Button ButtonHeaderPerfil;
         private AntdUI.Dropdown DropdownUsuarioMenu;
+        private AntdUI.Panel PanelAppBody;
     }
 }

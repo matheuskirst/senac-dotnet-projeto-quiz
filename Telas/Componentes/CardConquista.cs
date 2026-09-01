@@ -10,6 +10,8 @@ namespace SenacQuizApp.Telas
 
             LabelNome.Text = conquista.Nome;
             LabelDescricao.Text = conquista.Descricao;
+
+            LabelAquisicao.Text = conquista.DataAquisicao.ToString("dd/MM/yyyy - HH\\:mm\\:ss");
         }
     }
 }

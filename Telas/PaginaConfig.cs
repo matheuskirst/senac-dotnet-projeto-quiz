@@ -124,7 +124,6 @@ namespace SenacQuizApp.Telas
                     return;
                 }
             }
-
         }
     }
 }

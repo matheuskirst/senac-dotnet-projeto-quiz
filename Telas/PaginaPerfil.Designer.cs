@@ -46,13 +46,14 @@
             LabelInsertPontuacaoTotal = new AntdUI.Label();
             LabelPontuacaoTotal = new AntdUI.Label();
             PanelCentral = new AntdUI.Panel();
-            PanelNivel = new AntdUI.Panel();
-            PanelConquistas = new AntdUI.Panel();
+            LabelConquistas = new AntdUI.Label();
             PanelUsuario = new AntdUI.Panel();
+            PanelConquistas = new AntdUI.Panel();
+            PanelNivel = new AntdUI.Panel();
             PanelStats.SuspendLayout();
             PanelCentral.SuspendLayout();
-            PanelNivel.SuspendLayout();
             PanelUsuario.SuspendLayout();
+            PanelNivel.SuspendLayout();
             SuspendLayout();
             // 
             // LabelUsuario
@@ -133,7 +134,7 @@
             PanelStats.Controls.Add(divider1);
             PanelStats.Controls.Add(LabelInsertPontuacaoTotal);
             PanelStats.Controls.Add(LabelPontuacaoTotal);
-            PanelStats.Location = new Point(573, 193);
+            PanelStats.Location = new Point(623, 193);
             PanelStats.Name = "PanelStats";
             PanelStats.Padding = new Padding(10);
             PanelStats.Radius = 0;
@@ -298,42 +299,29 @@
             PanelCentral.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             PanelCentral.Back = Color.FromArgb(33, 33, 33);
             PanelCentral.BackColor = Color.Transparent;
+            PanelCentral.Controls.Add(LabelConquistas);
             PanelCentral.Controls.Add(PanelUsuario);
             PanelCentral.Controls.Add(PanelConquistas);
             PanelCentral.Controls.Add(PanelNivel);
             PanelCentral.Controls.Add(PanelStats);
-            PanelCentral.Location = new Point(240, 0);
+            PanelCentral.Location = new Point(215, 0);
             PanelCentral.Name = "PanelCentral";
             PanelCentral.Radius = 0;
-            PanelCentral.Size = new Size(800, 720);
+            PanelCentral.Size = new Size(850, 720);
             PanelCentral.TabIndex = 3;
             PanelCentral.Text = "panel1";
             // 
-            // PanelNivel
+            // LabelConquistas
             // 
-            PanelNivel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            PanelNivel.Back = Color.FromArgb(33, 30, 30);
-            PanelNivel.BackColor = Color.DimGray;
-            PanelNivel.Controls.Add(LabelNivel);
-            PanelNivel.Controls.Add(ProgressUsuarioNivel);
-            PanelNivel.Controls.Add(LabelPontosProximoNivel);
-            PanelNivel.Controls.Add(LabelProgressoPontos);
-            PanelNivel.Location = new Point(573, 26);
-            PanelNivel.Name = "PanelNivel";
-            PanelNivel.Padding = new Padding(10);
-            PanelNivel.Radius = 0;
-            PanelNivel.Size = new Size(224, 152);
-            PanelNivel.TabIndex = 8;
-            // 
-            // PanelConquistas
-            // 
-            PanelConquistas.AutoScroll = true;
-            PanelConquistas.Back = Color.FromArgb(33, 30, 30);
-            PanelConquistas.Location = new Point(12, 193);
-            PanelConquistas.Name = "PanelConquistas";
-            PanelConquistas.Radius = 0;
-            PanelConquistas.Size = new Size(545, 524);
-            PanelConquistas.TabIndex = 9;
+            LabelConquistas.BackColor = Color.FromArgb(33, 30, 30);
+            LabelConquistas.ColorScheme = AntdUI.TAMode.Dark;
+            LabelConquistas.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelConquistas.Location = new Point(12, 193);
+            LabelConquistas.Name = "LabelConquistas";
+            LabelConquistas.Padding = new Padding(10);
+            LabelConquistas.Size = new Size(595, 45);
+            LabelConquistas.TabIndex = 11;
+            LabelConquistas.Text = "Conquistas:";
             // 
             // PanelUsuario
             // 
@@ -345,8 +333,36 @@
             PanelUsuario.Name = "PanelUsuario";
             PanelUsuario.Padding = new Padding(10);
             PanelUsuario.Radius = 0;
-            PanelUsuario.Size = new Size(545, 152);
+            PanelUsuario.Size = new Size(595, 152);
             PanelUsuario.TabIndex = 10;
+            // 
+            // PanelConquistas
+            // 
+            PanelConquistas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            PanelConquistas.AutoScroll = true;
+            PanelConquistas.Back = Color.FromArgb(33, 30, 30);
+            PanelConquistas.Location = new Point(12, 238);
+            PanelConquistas.Name = "PanelConquistas";
+            PanelConquistas.Padding = new Padding(10);
+            PanelConquistas.Radius = 0;
+            PanelConquistas.Size = new Size(595, 479);
+            PanelConquistas.TabIndex = 9;
+            // 
+            // PanelNivel
+            // 
+            PanelNivel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PanelNivel.Back = Color.FromArgb(33, 30, 30);
+            PanelNivel.BackColor = Color.DimGray;
+            PanelNivel.Controls.Add(LabelNivel);
+            PanelNivel.Controls.Add(ProgressUsuarioNivel);
+            PanelNivel.Controls.Add(LabelPontosProximoNivel);
+            PanelNivel.Controls.Add(LabelProgressoPontos);
+            PanelNivel.Location = new Point(623, 26);
+            PanelNivel.Name = "PanelNivel";
+            PanelNivel.Padding = new Padding(10);
+            PanelNivel.Radius = 0;
+            PanelNivel.Size = new Size(224, 152);
+            PanelNivel.TabIndex = 8;
             // 
             // PaginaPerfil
             // 
@@ -359,9 +375,9 @@
             Load += PaginaPerfil_Load;
             PanelStats.ResumeLayout(false);
             PanelCentral.ResumeLayout(false);
+            PanelUsuario.ResumeLayout(false);
             PanelNivel.ResumeLayout(false);
             PanelNivel.PerformLayout();
-            PanelUsuario.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -388,5 +404,6 @@
         private AntdUI.Panel PanelNivel;
         private AntdUI.Panel PanelConquistas;
         private AntdUI.Panel PanelUsuario;
+        private AntdUI.Label LabelConquistas;
     }
 }

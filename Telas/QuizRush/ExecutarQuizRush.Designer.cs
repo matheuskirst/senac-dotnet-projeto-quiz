@@ -1,6 +1,6 @@
-﻿namespace SenacQuizApp.Telas.QuizDiario
+﻿namespace SenacQuizApp.Telas.QuizRush
 {
-    partial class ExecutarQuizDiario
+    partial class ExecutarQuizRush
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,11 +29,9 @@
         private void InitializeComponent()
         {
             PanelHeader = new AntdUI.Panel();
-            LabelQuizDiarioData = new AntdUI.Label();
-            LabelQuizDiarioTitulo = new AntdUI.Label();
+            LabelQuizRushTitulo = new AntdUI.Label();
             PanelQuizHeaderQuestao = new AntdUI.Panel();
             LabelQuizQuestaoPontos = new AntdUI.Label();
-            LabelQuizQuestaoBonus = new AntdUI.Label();
             LabelQuizQuestaoAtual = new AntdUI.Label();
             PanelQuizHeaderUsuario = new AntdUI.Panel();
             LabelUsuarioNivel = new AntdUI.Label();
@@ -48,8 +46,7 @@
             // PanelHeader
             // 
             PanelHeader.Back = Color.FromArgb(33, 33, 33);
-            PanelHeader.Controls.Add(LabelQuizDiarioData);
-            PanelHeader.Controls.Add(LabelQuizDiarioTitulo);
+            PanelHeader.Controls.Add(LabelQuizRushTitulo);
             PanelHeader.Controls.Add(PanelQuizHeaderQuestao);
             PanelHeader.Controls.Add(PanelQuizHeaderUsuario);
             PanelHeader.Dock = DockStyle.Top;
@@ -57,40 +54,26 @@
             PanelHeader.Margin = new Padding(0);
             PanelHeader.Name = "PanelHeader";
             PanelHeader.Size = new Size(1024, 120);
-            PanelHeader.TabIndex = 3;
+            PanelHeader.TabIndex = 4;
             // 
-            // LabelQuizDiarioData
+            // LabelQuizRushTitulo
             // 
-            LabelQuizDiarioData.BackColor = Color.Transparent;
-            LabelQuizDiarioData.ColorScheme = AntdUI.TAMode.Dark;
-            LabelQuizDiarioData.Dock = DockStyle.Top;
-            LabelQuizDiarioData.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuizDiarioData.Location = new Point(300, 50);
-            LabelQuizDiarioData.Name = "LabelQuizDiarioData";
-            LabelQuizDiarioData.Size = new Size(424, 35);
-            LabelQuizDiarioData.TabIndex = 9;
-            LabelQuizDiarioData.Text = "DD/MM/AAAA";
-            LabelQuizDiarioData.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // LabelQuizDiarioTitulo
-            // 
-            LabelQuizDiarioTitulo.BackColor = Color.Transparent;
-            LabelQuizDiarioTitulo.ColorScheme = AntdUI.TAMode.Dark;
-            LabelQuizDiarioTitulo.Dock = DockStyle.Top;
-            LabelQuizDiarioTitulo.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuizDiarioTitulo.Location = new Point(300, 0);
-            LabelQuizDiarioTitulo.Name = "LabelQuizDiarioTitulo";
-            LabelQuizDiarioTitulo.Size = new Size(424, 50);
-            LabelQuizDiarioTitulo.TabIndex = 8;
-            LabelQuizDiarioTitulo.Text = "Quiz Diário";
-            LabelQuizDiarioTitulo.TextAlign = ContentAlignment.MiddleCenter;
+            LabelQuizRushTitulo.BackColor = Color.Transparent;
+            LabelQuizRushTitulo.ColorScheme = AntdUI.TAMode.Dark;
+            LabelQuizRushTitulo.Dock = DockStyle.Top;
+            LabelQuizRushTitulo.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelQuizRushTitulo.Location = new Point(300, 0);
+            LabelQuizRushTitulo.Name = "LabelQuizRushTitulo";
+            LabelQuizRushTitulo.Size = new Size(424, 50);
+            LabelQuizRushTitulo.TabIndex = 8;
+            LabelQuizRushTitulo.Text = "Rush";
+            LabelQuizRushTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PanelQuizHeaderQuestao
             // 
             PanelQuizHeaderQuestao.Back = Color.FromArgb(50, 45, 45);
             PanelQuizHeaderQuestao.BackColor = Color.Transparent;
             PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoPontos);
-            PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoBonus);
             PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoAtual);
             PanelQuizHeaderQuestao.Dock = DockStyle.Right;
             PanelQuizHeaderQuestao.Location = new Point(724, 0);
@@ -110,26 +93,12 @@
             LabelQuizQuestaoPontos.BackColor = Color.Transparent;
             LabelQuizQuestaoPontos.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizQuestaoPontos.Font = new Font("Segoe UI", 14.25F);
-            LabelQuizQuestaoPontos.Location = new Point(13, 83);
+            LabelQuizQuestaoPontos.Location = new Point(13, 51);
             LabelQuizQuestaoPontos.Name = "LabelQuizQuestaoPontos";
             LabelQuizQuestaoPontos.Prefix = "Vale:  ";
             LabelQuizQuestaoPontos.Size = new Size(63, 28);
             LabelQuizQuestaoPontos.TabIndex = 7;
             LabelQuizQuestaoPontos.Text = "0";
-            // 
-            // LabelQuizQuestaoBonus
-            // 
-            LabelQuizQuestaoBonus.Anchor = AnchorStyles.Right;
-            LabelQuizQuestaoBonus.AutoSizeMode = AntdUI.TAutoSize.Width;
-            LabelQuizQuestaoBonus.BackColor = Color.Transparent;
-            LabelQuizQuestaoBonus.ColorScheme = AntdUI.TAMode.Dark;
-            LabelQuizQuestaoBonus.Font = new Font("Segoe UI", 14.25F);
-            LabelQuizQuestaoBonus.Location = new Point(13, 49);
-            LabelQuizQuestaoBonus.Name = "LabelQuizQuestaoBonus";
-            LabelQuizQuestaoBonus.Prefix = "Bônus:  ";
-            LabelQuizQuestaoBonus.Size = new Size(97, 28);
-            LabelQuizQuestaoBonus.TabIndex = 6;
-            LabelQuizQuestaoBonus.Text = "0%";
             // 
             // LabelQuizQuestaoAtual
             // 
@@ -200,8 +169,8 @@
             LabelQuizSequenciaAcertos.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizSequenciaAcertos.Location = new Point(13, 83);
             LabelQuizSequenciaAcertos.Name = "LabelQuizSequenciaAcertos";
-            LabelQuizSequenciaAcertos.Prefix = "Sequência de Acertos:  ";
-            LabelQuizSequenciaAcertos.Size = new Size(207, 28);
+            LabelQuizSequenciaAcertos.Prefix = "Streak: ";
+            LabelQuizSequenciaAcertos.Size = new Size(74, 28);
             LabelQuizSequenciaAcertos.TabIndex = 5;
             LabelQuizSequenciaAcertos.Text = "0";
             // 
@@ -213,17 +182,16 @@
             PanelQuestoes.Name = "PanelQuestoes";
             PanelQuestoes.Radius = 0;
             PanelQuestoes.Size = new Size(1024, 600);
-            PanelQuestoes.TabIndex = 4;
+            PanelQuestoes.TabIndex = 5;
             // 
-            // ExecutarQuizDiario
+            // ExecutarQuizRush
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(PanelQuestoes);
             Controls.Add(PanelHeader);
-            Name = "ExecutarQuizDiario";
+            Name = "ExecutarQuizRush";
             Size = new Size(1024, 720);
-            Load += ExecutarQuizDiario_Load;
             PanelHeader.ResumeLayout(false);
             PanelQuizHeaderQuestao.ResumeLayout(false);
             PanelQuizHeaderQuestao.PerformLayout();
@@ -235,16 +203,15 @@
         #endregion
 
         private AntdUI.Panel PanelHeader;
-        private AntdUI.Label LabelQuizDiarioData;
-        private AntdUI.Label LabelQuizDiarioTitulo;
+        private AntdUI.Label LabelQuizRush;
+        private AntdUI.Label LabelQuizRushTitulo;
         private AntdUI.Panel PanelQuizHeaderQuestao;
+        private AntdUI.Label LabelQuizQuestaoPontos;
+        private AntdUI.Label LabelQuizQuestaoAtual;
         private AntdUI.Panel PanelQuizHeaderUsuario;
         private AntdUI.Label LabelUsuarioNivel;
         private AntdUI.Label LabelUsuarioNick;
         private AntdUI.Label LabelQuizSequenciaAcertos;
-        private AntdUI.Label LabelQuizQuestaoPontos;
-        private AntdUI.Label LabelQuizQuestaoBonus;
-        private AntdUI.Label LabelQuizQuestaoAtual;
         private AntdUI.Panel PanelQuestoes;
     }
 }

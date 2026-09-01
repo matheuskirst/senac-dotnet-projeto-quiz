@@ -25,13 +25,9 @@ namespace SenacQuizApp.Telas
             {
                 UsuarioPerfilDto? perfil = await _usuarioPerfilService.ObterPerfilPorId(_usuarioId);
 
-                if (perfil == null)
-                {
-                    return;
-                }
+                if (perfil == null) return;
 
                 AtualizarPerfil(perfil);
-
             }
             catch
             {
@@ -85,6 +81,14 @@ namespace SenacQuizApp.Telas
             else
             {
                 LabelInsertTaxaAcertos.Text = $"{(double)perfil.TotalAcertos / perfil.TotalRespondidos:P0}";
+            }
+
+            foreach (var conquista in perfil.Conquistas)
+            {
+                CardConquista card = new CardConquista(conquista);
+
+                card.Dock = DockStyle.Top;
+                PanelConquistas.Controls.Add(card);
             }
         }
     }

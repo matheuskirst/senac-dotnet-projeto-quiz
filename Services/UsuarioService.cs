@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using SenacQuizApp.Data;
+using SenacQuizApp.Dtos;
 using SenacQuizApp.Dtos.Usuario;
-using SenacQuizApp.Enums;
-using SenacQuizApp.Global;
-using SenacQuizApp.Modelos;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SenacQuizApp.Services
 {
@@ -29,7 +25,13 @@ namespace SenacQuizApp.Services
                     TotalAcertos = usuario.Stats.TotalAcertos,
                     TotalRespondidos = usuario.Stats.TotalRespondidos,
                     AtualAcertosSeguidos = usuario.Stats.MaxAcertosSeguidos,
-                    MaxAcertosSeguidos = usuario.Stats.AtualAcertosSeguidos
+                    MaxAcertosSeguidos = usuario.Stats.AtualAcertosSeguidos,
+                    Conquistas = usuario.Conquistas.Select(uc => new ConquistaDto
+                    {
+                        Nome = uc.Conquista.Nome,
+                        Descricao = uc.Conquista.Descricao,
+                        DataAquisicao = uc.DataDeAquisicao
+                    }).ToList()
                 })
                 .FirstOrDefaultAsync();
         }

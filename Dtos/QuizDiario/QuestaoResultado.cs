@@ -1,4 +1,5 @@
 ﻿using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos.Questoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,12 @@ namespace SenacQuizApp.Dtos.QuizDiario
 
         public QuestaoTipo Tipo { get; set; }
 
+
         public string Enunciado { get; set; } = null!;
         public int Pontos { get; set; }
         public bool Acertou { get; set; }
 
-        public List<AlternativaCorreta> Alternativas { get; set; } = null!;
+        public List<AlternativaCorreta>? Alternativas { get; set; } = null!;
+        public bool? VerdadeiroFalso { get; set; }
     }
 }

@@ -187,6 +187,7 @@ namespace SenacQuizApp.Telas
 
             _paginaAtual = new PaginaAtual { Pagina = paginaHistorico, Propriedade = null };
         }
+
         public void AbrirConfiguracoes()
         {
             var formConfig = new PaginaConfig();
@@ -238,7 +239,6 @@ namespace SenacQuizApp.Telas
 
             _paginaAtual = new PaginaAtual { Pagina = resultadoQuizDiario, Propriedade = quizId };
         }
-
 
         // ============================================================
         // Botões Header

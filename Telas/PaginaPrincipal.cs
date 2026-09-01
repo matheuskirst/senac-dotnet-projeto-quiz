@@ -64,8 +64,8 @@ namespace SenacQuizApp.Telas
             {
                 new AntdUI.Column(nameof(QuizResumo.Tipo), "Tipo") { SortOrder = true },
                 new AntdUI.Column(nameof(QuizResumo.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
-                new AntdUI.Column(nameof(QuizResumo.FinalizadoDisplay), "Finalizado ") { SortOrder = true },
-                new AntdUI.Column(nameof(QuizResumo.DataFinalizado), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                new AntdUI.Column(nameof(QuizResumo.ConcluidoDisplay), "Finalizado ") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizResumo.DataConcluido), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
                 new AntdUI.Column(nameof(QuizResumo.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
                 new AntdUI.Column(nameof(QuizResumo.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
             };
@@ -87,13 +87,13 @@ namespace SenacQuizApp.Telas
             var resultadoItem = new AntdUI.ContextMenuStripItem("Ver Resultado") { Tag = "Resultado" };
             var copiarItem = new AntdUI.ContextMenuStripItem("Copiar dados") { Tag = "Copiar" };
 
-            if (quiz.TipoId == QuizTipo.Diario && quiz.Finalizado == true)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.Concluido == true)
             {
                 continuarItem.Enabled = false;
                 resultadoItem.Enabled = true;
             }
 
-            if (quiz.TipoId == QuizTipo.Diario && quiz.Finalizado == false)
+            if (quiz.TipoId == QuizTipo.Diario && quiz.Concluido == false)
             {
                 continuarItem.Enabled = true;
                 resultadoItem.Enabled = false;
@@ -125,7 +125,7 @@ namespace SenacQuizApp.Telas
                         break;
                     case "Copiar":
                         Clipboard.SetText(
-                            $"Tipo: {quiz.Tipo}\nData Iniciado: {quiz.DataIniciado}\nFinalizado: {quiz.Finalizado}\nData Finalizado: {quiz.DataFinalizado}\nTempo: {quiz.Tempo}\nPontuação Total: {quiz.PontuacaoTotal}");
+                            $"Tipo: {quiz.Tipo}\nData Iniciado: {quiz.DataIniciado}\nFinalizado: {quiz.Concluido}\nData Finalizado: {quiz.DataConcluido}\nTempo: {quiz.Tempo}\nPontuação Total: {quiz.PontuacaoTotal}");
                         break;
                 }
             },

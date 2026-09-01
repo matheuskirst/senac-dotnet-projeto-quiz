@@ -1,6 +1,8 @@
-﻿using SenacQuizApp.Dtos.QuizDiario;
+﻿using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.QuizDiario;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
+using System.ComponentModel;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
@@ -21,8 +23,6 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-
-
                 QuizDiarioResultado? resultado = await _quizDiarioService.ObterResultadoPorId(_quizId);
 
                 if (resultado == null) return;
@@ -42,8 +42,8 @@ namespace SenacQuizApp.Telas.QuizDiario
                     string questaoEnunciado = questao.Enunciado;
 
                     var cardQuestao = new CardQuestao(questaoNumero.ToString(), questao);
-
-
+                    cardQuestao.Dock = DockStyle.Top;
+                    PanelQuizResultados.Controls.Add(cardQuestao);
                 }
             }
             catch

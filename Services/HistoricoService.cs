@@ -5,6 +5,7 @@ using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Telas.Componentes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SenacQuizApp.Services
 {
@@ -24,8 +25,8 @@ namespace SenacQuizApp.Services
                     TipoId = QuizTipo.Diario,
                     Tipo = "Diário",
                     DataIniciado = diario.DataIniciado,
-                    Finalizado = diario.Concluido,
-                    DataFinalizado = diario.DataConcluido != null ? diario.DataConcluido.Value : null,
+                    Concluido = diario.Concluido,
+                    DataConcluido = diario.DataConcluido != null ? diario.DataConcluido.Value : null,
                     Tempo = diario.TempoDeConclusao,
                     PontuacaoTotal = diario.PontuacaoTotal
                 });
@@ -38,8 +39,8 @@ namespace SenacQuizApp.Services
                     TipoId = QuizTipo.Rush,
                     Tipo = "Rush",
                     DataIniciado = rush.DataIniciado,
-                    Finalizado = null,
-                    DataFinalizado = rush.DataFinalizado,
+                    Concluido = null,
+                    DataConcluido = rush.DataConcluido,
                     Tempo = rush.Tempo,
                     PontuacaoTotal = rush.PontuacaoTotal
                 });
@@ -51,7 +52,7 @@ namespace SenacQuizApp.Services
                 .ToListAsync();
         }
         
-        public async Task<List<QuizResumo>> ObterTodos()
+        public async Task<List<QuizResumo>> ObterTodos(DateTime? minDate = null, DateTime? maxDate = null)
         {
             using var contexto = new QuizAppContexto();
 
@@ -65,8 +66,8 @@ namespace SenacQuizApp.Services
                     TipoId = QuizTipo.Diario,
                     Tipo = "Diário",
                     DataIniciado = diario.DataIniciado,
-                    Finalizado = diario.Concluido,
-                    DataFinalizado = diario.DataConcluido != null ? diario.DataConcluido.Value : null,
+                    Concluido = diario.Concluido,
+                    DataConcluido = diario.DataConcluido != null ? diario.DataConcluido.Value : null,
                     Tempo = diario.TempoDeConclusao,
                     PontuacaoTotal = diario.PontuacaoTotal
                 });
@@ -79,8 +80,8 @@ namespace SenacQuizApp.Services
                     TipoId = QuizTipo.Rush,
                     Tipo = "Rush",
                     DataIniciado = diario.DataIniciado,
-                    Finalizado = null,
-                    DataFinalizado = diario.DataFinalizado,
+                    Concluido = null,
+                    DataConcluido = diario.DataConcluido,
                     Tempo = diario.Tempo,
                     PontuacaoTotal = diario.PontuacaoTotal
                 });
@@ -88,23 +89,35 @@ namespace SenacQuizApp.Services
             return await diarios
                 .Concat(rush)
                 .OrderByDescending(quiz => quiz.DataIniciado)
+                .FiltrarPorData(minDate, maxDate)
                 .ToListAsync();
         }
 
-        public async Task<List<QuizDiarioHistorico>> ObterHistoricosDiario()
+        public async Task<List<QuizDiarioHistorico>> ObterHistoricosDiario(QuizStatus? status = null, DateTime? minDate = null, DateTime? maxDate = null)
         {
             using var contexto = new QuizAppContexto();
 
+            int usuarioId = UsuarioAtual.Id;
+
             return await contexto.QuizzesDiarios
+                .Where(quiz => quiz.UsuarioId == usuarioId)
+                .OrderByDescending(quiz => quiz.DataIniciado)
+                .FiltrarPorStatus(status)
+                .FiltrarPorData(minDate, maxDate)
                 .QuizDiarioHistorico()
                 .ToListAsync();
         }
 
-        public async Task<List<QuizRushEntrada>> ObterEntradasRush()
+        public async Task<List<QuizRushEntrada>> ObterEntradasRush(DateTime? minDate = null, DateTime? maxDate = null)
         {
             using var contexto = new QuizAppContexto();
 
+            int usuarioId = UsuarioAtual.Id;
+
             return await contexto.QuizzesRush
+                .Where(quiz => quiz.UsuarioId == usuarioId)
+                .OrderByDescending(quiz => quiz.DataIniciado)
+                .FiltrarPorData(minDate, maxDate)
                 .QuizRushEntrada()
                 .ToListAsync();
         }
@@ -143,11 +156,41 @@ namespace SenacQuizApp.Services
                     Id = quiz.Id,
                     Tipo = "Rush",
                     DataIniciado = quiz.DataIniciado,
-                    DataFinalizado = quiz.DataFinalizado,
+                    DataConcluido = quiz.DataConcluido,
                     Tempo = quiz.Tempo,
                     Streak = quiz.Streak,
                     PontuacaoTotal = quiz.PontuacaoTotal,
                 });
+        }
+
+        public static IQueryable<QuizDiario> FiltrarPorStatus(this IQueryable<QuizDiario> query, QuizStatus? status)
+        {
+            if (status == null || status == QuizStatus.Todos) return query;
+
+            bool Concluido = status == QuizStatus.Concluido;
+
+            return query.Where(quiz => quiz.Concluido == Concluido);
+        }
+
+        public static IQueryable<QuizResumo> FiltrarPorData(this IQueryable<QuizResumo> query, DateTime? minDate, DateTime? maxDate)
+        {
+            if (minDate == null || maxDate == null) return query;
+
+            return query.Where(quiz => quiz.DataIniciado >= minDate && quiz.DataIniciado <= maxDate);
+        }
+
+        public static IQueryable<QuizDiario> FiltrarPorData(this IQueryable<QuizDiario> query, DateTime? minDate, DateTime? maxDate)
+        {
+            if (minDate == null || maxDate == null) return query;
+
+            return query.Where(quiz => quiz.DataIniciado >= minDate && quiz.DataIniciado <= maxDate);
+        }
+
+        public static IQueryable<QuizRush> FiltrarPorData(this IQueryable<QuizRush> query, DateTime? minDate, DateTime? maxDate)
+        {
+            if (minDate == null || maxDate == null) return query;
+
+            return query.Where(quiz => quiz.DataIniciado >= minDate && quiz.DataIniciado <= maxDate);
         }
     }
 }

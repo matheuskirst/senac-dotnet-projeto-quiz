@@ -20,5 +20,10 @@ namespace SenacQuizApp.Dtos
         public int TotalQuestoes { get; set; }
         public int TotalAcertos { get; set; }
         public int? PontuacaoTotal { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string? ConcluidoDisplay => Concluido == true ? "Sim" :
+                                    Concluido == false ? "Não" :
+                                                          null;
     }
 }

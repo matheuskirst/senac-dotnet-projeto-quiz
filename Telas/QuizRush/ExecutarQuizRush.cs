@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SenacQuizApp.Telas.QuizRush
 {
-    public partial class PaginaQuizRush : UserControl
+    public partial class ExecutarQuizRush : UserControl
     {
-        public PaginaQuizRush()
+        public ExecutarQuizRush()
         {
             InitializeComponent();
         }

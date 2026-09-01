@@ -40,9 +40,7 @@
             PanelQuizResultados = new AntdUI.Panel();
             button1 = new AntdUI.Button();
             button2 = new AntdUI.Button();
-            PanelQuestoes = new AntdUI.Panel();
             PanelQuizConclusao.SuspendLayout();
-            PanelQuizResultados.SuspendLayout();
             SuspendLayout();
             // 
             // LabelTitulo
@@ -171,12 +169,11 @@
             // 
             // PanelQuizResultados
             // 
+            PanelQuizResultados.AutoScroll = true;
             PanelQuizResultados.Back = Color.FromArgb(50, 50, 50);
-            PanelQuizResultados.Controls.Add(PanelQuestoes);
             PanelQuizResultados.Dock = DockStyle.Fill;
             PanelQuizResultados.Location = new Point(400, 45);
             PanelQuizResultados.Name = "PanelQuizResultados";
-            PanelQuizResultados.Padding = new Padding(100);
             PanelQuizResultados.Size = new Size(624, 675);
             PanelQuizResultados.TabIndex = 2;
             PanelQuizResultados.Text = "panel1";
@@ -197,16 +194,6 @@
             button2.TabIndex = 1;
             button2.Text = "button2";
             // 
-            // PanelQuestoes
-            // 
-            PanelQuestoes.Back = Color.FromArgb(33, 33, 33);
-            PanelQuestoes.Location = new Point(103, 47);
-            PanelQuestoes.Name = "PanelQuestoes";
-            PanelQuestoes.Radius = 0;
-            PanelQuestoes.Size = new Size(440, 580);
-            PanelQuestoes.TabIndex = 3;
-            PanelQuestoes.Text = "panel1";
-            // 
             // ResultadoQuizDiario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -219,7 +206,6 @@
             Size = new Size(1024, 720);
             Load += PainelResultado_Load;
             PanelQuizConclusao.ResumeLayout(false);
-            PanelQuizResultados.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -236,6 +222,5 @@
         private AntdUI.Panel PanelQuizResultados;
         private AntdUI.Button button1;
         private AntdUI.Button button2;
-        private AntdUI.Panel PanelQuestoes;
     }
 }

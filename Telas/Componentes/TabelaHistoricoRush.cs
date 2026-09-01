@@ -11,7 +11,7 @@ namespace SenacQuizApp.Telas.Componentes
             {
                 new AntdUI.Column(nameof(QuizRushEntrada.Tipo), "Tipo"),
                 new AntdUI.Column(nameof(QuizRushEntrada.DataIniciado), "Data Iniciado"),
-                new AntdUI.Column(nameof(QuizRushEntrada.DataFinalizado), "Data Finalizado"),
+                new AntdUI.Column(nameof(QuizRushEntrada.DataConcluido), "Data Finalizado"),
                 new AntdUI.Column(nameof(QuizRushEntrada.Tempo), "Tempo"),
                 new AntdUI.Column(nameof(QuizRushEntrada.Streak), "Streak"),
                 new AntdUI.Column(nameof(QuizRushEntrada.PontuacaoTotal), "Pontuação Total")

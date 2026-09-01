@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Enums
 {
-    public enum QuizTipo
+    public enum QuizStatus
     {
         Todos = 0,
-        Diario = 1,
-        Rush = 2
+        Concluido = 1,
+        NaoConcluido = 2
     }
 }

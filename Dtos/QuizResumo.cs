@@ -8,14 +8,14 @@ namespace SenacQuizApp.Dtos
         public QuizTipo TipoId { get; set; }
         public string Tipo { get; set; } = null!;
         public DateTimeOffset DataIniciado { get; set; }
-        public bool? Finalizado { get; set; }
-        public DateTimeOffset? DataFinalizado { get; set; }
+        public bool? Concluido { get; set; }
+        public DateTimeOffset? DataConcluido { get; set; }
         public TimeSpan? Tempo { get; set; }
         public int PontuacaoTotal { get; set; }
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
-        public string? FinalizadoDisplay => Finalizado == true  ? "Sim" :
-                                            Finalizado == false ? "Não" :
+        public string? ConcluidoDisplay => Concluido == true  ? "Sim" :
+                                            Concluido == false ? "Não" :
                                                                   null;
     }
 }
