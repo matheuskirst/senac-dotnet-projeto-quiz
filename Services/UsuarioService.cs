@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
 using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.Conquista;
 using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Services
@@ -36,11 +37,11 @@ namespace SenacQuizApp.Services
                     })
                     .FirstOrDefault(),
 
-                    Conquistas = usuario.Conquistas.Select(uc => new ConquistaDto
+                    Conquistas = usuario.Conquistas.Select(uc => new ConquistaResumo
                     {
                         Nome = uc.Conquista.Nome,
                         Descricao = uc.Conquista.Descricao,
-                        DataAquisicao = uc.DataDeAquisicao
+                        DataDesbloqueio = uc.DataDesbloqueio
                     }).ToList()
                 })
                 .FirstOrDefaultAsync();

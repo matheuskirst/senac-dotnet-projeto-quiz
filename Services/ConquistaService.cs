@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
-using SenacQuizApp.Dtos;
-using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Dtos.Conquista;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
@@ -11,25 +10,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static SenacQuizApp.Global.ModelosConstantes;
 
 namespace SenacQuizApp.Services
 {
     public class ConquistaService
     {
-        public event EventHandler<ConquistaDto>? ConquistaDesbloqueada;
+        public event EventHandler<ConquistaNotificacao>? ConquistaDesbloqueada;
 
-        public async Task<List<ConquistaDto>> ObterConquistasUsuario(int usuarioId)
+        public async Task<List<ConquistaResumo>> ObterConquistasUsuario(int usuarioId)
         {
             using var contexto = new QuizAppContexto();
 
             return await contexto.UsuarioConquistas
                 .Where(uc => uc.UsuarioId == usuarioId)
-                .Select(uc => new ConquistaDto
+                .Select(uc => new ConquistaResumo
                 {
                     Nome = uc.Conquista.Nome,
                     Descricao = uc.Conquista.Descricao,
-                    DataAquisicao = uc.DataDeAquisicao
+                    DataDesbloqueio = uc.DataDesbloqueio,
+                    Icone = ""
+                })
+                .ToListAsync();
+        }
+
+        public async Task<List<ConquistaDetalhes>> ObterTodos()
+        {
+            using var contexto = new QuizAppContexto();
+
+            int usuarioId = UsuarioAtual.Id;
+
+            return await contexto.Conquistas
+                .Select(c => new ConquistaDetalhes
+                {
+                    Nome = c.Nome,
+                    Descricao = c.Descricao,
+                    Desbloqueada = c.UsuarioConquistas.Any(uc => uc.UsuarioId == usuarioId),
+                    DataDesbloqueio = c.UsuarioConquistas
+                    .Where(uc => uc.UsuarioId == usuarioId)
+                    .Select(uc => (DateTimeOffset?)uc.DataDesbloqueio)
+                    .FirstOrDefault(),
+                    PorcentagemDesbloqueioGlobal = Math.Round((c.UsuarioConquistas.Count() * 100.0) / contexto.Usuarios.Count(), 2),
+                    Secreta = c.Secreta,
+                    Icone = ""
                 })
                 .ToListAsync();
         }
@@ -118,7 +140,7 @@ namespace SenacQuizApp.Services
             {
                 UsuarioId = usuarioId,
                 ConquistaId = conquistaId,
-                DataDeAquisicao = DateTimeOffset.UtcNow
+                DataDesbloqueio = DateTimeOffset.UtcNow
             };
 
             contexto.UsuarioConquistas.Add(usuarioConquista);
@@ -126,11 +148,10 @@ namespace SenacQuizApp.Services
 
             var conquista = await contexto.Conquistas
                 .Where(c => c.Id == conquistaId)
-                .Select(c => new ConquistaDto
+                .Select(c => new ConquistaNotificacao
                 {
                     Nome = c.Nome,
-                    Descricao = c.Descricao,
-                    DataAquisicao = usuarioConquista.DataDeAquisicao
+                    Descricao = c.Descricao
                 })
                 .FirstOrDefaultAsync();
 

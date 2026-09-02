@@ -58,7 +58,7 @@ namespace SenacQuizApp.Services
 
             await _conquistaService.ChecarLoginConquistas();
 
-            UsuarioAtual.IniciarSessao(id: usuario.Id, username: usuario.Username);
+            UsuarioAtual.IniciarSessao(id: usuario.Id, username: usuario.Username, nickname: usuario.Nickname);
             return true;
         }
 

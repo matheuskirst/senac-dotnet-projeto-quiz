@@ -34,6 +34,7 @@
             ButtonHeaderRanking = new AntdUI.Button();
             PanelAppHeader = new AntdUI.Panel();
             ButtonHeaderPerfil = new AntdUI.Button();
+            ButtonHeaderConquista = new AntdUI.Button();
             PanelAppFooter = new AntdUI.Panel();
             PanelHeaderDivider = new AntdUI.Panel();
             PanelFooterDivider = new AntdUI.Panel();
@@ -81,7 +82,7 @@
             ButtonHeaderMenu.BorderWidth = 1F;
             ButtonHeaderMenu.ColorScheme = AntdUI.TAMode.Dark;
             ButtonHeaderMenu.DefaultBorderColor = Color.FromArgb(40, 40, 40);
-            ButtonHeaderMenu.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonHeaderMenu.Font = new Font("Microsoft Sans Serif", 12F);
             ButtonHeaderMenu.ForeHover = Color.White;
             ButtonHeaderMenu.Ghost = true;
             ButtonHeaderMenu.Location = new Point(12, 4);
@@ -98,7 +99,7 @@
             ButtonHeaderRanking.BorderWidth = 1F;
             ButtonHeaderRanking.ColorScheme = AntdUI.TAMode.Dark;
             ButtonHeaderRanking.DefaultBorderColor = Color.FromArgb(40, 40, 40);
-            ButtonHeaderRanking.Font = new Font("Segoe UI", 14.25F);
+            ButtonHeaderRanking.Font = new Font("Microsoft Sans Serif", 12F);
             ButtonHeaderRanking.ForeHover = Color.White;
             ButtonHeaderRanking.Ghost = true;
             ButtonHeaderRanking.Location = new Point(138, 4);
@@ -112,9 +113,10 @@
             // PanelAppHeader
             // 
             PanelAppHeader.Back = Color.FromArgb(18, 18, 18);
+            PanelAppHeader.Controls.Add(ButtonHeaderPerfil);
             PanelAppHeader.Controls.Add(ButtonHeaderMenu);
             PanelAppHeader.Controls.Add(ButtonHeaderRanking);
-            PanelAppHeader.Controls.Add(ButtonHeaderPerfil);
+            PanelAppHeader.Controls.Add(ButtonHeaderConquista);
             PanelAppHeader.Dock = DockStyle.Top;
             PanelAppHeader.Location = new Point(0, 35);
             PanelAppHeader.Name = "PanelAppHeader";
@@ -129,16 +131,33 @@
             ButtonHeaderPerfil.BorderWidth = 1F;
             ButtonHeaderPerfil.ColorScheme = AntdUI.TAMode.Dark;
             ButtonHeaderPerfil.DefaultBorderColor = Color.FromArgb(40, 40, 40);
-            ButtonHeaderPerfil.Font = new Font("Segoe UI", 14.25F);
+            ButtonHeaderPerfil.Font = new Font("Microsoft Sans Serif", 12F);
             ButtonHeaderPerfil.ForeHover = Color.White;
             ButtonHeaderPerfil.Ghost = true;
-            ButtonHeaderPerfil.Location = new Point(264, 4);
+            ButtonHeaderPerfil.Location = new Point(390, 4);
             ButtonHeaderPerfil.Name = "ButtonHeaderPerfil";
             ButtonHeaderPerfil.Size = new Size(120, 45);
-            ButtonHeaderPerfil.TabIndex = 9;
+            ButtonHeaderPerfil.TabIndex = 10;
             ButtonHeaderPerfil.Text = "Perfil";
             ButtonHeaderPerfil.ToggleFore = Color.FromArgb(66, 160, 245);
             ButtonHeaderPerfil.Click += ButtonHeaderPerfil_Click;
+            // 
+            // ButtonHeaderConquista
+            // 
+            ButtonHeaderConquista.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonHeaderConquista.BorderWidth = 1F;
+            ButtonHeaderConquista.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonHeaderConquista.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+            ButtonHeaderConquista.Font = new Font("Microsoft Sans Serif", 12F);
+            ButtonHeaderConquista.ForeHover = Color.White;
+            ButtonHeaderConquista.Ghost = true;
+            ButtonHeaderConquista.Location = new Point(264, 4);
+            ButtonHeaderConquista.Name = "ButtonHeaderConquista";
+            ButtonHeaderConquista.Size = new Size(120, 45);
+            ButtonHeaderConquista.TabIndex = 9;
+            ButtonHeaderConquista.Text = "Conquistas";
+            ButtonHeaderConquista.ToggleFore = Color.FromArgb(66, 160, 245);
+            ButtonHeaderConquista.Click += ButtonHeaderConquista_Click;
             // 
             // PanelAppFooter
             // 
@@ -182,6 +201,7 @@
             PanelAppBody.Radius = 0;
             PanelAppBody.Size = new Size(1024, 593);
             PanelAppBody.TabIndex = 11;
+            PanelAppBody.Text = " ";
             // 
             // FormApp
             // 
@@ -215,8 +235,9 @@
         private AntdUI.Panel PanelAppFooter;
         private AntdUI.Panel PanelHeaderDivider;
         private AntdUI.Panel PanelFooterDivider;
-        private AntdUI.Button ButtonHeaderPerfil;
+        private AntdUI.Button ButtonHeaderConquista;
         private AntdUI.Dropdown DropdownUsuarioMenu;
         private AntdUI.Panel PanelAppBody;
+        private AntdUI.Button ButtonHeaderPerfil;
     }
 }

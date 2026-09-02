@@ -28,7 +28,14 @@ namespace SenacQuizApp.Telas.QuizRush
                 LabelDataInicio.Text = resultado.DataIniciado.ToString(@"dd/MM/yyyy HH\:mm\:ss");
                 LabelDataConcluido.Text = resultado.DataConcluido?.ToString(@"dd/MM/yyyy HH\:mm\:ss") ?? "Não disponível";
                 LabelTempo.Text = resultado.Tempo?.ToString(@"hh\:mm\:ss\.fff") ?? "Não disponível";
-                LabelMotivoEncerrado.Text = resultado.MotivoEncerrado == RushMotivoEncerrado.RespostaErrada ? "Resposta errada." : "Tempo esgotado.";
+                if (resultado.MotivoEncerrado == RushMotivoEncerrado.RespostaErrada)
+                {
+                    LabelMotivoEncerrado.Text = "Resposta errada.";
+                }
+                else if (resultado.MotivoEncerrado == RushMotivoEncerrado.TempoEsgotou)
+                {
+                    LabelMotivoEncerrado.Text = "Tempo esgotado.";
+                }
                 LabelStreak.Text = resultado.Streak.ToString();
                 LabelPontuacaoTotal.Text = resultado.PontuacaoTotal.ToString();
             }

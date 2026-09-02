@@ -20,6 +20,7 @@ namespace SenacQuizApp.Modelos
         public int? Meta { get; set; }
         public int? TemaId { get; set; }
         public QuestaoTema Tema { get; set; } = null!;
+        public bool Secreta { get; set; }
 
         public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }

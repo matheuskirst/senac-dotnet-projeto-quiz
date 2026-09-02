@@ -83,13 +83,13 @@ namespace SenacQuizApp.Telas
                 LabelInsertTaxaAcertos.Text = $"{(double)perfil.TotalAcertos / perfil.TotalRespondidos:P0}";
             }
 
-            foreach (var conquista in perfil.Conquistas)
-            {
-                CardConquista card = new CardConquista(conquista);
+            //foreach (var conquista in perfil.Conquistas)
+            //{
+            //    CardConquista card = new CardConquista(conquista);
 
-                card.Dock = DockStyle.Top;
-                PanelConquistas.Controls.Add(card);
-            }
+            //    card.Dock = DockStyle.Top;
+            //    PanelConquistas.Controls.Add(card);
+            //}
         }
     }
 }

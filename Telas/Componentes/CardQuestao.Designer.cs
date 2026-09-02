@@ -92,7 +92,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            BackColor = SystemColors.WindowFrame;
+            BackColor = Color.FromArgb(64, 64, 64);
             Controls.Add(StackPanelAlternativas);
             Controls.Add(LabelEnunciado);
             Controls.Add(LabelAcertou);

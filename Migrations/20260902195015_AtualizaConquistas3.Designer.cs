@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SenacQuizApp.Data;
@@ -11,9 +12,11 @@ using SenacQuizApp.Data;
 namespace SenacQuizApp.Migrations
 {
     [DbContext(typeof(QuizAppContexto))]
-    partial class QuizAppContextoModelSnapshot : ModelSnapshot
+    [Migration("20260902195015_AtualizaConquistas3")]
+    partial class AtualizaConquistas3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -315,7 +318,7 @@ namespace SenacQuizApp.Migrations
                     b.Property<int>("ConquistaId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("DataDesbloqueio")
+                    b.Property<DateTimeOffset>("DataDeAquisicao")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamptz")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");

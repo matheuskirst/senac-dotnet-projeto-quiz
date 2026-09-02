@@ -1,4 +1,5 @@
-﻿using SenacQuizApp.Enums;
+﻿using SenacQuizApp.Dtos.Conquista;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos.Questoes;
 
 namespace SenacQuizApp.Dtos.Usuario
@@ -17,6 +18,6 @@ namespace SenacQuizApp.Dtos.Usuario
         public int AtualAcertosSeguidos { get; set; }
         public int MaxAcertosSeguidos { get; set; }
         public TemaDestaque? TemaMaisAcertado { get; set; }
-        public List<ConquistaDto> Conquistas { get; set; } = null!;
+        public List<ConquistaResumo> Conquistas { get; set; } = null!;
     }
 }

@@ -129,7 +129,7 @@ namespace SenacQuizApp.Data
             {
                 entity.HasKey(uc => new { uc.UsuarioId, uc.ConquistaId });
 
-                entity.Property(uc => uc.DataDeAquisicao)
+                entity.Property(uc => uc.DataDesbloqueio)
                     .HasColumnType("timestamptz")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });

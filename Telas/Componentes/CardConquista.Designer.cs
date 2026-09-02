@@ -77,8 +77,9 @@
             LabelPorcentagemJogadores.Location = new Point(80, 63);
             LabelPorcentagemJogadores.Name = "LabelPorcentagemJogadores";
             LabelPorcentagemJogadores.Size = new Size(454, 20);
+            LabelPorcentagemJogadores.Suffix = " dos jogadores tem essa conquista";
             LabelPorcentagemJogadores.TabIndex = 5;
-            LabelPorcentagemJogadores.Text = "00.0% dos jogadores tem essa conquista";
+            LabelPorcentagemJogadores.Text = "00.0%";
             // 
             // LabelAquisicao
             // 
@@ -88,10 +89,10 @@
             LabelAquisicao.ForeColor = SystemColors.ScrollBar;
             LabelAquisicao.Location = new Point(540, 32);
             LabelAquisicao.Name = "LabelAquisicao";
-            LabelAquisicao.Prefix = "";
+            LabelAquisicao.Prefix = "Desbloqueou em: ";
             LabelAquisicao.Size = new Size(250, 27);
             LabelAquisicao.TabIndex = 6;
-            LabelAquisicao.Text = "Data de aquisição: DD/MM/AAAA - hh:mm:ss";
+            LabelAquisicao.Text = "DD/MM/AAAA - hh:mm:ss";
             LabelAquisicao.TextAlign = ContentAlignment.MiddleRight;
             // 
             // CardConquista

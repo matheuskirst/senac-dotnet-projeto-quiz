@@ -1,5 +1,5 @@
 ﻿using AntdUI;
-using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.Conquista;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
@@ -170,12 +170,22 @@ namespace SenacQuizApp.Telas
             _paginaAtual = new PaginaAtual { Pagina = paginaRanking, Propriedade = null };
         }
 
+        public void AbrirPaginaConquistas()
+        {
+            var paginaConquistas = new PaginaConquistas(_conquistaService);
+
+            AlternarBotaoHeader(ButtonHeaderConquista);
+
+            MudarPagina(paginaConquistas);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaConquistas, Propriedade = null };
+        }
 
         public void AbrirPaginaPerfil(object? sender, int usuarioId)
         {
             var paginaPerfil = new PaginaPerfil(usuarioId, _usuarioPerfilService);
 
-            AlternarBotaoHeader(ButtonHeaderPerfil);
+            AlternarBotaoHeader(ButtonHeaderConquista);
 
             MudarPagina(paginaPerfil);
 
@@ -314,8 +324,8 @@ namespace SenacQuizApp.Telas
             ButtonHeaderRanking.Toggle = false;
             ButtonHeaderRanking.DefaultBorderColor = Color.FromArgb(40, 40, 40);
 
-            ButtonHeaderPerfil.Toggle = false;
-            ButtonHeaderPerfil.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+            ButtonHeaderConquista.Toggle = false;
+            ButtonHeaderConquista.DefaultBorderColor = Color.FromArgb(40, 40, 40);
 
             if (sender is AntdUI.Button button)
             {
@@ -348,18 +358,26 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private void AoDesbloquearConquista(object? sender, ConquistaDto conquista)
+        private void ButtonHeaderConquista_Click(object sender, EventArgs e)
+        {
+            if (_paginaAtual?.Pagina is not PaginaConquistas)
+            {
+                AbrirPaginaConquistas();
+            }
+        }
+
+        private void AoDesbloquearConquista(object? sender, ConquistaNotificacao conquista)
         {
             AntdUI.Notification.open(new AntdUI.Notification.Config(this)
             {
                 Title = $"Conquista desbloqueada!",
-                Text = $"Conquista: { conquista.Nome}\nDescrição: { conquista.Descricao}",
+                Text = $"Conquista: {conquista.Nome}\nDescrição: {conquista.Descricao}",
                 Align = AntdUI.TAlignFrom.BR
             });
 
             //MessageBox.Show($"Conquista desbloqueada!\nConquista: {conquista.Nome}\nDescrição: {conquista.Descricao}");
         }
-
+        
         private void DropdownUsuarioMenu_ItemClick(object sender, ObjectNEventArgs e)
         {
             if (e.Value is not MenuOpcoes opcao) return;
