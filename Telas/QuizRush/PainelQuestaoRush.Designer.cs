@@ -1,6 +1,6 @@
 ﻿namespace SenacQuizApp.Telas.QuizRush
 {
-    partial class PainelQuestaoDiario
+    partial class PainelQuestaoRush
     {
         /// <summary> 
         /// Required designer variable.
@@ -44,6 +44,7 @@
             // 
             // InputQuestaoEnunciado
             // 
+            InputQuestaoEnunciado.Anchor = AnchorStyles.Top;
             InputQuestaoEnunciado.AutoScroll = true;
             InputQuestaoEnunciado.BackColor = Color.FromArgb(66, 66, 66);
             InputQuestaoEnunciado.ColorScheme = AntdUI.TAMode.Dark;
@@ -56,14 +57,14 @@
             InputQuestaoEnunciado.Size = new Size(900, 175);
             InputQuestaoEnunciado.TabIndex = 7;
             // 
-            // PainelQuestaoDiario
+            // PainelQuestaoRush
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(50, 50, 50);
             Controls.Add(GridPanelAlternativas);
             Controls.Add(InputQuestaoEnunciado);
-            Name = "PainelQuestaoDiario";
+            Name = "PainelQuestaoRush";
             Size = new Size(1000, 700);
             ResumeLayout(false);
         }

@@ -11,13 +11,59 @@ using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Services
 {
-    public class QuizDiarioService
+    public class QuizService
     {
         private readonly ConquistaService _conquistaService;
 
-        public QuizDiarioService(ConquistaService conquistaService)
+        public QuizService(ConquistaService conquistaService)
         {
             _conquistaService = conquistaService;
+        }
+
+        public async Task<QuestaoAndamento?> ObterQuestao()
+        {
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.Questoes
+                .Select(questao => new QuestaoAndamento
+                {
+                    Id = questao.Id,
+                    TemaId = questao.TemaId,
+                    Tema = questao.Tema.Nome,
+                    NivelId = questao.NivelId,
+                    Nivel = questao.Nivel.Nome,
+                    Tipo = questao.Tipo,
+                    Enunciado = questao.Enunciado,
+                    Respondida = false,
+                    Pontos = questao.Nivel.Valor,
+                    Alternativas = questao.Alternativas.Select(alternativa => new AlternativaAndamento
+                    {
+                        Id = alternativa.Id,
+                        Texto = alternativa.Texto
+                    }).ToList()
+                })
+                .OrderBy(q => EF.Functions.Random())
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool?> VerificarRespostaAlternativa(int alternativaId)
+        {
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.Alternativas
+                .Where(alternativa => alternativa.Id == alternativaId)
+                .Select(alternativa => alternativa.EhCorreta)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool?> VerificarRespostaVerdadeiroFalso(int questaoId, bool verdadeiroFalso)
+        {
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.Questoes
+                .Where(questao => questao.Id == questaoId)
+                .Select(questao => questao.VerdadeiroFalso == verdadeiroFalso)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<QuizDiarioAndamentos?> CriarQuizDiario()
@@ -98,6 +144,23 @@ namespace SenacQuizApp.Services
             return await contexto.QuizzesDiarios
                 .Where(quiz => quiz.Id == quizId)
                 .QuizResultado()
+                .FirstOrDefaultAsync();
+        }
+        public async Task<QuizRushEntrada?> ObterResultadorUSHPorId(int quizId)
+        {
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.QuizzesRush
+                .Where(quiz => quiz.Id == quizId)
+                .Select(quiz => new QuizRushEntrada
+                {
+                    Id = quiz.Id,
+                    DataIniciado = quiz.DataIniciado,
+                    DataConcluido = quiz.DataConcluido,
+                    Tempo = quiz.Tempo,
+                    Streak = quiz.Streak,
+                    PontuacaoTotal = quiz.PontuacaoTotal
+                })
                 .FirstOrDefaultAsync();
         }
 
@@ -206,8 +269,8 @@ namespace SenacQuizApp.Services
 
             bool ehCorreta = await contexto.Questoes
                 .Where(questao => questao.Id == questaoId)
-                .Select(questao => questao.VerdadeiroFalso)
-                .FirstOrDefaultAsync() ?? false;
+                .Select(questao => questao.VerdadeiroFalso == verdadeiroFalso)
+                .FirstOrDefaultAsync();
 
             return await SalvarResposta(quizId, questaoId, ehCorreta, sequenciaAcertos, verdadeiroFalso: verdadeiroFalso);
         }
@@ -230,6 +293,35 @@ namespace SenacQuizApp.Services
             await contexto.SaveChangesAsync();
 
             await _conquistaService.ChecarQuizConquistas();
+        }
+
+        public async Task<int?> SalvarQuizRush(DateTimeOffset dataIniciado, int streak, int pontuacaoTotal)
+        {
+            using var contexto = new QuizAppContexto();
+
+            int usuarioId = UsuarioAtual.Id;
+
+            DateTimeOffset dataConcluido = DateTimeOffset.UtcNow;
+
+            TimeSpan tempo = dataConcluido - dataIniciado;
+
+            var quiz = new QuizRush
+            {
+                UsuarioId = usuarioId,
+                DataIniciado = dataIniciado,
+                DataConcluido = dataConcluido,
+                Tempo = tempo,
+                Streak = streak,
+                PontuacaoTotal = pontuacaoTotal
+            };
+
+            contexto.QuizzesRush.Add(quiz);
+            await contexto.SaveChangesAsync();
+
+            return await contexto.QuizzesRush
+                .Where(r => r.UsuarioId == usuarioId && quiz.DataConcluido == dataConcluido)
+                .Select(r => r.Id)
+                .FirstOrDefaultAsync();
         }
     }
 

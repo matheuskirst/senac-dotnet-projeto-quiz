@@ -8,7 +8,7 @@ namespace SenacQuizApp.Telas.QuizDiario
     public partial class ExecutarQuizDiario : UserControl
     {
         private int _quizId;
-        private readonly QuizDiarioService _quizService;
+        private readonly QuizService _quizService;
         private readonly UsuarioService _usuarioService;
 
         public event Action<int>? VerResultado;
@@ -17,7 +17,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         private PainelQuestaoDiario _painelQuestao;
         private QuizSessao? _quizSessao;
 
-        public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioService usuarioService)
+        public ExecutarQuizDiario(int quizId, QuizService quizService, UsuarioService usuarioService)
         {
             _quizId = quizId;
             _quizService = quizService;
@@ -61,7 +61,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                     SequenciaAcertos = 0
                 };
 
-                ProximaQuestao();
+                await ProximaQuestao();
             }
             catch
             {
@@ -69,7 +69,7 @@ namespace SenacQuizApp.Telas.QuizDiario
             }
         }
 
-        private async void ProximaQuestao()
+        private async Task ProximaQuestao()
         {
             if (_quizSessao == null) return;
 
@@ -89,7 +89,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 else _quizSessao.SequenciaAcertos = 0;
 
                 _quizSessao.QuestaoAtualIndex++;
-                ProximaQuestao();
+                await ProximaQuestao();
                 return;
             }
             else
@@ -128,7 +128,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
             _quizSessao.QuestaoAtualIndex++;
 
-            ProximaQuestao();
+            await ProximaQuestao();
         }
 
         private async void AoResponderVerdadeiroFalso(bool verdadeiroFalso)
@@ -147,7 +147,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
             _quizSessao.QuestaoAtualIndex++;
 
-            ProximaQuestao();
+            await ProximaQuestao();
         }
 
         private async Task FinalizarQuiz()

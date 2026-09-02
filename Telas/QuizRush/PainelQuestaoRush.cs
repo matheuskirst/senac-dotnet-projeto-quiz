@@ -3,13 +3,13 @@ using SenacQuizApp.Enums;
 
 namespace SenacQuizApp.Telas.QuizRush
 {
-    public partial class PainelQuestaoDiario : UserControl
+    public partial class PainelQuestaoRush : UserControl
     {
         private QuestaoAndamento? _questao;
         public event Action<int>? EscolheuAlternativa;
         public event Action<bool>? EscolheuVerdadeiroFalso;
 
-        public PainelQuestaoDiario()
+        public PainelQuestaoRush()
         {
             InitializeComponent();
         }

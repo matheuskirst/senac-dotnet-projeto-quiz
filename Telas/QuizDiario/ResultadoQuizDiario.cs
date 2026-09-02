@@ -9,9 +9,9 @@ namespace SenacQuizApp.Telas.QuizDiario
     public partial class ResultadoQuizDiario : UserControl
     {
         private int _quizId;
-        private readonly QuizDiarioService _quizDiarioService;
+        private readonly QuizService _quizDiarioService;
 
-        public ResultadoQuizDiario(int quizId, QuizDiarioService quizDiarioService)
+        public ResultadoQuizDiario(int quizId, QuizService quizDiarioService)
         {
             _quizId = quizId;
             _quizDiarioService = quizDiarioService;

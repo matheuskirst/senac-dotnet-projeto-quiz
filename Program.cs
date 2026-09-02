@@ -14,7 +14,7 @@ namespace SenacQuizApp
         {
             ConquistaService conquistaService = new();
             AutenticacaoService usuarioService = new(conquistaService);
-            QuizDiarioService quizDiarioService = new(conquistaService);
+            QuizService quizDiarioService = new(conquistaService);
             UsuarioService usuarioPerfilService = new();
             RankingService rankingService = new();
             HistoricoService historicoService = new();

@@ -298,7 +298,6 @@
             // 
             PanelCentral.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             PanelCentral.Back = Color.FromArgb(33, 33, 33);
-            PanelCentral.BackColor = Color.Transparent;
             PanelCentral.Controls.Add(LabelConquistas);
             PanelCentral.Controls.Add(PanelUsuario);
             PanelCentral.Controls.Add(PanelConquistas);

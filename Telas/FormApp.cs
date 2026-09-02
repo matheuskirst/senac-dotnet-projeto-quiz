@@ -4,13 +4,14 @@ using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.QuizDiario;
+using SenacQuizApp.Telas.QuizRush;
 
 namespace SenacQuizApp.Telas
 {
     public partial class FormApp : Window
     {
         private readonly AutenticacaoService _autenticacaoService;
-        private readonly QuizDiarioService _quizDiarioService;
+        private readonly QuizService _quizDiarioService;
         private readonly UsuarioService _usuarioPerfilService;
         private readonly RankingService _rankingService;
         private readonly HistoricoService _historicoService;
@@ -20,7 +21,7 @@ namespace SenacQuizApp.Telas
 
         public FormApp(
             AutenticacaoService autenticacaoService,
-            QuizDiarioService quizDiarioService,
+            QuizService quizDiarioService,
             UsuarioService usuarioPerfilService,
             RankingService rankingService,
             HistoricoService historicoService,
@@ -140,6 +141,7 @@ namespace SenacQuizApp.Telas
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
             paginaPrincipal.AbrirHubQuizDiario += AbrirHubQuizDiario;
+            paginaPrincipal.AbrirHubQuizRush += AbrirIniciarQuizRush;
 
             paginaPrincipal.ContinuarQuizDiario += AbrirExecutarQuizDiario;
             paginaPrincipal.ResultadoQuizDiario += AbrirResultadoQuizDiario;
@@ -187,7 +189,6 @@ namespace SenacQuizApp.Telas
 
             _paginaAtual = new PaginaAtual { Pagina = paginaHistorico, Propriedade = null };
         }
-
         public void AbrirConfiguracoes()
         {
             var formConfig = new PaginaConfig();
@@ -234,6 +235,47 @@ namespace SenacQuizApp.Telas
             AlternarBotaoHeader();
 
             var resultadoQuizDiario = new ResultadoQuizDiario(quizId, _quizDiarioService);
+
+            MudarPagina(resultadoQuizDiario);
+
+            _paginaAtual = new PaginaAtual { Pagina = resultadoQuizDiario, Propriedade = quizId };
+        }
+
+        // ============================================================
+        // Quiz Rush
+        // ============================================================
+
+        public void AbrirIniciarQuizRush(object? sender, EventArgs e)
+        {
+            AlternarBotaoHeader();
+
+            var hub = new IniciarQuizRush();
+
+            hub.IniciarRush += AbrirExecutarQuizRush;
+
+            MudarPagina(hub);
+
+            _paginaAtual = new PaginaAtual { Pagina = hub, Propriedade = null };
+        }
+
+        public void AbrirExecutarQuizRush(object? sender, EventArgs e)
+        {
+            AlternarBotaoHeader();
+
+            var executarQuizDiario = new ExecutarQuizRush(_usuarioPerfilService, _quizDiarioService);
+
+            executarQuizDiario.VerResultado += AbrirResultadoQuizRush;
+
+            MudarPagina(executarQuizDiario);
+
+            _paginaAtual = new PaginaAtual { Pagina = executarQuizDiario, Propriedade = null };
+        }
+
+        public void AbrirResultadoQuizRush(int quizId)
+        {
+            AlternarBotaoHeader();
+
+            var resultadoQuizDiario = new ResultadoQuizRush(quizId, _quizDiarioService);
 
             MudarPagina(resultadoQuizDiario);
 

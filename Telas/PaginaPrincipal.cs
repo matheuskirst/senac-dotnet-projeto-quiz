@@ -80,6 +80,10 @@ namespace SenacQuizApp.Telas
         {
             AbrirHubQuizDiario?.Invoke(this, EventArgs.Empty);
         }
+        private void ButtonQuizRush_Click(object sender, EventArgs e)
+        {
+            AbrirHubQuizRush?.Invoke(this, EventArgs.Empty);
+        }
 
         private void MostrarMenuQuizzes(QuizResumo quiz)
         {

@@ -72,6 +72,7 @@
             ButtonQuizRush.Size = new Size(230, 58);
             ButtonQuizRush.TabIndex = 11;
             ButtonQuizRush.Text = "Rush";
+            ButtonQuizRush.Click += ButtonQuizRush_Click;
             // 
             // divider3
             // 

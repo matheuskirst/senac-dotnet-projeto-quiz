@@ -5,7 +5,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 {
     public partial class HubQuizDiario : UserControl
     {
-        private readonly QuizDiarioService _quizDiarioService;
+        private readonly QuizService _quizDiarioService;
         private readonly UsuarioService _usuarioPerfilService;
         private QuizDiarioAndamentos? _quizDiarioDto;
 
@@ -13,7 +13,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         public event Action<int>? VerResultado;
         public event Action<int>? CarregarQuiz;
 
-        public HubQuizDiario(QuizDiarioService quizDiarioService, UsuarioService usuarioPerfilService)
+        public HubQuizDiario(QuizService quizDiarioService, UsuarioService usuarioPerfilService)
         {
             _quizDiarioService = quizDiarioService;
             _usuarioPerfilService = usuarioPerfilService;

@@ -38,6 +38,8 @@
             LabelUsuarioNick = new AntdUI.Label();
             LabelQuizSequenciaAcertos = new AntdUI.Label();
             PanelQuestoes = new AntdUI.Panel();
+            LabelTempoRestante = new AntdUI.Label();
+            LabelTempo = new AntdUI.Label();
             PanelHeader.SuspendLayout();
             PanelQuizHeaderQuestao.SuspendLayout();
             PanelQuizHeaderUsuario.SuspendLayout();
@@ -46,6 +48,8 @@
             // PanelHeader
             // 
             PanelHeader.Back = Color.FromArgb(33, 33, 33);
+            PanelHeader.Controls.Add(LabelTempo);
+            PanelHeader.Controls.Add(LabelTempoRestante);
             PanelHeader.Controls.Add(LabelQuizRushTitulo);
             PanelHeader.Controls.Add(PanelQuizHeaderQuestao);
             PanelHeader.Controls.Add(PanelQuizHeaderUsuario);
@@ -184,6 +188,33 @@
             PanelQuestoes.Size = new Size(1024, 600);
             PanelQuestoes.TabIndex = 5;
             // 
+            // LabelTempoRestante
+            // 
+            LabelTempoRestante.BackColor = Color.Transparent;
+            LabelTempoRestante.ColorScheme = AntdUI.TAMode.Dark;
+            LabelTempoRestante.Dock = DockStyle.Top;
+            LabelTempoRestante.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelTempoRestante.ForeColor = Color.Gray;
+            LabelTempoRestante.Location = new Point(300, 50);
+            LabelTempoRestante.Name = "LabelTempoRestante";
+            LabelTempoRestante.Size = new Size(424, 29);
+            LabelTempoRestante.TabIndex = 9;
+            LabelTempoRestante.Text = "Tempo Restante:";
+            LabelTempoRestante.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LabelTempo
+            // 
+            LabelTempo.BackColor = Color.Transparent;
+            LabelTempo.ColorScheme = AntdUI.TAMode.Dark;
+            LabelTempo.Dock = DockStyle.Top;
+            LabelTempo.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelTempo.Location = new Point(300, 79);
+            LabelTempo.Name = "LabelTempo";
+            LabelTempo.Size = new Size(424, 41);
+            LabelTempo.TabIndex = 10;
+            LabelTempo.Text = "00:00";
+            LabelTempo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // ExecutarQuizRush
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -192,6 +223,7 @@
             Controls.Add(PanelHeader);
             Name = "ExecutarQuizRush";
             Size = new Size(1024, 720);
+            Load += ExecutarQuizRush_Load;
             PanelHeader.ResumeLayout(false);
             PanelQuizHeaderQuestao.ResumeLayout(false);
             PanelQuizHeaderQuestao.PerformLayout();
@@ -213,5 +245,7 @@
         private AntdUI.Label LabelUsuarioNick;
         private AntdUI.Label LabelQuizSequenciaAcertos;
         private AntdUI.Panel PanelQuestoes;
+        private AntdUI.Label LabelTempoRestante;
+        private AntdUI.Label LabelTempo;
     }
 }
