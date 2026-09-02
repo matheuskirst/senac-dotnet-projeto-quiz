@@ -86,8 +86,8 @@
             // panel2
             // 
             panel2.Back = Color.FromArgb(50, 50, 50);
-            panel2.Controls.Add(panel1);
             panel2.Controls.Add(stackPanel1);
+            panel2.Controls.Add(panel1);
             panel2.Location = new Point(3, 83);
             panel2.Name = "panel2";
             panel2.Size = new Size(1274, 635);
