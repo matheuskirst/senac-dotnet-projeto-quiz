@@ -74,11 +74,11 @@
             LabelNivel.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelNivel.BackColor = Color.Transparent;
             LabelNivel.ColorScheme = AntdUI.TAMode.Dark;
-            LabelNivel.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelNivel.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelNivel.Location = new Point(10, 11);
             LabelNivel.Name = "LabelNivel";
             LabelNivel.Prefix = "Nivel: ";
-            LabelNivel.Size = new Size(100, 27);
+            LabelNivel.Size = new Size(83, 27);
             LabelNivel.TabIndex = 0;
             LabelNivel.Text = "#";
             // 

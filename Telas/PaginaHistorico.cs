@@ -11,7 +11,7 @@ namespace SenacQuizApp.Telas
     {
         private readonly HistoricoService _historicoService;
         public event Action<int>? ContinuarQuiz;
-        public event Action<int>? VerResultado;
+        public event Action<int, QuizTipo>? VerResultado;
 
         private AntdUI.ContextMenuStripItem _continuarItem;
         private AntdUI.ContextMenuStripItem _resultadoItem;
@@ -173,7 +173,7 @@ namespace SenacQuizApp.Telas
                             ContinuarQuiz?.Invoke(quiz.Id);
                             break;
                         case "Resultado":
-                            VerResultado?.Invoke(quiz.Id);
+                            VerResultado?.Invoke(quiz.Id, quiz.TipoId);
                             break;
                         case "Copiar":
                             Clipboard.SetText(

@@ -147,6 +147,7 @@ namespace SenacQuizApp.Services
                     DataIniciado = quiz.DataIniciado,
                     DataConcluido = quiz.DataConcluido,
                     Tempo = quiz.Tempo,
+                    MotivoEncerrado = quiz.MotivoEncerrado,
                     Streak = quiz.Streak,
                     PontuacaoTotal = quiz.PontuacaoTotal,
                 });

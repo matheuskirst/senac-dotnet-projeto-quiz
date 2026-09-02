@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SenacQuizApp.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace SenacQuizApp.Dtos.Historico
     // Objeto para exibir partidas de quizzes rush
     public class QuizRushEntrada : QuizGenerico
     {
+        public RushMotivoEncerrado MotivoEncerrado { get; set; }
         public int Streak { get; set; }
     }
 }

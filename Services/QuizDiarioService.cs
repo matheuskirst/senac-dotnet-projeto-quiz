@@ -100,23 +100,6 @@ namespace SenacQuizApp.Services
                 .QuizResultado()
                 .FirstOrDefaultAsync();
         }
-        public async Task<QuizRushEntrada?> ObterResultadorUSHPorId(int quizId)
-        {
-            using var contexto = new QuizAppContexto();
-
-            return await contexto.QuizzesRush
-                .Where(quiz => quiz.Id == quizId)
-                .Select(quiz => new QuizRushEntrada
-                {
-                    Id = quiz.Id,
-                    DataIniciado = quiz.DataIniciado,
-                    DataConcluido = quiz.DataConcluido,
-                    Tempo = quiz.Tempo,
-                    Streak = quiz.Streak,
-                    PontuacaoTotal = quiz.PontuacaoTotal
-                })
-                .FirstOrDefaultAsync();
-        }
 
         public async Task<bool?> SalvarResposta(int quizId, int questaoId, bool ehCorreta, int sequenciaAcertos, int? alternativaId = null, bool? verdadeiroFalso = null)
         {
@@ -173,10 +156,10 @@ namespace SenacQuizApp.Services
             };
 
             contexto.UsuarioRespostas.Add(resposta);
-            usuarioStats.AtualizarAcertos(ehCorreta);
 
             if (ehCorreta)
             {
+                usuarioStats.AtualizarAcertos(1);
                 usuarioStats.AdicionarPontos(pontuacaoFinal);
 
                 var temaProgresso = await contexto.UsuarioTemasProgressos
@@ -197,6 +180,10 @@ namespace SenacQuizApp.Services
                 {
                     temaProgresso.RespostasCorretas++;
                 }
+            }
+            else
+            {
+                usuarioStats.LimparAcertosSeguidos();
             }
 
             await contexto.SaveChangesAsync();

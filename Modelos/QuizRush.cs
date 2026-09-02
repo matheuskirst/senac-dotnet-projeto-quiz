@@ -1,4 +1,5 @@
-﻿using SenacQuizApp.Modelos.Usuarios;
+﻿using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Modelos
 {
@@ -12,6 +13,8 @@ namespace SenacQuizApp.Modelos
         public DateTimeOffset DataIniciado { get; set; }
         public DateTimeOffset DataConcluido { get; set; } = DateTimeOffset.UtcNow;
         public TimeSpan Tempo { get; set; }
+
+        public RushMotivoEncerrado MotivoEncerrado { get; set; }
         public int Streak { get; set; }
         public int PontuacaoTotal { get; set; } = 0;
     }

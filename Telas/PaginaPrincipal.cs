@@ -18,7 +18,7 @@ namespace SenacQuizApp.Telas
         public event EventHandler? AbrirHubQuizRush;
 
         public event Action<int>? ContinuarQuizDiario;
-        public event Action<int>? ResultadoQuizDiario;
+        public event Action<int, QuizTipo>? VerResultado;
         public event Action<int>? AbrirQuizRush;
 
         public PaginaPrincipal(HistoricoService historicoService)
@@ -125,7 +125,7 @@ namespace SenacQuizApp.Telas
                         ContinuarQuizDiario?.Invoke(quiz.Id);
                         break;
                     case "Resultado":
-                        ResultadoQuizDiario?.Invoke(quiz.Id);
+                        VerResultado?.Invoke(quiz.Id, quiz.TipoId);
                         break;
                     case "Copiar":
                         Clipboard.SetText(

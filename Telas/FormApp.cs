@@ -150,7 +150,7 @@ namespace SenacQuizApp.Telas
             paginaPrincipal.AbrirHubQuizRush += AbrirIniciarQuizRush;
 
             paginaPrincipal.ContinuarQuizDiario += AbrirExecutarQuizDiario;
-            paginaPrincipal.ResultadoQuizDiario += AbrirResultadoQuizDiario;
+            paginaPrincipal.VerResultado += AoEscolherResultadoQuiz;
 
             MudarPagina(paginaPrincipal);
 
@@ -189,12 +189,26 @@ namespace SenacQuizApp.Telas
             AlternarBotaoHeader();
 
             paginaHistorico.ContinuarQuiz += AbrirExecutarQuizDiario;
-            paginaHistorico.VerResultado += AbrirResultadoQuizDiario;
+            paginaHistorico.VerResultado += AoEscolherResultadoQuiz;
 
             MudarPagina(paginaHistorico);
 
             _paginaAtual = new PaginaAtual { Pagina = paginaHistorico, Propriedade = null };
         }
+
+        public void AoEscolherResultadoQuiz(int quizId, QuizTipo tipo)
+        {
+            switch (tipo)
+            {
+                case QuizTipo.Diario:
+                    AbrirResultadoQuizDiario(quizId);
+                    break;
+                case QuizTipo.Rush:
+                    AbrirResultadoQuizRush(quizId);
+                    break;
+            }
+        }
+
         public void AbrirConfiguracoes()
         {
             var formConfig = new PaginaConfig();
@@ -281,7 +295,7 @@ namespace SenacQuizApp.Telas
         {
             AlternarBotaoHeader();
 
-            var resultadoQuizDiario = new ResultadoQuizRush(quizId, _quizDiarioService);
+            var resultadoQuizDiario = new ResultadoQuizRush(quizId, _quizRushService);
 
             MudarPagina(resultadoQuizDiario);
 

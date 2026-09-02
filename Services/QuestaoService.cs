@@ -31,7 +31,9 @@ namespace SenacQuizApp.Services
                     {
                         Id = alternativa.Id,
                         Texto = alternativa.Texto
-                    }).ToList()
+                    })
+                    .OrderBy(q => EF.Functions.Random())
+                    .ToList()
                 })
                 .OrderBy(q => EF.Functions.Random())
                 .FirstOrDefaultAsync();

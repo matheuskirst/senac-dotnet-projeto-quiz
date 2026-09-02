@@ -36,6 +36,7 @@
             LabelDataConcluido = new AntdUI.Label();
             LabelDataInicio = new AntdUI.Label();
             LabelSubTitulo = new AntdUI.Label();
+            LabelMotivoEncerrado = new AntdUI.Label();
             PanelQuizConclusao.SuspendLayout();
             SuspendLayout();
             // 
@@ -49,23 +50,25 @@
             LabelTitulo.Name = "LabelTitulo";
             LabelTitulo.Size = new Size(1024, 45);
             LabelTitulo.TabIndex = 1;
-            LabelTitulo.Text = "Resultado do Quiz";
+            LabelTitulo.Text = "Resultado do Quiz Rush";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PanelQuizConclusao
             // 
+            PanelQuizConclusao.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             PanelQuizConclusao.Back = Color.FromArgb(33, 33, 33);
             PanelQuizConclusao.Controls.Add(LabelPontuacaoTotal);
             PanelQuizConclusao.Controls.Add(LabelStreak);
+            PanelQuizConclusao.Controls.Add(LabelMotivoEncerrado);
             PanelQuizConclusao.Controls.Add(LabelTempo);
             PanelQuizConclusao.Controls.Add(LabelDataConcluido);
             PanelQuizConclusao.Controls.Add(LabelDataInicio);
             PanelQuizConclusao.Controls.Add(LabelSubTitulo);
-            PanelQuizConclusao.Location = new Point(312, 65);
+            PanelQuizConclusao.Location = new Point(262, 65);
             PanelQuizConclusao.Name = "PanelQuizConclusao";
             PanelQuizConclusao.Padding = new Padding(10);
             PanelQuizConclusao.Radius = 0;
-            PanelQuizConclusao.Size = new Size(400, 636);
+            PanelQuizConclusao.Size = new Size(500, 636);
             PanelQuizConclusao.TabIndex = 2;
             PanelQuizConclusao.Text = "panel1";
             // 
@@ -75,10 +78,10 @@
             LabelPontuacaoTotal.ColorScheme = AntdUI.TAMode.Dark;
             LabelPontuacaoTotal.Dock = DockStyle.Top;
             LabelPontuacaoTotal.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelPontuacaoTotal.Location = new Point(10, 200);
+            LabelPontuacaoTotal.Location = new Point(10, 238);
             LabelPontuacaoTotal.Name = "LabelPontuacaoTotal";
             LabelPontuacaoTotal.Prefix = "Pontuação Total: ";
-            LabelPontuacaoTotal.Size = new Size(380, 38);
+            LabelPontuacaoTotal.Size = new Size(480, 38);
             LabelPontuacaoTotal.TabIndex = 14;
             LabelPontuacaoTotal.Text = "*";
             // 
@@ -88,10 +91,10 @@
             LabelStreak.ColorScheme = AntdUI.TAMode.Dark;
             LabelStreak.Dock = DockStyle.Top;
             LabelStreak.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelStreak.Location = new Point(10, 162);
+            LabelStreak.Location = new Point(10, 200);
             LabelStreak.Name = "LabelStreak";
             LabelStreak.Prefix = "Streak: ";
-            LabelStreak.Size = new Size(380, 38);
+            LabelStreak.Size = new Size(480, 38);
             LabelStreak.TabIndex = 12;
             LabelStreak.Text = "*";
             // 
@@ -104,7 +107,7 @@
             LabelTempo.Location = new Point(10, 124);
             LabelTempo.Name = "LabelTempo";
             LabelTempo.Prefix = "Tempo: ";
-            LabelTempo.Size = new Size(380, 38);
+            LabelTempo.Size = new Size(480, 38);
             LabelTempo.TabIndex = 11;
             LabelTempo.Text = "*";
             // 
@@ -117,7 +120,7 @@
             LabelDataConcluido.Location = new Point(10, 86);
             LabelDataConcluido.Name = "LabelDataConcluido";
             LabelDataConcluido.Prefix = "Data Concluido: ";
-            LabelDataConcluido.Size = new Size(380, 38);
+            LabelDataConcluido.Size = new Size(480, 38);
             LabelDataConcluido.TabIndex = 10;
             LabelDataConcluido.Text = "*";
             // 
@@ -130,7 +133,7 @@
             LabelDataInicio.Location = new Point(10, 48);
             LabelDataInicio.Name = "LabelDataInicio";
             LabelDataInicio.Prefix = "Data Iniciado: ";
-            LabelDataInicio.Size = new Size(380, 38);
+            LabelDataInicio.Size = new Size(480, 38);
             LabelDataInicio.TabIndex = 8;
             LabelDataInicio.Text = "*";
             // 
@@ -143,10 +146,23 @@
             LabelSubTitulo.Location = new Point(10, 10);
             LabelSubTitulo.Name = "LabelSubTitulo";
             LabelSubTitulo.Prefix = "";
-            LabelSubTitulo.Size = new Size(380, 38);
+            LabelSubTitulo.Size = new Size(480, 38);
             LabelSubTitulo.TabIndex = 15;
             LabelSubTitulo.Text = "Estátisticas";
             LabelSubTitulo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LabelMotivoEncerrado
+            // 
+            LabelMotivoEncerrado.BackColor = Color.Transparent;
+            LabelMotivoEncerrado.ColorScheme = AntdUI.TAMode.Dark;
+            LabelMotivoEncerrado.Dock = DockStyle.Top;
+            LabelMotivoEncerrado.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelMotivoEncerrado.Location = new Point(10, 162);
+            LabelMotivoEncerrado.Name = "LabelMotivoEncerrado";
+            LabelMotivoEncerrado.Prefix = "Motivo de encerramento:  ";
+            LabelMotivoEncerrado.Size = new Size(480, 38);
+            LabelMotivoEncerrado.TabIndex = 16;
+            LabelMotivoEncerrado.Text = "*";
             // 
             // ResultadoQuizRush
             // 
@@ -172,5 +188,6 @@
         private AntdUI.Label LabelDataConcluido;
         private AntdUI.Label LabelDataInicio;
         private AntdUI.Label LabelSubTitulo;
+        private AntdUI.Label LabelMotivoEncerrado;
     }
 }

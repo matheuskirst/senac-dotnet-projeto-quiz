@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SenacQuizApp.Data;
@@ -11,16 +12,17 @@ using SenacQuizApp.Data;
 namespace SenacQuizApp.Migrations
 {
     [DbContext(typeof(QuizAppContexto))]
-    partial class QuizAppContextoModelSnapshot : ModelSnapshot
+    [Migration("20260902034658_AtualizaQuizRush")]
+    partial class AtualizaQuizRush
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.19")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "Motivo Encerrado", new[] { "resposta_errada", "tempo_esgotou" });
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "Tipo", new[] { "alternativas", "verdadeiro_ou_falso" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
@@ -226,9 +228,6 @@ namespace SenacQuizApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamptz")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<int>("MotivoEncerrado")
-                        .HasColumnType("integer");
 
                     b.Property<int>("PontuacaoTotal")
                         .HasColumnType("integer");

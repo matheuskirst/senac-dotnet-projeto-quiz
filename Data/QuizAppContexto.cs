@@ -233,6 +233,21 @@ namespace SenacQuizApp.Data
                     .HasColumnType("timestamptz");
             });
 
+            modelBuilder.HasPostgresEnum<RushMotivoEncerrado>(name: "Motivo Encerrado");
+            
+            modelBuilder.Entity<QuizRush>(entity =>
+            {
+                entity.HasIndex(ud => new { ud.UsuarioId, ud.DataIniciado })
+                    .IsUnique();
+
+                entity.Property(q => q.DataIniciado)
+                    .HasColumnType("timestamptz")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(q => q.DataConcluido)
+                    .HasColumnType("timestamptz");
+            });
+
 
             modelBuilder.Entity<Conquista>(entity =>
             {

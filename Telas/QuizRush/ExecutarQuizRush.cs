@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
 using System.Diagnostics;
@@ -106,7 +107,7 @@ namespace SenacQuizApp.Telas.QuizRush
             {
                 _timerAtualizarLabel.Stop();
 
-                await Encerrar();
+                await Encerrar(RushMotivoEncerrado.TempoEsgotou);
                 return;
             }
 
@@ -114,14 +115,16 @@ namespace SenacQuizApp.Telas.QuizRush
             LabelTempo.Text = restante.ToString(@"s\s\:ff\m\s");
         }
 
-        private async Task Encerrar()
+        private async Task Encerrar(RushMotivoEncerrado motivo)
         {
+            _timerAtualizarLabel.Stop();
+            _cronometro.Stop();
             if (_rushSessao == null || _timerAtualizarLabel == null) return;
             var dataIniciado = _rushSessao.DataIniciado;
             var streak = _rushSessao.Streak;
             var pontos = _rushSessao.Pontos;
 
-            int? quizId = await _quizRushService.SalvarQuizRush(dataIniciado, streak, pontos);
+            int? quizId = await _quizRushService.SalvarQuizRush(motivo, dataIniciado, streak, pontos);
             if (quizId == null) return;
 
             VerResultado?.Invoke(quizId.Value);
@@ -139,9 +142,11 @@ namespace SenacQuizApp.Telas.QuizRush
             {
                 _rushSessao.Streak++;
                 _rushSessao.Pontos += questao.Pontos;
+                LabelStreak.Text = _rushSessao.Streak.ToString();
+                LabelPontuacaoTotal.Text = _rushSessao.Pontos.ToString();
                 await ProximaQuestao();
             }
-            else await Encerrar();
+            else await Encerrar(RushMotivoEncerrado.RespostaErrada);
         }
 
         private async void AoResponderVerdadeiroFalso(bool verdadeiroFalso)
@@ -155,9 +160,11 @@ namespace SenacQuizApp.Telas.QuizRush
             {
                 _rushSessao.Streak++;
                 _rushSessao.Pontos += questao.Pontos;
+                LabelStreak.Text = _rushSessao.Streak.ToString();
+                LabelPontuacaoTotal.Text = _rushSessao.Pontos.ToString();
                 await ProximaQuestao();
             }
-            else await Encerrar();
+            else await Encerrar(RushMotivoEncerrado.RespostaErrada);
         }
     }
 

@@ -53,7 +53,7 @@
             LabelTitulo.Name = "LabelTitulo";
             LabelTitulo.Size = new Size(1024, 45);
             LabelTitulo.TabIndex = 0;
-            LabelTitulo.Text = "Resultado do Quiz";
+            LabelTitulo.Text = "Resultado do Quiz Diário";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PanelQuizConclusao

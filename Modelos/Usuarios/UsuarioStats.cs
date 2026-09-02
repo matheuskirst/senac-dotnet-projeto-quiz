@@ -43,23 +43,23 @@ namespace SenacQuizApp.Modelos.Usuarios
             }
         }
 
-        public void AtualizarAcertos(bool acertou)
+        public void AtualizarAcertos(int acertos)
+        {
+            TotalRespondidos += acertos;
+
+            TotalAcertos += acertos;
+
+            AtualAcertosSeguidos += acertos;
+            if (AtualAcertosSeguidos > MaxAcertosSeguidos) { MaxAcertosSeguidos = AtualAcertosSeguidos; }
+        }
+
+        public void LimparAcertosSeguidos()
         {
             TotalRespondidos++;
 
-            if (acertou)
-            {
-                TotalAcertos++;
+            if (AtualAcertosSeguidos > MaxAcertosSeguidos) { MaxAcertosSeguidos = AtualAcertosSeguidos; }
 
-                AtualAcertosSeguidos++;
-                if (AtualAcertosSeguidos > MaxAcertosSeguidos) { MaxAcertosSeguidos = AtualAcertosSeguidos; }
-            }
-            else
-            {
-                if (AtualAcertosSeguidos > MaxAcertosSeguidos) { MaxAcertosSeguidos = AtualAcertosSeguidos; }
-
-                AtualAcertosSeguidos = 0;
-            }
+            AtualAcertosSeguidos = 0;
         }
     }
 }
