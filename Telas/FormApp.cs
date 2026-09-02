@@ -11,29 +11,35 @@ namespace SenacQuizApp.Telas
     public partial class FormApp : Window
     {
         private readonly AutenticacaoService _autenticacaoService;
-        private readonly QuizService _quizDiarioService;
+        private readonly QuizDiarioService _quizDiarioService;
+        private readonly QuizRushService _quizRushService;
         private readonly UsuarioService _usuarioPerfilService;
         private readonly RankingService _rankingService;
         private readonly HistoricoService _historicoService;
         private readonly ConquistaService _conquistaService;
+        private readonly QuestaoService _questaoService;
 
         private PaginaAtual? _paginaAtual;
 
         public FormApp(
             AutenticacaoService autenticacaoService,
-            QuizService quizDiarioService,
+            QuizDiarioService quizDiarioService,
+            QuizRushService quizRushService,
             UsuarioService usuarioPerfilService,
             RankingService rankingService,
             HistoricoService historicoService,
-            ConquistaService conquistaService
+            ConquistaService conquistaService,
+            QuestaoService questaoService
             )
         {
             _autenticacaoService = autenticacaoService;
             _quizDiarioService = quizDiarioService;
+            _quizRushService = quizRushService;
             _usuarioPerfilService = usuarioPerfilService;
             _rankingService = rankingService;
             _historicoService = historicoService;
             _conquistaService = conquistaService;
+            _questaoService = questaoService;
 
             _conquistaService.ConquistaDesbloqueada += AoDesbloquearConquista;
             InitializeComponent();
@@ -262,7 +268,7 @@ namespace SenacQuizApp.Telas
         {
             AlternarBotaoHeader();
 
-            var executarQuizDiario = new ExecutarQuizRush(_usuarioPerfilService, _quizDiarioService);
+            var executarQuizDiario = new ExecutarQuizRush(_usuarioPerfilService, _quizRushService, _questaoService);
 
             executarQuizDiario.VerResultado += AbrirResultadoQuizRush;
 

@@ -1,8 +1,9 @@
 ﻿using SenacQuizApp.Enums;
 
-namespace SenacQuizApp.Dtos
+namespace SenacQuizApp.Dtos.Historico
 {
-    public class QuizResumo
+    // Objeto para exibir todos os quizzes de forma genérica
+    public class QuizGenerico
     {
         public int Id { get; set; }
         public QuizTipo TipoId { get; set; }

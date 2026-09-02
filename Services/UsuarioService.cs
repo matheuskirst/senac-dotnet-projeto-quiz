@@ -7,14 +7,14 @@ namespace SenacQuizApp.Services
 {
     public class UsuarioService
     {
-        public async Task<UsuarioPerfilDto?> ObterPerfilPorId(int usuarioId)
+        public async Task<UsuarioPerfil?> ObterPerfilPorId(int usuarioId)
         {
             using var contexto = new QuizAppContexto();
 
             return await contexto.Usuarios
                 .AsNoTracking()
                 .Where(usuario => usuario.Id == usuarioId)
-                .Select(usuario => new UsuarioPerfilDto
+                .Select(usuario => new UsuarioPerfil
                 {
                     Id = usuario.Id,
                     Nickname = usuario.Nickname,
@@ -26,6 +26,16 @@ namespace SenacQuizApp.Services
                     TotalRespondidos = usuario.Stats.TotalRespondidos,
                     AtualAcertosSeguidos = usuario.Stats.MaxAcertosSeguidos,
                     MaxAcertosSeguidos = usuario.Stats.AtualAcertosSeguidos,
+
+                    TemaMaisAcertado = usuario.TemaProgressos
+                    .OrderByDescending(tp => tp.RespostasCorretas)
+                    .Select(tp => new TemaDestaque
+                    {
+                        Nome = tp.Tema.Nome,
+                        RespostasCorretas = tp.RespostasCorretas
+                    })
+                    .FirstOrDefault(),
+
                     Conquistas = usuario.Conquistas.Select(uc => new ConquistaDto
                     {
                         Nome = uc.Conquista.Nome,

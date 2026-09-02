@@ -11,7 +11,8 @@ namespace SenacQuizApp.Telas.QuizRush
     public partial class ExecutarQuizRush : UserControl
     {
         private readonly UsuarioService _usuarioService;
-        private readonly QuizService _quizService;
+        private readonly QuizRushService _quizRushService;
+        private readonly QuestaoService _questaoService;
 
         public event Action<int>? VerResultado;
 
@@ -23,10 +24,12 @@ namespace SenacQuizApp.Telas.QuizRush
         private Stopwatch _cronometro = new Stopwatch();
         private System.Windows.Forms.Timer _timerAtualizarLabel = new();
 
-        public ExecutarQuizRush(UsuarioService usuarioService, QuizService quizService)
+        public ExecutarQuizRush(UsuarioService usuarioService, QuizRushService quizRushService, QuestaoService questaoService)
         {
             _usuarioService = usuarioService;
-            _quizService = quizService;
+            _quizRushService = quizRushService;
+            _questaoService = questaoService;
+
             _painelQuestao = new PainelQuestaoRush
             {
                 Dock = DockStyle.Fill
@@ -47,7 +50,7 @@ namespace SenacQuizApp.Telas.QuizRush
             {
                 PanelQuestoes.Controls.Add(_painelQuestao);
 
-                UsuarioPerfilDto? usuario = await _usuarioService.ObterPerfilPorId(UsuarioAtual.Id);
+                UsuarioPerfil? usuario = await _usuarioService.ObterPerfilPorId(UsuarioAtual.Id);
 
                 if (usuario != null)
                 {
@@ -76,7 +79,7 @@ namespace SenacQuizApp.Telas.QuizRush
             _rushSessao.QuestaoAtual = null;
 
 
-            QuestaoAndamento? questao = await _quizService.ObterQuestao();
+            QuestaoExibicao? questao = await _questaoService.ObterAleatorio();
 
             if (questao == null) return;
 
@@ -118,7 +121,7 @@ namespace SenacQuizApp.Telas.QuizRush
             var streak = _rushSessao.Streak;
             var pontos = _rushSessao.Pontos;
 
-            int? quizId = await _quizService.SalvarQuizRush(dataIniciado, streak, pontos);
+            int? quizId = await _quizRushService.SalvarQuizRush(dataIniciado, streak, pontos);
             if (quizId == null) return;
 
             VerResultado?.Invoke(quizId.Value);
@@ -130,7 +133,7 @@ namespace SenacQuizApp.Telas.QuizRush
             var questao = _rushSessao.QuestaoAtual;
             int streak = _rushSessao.Streak;
 
-            bool? ehCorreta = await _quizService.VerificarRespostaAlternativa(alternativaId);
+            bool? ehCorreta = await _quizRushService.VerificarRespostaAlternativa(alternativaId);
 
             if (ehCorreta != null && ehCorreta.Value)
             {
@@ -146,7 +149,7 @@ namespace SenacQuizApp.Telas.QuizRush
             if (_rushSessao == null || _rushSessao.QuestaoAtual == null) return;
             var questao = _rushSessao.QuestaoAtual;
 
-            bool? ehCorreta = await _quizService.VerificarRespostaVerdadeiroFalso(questao.Id, verdadeiroFalso);
+            bool? ehCorreta = await _quizRushService.VerificarRespostaVerdadeiroFalso(questao.Id, verdadeiroFalso);
 
             if (ehCorreta != null && ehCorreta.Value)
             {
@@ -160,7 +163,7 @@ namespace SenacQuizApp.Telas.QuizRush
 
     public class RushSessao
     {
-        public QuestaoAndamento? QuestaoAtual { get; set; }
+        public QuestaoExibicao? QuestaoAtual { get; set; }
         public int QuestaoAtualIndex { get; set; }
         public DateTimeOffset DataIniciado { get; set; } = DateTimeOffset.Now;
         public int Streak { get; set; }

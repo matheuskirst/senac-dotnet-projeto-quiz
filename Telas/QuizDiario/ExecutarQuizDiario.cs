@@ -1,14 +1,14 @@
 ﻿using SenacQuizApp.Services;
 using SenacQuizApp.Global;
-using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
     public partial class ExecutarQuizDiario : UserControl
     {
         private int _quizId;
-        private readonly QuizService _quizService;
+        private readonly QuizDiarioService _quizService;
         private readonly UsuarioService _usuarioService;
 
         public event Action<int>? VerResultado;
@@ -17,7 +17,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         private PainelQuestaoDiario _painelQuestao;
         private QuizSessao? _quizSessao;
 
-        public ExecutarQuizDiario(int quizId, QuizService quizService, UsuarioService usuarioService)
+        public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioService usuarioService)
         {
             _quizId = quizId;
             _quizService = quizService;
@@ -39,8 +39,8 @@ namespace SenacQuizApp.Telas.QuizDiario
             {
                 PanelQuestoes.Controls.Add(_painelQuestao);
 
-                QuizDiarioAndamentos? quiz = await _quizService.ObterDetalhePorId(_quizId);
-                UsuarioPerfilDto? usuario = await _usuarioService.ObterPerfilPorId(UsuarioAtual.Id);
+                QuizDiarioTentativa? quiz = await _quizService.ObterDetalhePorId(_quizId);
+                UsuarioPerfil? usuario = await _usuarioService.ObterPerfilPorId(UsuarioAtual.Id);
 
                 if (quiz == null) return;
 
@@ -81,7 +81,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 return;
             }
             
-            QuestaoAndamento questao = _quizSessao.Quiz.Questoes[questaoIndex];
+            QuestaoExibicao questao = _quizSessao.Quiz.Questoes[questaoIndex];
 
             if (questao.Respondida)
             {
@@ -169,7 +169,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
     public class QuizSessao
     {
-        public QuizDiarioAndamentos Quiz { get; set; } = null!;
+        public QuizDiarioTentativa Quiz { get; set; } = null!;
         public int QuestaoAtualIndex { get; set; }
         public int SequenciaAcertos { get; set; }
     }

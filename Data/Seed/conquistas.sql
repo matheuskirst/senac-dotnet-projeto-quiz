@@ -25,7 +25,7 @@ VALUES
 
 (10, 'Acessou por 7 Dias Seguidos', 'Faça login a cada dia por uma semana', 4, 7, NULL),
 
-(11, 'Erre TODAS questões', 'Burro!, Burro!, Burro!... Incompetente. Soneca...
+(11, 'Erre TODAS questões em um quiz diário', 'Burro!, Burro!, Burro!... Incompetente. Soneca...
 Medíocre.. Medíocre... MEDÍOCRE!, MEDÍOCRE!!, MEDÍOCRE!!!
 Um Troglodita.. Troglodita!, Troglodita!, Troglodita!
 Psicologicamente destruído, moralmente abalado.. e tecnicamente não existe.

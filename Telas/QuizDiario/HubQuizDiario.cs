@@ -5,15 +5,15 @@ namespace SenacQuizApp.Telas.QuizDiario
 {
     public partial class HubQuizDiario : UserControl
     {
-        private readonly QuizService _quizDiarioService;
+        private readonly QuizDiarioService _quizDiarioService;
         private readonly UsuarioService _usuarioPerfilService;
-        private QuizDiarioAndamentos? _quizDiarioDto;
+        private QuizDiarioTentativa? _quizDiarioDto;
 
         public event Action<int>? IniciarQuiz;
         public event Action<int>? VerResultado;
         public event Action<int>? CarregarQuiz;
 
-        public HubQuizDiario(QuizService quizDiarioService, UsuarioService usuarioPerfilService)
+        public HubQuizDiario(QuizDiarioService quizDiarioService, UsuarioService usuarioPerfilService)
         {
             _quizDiarioService = quizDiarioService;
             _usuarioPerfilService = usuarioPerfilService;
@@ -25,7 +25,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-                QuizDiarioAndamentos? quiz = await _quizDiarioService.ObterQuizDiario();
+                QuizDiarioTentativa? quiz = await _quizDiarioService.ObterQuizDiario();
 
                 if (quiz == null)
                 {
@@ -60,7 +60,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-                QuizDiarioAndamentos? quiz = await _quizDiarioService.CriarQuizDiario();
+                QuizDiarioTentativa? quiz = await _quizDiarioService.CriarQuizDiario();
 
                 if (quiz == null) return;
 

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
 using SenacQuizApp.Dtos;
-using SenacQuizApp.Dtos.QuizDiario;
+using SenacQuizApp.Dtos.Historico;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
@@ -11,62 +11,16 @@ using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Services
 {
-    public class QuizService
+    public class QuizDiarioService
     {
         private readonly ConquistaService _conquistaService;
 
-        public QuizService(ConquistaService conquistaService)
+        public QuizDiarioService(ConquistaService conquistaService)
         {
             _conquistaService = conquistaService;
         }
 
-        public async Task<QuestaoAndamento?> ObterQuestao()
-        {
-            using var contexto = new QuizAppContexto();
-
-            return await contexto.Questoes
-                .Select(questao => new QuestaoAndamento
-                {
-                    Id = questao.Id,
-                    TemaId = questao.TemaId,
-                    Tema = questao.Tema.Nome,
-                    NivelId = questao.NivelId,
-                    Nivel = questao.Nivel.Nome,
-                    Tipo = questao.Tipo,
-                    Enunciado = questao.Enunciado,
-                    Respondida = false,
-                    Pontos = questao.Nivel.Valor,
-                    Alternativas = questao.Alternativas.Select(alternativa => new AlternativaAndamento
-                    {
-                        Id = alternativa.Id,
-                        Texto = alternativa.Texto
-                    }).ToList()
-                })
-                .OrderBy(q => EF.Functions.Random())
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<bool?> VerificarRespostaAlternativa(int alternativaId)
-        {
-            using var contexto = new QuizAppContexto();
-
-            return await contexto.Alternativas
-                .Where(alternativa => alternativa.Id == alternativaId)
-                .Select(alternativa => alternativa.EhCorreta)
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<bool?> VerificarRespostaVerdadeiroFalso(int questaoId, bool verdadeiroFalso)
-        {
-            using var contexto = new QuizAppContexto();
-
-            return await contexto.Questoes
-                .Where(questao => questao.Id == questaoId)
-                .Select(questao => questao.VerdadeiroFalso == verdadeiroFalso)
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<QuizDiarioAndamentos?> CriarQuizDiario()
+        public async Task<QuizDiarioTentativa?> CriarQuizDiario()
         {
             using var contexto = new QuizAppContexto();
 
@@ -114,7 +68,7 @@ namespace SenacQuizApp.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<QuizDiarioAndamentos?> ObterQuizDiario()
+        public async Task<QuizDiarioTentativa?> ObterQuizDiario()
         {
             using var contexto = new QuizAppContexto();
 
@@ -127,7 +81,7 @@ namespace SenacQuizApp.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<QuizDiarioAndamentos?> ObterDetalhePorId(int quizId)
+        public async Task<QuizDiarioTentativa?> ObterDetalhePorId(int quizId)
         {
             using var contexto = new QuizAppContexto();
 
@@ -137,7 +91,7 @@ namespace SenacQuizApp.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<QuizDiarioResultado?> ObterResultadoPorId(int quizId)
+        public async Task<QuizDiarioCompleto?> ObterResultadoPorId(int quizId)
         {
             using var contexto = new QuizAppContexto();
 
@@ -294,43 +248,14 @@ namespace SenacQuizApp.Services
 
             await _conquistaService.ChecarQuizConquistas();
         }
-
-        public async Task<int?> SalvarQuizRush(DateTimeOffset dataIniciado, int streak, int pontuacaoTotal)
-        {
-            using var contexto = new QuizAppContexto();
-
-            int usuarioId = UsuarioAtual.Id;
-
-            DateTimeOffset dataConcluido = DateTimeOffset.UtcNow;
-
-            TimeSpan tempo = dataConcluido - dataIniciado;
-
-            var quiz = new QuizRush
-            {
-                UsuarioId = usuarioId,
-                DataIniciado = dataIniciado,
-                DataConcluido = dataConcluido,
-                Tempo = tempo,
-                Streak = streak,
-                PontuacaoTotal = pontuacaoTotal
-            };
-
-            contexto.QuizzesRush.Add(quiz);
-            await contexto.SaveChangesAsync();
-
-            return await contexto.QuizzesRush
-                .Where(r => r.UsuarioId == usuarioId && quiz.DataConcluido == dataConcluido)
-                .Select(r => r.Id)
-                .FirstOrDefaultAsync();
-        }
     }
 
     public static class QuizQueryExtensoes
     {
-        public static IQueryable<QuizDiarioAndamentos> QuizDetalhes(this IQueryable<QuizDiario> query)
+        public static IQueryable<QuizDiarioTentativa> QuizDetalhes(this IQueryable<QuizDiario> query)
         {
             return query
-                .Select(quiz => new QuizDiarioAndamentos
+                .Select(quiz => new QuizDiarioTentativa
                 {
                     Id = quiz.Id,
                     DataExibido = quiz.DataExibido,
@@ -338,7 +263,7 @@ namespace SenacQuizApp.Services
                     PontuacaoTotal = quiz.PontuacaoTotal,
 
                     Questoes = quiz.Questoes
-                        .Select(questao => new QuestaoAndamento
+                        .Select(questao => new QuestaoExibicao
                         {
                             Id = questao.Id,
                             Enunciado = questao.Enunciado,
@@ -358,7 +283,7 @@ namespace SenacQuizApp.Services
                                 .FirstOrDefault(),
 
                             Alternativas = questao.Alternativas
-                            .Select(alternativa => new AlternativaAndamento
+                            .Select(alternativa => new AlternativaExibicao
                             {
                                 Id = alternativa.Id,
                                 Texto = alternativa.Texto
@@ -367,10 +292,10 @@ namespace SenacQuizApp.Services
                 });
         }
 
-        public static IQueryable<QuizDiarioResultado> QuizResultado(this IQueryable<QuizDiario> query)
+        public static IQueryable<QuizDiarioCompleto> QuizResultado(this IQueryable<QuizDiario> query)
         {
             return query
-                .Select(quiz => new QuizDiarioResultado
+                .Select(quiz => new QuizDiarioCompleto
                 {
                     Id = quiz.Id,
                     DataIniciado = quiz.DataIniciado,
@@ -387,7 +312,7 @@ namespace SenacQuizApp.Services
                     PontuacaoTotal = quiz.PontuacaoTotal,
 
                     Questoes = quiz.Questoes
-                        .Select(questao => new QuestaoResultado
+                        .Select(questao => new QuestaoRespondida
                         {
                             Id = questao.Id,
 

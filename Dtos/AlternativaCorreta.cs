@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Dtos.QuizDiario
+namespace SenacQuizApp.Dtos
 {
-    // Alternativa correta para exibição do quiz diário concluído
+    // Objeto para exibir alternativas corretas de questões em um quiz diário concluído
     public class AlternativaCorreta
     {
         public int Id { get; set; }

@@ -23,7 +23,7 @@ namespace SenacQuizApp.Telas
         {
             try
             {
-                UsuarioPerfilDto? perfil = await _usuarioPerfilService.ObterPerfilPorId(_usuarioId);
+                UsuarioPerfil? perfil = await _usuarioPerfilService.ObterPerfilPorId(_usuarioId);
 
                 if (perfil == null) return;
 
@@ -35,7 +35,7 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private void AtualizarPerfil(UsuarioPerfilDto perfil)
+        private void AtualizarPerfil(UsuarioPerfil perfil)
         {
             LabelUsuario.Text = perfil.Nickname;
             LabelNivel.Text = perfil.Nivel;

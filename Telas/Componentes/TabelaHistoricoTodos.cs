@@ -1,4 +1,4 @@
-﻿using SenacQuizApp.Dtos;
+﻿using SenacQuizApp.Dtos.Historico;
 using System.ComponentModel;
 
 namespace SenacQuizApp.Telas.Componentes
@@ -9,12 +9,12 @@ namespace SenacQuizApp.Telas.Componentes
         {
             this.Columns = new AntdUI.ColumnCollection
             {
-                new AntdUI.Column(nameof(QuizResumo.Tipo), "Tipo") { SortOrder = true },
-                new AntdUI.Column(nameof(QuizResumo.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
-                new AntdUI.Column(nameof(QuizResumo.ConcluidoDisplay), "Finalizado ") { SortOrder = true },
-                new AntdUI.Column(nameof(QuizResumo.DataConcluido), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
-                new AntdUI.Column(nameof(QuizResumo.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
-                new AntdUI.Column(nameof(QuizResumo.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizGenerico.Tipo), "Tipo") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizGenerico.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                new AntdUI.Column(nameof(QuizGenerico.ConcluidoDisplay), "Finalizado ") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizGenerico.DataConcluido), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                new AntdUI.Column(nameof(QuizGenerico.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
+                new AntdUI.Column(nameof(QuizGenerico.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
             };
         }
     }

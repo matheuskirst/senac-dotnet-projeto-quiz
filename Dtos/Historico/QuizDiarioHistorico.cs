@@ -5,17 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Dtos.QuizDiario
+namespace SenacQuizApp.Dtos.Historico
 {
-    public class QuizDiarioResultado {
-        public int Id { get; set; }
+    // Objeto para exibir histórico de quizzes diários (tentativas/concluído)
+    public class QuizDiarioHistorico : QuizGenerico
+    {
         public DateOnly DataExibido { get; set; }
-        public DateTimeOffset DataIniciado { get; set; }
-        public DateTimeOffset? DataConcluido { get; set; }
         public TimeSpan? TempoDeConclusao { get; set; }
         public int TotalQuestoes { get; set; }
         public int TotalAcertos { get; set; }
-        public int PontuacaoTotal { get; set; }
-        public List<QuestaoResultado> Questoes { get; set; } = null!;
     }
 }

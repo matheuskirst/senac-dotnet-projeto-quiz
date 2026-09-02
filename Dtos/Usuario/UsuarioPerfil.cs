@@ -3,7 +3,8 @@ using SenacQuizApp.Modelos.Questoes;
 
 namespace SenacQuizApp.Dtos.Usuario
 {
-    public class UsuarioPerfilDto
+    // Objeto para exibir perfil do usuário
+    public class UsuarioPerfil
     {
         public int Id { get; set; }
         public string Nickname { get; set; } = null!;
@@ -15,8 +16,7 @@ namespace SenacQuizApp.Dtos.Usuario
         public int TotalRespondidos { get; set; }
         public int AtualAcertosSeguidos { get; set; }
         public int MaxAcertosSeguidos { get; set; }
-        public string TemaMaisAcertado { get; set; } = null!;
-        public int QuantidadeTemaMaisAcertado { get; set; }
+        public TemaDestaque? TemaMaisAcertado { get; set; }
         public List<ConquistaDto> Conquistas { get; set; } = null!;
     }
 }

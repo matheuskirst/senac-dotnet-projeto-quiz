@@ -1,14 +1,15 @@
-﻿using System;
+﻿using SenacQuizApp.Enums;
+using SenacQuizApp.Modelos.Questoes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SenacQuizApp.Enums;
 
 namespace SenacQuizApp.Dtos
 {
-    // Questão sem resposta correta para exibição
-    public class QuestaoAndamento
+    // Questão com resposta correta para exibição do quiz diário concluído
+    public class QuestaoRespondida
     {
         public int Id { get; set; }
 
@@ -20,11 +21,12 @@ namespace SenacQuizApp.Dtos
 
         public QuestaoTipo Tipo { get; set; }
 
-        public string Enunciado { get; set; } = null!;
-        public bool Respondida { get; set; }
-        public bool? Acertou { get; set; }
-        public int Pontos { get; set; }
 
-        public List<AlternativaAndamento> Alternativas { get; set; } = null!;
+        public string Enunciado { get; set; } = null!;
+        public int Pontos { get; set; }
+        public bool Acertou { get; set; }
+
+        public List<AlternativaCorreta>? Alternativas { get; set; } = null!;
+        public bool? VerdadeiroFalso { get; set; }
     }
 }

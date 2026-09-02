@@ -2,7 +2,8 @@
 
 namespace SenacQuizApp.Dtos.Usuario
 {
-    public class UsuarioRankDto
+    // Objeto para exibir rank do usuário
+    public class UsuarioRank
     {
         public int Id { get; set; }
         public string Nickname { get; set; } = null!;
@@ -11,7 +12,6 @@ namespace SenacQuizApp.Dtos.Usuario
         public int TotalAcertos { get; set; }
         public int TotalRespondidos { get; set; }
         public int MaxAcertosConsecutivos { get; set; }
-        public string TemaMaisAcertado { get; set; } = null!;
-        public int QuantidadeTemaMaisAcertado { get; set; }
+        public TemaDestaque? TemaMaisAcertado { get; set; }
     }
 }

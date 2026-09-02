@@ -1,11 +1,11 @@
 ﻿using SenacQuizApp.Enums;
-using SenacQuizApp.Dtos.QuizDiario;
+using SenacQuizApp.Dtos;
 
 namespace SenacQuizApp.Telas.Componentes
 {
     public partial class CardQuestao : UserControl
     {
-        public CardQuestao(string questaoIndex, QuestaoResultado questao)
+        public CardQuestao(string questaoIndex, QuestaoRespondida questao)
         {
             InitializeComponent();
 

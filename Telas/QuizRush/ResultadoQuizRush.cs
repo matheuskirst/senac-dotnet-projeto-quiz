@@ -1,5 +1,4 @@
-﻿using SenacQuizApp.Dtos;
-using SenacQuizApp.Dtos.QuizDiario;
+﻿using SenacQuizApp.Dtos.Historico;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
 using System;
@@ -17,9 +16,9 @@ namespace SenacQuizApp.Telas.QuizRush
     public partial class ResultadoQuizRush : UserControl
     {
         private readonly int _quizId;
-        private readonly QuizService _quizService;
+        private readonly QuizDiarioService _quizService;
 
-        public ResultadoQuizRush(int quizId, QuizService quizService)
+        public ResultadoQuizRush(int quizId, QuizDiarioService quizService)
         {
             _quizId = quizId;
             _quizService = quizService;
@@ -36,7 +35,7 @@ namespace SenacQuizApp.Telas.QuizRush
                 if (resultado == null) return;
 
                 LabelDataInicio.Text = resultado.DataIniciado.ToString(@"dd/MM/yyyy HH\:mm\:ss");
-                LabelDataConcluido.Text = resultado.DataConcluido.ToString(@"dd/MM/yyyy HH\:mm\:ss");
+                LabelDataConcluido.Text = resultado.DataConcluido?.ToString(@"dd/MM/yyyy HH\:mm\:ss") ?? "Não disponível";
                 LabelStreak.Text = resultado.Streak.ToString();
                 LabelPontuacaoTotal.Text = resultado.PontuacaoTotal.ToString();
             }

@@ -5,7 +5,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 {
     public partial class PainelQuestaoDiario : UserControl
     {
-        private QuestaoAndamento? _questao;
+        private QuestaoExibicao? _questao;
         public event Action<int>? EscolheuAlternativa;
         public event Action<bool>? EscolheuVerdadeiroFalso;
 
@@ -23,7 +23,7 @@ namespace SenacQuizApp.Telas.QuizDiario
             UpdateStyles();
         }
 
-        public void CarregarQuestao(QuestaoAndamento questao)
+        public void CarregarQuestao(QuestaoExibicao questao)
         {
             _questao = questao;
             this.SuspendLayout();
@@ -44,7 +44,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                     GridPanelAlternativas.Height = 300;
                     GridPanelAlternativas.Span = "50% 50%; 50% 50%";
 
-                    foreach (AlternativaAndamento alternativa in _questao.Alternativas)
+                    foreach (AlternativaExibicao alternativa in _questao.Alternativas)
                     {
                         var button = new AntdUI.Button
                         {

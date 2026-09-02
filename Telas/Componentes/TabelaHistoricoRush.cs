@@ -1,4 +1,4 @@
-﻿using SenacQuizApp.Dtos;
+﻿using SenacQuizApp.Dtos.Historico;
 using System.ComponentModel;
 
 namespace SenacQuizApp.Telas.Componentes

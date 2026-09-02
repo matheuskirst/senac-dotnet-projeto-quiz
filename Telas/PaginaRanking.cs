@@ -1,8 +1,8 @@
 ﻿using AntdUI;
 using System.ComponentModel;
-using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Services;
 using SenacQuizApp.Enums;
+using SenacQuizApp.Dtos.Usuario;
 
 namespace SenacQuizApp.Telas
 {
@@ -20,12 +20,12 @@ namespace SenacQuizApp.Telas
 
             TableUsuariosRank.Columns = new AntdUI.ColumnCollection
             {
-                new AntdUI.Column(nameof(UsuarioRankDto.Nickname), "Usuário") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRankDto.PontuacaoTotal), "Pontuação") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRankDto.Nivel), "Nível") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRankDto.TotalAcertos), "Acertos") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRankDto.TotalRespondidos), "Respondidos") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRankDto.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRank.Nickname), "Usuário") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRank.PontuacaoTotal), "Pontuação") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRank.Nivel), "Nível") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRank.TotalAcertos), "Acertos") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRank.TotalRespondidos), "Respondidos") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRank.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
             };
         }
 
@@ -41,7 +41,7 @@ namespace SenacQuizApp.Telas
             {
                 TableUsuariosRank.DataSource = false;
 
-                List<UsuarioRankDto> usuarios = await _rankingService.ObterUsuariosRank(nickname);
+                List<UsuarioRank> usuarios = await _rankingService.ObterUsuariosRank(nickname);
                 if (usuarios == null) return;
 
                 TableUsuariosRank.DataSource = usuarios;
@@ -52,7 +52,7 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private void MostrarMenuUsuario(UsuarioRankDto usuario)
+        private void MostrarMenuUsuario(UsuarioRank usuario)
         {
             var menuItems = new AntdUI.IContextMenuStripItem[]
             {
@@ -83,14 +83,14 @@ namespace SenacQuizApp.Telas
 
         private void TableUsuariosRank_CellClick(object sender, AntdUI.TableClickEventArgs e)
         {
-            if (e.Button != MouseButtons.Right || e.Record is not UsuarioRankDto usuario) return;
+            if (e.Button != MouseButtons.Right || e.Record is not UsuarioRank usuario) return;
 
             MostrarMenuUsuario(usuario);
         }
 
         private void TableUsuariosRank_CellDoubleClick(object sender, AntdUI.TableClickEventArgs e)
         {
-            if (e.Button == MouseButtons.Right || e.Record is not UsuarioRankDto usuario) return;
+            if (e.Button == MouseButtons.Right || e.Record is not UsuarioRank usuario) return;
 
             AbrirPerfil?.Invoke(this, usuario.Id);
         }

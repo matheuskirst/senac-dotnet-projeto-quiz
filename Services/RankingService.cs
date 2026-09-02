@@ -7,7 +7,7 @@ namespace SenacQuizApp.Services
 {
     public class RankingService
     {
-        public async Task<List<UsuarioRankDto>> ObterUsuariosRank(string? nickname=null)
+        public async Task<List<UsuarioRank>> ObterUsuariosRank(string? nickname=null)
         {
             using var contexto = new QuizAppContexto();
 
@@ -19,7 +19,7 @@ namespace SenacQuizApp.Services
             }
 
             return await query
-                .Select(usuario => new UsuarioRankDto
+                .Select(usuario => new UsuarioRank
                 {
                     Id = usuario.Id,
                     Nickname = usuario.Nickname,

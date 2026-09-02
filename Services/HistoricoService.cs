@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
-using SenacQuizApp.Dtos;
+using SenacQuizApp.Dtos.Historico;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
@@ -11,7 +11,7 @@ namespace SenacQuizApp.Services
 {
     public class HistoricoService
     {
-        public async Task<List<QuizResumo>> ObterResumoRecentes()
+        public async Task<List<QuizGenerico>> ObterResumoRecentes()
         {
             using var contexto = new QuizAppContexto();
 
@@ -19,7 +19,7 @@ namespace SenacQuizApp.Services
 
             var diarios = contexto.QuizzesDiarios
                 .Where(quiz => quiz.UsuarioId == usuarioId)
-                .Select(diario => new QuizResumo
+                .Select(diario => new QuizGenerico
                 {
                     Id = diario.Id,
                     TipoId = QuizTipo.Diario,
@@ -33,7 +33,7 @@ namespace SenacQuizApp.Services
 
             var rush = contexto.QuizzesRush
                 .Where(quiz => quiz.UsuarioId == usuarioId)
-                .Select(rush => new QuizResumo
+                .Select(rush => new QuizGenerico
                 {
                     Id = rush.Id,
                     TipoId = QuizTipo.Rush,
@@ -52,7 +52,7 @@ namespace SenacQuizApp.Services
                 .ToListAsync();
         }
         
-        public async Task<List<QuizResumo>> ObterTodos(DateTime? minDate = null, DateTime? maxDate = null)
+        public async Task<IEnumerable<QuizGenerico>> ObterTodos(QuizTipo tipo, DateTime? minDate = null, DateTime? maxDate = null, QuizStatus? status = null)
         {
             using var contexto = new QuizAppContexto();
 
@@ -60,7 +60,7 @@ namespace SenacQuizApp.Services
 
             var diarios = contexto.QuizzesDiarios
                 .Where(quiz => quiz.UsuarioId == usuarioId)
-                .Select(diario => new QuizResumo
+                .Select(diario => new QuizGenerico
                 {
                     Id = diario.Id,
                     TipoId = QuizTipo.Diario,
@@ -74,7 +74,7 @@ namespace SenacQuizApp.Services
 
             var rush = contexto.QuizzesRush
                 .Where(quiz => quiz.UsuarioId == usuarioId)
-                .Select(diario => new QuizResumo
+                .Select(diario => new QuizGenerico
                 {
                     Id = diario.Id,
                     TipoId = QuizTipo.Rush,
@@ -86,40 +86,29 @@ namespace SenacQuizApp.Services
                     PontuacaoTotal = diario.PontuacaoTotal
                 });
 
-            return await diarios
-                .Concat(rush)
-                .OrderByDescending(quiz => quiz.DataIniciado)
-                .FiltrarPorData(minDate, maxDate)
-                .ToListAsync();
-        }
-
-        public async Task<List<QuizDiarioHistorico>> ObterHistoricosDiario(QuizStatus? status = null, DateTime? minDate = null, DateTime? maxDate = null)
-        {
-            using var contexto = new QuizAppContexto();
-
-            int usuarioId = UsuarioAtual.Id;
-
-            return await contexto.QuizzesDiarios
-                .Where(quiz => quiz.UsuarioId == usuarioId)
-                .OrderByDescending(quiz => quiz.DataIniciado)
-                .FiltrarPorStatus(status)
-                .FiltrarPorData(minDate, maxDate)
-                .QuizDiarioHistorico()
-                .ToListAsync();
-        }
-
-        public async Task<List<QuizRushEntrada>> ObterEntradasRush(DateTime? minDate = null, DateTime? maxDate = null)
-        {
-            using var contexto = new QuizAppContexto();
-
-            int usuarioId = UsuarioAtual.Id;
-
-            return await contexto.QuizzesRush
-                .Where(quiz => quiz.UsuarioId == usuarioId)
-                .OrderByDescending(quiz => quiz.DataIniciado)
-                .FiltrarPorData(minDate, maxDate)
-                .QuizRushEntrada()
-                .ToListAsync();
+            switch (tipo)
+            {
+                case QuizTipo.Diario:
+                    return await contexto.QuizzesDiarios
+                        .OrderByDescending(quiz => quiz.DataIniciado)
+                        .FiltrarPorData(minDate, maxDate)
+                        .FiltrarPorStatus(status)
+                        .QuizDiarioHistorico()
+                        .ToListAsync();
+                case QuizTipo.Rush:
+                    return await contexto.QuizzesRush
+                        .OrderByDescending(quiz => quiz.DataIniciado)
+                        .FiltrarPorData(minDate, maxDate)
+                        .QuizRushEntrada()
+                        .ToListAsync();
+                default:
+                    return await diarios
+                        .Concat(rush)
+                        .OrderByDescending(quiz => quiz.DataIniciado)
+                        .FiltrarPorData(minDate, maxDate)
+                        .FiltrarPorStatus(status)
+                        .ToListAsync();
+            }
         }
     }
 
@@ -163,6 +152,15 @@ namespace SenacQuizApp.Services
                 });
         }
 
+        public static IQueryable<QuizGenerico> FiltrarPorStatus(this IQueryable<QuizGenerico> query, QuizStatus? status)
+        {
+            if (status == null || status == QuizStatus.Todos) return query;
+
+            bool Concluido = status == QuizStatus.Concluido;
+
+            return query.Where(quiz => quiz.Concluido == Concluido);
+        }
+
         public static IQueryable<QuizDiario> FiltrarPorStatus(this IQueryable<QuizDiario> query, QuizStatus? status)
         {
             if (status == null || status == QuizStatus.Todos) return query;
@@ -172,7 +170,7 @@ namespace SenacQuizApp.Services
             return query.Where(quiz => quiz.Concluido == Concluido);
         }
 
-        public static IQueryable<QuizResumo> FiltrarPorData(this IQueryable<QuizResumo> query, DateTime? minDate, DateTime? maxDate)
+        public static IQueryable<QuizGenerico> FiltrarPorData(this IQueryable<QuizGenerico> query, DateTime? minDate, DateTime? maxDate)
         {
             if (minDate == null || maxDate == null) return query;
 

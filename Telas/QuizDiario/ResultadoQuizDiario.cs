@@ -1,5 +1,4 @@
 ﻿using SenacQuizApp.Dtos;
-using SenacQuizApp.Dtos.QuizDiario;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
 using System.ComponentModel;
@@ -9,9 +8,9 @@ namespace SenacQuizApp.Telas.QuizDiario
     public partial class ResultadoQuizDiario : UserControl
     {
         private int _quizId;
-        private readonly QuizService _quizDiarioService;
+        private readonly QuizDiarioService _quizDiarioService;
 
-        public ResultadoQuizDiario(int quizId, QuizService quizDiarioService)
+        public ResultadoQuizDiario(int quizId, QuizDiarioService quizDiarioService)
         {
             _quizId = quizId;
             _quizDiarioService = quizDiarioService;
@@ -23,7 +22,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
-                QuizDiarioResultado? resultado = await _quizDiarioService.ObterResultadoPorId(_quizId);
+                QuizDiarioCompleto? resultado = await _quizDiarioService.ObterResultadoPorId(_quizId);
 
                 if (resultado == null) return;
 
@@ -36,7 +35,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
                 for (int i = resultado.Questoes.Count - 1; i >= 0; i--)
                 {
-                    QuestaoResultado questao = resultado.Questoes[i];
+                    QuestaoRespondida questao = resultado.Questoes[i];
 
                     int questaoNumero = i + 1;
                     string questaoEnunciado = questao.Enunciado;
