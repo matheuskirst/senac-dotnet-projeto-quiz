@@ -10,5 +10,6 @@ namespace SenacQuizApp.Dtos.Conquista
     {
         public string Nome { get; set; } = null!;
         public string Descricao { get; set; } = null!;
+        public string? IconPath { get; set; }
     }
 }

@@ -34,13 +34,13 @@
             PanelHistoricoFiltros = new AntdUI.Panel();
             LabelNivel = new AntdUI.Label();
             SelectNivel = new AntdUI.Select();
+            LabelTema = new AntdUI.Label();
+            SelectTema = new AntdUI.Select();
+            InputEnunciado = new AntdUI.Input();
+            ButtonBuscarData = new AntdUI.Button();
             LabelTipoQuiz = new AntdUI.Label();
             SelectQuizTipo = new AntdUI.Select();
             LabelData = new AntdUI.Label();
-            ButtonBuscarData = new AntdUI.Button();
-            InputEnunciado = new AntdUI.Input();
-            LabelTema = new AntdUI.Label();
-            SelectTema = new AntdUI.Select();
             PanelHistorico.SuspendLayout();
             PanelInserirHistorico.SuspendLayout();
             PanelHistoricoFiltros.SuspendLayout();
@@ -133,6 +133,53 @@
             SelectNivel.Size = new Size(125, 35);
             SelectNivel.TabIndex = 4;
             // 
+            // LabelTema
+            // 
+            LabelTema.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelTema.BackColor = Color.FromArgb(33, 33, 33);
+            LabelTema.ColorScheme = AntdUI.TAMode.Dark;
+            LabelTema.Dock = DockStyle.Right;
+            LabelTema.Location = new Point(545, 0);
+            LabelTema.Name = "LabelTema";
+            LabelTema.Size = new Size(32, 35);
+            LabelTema.TabIndex = 10;
+            LabelTema.Text = "Tema:";
+            // 
+            // SelectTema
+            // 
+            SelectTema.BackColor = Color.FromArgb(66, 66, 66);
+            SelectTema.BorderColor = Color.FromArgb(20, 20, 20);
+            SelectTema.ColorScheme = AntdUI.TAMode.Dark;
+            SelectTema.Dock = DockStyle.Right;
+            SelectTema.List = true;
+            SelectTema.Location = new Point(577, 0);
+            SelectTema.Name = "SelectTema";
+            SelectTema.Size = new Size(125, 35);
+            SelectTema.TabIndex = 9;
+            // 
+            // InputEnunciado
+            // 
+            InputEnunciado.BackColor = Color.FromArgb(66, 66, 66);
+            InputEnunciado.ColorScheme = AntdUI.TAMode.Dark;
+            InputEnunciado.Dock = DockStyle.Left;
+            InputEnunciado.Location = new Point(63, 0);
+            InputEnunciado.Name = "InputEnunciado";
+            InputEnunciado.Size = new Size(146, 35);
+            InputEnunciado.TabIndex = 8;
+            // 
+            // ButtonBuscarData
+            // 
+            ButtonBuscarData.BorderWidth = 2F;
+            ButtonBuscarData.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonBuscarData.Ghost = true;
+            ButtonBuscarData.Location = new Point(208, 0);
+            ButtonBuscarData.Margin = new Padding(6);
+            ButtonBuscarData.Name = "ButtonBuscarData";
+            ButtonBuscarData.Radius = 2;
+            ButtonBuscarData.Size = new Size(75, 35);
+            ButtonBuscarData.TabIndex = 7;
+            ButtonBuscarData.Text = "Buscar";
+            // 
             // LabelTipoQuiz
             // 
             LabelTipoQuiz.AutoSizeMode = AntdUI.TAutoSize.Width;
@@ -169,53 +216,6 @@
             LabelData.TabIndex = 6;
             LabelData.Text = "Enunciado:";
             // 
-            // ButtonBuscarData
-            // 
-            ButtonBuscarData.BorderWidth = 2F;
-            ButtonBuscarData.ColorScheme = AntdUI.TAMode.Dark;
-            ButtonBuscarData.Ghost = true;
-            ButtonBuscarData.Location = new Point(208, 0);
-            ButtonBuscarData.Margin = new Padding(6);
-            ButtonBuscarData.Name = "ButtonBuscarData";
-            ButtonBuscarData.Radius = 2;
-            ButtonBuscarData.Size = new Size(75, 35);
-            ButtonBuscarData.TabIndex = 7;
-            ButtonBuscarData.Text = "Buscar";
-            // 
-            // InputEnunciado
-            // 
-            InputEnunciado.BackColor = Color.FromArgb(66, 66, 66);
-            InputEnunciado.ColorScheme = AntdUI.TAMode.Dark;
-            InputEnunciado.Dock = DockStyle.Left;
-            InputEnunciado.Location = new Point(63, 0);
-            InputEnunciado.Name = "InputEnunciado";
-            InputEnunciado.Size = new Size(146, 35);
-            InputEnunciado.TabIndex = 8;
-            // 
-            // LabelTema
-            // 
-            LabelTema.AutoSizeMode = AntdUI.TAutoSize.Width;
-            LabelTema.BackColor = Color.FromArgb(33, 33, 33);
-            LabelTema.ColorScheme = AntdUI.TAMode.Dark;
-            LabelTema.Dock = DockStyle.Right;
-            LabelTema.Location = new Point(545, 0);
-            LabelTema.Name = "LabelTema";
-            LabelTema.Size = new Size(32, 35);
-            LabelTema.TabIndex = 10;
-            LabelTema.Text = "Tema:";
-            // 
-            // SelectTema
-            // 
-            SelectTema.BackColor = Color.FromArgb(66, 66, 66);
-            SelectTema.BorderColor = Color.FromArgb(20, 20, 20);
-            SelectTema.ColorScheme = AntdUI.TAMode.Dark;
-            SelectTema.Dock = DockStyle.Right;
-            SelectTema.List = true;
-            SelectTema.Location = new Point(577, 0);
-            SelectTema.Name = "SelectTema";
-            SelectTema.Size = new Size(125, 35);
-            SelectTema.TabIndex = 9;
-            // 
             // PaginaGerenciarQuestoes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -224,6 +224,7 @@
             Controls.Add(PanelHistorico);
             Name = "PaginaGerenciarQuestoes";
             Size = new Size(1280, 720);
+            Load += PaginaGerenciarQuestoes_Load;
             PanelHistorico.ResumeLayout(false);
             PanelInserirHistorico.ResumeLayout(false);
             PanelHistoricoFiltros.ResumeLayout(false);

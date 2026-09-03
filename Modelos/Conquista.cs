@@ -21,7 +21,7 @@ namespace SenacQuizApp.Modelos
         public int? TemaId { get; set; }
         public QuestaoTema Tema { get; set; } = null!;
         public bool Secreta { get; set; }
-        public string IconePath { get; set; } = null!;
+        public string? IconPath { get; set; }
 
         public ICollection<UsuarioConquista> UsuarioConquistas { get; set; } = new List<UsuarioConquista>();
     }

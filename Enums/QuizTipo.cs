@@ -8,8 +8,7 @@ namespace SenacQuizApp.Enums
 {
     public enum QuizTipo
     {
-        Todos = 0,
-        Diario = 1,
-        Rush = 2
+        Diario = 0,
+        Rush = 1
     }
 }

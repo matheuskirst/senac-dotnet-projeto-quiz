@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Telas.Utils
+namespace SenacQuizApp.Utils
 {
     public class PintarErros
     {

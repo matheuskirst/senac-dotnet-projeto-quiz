@@ -20,6 +20,6 @@ namespace SenacQuizApp.Modelos.Questoes
 
         public ICollection<Alternativa> Alternativas { get; set; } = new List<Alternativa>();
         public ICollection<QuizDiario> Quizzes { get; set; } = new List<QuizDiario>();
-        public ICollection<UsuarioResposta> UsuarioRespostas { get; set; } = new List<UsuarioResposta>();
+        public ICollection<UsuarioDiarioResposta> UsuarioRespostas { get; set; } = new List<UsuarioDiarioResposta>();
     }
 }

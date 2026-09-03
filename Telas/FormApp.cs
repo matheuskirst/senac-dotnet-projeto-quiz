@@ -137,6 +137,15 @@ namespace SenacQuizApp.Telas
         {
             AbrirPaginaPrincipal(sender, EventArgs.Empty);
             DropdownUsuarioMenu.Text = UsuarioAtual.Username;
+
+            if (UsuarioAtual.Tipo == UsuarioTipoId.Admin)
+            {
+                ButtonGerenciarQuestoes.Visible = true;
+            }
+            else
+            {
+                ButtonGerenciarQuestoes.Visible = false;
+            }
         }
 
         public void AbrirPaginaPrincipal(object? sender, EventArgs e)
@@ -213,10 +222,29 @@ namespace SenacQuizApp.Telas
                 case QuizTipo.Diario:
                     AbrirResultadoQuizDiario(quizId);
                     break;
-                case QuizTipo.Rush:
-                    AbrirResultadoQuizRush(quizId);
-                    break;
             }
+        }
+
+        public void AbrirGerenciarQuestoes()
+        {
+            AlternarBotaoHeader();
+
+            var paginaQuestoes = new PaginaGerenciarQuestoes(_questaoService);
+
+            MudarPagina(paginaQuestoes);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaQuestoes, Propriedade = null };
+        }
+
+        public void AbrirCriarQuestoes()
+        {
+            AlternarBotaoHeader();
+
+            var paginaCriarQuestao = new PaginaCriarQuestoes(_questaoService);
+
+            MudarPagina(paginaCriarQuestao);
+
+            _paginaAtual = new PaginaAtual { Pagina = paginaCriarQuestao, Propriedade = null };
         }
 
         public void AbrirConfiguracoes()
@@ -279,7 +307,7 @@ namespace SenacQuizApp.Telas
         {
             AlternarBotaoHeader();
 
-            var hub = new IniciarQuizRush();
+            var hub = new IniciarQuizRush(_quizRushService);
 
             hub.IniciarRush += AbrirExecutarQuizRush;
 
@@ -294,22 +322,11 @@ namespace SenacQuizApp.Telas
 
             var executarQuizDiario = new ExecutarQuizRush(_usuarioPerfilService, _quizRushService, _questaoService);
 
-            executarQuizDiario.VerResultado += AbrirResultadoQuizRush;
+            executarQuizDiario.VerResultado += AbrirIniciarQuizRush;
 
             MudarPagina(executarQuizDiario);
 
             _paginaAtual = new PaginaAtual { Pagina = executarQuizDiario, Propriedade = null };
-        }
-
-        public void AbrirResultadoQuizRush(int quizId)
-        {
-            AlternarBotaoHeader();
-
-            var resultadoQuizDiario = new ResultadoQuizRush(quizId, _quizRushService);
-
-            MudarPagina(resultadoQuizDiario);
-
-            _paginaAtual = new PaginaAtual { Pagina = resultadoQuizDiario, Propriedade = quizId };
         }
 
         // ============================================================
@@ -328,7 +345,7 @@ namespace SenacQuizApp.Telas
             ButtonHeaderConquista.DefaultBorderColor = Color.FromArgb(40, 40, 40);
 
             ButtonHeaderPerfil.Toggle = false;
-            ButtonHeaderConquista.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+            ButtonHeaderPerfil.DefaultBorderColor = Color.FromArgb(40, 40, 40);
 
             if (sender is AntdUI.Button button)
             {
@@ -369,6 +386,14 @@ namespace SenacQuizApp.Telas
             }
         }
 
+        private void ButtonGerenciarQuestoes_Click(object sender, EventArgs e)
+        {
+            if (_paginaAtual?.Pagina is not PaginaCriarQuestoes)
+            {
+                AbrirCriarQuestoes();
+            }
+        }
+
         private void AoDesbloquearConquista(object? sender, ConquistaNotificacao conquista)
         {
             AntdUI.Notification.open(new AntdUI.Notification.Config(this)
@@ -380,7 +405,7 @@ namespace SenacQuizApp.Telas
 
             //MessageBox.Show($"Conquista desbloqueada!\nConquista: {conquista.Nome}\nDescrição: {conquista.Descricao}");
         }
-        
+
         private void DropdownUsuarioMenu_ItemClick(object sender, ObjectNEventArgs e)
         {
             if (e.Value is not MenuOpcoes opcao) return;

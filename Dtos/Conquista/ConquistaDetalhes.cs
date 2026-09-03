@@ -14,6 +14,6 @@ namespace SenacQuizApp.Dtos.Conquista
         public DateTimeOffset? DataDesbloqueio { get; set; }
         public double PorcentagemDesbloqueioGlobal { get; set; }
         public bool Secreta { get; set; }
-        public string Icone { get; set; } = null!;
+        public string? IconPath { get; set; }
     }
 }

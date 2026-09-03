@@ -33,14 +33,13 @@
             LabelTempoRestante = new AntdUI.Label();
             LabelQuizRushTitulo = new AntdUI.Label();
             PanelQuizHeaderQuestao = new AntdUI.Panel();
-            LabelQuizQuestaoPontos = new AntdUI.Label();
-            LabelQuizQuestaoAtual = new AntdUI.Label();
+            LabelPontuacaoTotal = new AntdUI.Label();
+            LabelDificuldade = new AntdUI.Label();
+            LabelStreak = new AntdUI.Label();
             PanelQuizHeaderUsuario = new AntdUI.Panel();
             LabelUsuarioNivel = new AntdUI.Label();
             LabelUsuarioNick = new AntdUI.Label();
-            LabelStreak = new AntdUI.Label();
             PanelQuestoes = new AntdUI.Panel();
-            LabelPontuacaoTotal = new AntdUI.Label();
             PanelHeader.SuspendLayout();
             PanelQuizHeaderQuestao.SuspendLayout();
             PanelQuizHeaderUsuario.SuspendLayout();
@@ -106,8 +105,8 @@
             PanelQuizHeaderQuestao.Back = Color.FromArgb(50, 45, 45);
             PanelQuizHeaderQuestao.BackColor = Color.Transparent;
             PanelQuizHeaderQuestao.Controls.Add(LabelPontuacaoTotal);
-            PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoPontos);
-            PanelQuizHeaderQuestao.Controls.Add(LabelQuizQuestaoAtual);
+            PanelQuizHeaderQuestao.Controls.Add(LabelDificuldade);
+            PanelQuizHeaderQuestao.Controls.Add(LabelStreak);
             PanelQuizHeaderQuestao.Dock = DockStyle.Right;
             PanelQuizHeaderQuestao.Location = new Point(724, 0);
             PanelQuizHeaderQuestao.Margin = new Padding(0);
@@ -119,33 +118,47 @@
             PanelQuizHeaderQuestao.TabIndex = 7;
             PanelQuizHeaderQuestao.Text = "panel2";
             // 
-            // LabelQuizQuestaoPontos
+            // LabelPontuacaoTotal
             // 
-            LabelQuizQuestaoPontos.Anchor = AnchorStyles.Right;
-            LabelQuizQuestaoPontos.AutoSizeMode = AntdUI.TAutoSize.Width;
-            LabelQuizQuestaoPontos.BackColor = Color.Transparent;
-            LabelQuizQuestaoPontos.ColorScheme = AntdUI.TAMode.Dark;
-            LabelQuizQuestaoPontos.Font = new Font("Segoe UI", 14.25F);
-            LabelQuizQuestaoPontos.Location = new Point(13, 49);
-            LabelQuizQuestaoPontos.Name = "LabelQuizQuestaoPontos";
-            LabelQuizQuestaoPontos.Prefix = "Vale:  ";
-            LabelQuizQuestaoPontos.Size = new Size(63, 28);
-            LabelQuizQuestaoPontos.TabIndex = 7;
-            LabelQuizQuestaoPontos.Text = "0";
+            LabelPontuacaoTotal.Anchor = AnchorStyles.Right;
+            LabelPontuacaoTotal.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelPontuacaoTotal.BackColor = Color.Transparent;
+            LabelPontuacaoTotal.ColorScheme = AntdUI.TAMode.Dark;
+            LabelPontuacaoTotal.Font = new Font("Segoe UI", 14.25F);
+            LabelPontuacaoTotal.Location = new Point(13, 83);
+            LabelPontuacaoTotal.Name = "LabelPontuacaoTotal";
+            LabelPontuacaoTotal.Prefix = "Pontos:  ";
+            LabelPontuacaoTotal.Size = new Size(85, 28);
+            LabelPontuacaoTotal.TabIndex = 8;
+            LabelPontuacaoTotal.Text = "0";
             // 
-            // LabelQuizQuestaoAtual
+            // LabelDificuldade
             // 
-            LabelQuizQuestaoAtual.Anchor = AnchorStyles.Right;
-            LabelQuizQuestaoAtual.AutoSizeMode = AntdUI.TAutoSize.Width;
-            LabelQuizQuestaoAtual.BackColor = Color.Transparent;
-            LabelQuizQuestaoAtual.ColorScheme = AntdUI.TAMode.Dark;
-            LabelQuizQuestaoAtual.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelQuizQuestaoAtual.Location = new Point(13, 13);
-            LabelQuizQuestaoAtual.Name = "LabelQuizQuestaoAtual";
-            LabelQuizQuestaoAtual.Prefix = "Questão Atual:  ";
-            LabelQuizQuestaoAtual.Size = new Size(146, 30);
-            LabelQuizQuestaoAtual.TabIndex = 5;
-            LabelQuizQuestaoAtual.Text = "0";
+            LabelDificuldade.Anchor = AnchorStyles.Right;
+            LabelDificuldade.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelDificuldade.BackColor = Color.Transparent;
+            LabelDificuldade.ColorScheme = AntdUI.TAMode.Dark;
+            LabelDificuldade.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelDificuldade.Location = new Point(13, 13);
+            LabelDificuldade.Name = "LabelDificuldade";
+            LabelDificuldade.Prefix = "Dificuldade:  ";
+            LabelDificuldade.Size = new Size(124, 30);
+            LabelDificuldade.TabIndex = 5;
+            LabelDificuldade.Text = "#";
+            // 
+            // LabelStreak
+            // 
+            LabelStreak.Anchor = AnchorStyles.Left;
+            LabelStreak.AutoSizeMode = AntdUI.TAutoSize.Auto;
+            LabelStreak.BackColor = Color.Transparent;
+            LabelStreak.ColorScheme = AntdUI.TAMode.Dark;
+            LabelStreak.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelStreak.Location = new Point(13, 49);
+            LabelStreak.Name = "LabelStreak";
+            LabelStreak.Prefix = "Streak: ";
+            LabelStreak.Size = new Size(74, 28);
+            LabelStreak.TabIndex = 5;
+            LabelStreak.Text = "0";
             // 
             // PanelQuizHeaderUsuario
             // 
@@ -153,7 +166,6 @@
             PanelQuizHeaderUsuario.BackColor = Color.Transparent;
             PanelQuizHeaderUsuario.Controls.Add(LabelUsuarioNivel);
             PanelQuizHeaderUsuario.Controls.Add(LabelUsuarioNick);
-            PanelQuizHeaderUsuario.Controls.Add(LabelStreak);
             PanelQuizHeaderUsuario.Dock = DockStyle.Left;
             PanelQuizHeaderUsuario.Location = new Point(0, 0);
             PanelQuizHeaderUsuario.Margin = new Padding(0);
@@ -193,20 +205,6 @@
             LabelUsuarioNick.TabIndex = 6;
             LabelUsuarioNick.Text = "#";
             // 
-            // LabelStreak
-            // 
-            LabelStreak.Anchor = AnchorStyles.Left;
-            LabelStreak.AutoSizeMode = AntdUI.TAutoSize.Auto;
-            LabelStreak.BackColor = Color.Transparent;
-            LabelStreak.ColorScheme = AntdUI.TAMode.Dark;
-            LabelStreak.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelStreak.Location = new Point(13, 83);
-            LabelStreak.Name = "LabelStreak";
-            LabelStreak.Prefix = "Streak: ";
-            LabelStreak.Size = new Size(74, 28);
-            LabelStreak.TabIndex = 5;
-            LabelStreak.Text = "0";
-            // 
             // PanelQuestoes
             // 
             PanelQuestoes.Back = Color.FromArgb(33, 33, 33);
@@ -216,20 +214,6 @@
             PanelQuestoes.Radius = 0;
             PanelQuestoes.Size = new Size(1024, 600);
             PanelQuestoes.TabIndex = 5;
-            // 
-            // LabelPontuacaoTotal
-            // 
-            LabelPontuacaoTotal.Anchor = AnchorStyles.Right;
-            LabelPontuacaoTotal.AutoSizeMode = AntdUI.TAutoSize.Width;
-            LabelPontuacaoTotal.BackColor = Color.Transparent;
-            LabelPontuacaoTotal.ColorScheme = AntdUI.TAMode.Dark;
-            LabelPontuacaoTotal.Font = new Font("Segoe UI", 14.25F);
-            LabelPontuacaoTotal.Location = new Point(13, 83);
-            LabelPontuacaoTotal.Name = "LabelPontuacaoTotal";
-            LabelPontuacaoTotal.Prefix = "Total:  ";
-            LabelPontuacaoTotal.Size = new Size(69, 28);
-            LabelPontuacaoTotal.TabIndex = 8;
-            LabelPontuacaoTotal.Text = "0";
             // 
             // ExecutarQuizRush
             // 
@@ -254,8 +238,7 @@
         private AntdUI.Label LabelQuizRush;
         private AntdUI.Label LabelQuizRushTitulo;
         private AntdUI.Panel PanelQuizHeaderQuestao;
-        private AntdUI.Label LabelQuizQuestaoPontos;
-        private AntdUI.Label LabelQuizQuestaoAtual;
+        private AntdUI.Label LabelDificuldade;
         private AntdUI.Panel PanelQuizHeaderUsuario;
         private AntdUI.Label LabelUsuarioNivel;
         private AntdUI.Label LabelUsuarioNick;

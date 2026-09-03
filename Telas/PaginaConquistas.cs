@@ -29,6 +29,9 @@ namespace SenacQuizApp.Telas
         {
             var conquistas = await _conquistaService.ObterTodos();
 
+            PanelDesbloqueadas.SuspendLayout();
+            PanelBloqueadas.SuspendLayout();
+
             foreach(var conquista in conquistas)
             {
                 var card = new CardConquista(conquista);
@@ -45,6 +48,9 @@ namespace SenacQuizApp.Telas
                     PanelBloqueadas.Controls.Add(card);
                 }
             }
+
+            PanelDesbloqueadas.ResumeLayout();
+            PanelBloqueadas.ResumeLayout();
         }
     }
 }

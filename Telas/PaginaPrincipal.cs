@@ -5,6 +5,7 @@ using SenacQuizApp.Enums;
 using SenacQuizApp.Telas.Componentes;
 using System.Runtime.InteropServices.Marshalling;
 using SenacQuizApp.Dtos.Historico;
+using SenacQuizApp.Global;
 
 namespace SenacQuizApp.Telas
 {
@@ -30,6 +31,12 @@ namespace SenacQuizApp.Telas
 
         private async void PaginaPrincipal_Load(object sender, EventArgs e)
         {
+            if (UsuarioAtual.Tipo == UsuarioTipoId.Admin)
+            {
+                ButtonQuizDiario.Enabled = false;
+                ButtonQuizRush.Enabled = false;
+            }
+
             await AtualizarTabelaResumos();
         }
 
@@ -38,7 +45,7 @@ namespace SenacQuizApp.Telas
             CarregarColunasTabelaResumo();
             try
             {
-                List<QuizGenerico> quizzes = await _historicoService.ObterResumoRecentes();
+                List<QuizDiarioHistorico> quizzes = await _historicoService.ObterDiariosRecentes();
                 if (quizzes == null) return;
 
                 try
@@ -62,12 +69,12 @@ namespace SenacQuizApp.Telas
         {
             TableResumo.Columns = new AntdUI.ColumnCollection
             {
-                new AntdUI.Column(nameof(QuizGenerico.Tipo), "Tipo") { SortOrder = true },
-                new AntdUI.Column(nameof(QuizGenerico.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
-                new AntdUI.Column(nameof(QuizGenerico.ConcluidoDisplay), "Finalizado ") { SortOrder = true },
-                new AntdUI.Column(nameof(QuizGenerico.DataConcluido), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
-                new AntdUI.Column(nameof(QuizGenerico.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
-                new AntdUI.Column(nameof(QuizGenerico.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizDiarioHistorico.Tipo), "Tipo") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizDiarioHistorico.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                new AntdUI.Column(nameof(QuizDiarioHistorico.ConcluidoDisplay), "Finalizado ") { SortOrder = true },
+                new AntdUI.Column(nameof(QuizDiarioHistorico.DataConcluido), "Data Finalizado ") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
+                new AntdUI.Column(nameof(QuizDiarioHistorico.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
+                new AntdUI.Column(nameof(QuizDiarioHistorico.PontuacaoTotal), "Pontuação Total  ") { SortOrder = true },
             };
         }
 
@@ -85,7 +92,7 @@ namespace SenacQuizApp.Telas
             AbrirHubQuizRush?.Invoke(this, EventArgs.Empty);
         }
 
-        private void MostrarMenuQuizzes(QuizGenerico quiz)
+        private void MostrarMenuQuizzes(QuizDiarioHistorico quiz)
         {
             var continuarItem = new AntdUI.ContextMenuStripItem("Continuar") { Tag = "Continuar" };
             var resultadoItem = new AntdUI.ContextMenuStripItem("Ver Resultado") { Tag = "Resultado" };
@@ -144,7 +151,7 @@ namespace SenacQuizApp.Telas
 
         private void TableResumo_CellClick(object sender, TableClickEventArgs e)
         {
-            if (e.Button != MouseButtons.Right || e.Record is not QuizGenerico quiz) return;
+            if (e.Button != MouseButtons.Right || e.Record is not QuizDiarioHistorico quiz) return;
 
             MostrarMenuQuizzes(quiz);
         }

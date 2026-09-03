@@ -32,6 +32,7 @@
             PanelInserirHistorico = new AntdUI.Panel();
             TableHistorico = new AntdUI.Table();
             PanelHistoricoFiltros = new AntdUI.Panel();
+            ButtonBuscarData = new AntdUI.Button();
             LabelStatus = new AntdUI.Label();
             SelectStatus = new AntdUI.Select();
             LabelTipoQuiz = new AntdUI.Label();
@@ -39,8 +40,6 @@
             DatePickerRangeQuiz = new AntdUI.DatePickerRange();
             LabelData = new AntdUI.Label();
             LabelTitulo = new AntdUI.Label();
-            divider1 = new AntdUI.Divider();
-            ButtonBuscarData = new AntdUI.Button();
             PanelHistorico.SuspendLayout();
             PanelInserirHistorico.SuspendLayout();
             PanelHistoricoFiltros.SuspendLayout();
@@ -53,9 +52,9 @@
             PanelHistorico.Back = Color.FromArgb(33, 33, 33);
             PanelHistorico.Controls.Add(PanelInserirHistorico);
             PanelHistorico.Controls.Add(PanelHistoricoFiltros);
-            PanelHistorico.Location = new Point(215, 90);
+            PanelHistorico.Location = new Point(215, 76);
             PanelHistorico.Name = "PanelHistorico";
-            PanelHistorico.Size = new Size(850, 620);
+            PanelHistorico.Size = new Size(850, 634);
             PanelHistorico.TabIndex = 2;
             PanelHistorico.Text = "panel2";
             // 
@@ -67,7 +66,7 @@
             PanelInserirHistorico.Location = new Point(0, 35);
             PanelInserirHistorico.Name = "PanelInserirHistorico";
             PanelInserirHistorico.Radius = 0;
-            PanelInserirHistorico.Size = new Size(850, 585);
+            PanelInserirHistorico.Size = new Size(850, 599);
             PanelInserirHistorico.TabIndex = 5;
             PanelInserirHistorico.Text = "panel1";
             // 
@@ -84,7 +83,7 @@
             TableHistorico.Gap = 12;
             TableHistorico.Location = new Point(0, 0);
             TableHistorico.Name = "TableHistorico";
-            TableHistorico.Size = new Size(850, 585);
+            TableHistorico.Size = new Size(850, 599);
             TableHistorico.TabIndex = 0;
             TableHistorico.CellClick += TableHistorico_CellClick;
             // 
@@ -107,6 +106,21 @@
             PanelHistoricoFiltros.Size = new Size(850, 35);
             PanelHistoricoFiltros.TabIndex = 4;
             PanelHistoricoFiltros.Text = "panel1";
+            // 
+            // ButtonBuscarData
+            // 
+            ButtonBuscarData.BorderWidth = 2F;
+            ButtonBuscarData.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonBuscarData.Dock = DockStyle.Left;
+            ButtonBuscarData.Ghost = true;
+            ButtonBuscarData.Location = new Point(237, 0);
+            ButtonBuscarData.Margin = new Padding(6);
+            ButtonBuscarData.Name = "ButtonBuscarData";
+            ButtonBuscarData.Radius = 2;
+            ButtonBuscarData.Size = new Size(75, 35);
+            ButtonBuscarData.TabIndex = 7;
+            ButtonBuscarData.Text = "Buscar";
+            ButtonBuscarData.Click += ButtonBuscarData_Click;
             // 
             // LabelStatus
             // 
@@ -164,7 +178,7 @@
             DatePickerRangeQuiz.BorderColor = Color.FromArgb(20, 20, 20);
             DatePickerRangeQuiz.ColorScheme = AntdUI.TAMode.Dark;
             DatePickerRangeQuiz.Dock = DockStyle.Left;
-            DatePickerRangeQuiz.Location = new Point(78, 0);
+            DatePickerRangeQuiz.Location = new Point(33, 0);
             DatePickerRangeQuiz.Name = "DatePickerRangeQuiz";
             DatePickerRangeQuiz.Size = new Size(204, 35);
             DatePickerRangeQuiz.TabIndex = 1;
@@ -177,58 +191,28 @@
             LabelData.Dock = DockStyle.Left;
             LabelData.Location = new Point(5, 0);
             LabelData.Name = "LabelData";
-            LabelData.Size = new Size(73, 35);
+            LabelData.Size = new Size(28, 35);
             LabelData.TabIndex = 6;
-            LabelData.Text = "Data Iniciado:";
+            LabelData.Text = "Data:";
             // 
             // LabelTitulo
             // 
-            LabelTitulo.BackColor = Color.Transparent;
+            LabelTitulo.Anchor = AnchorStyles.Top;
+            LabelTitulo.BackColor = Color.FromArgb(33, 33, 33);
             LabelTitulo.ColorScheme = AntdUI.TAMode.Dark;
-            LabelTitulo.Dock = DockStyle.Top;
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelTitulo.Location = new Point(0, 0);
+            LabelTitulo.Location = new Point(215, 0);
             LabelTitulo.Name = "LabelTitulo";
-            LabelTitulo.Size = new Size(1280, 64);
+            LabelTitulo.Size = new Size(850, 70);
             LabelTitulo.TabIndex = 3;
             LabelTitulo.Text = "Histórico";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // divider1
-            // 
-            divider1.BackColor = Color.Transparent;
-            divider1.ColorScheme = AntdUI.TAMode.Dark;
-            divider1.Dock = DockStyle.Top;
-            divider1.Location = new Point(0, 64);
-            divider1.Name = "divider1";
-            divider1.OrientationMargin = 0F;
-            divider1.Size = new Size(1280, 18);
-            divider1.TabIndex = 4;
-            divider1.Text = "";
-            divider1.TextPadding = 0F;
-            divider1.Thickness = 5F;
-            // 
-            // ButtonBuscarData
-            // 
-            ButtonBuscarData.BorderWidth = 2F;
-            ButtonBuscarData.ColorScheme = AntdUI.TAMode.Dark;
-            ButtonBuscarData.Dock = DockStyle.Left;
-            ButtonBuscarData.Ghost = true;
-            ButtonBuscarData.Location = new Point(282, 0);
-            ButtonBuscarData.Margin = new Padding(6);
-            ButtonBuscarData.Name = "ButtonBuscarData";
-            ButtonBuscarData.Radius = 2;
-            ButtonBuscarData.Size = new Size(75, 35);
-            ButtonBuscarData.TabIndex = 7;
-            ButtonBuscarData.Text = "Buscar";
-            ButtonBuscarData.Click += ButtonBuscarData_Click;
             // 
             // PaginaHistorico
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(50, 50, 50);
-            Controls.Add(divider1);
             Controls.Add(LabelTitulo);
             Controls.Add(PanelHistorico);
             Name = "PaginaHistorico";
@@ -249,7 +233,6 @@
         private AntdUI.Select SelectQuizTipo;
         private AntdUI.DatePickerRange DatePickerRangeQuiz;
         private AntdUI.Panel PanelInserirHistorico;
-        private AntdUI.Divider divider1;
         private AntdUI.Table TableHistorico;
         private AntdUI.Label LabelTipoQuiz;
         private AntdUI.Label LabelStatus;

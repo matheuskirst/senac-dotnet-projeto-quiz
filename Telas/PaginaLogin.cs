@@ -1,7 +1,7 @@
 ﻿using AntdUI;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
-using SenacQuizApp.Telas.Utils;
+using SenacQuizApp.Utils;
 
 namespace SenacQuizApp.Telas
 {

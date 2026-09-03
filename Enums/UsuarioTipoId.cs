@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Enums
 {
-    public enum RushMotivoEncerrado
+    public enum UsuarioTipoId
     {
-        RespostaErrada = 1,
-        TempoEsgotou = 2
+        Admin = 1,
+        Aluno = 2,
     }
 }

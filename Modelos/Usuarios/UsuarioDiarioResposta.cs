@@ -2,7 +2,7 @@
 
 namespace SenacQuizApp.Modelos.Usuarios
 {
-    public class UsuarioResposta
+    public class UsuarioDiarioResposta
     {
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; } = null!;

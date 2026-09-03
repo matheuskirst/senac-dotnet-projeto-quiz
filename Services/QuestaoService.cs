@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
 using SenacQuizApp.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SenacQuizApp.Services
 {
@@ -63,6 +58,19 @@ namespace SenacQuizApp.Services
                 })
                 .OrderBy(q => EF.Functions.Random())
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<QuestaoTemas>> ObterQuestaoTemas()
+        {
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.QuestaoTemas
+                .Select(tema => new QuestaoTemas
+                {
+                    Id = tema.Id,
+                    Nome = tema.Nome
+                })
+                .ToListAsync();
         }
     }
 }

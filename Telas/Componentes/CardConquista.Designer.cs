@@ -33,6 +33,8 @@
             PanelIcone = new AntdUI.Panel();
             LabelPorcentagemGlobal = new AntdUI.Label();
             LabelData = new AntdUI.Label();
+            avatar1 = new AntdUI.Avatar();
+            PanelIcone.SuspendLayout();
             SuspendLayout();
             // 
             // LabelNome
@@ -63,6 +65,7 @@
             // PanelIcone
             // 
             PanelIcone.Back = Color.Black;
+            PanelIcone.Controls.Add(avatar1);
             PanelIcone.Location = new Point(13, 15);
             PanelIcone.Name = "PanelIcone";
             PanelIcone.Size = new Size(60, 60);
@@ -95,6 +98,16 @@
             LabelData.Text = "DD/MM/AAAA - hh:mm:ss";
             LabelData.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // avatar1
+            // 
+            avatar1.Dock = DockStyle.Fill;
+            avatar1.Location = new Point(0, 0);
+            avatar1.Name = "avatar1";
+            avatar1.Radius = 6;
+            avatar1.Size = new Size(60, 60);
+            avatar1.TabIndex = 7;
+            avatar1.Text = "a";
+            // 
             // CardConquista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -109,6 +122,7 @@
             Name = "CardConquista";
             Padding = new Padding(10);
             Size = new Size(803, 90);
+            PanelIcone.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -119,5 +133,6 @@
         private AntdUI.Panel PanelIcone;
         private AntdUI.Label LabelPorcentagemGlobal;
         private AntdUI.Label LabelData;
+        private AntdUI.Avatar avatar1;
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Enums
 {
-    public enum QuizStatus
+    public enum QuizDiarioStatus
     {
         Todos = 0,
         Concluido = 1,

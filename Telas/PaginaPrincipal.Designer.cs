@@ -187,7 +187,7 @@
             LabelResumoQuizzes.Name = "LabelResumoQuizzes";
             LabelResumoQuizzes.Size = new Size(850, 40);
             LabelResumoQuizzes.TabIndex = 0;
-            LabelResumoQuizzes.Text = "Últimas 10 Partidas";
+            LabelResumoQuizzes.Text = "Últimas 10 Partidas Diárias";
             LabelResumoQuizzes.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PaginaPrincipal

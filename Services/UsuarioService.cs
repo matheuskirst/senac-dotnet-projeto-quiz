@@ -28,8 +28,6 @@ namespace SenacQuizApp.Services
                     PontuacaoTotal = usuario.Stats.PontuacaoTotal,
                     TotalAcertos = usuario.Stats.TotalAcertos,
                     TotalRespondidos = usuario.Stats.TotalRespondidos,
-                    AtualAcertosSeguidos = usuario.Stats.AtualAcertosSeguidos,
-                    MaxAcertosSeguidos = usuario.Stats.MaxAcertosSeguidos,
 
                     TemaMaisAcertado = usuario.TemaProgressos
                     .OrderByDescending(tp => tp.RespostasCorretas)
@@ -54,7 +52,7 @@ namespace SenacQuizApp.Services
 
                             PorcentagemDesbloqueioGlobal = Math.Round((c.UsuarioConquistas.Count() * 100.0) / totalUsuarios, 2),
                             Secreta = c.Secreta,
-                            Icone = c.IconePath
+                            IconPath = c.IconPath
                         })
                         .ToList()
                 })

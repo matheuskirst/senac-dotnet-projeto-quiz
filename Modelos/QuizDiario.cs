@@ -26,7 +26,7 @@ namespace SenacQuizApp.Modelos
         public int MaxAcertosSeguidos { get; set; } = 0;
 
         public ICollection<Questao> Questoes { get; set; } = new List<Questao>();
-        public ICollection<UsuarioResposta> UsuarioRespostas { get; set; } = new List<UsuarioResposta>();
+        public ICollection<UsuarioDiarioResposta> UsuarioRespostas { get; set; } = new List<UsuarioDiarioResposta>();
 
         public void Concluir(int pontuacaoReal)
         {

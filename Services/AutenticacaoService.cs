@@ -28,6 +28,14 @@ namespace SenacQuizApp.Services
         // Login
         public async Task<bool> RealizarLogin(string username, string senha)
         {
+            // Demonstração fluxo admin
+            if (username == "admin" &&  senha == "123")
+            {
+                UsuarioAtual.IniciarSessao(id: 0, tipo: UsuarioTipoId.Admin, username: "ADMIN", nickname: "ADMIN");
+                return true;
+            }
+
+
             using var contexto = new QuizAppContexto();
 
             Usuario? usuario = await contexto.Usuarios
@@ -58,7 +66,7 @@ namespace SenacQuizApp.Services
 
             await _conquistaService.ChecarLoginConquistas();
 
-            UsuarioAtual.IniciarSessao(id: usuario.Id, username: usuario.Username, nickname: usuario.Nickname);
+            UsuarioAtual.IniciarSessao(id: usuario.Id, tipo: UsuarioTipoId.Aluno , username: usuario.Username, nickname: usuario.Nickname);
             return true;
         }
 

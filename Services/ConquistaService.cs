@@ -28,7 +28,7 @@ namespace SenacQuizApp.Services
                     Nome = uc.Conquista.Nome,
                     Descricao = uc.Conquista.Descricao,
                     DataDesbloqueio = uc.DataDesbloqueio,
-                    Icone = ""
+                    IconPath = uc.Conquista.IconPath
                 })
                 .ToListAsync();
         }
@@ -38,6 +38,7 @@ namespace SenacQuizApp.Services
             using var contexto = new QuizAppContexto();
 
             int usuarioId = UsuarioAtual.Id;
+            int totalUsuarios = await contexto.Usuarios.CountAsync();
 
             return await contexto.Conquistas
                 .Select(c => new ConquistaDetalhes
@@ -45,13 +46,18 @@ namespace SenacQuizApp.Services
                     Nome = c.Nome,
                     Descricao = c.Descricao,
                     Desbloqueada = c.UsuarioConquistas.Any(uc => uc.UsuarioId == usuarioId),
+
                     DataDesbloqueio = c.UsuarioConquistas
                     .Where(uc => uc.UsuarioId == usuarioId)
                     .Select(uc => (DateTimeOffset?)uc.DataDesbloqueio)
                     .FirstOrDefault(),
-                    PorcentagemDesbloqueioGlobal = Math.Round((c.UsuarioConquistas.Count() * 100.0) / contexto.Usuarios.Count(), 2),
+
+                    PorcentagemDesbloqueioGlobal = totalUsuarios > 0
+                        ? Math.Round((c.UsuarioConquistas.Count() * 100.0) / contexto.Usuarios.Count(), 2)
+                        : 0,
+
                     Secreta = c.Secreta,
-                    Icone = ""
+                    IconPath = c.IconPath
                 })
                 .ToListAsync();
         }
@@ -71,11 +77,11 @@ namespace SenacQuizApp.Services
             var primeiroQuizTipoDiario = await contexto.QuizzesDiarios
                 .AnyAsync(q => q.UsuarioId == usuarioId && q.Concluido == true);
 
-            var acertosSeguidos = await contexto.QuizzesDiarios
+            var acertosSeguidos = await contexto.UsuarioDiarioRecordes
                 .AnyAsync(q => q.UsuarioId == usuarioId && q.MaxAcertosSeguidos >= 10);
 
-            var errosSeguidos = await contexto.QuizzesDiarios
-                .AnyAsync(q => q.UsuarioId == usuarioId && q.MaxAcertosSeguidos <= 0);
+            //var errosSeguidos = await contexto.QuizzesDiarios
+            //    .AnyAsync(q => q.UsuarioId == usuarioId && q.MaxAcertosSeguidos <= 0);
 
             var progressoTemas = await contexto.UsuarioTemasProgressos
                 .Where(t => t.UsuarioId == usuarioId)
@@ -103,9 +109,9 @@ namespace SenacQuizApp.Services
                         }
                         break;
 
-                    case ConquistaTipo.ErrosSeguidos:
-                        if (conquista.Meta != null && errosSeguidos == true) await DesbloquearConquista(conquista.Id);
-                        break;
+                    //case ConquistaTipo.ErrosSeguidos:
+                    //    if (conquista.Meta != null && errosSeguidos == true) await DesbloquearConquista(conquista.Id);
+                    //    break;
                 }
             }
         }

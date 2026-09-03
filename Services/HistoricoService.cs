@@ -11,15 +11,15 @@ namespace SenacQuizApp.Services
 {
     public class HistoricoService
     {
-        public async Task<List<QuizGenerico>> ObterResumoRecentes()
+        public async Task<List<QuizDiarioHistorico>> ObterDiariosRecentes()
         {
             using var contexto = new QuizAppContexto();
 
             int usuarioId = UsuarioAtual.Id;
 
-            var diarios = contexto.QuizzesDiarios
+            return await contexto.QuizzesDiarios
                 .Where(quiz => quiz.UsuarioId == usuarioId)
-                .Select(diario => new QuizGenerico
+                .Select(diario => new QuizDiarioHistorico
                 {
                     Id = diario.Id,
                     TipoId = QuizTipo.Diario,
@@ -29,86 +29,52 @@ namespace SenacQuizApp.Services
                     DataConcluido = diario.DataConcluido != null ? diario.DataConcluido.Value : null,
                     Tempo = diario.TempoDeConclusao,
                     PontuacaoTotal = diario.PontuacaoTotal
-                });
-
-            var rush = contexto.QuizzesRush
-                .Where(quiz => quiz.UsuarioId == usuarioId)
-                .Select(rush => new QuizGenerico
-                {
-                    Id = rush.Id,
-                    TipoId = QuizTipo.Rush,
-                    Tipo = "Rush",
-                    DataIniciado = rush.DataIniciado,
-                    Concluido = null,
-                    DataConcluido = rush.DataConcluido,
-                    Tempo = rush.Tempo,
-                    PontuacaoTotal = rush.PontuacaoTotal
-                });
-
-            return await diarios
-                .Concat(rush)
+                })
                 .OrderByDescending(quiz => quiz.DataIniciado)
                 .Take(10)
                 .ToListAsync();
         }
         
-        public async Task<IEnumerable<QuizGenerico>> ObterTodos(QuizTipo tipo, DateTime? minDate = null, DateTime? maxDate = null, QuizStatus? status = null)
+        public async Task<List<QuizDiarioHistorico>> ObterHistoricoDiario(DateTime? minDate = null, DateTime? maxDate = null, QuizDiarioStatus? status = null)
         {
             using var contexto = new QuizAppContexto();
 
             int usuarioId = UsuarioAtual.Id;
 
-            var diarios = contexto.QuizzesDiarios
+            return await contexto.QuizzesDiarios
                 .Where(quiz => quiz.UsuarioId == usuarioId)
-                .Select(diario => new QuizGenerico
-                {
-                    Id = diario.Id,
-                    TipoId = QuizTipo.Diario,
-                    Tipo = "Diário",
-                    DataIniciado = diario.DataIniciado,
-                    Concluido = diario.Concluido,
-                    DataConcluido = diario.DataConcluido != null ? diario.DataConcluido.Value : null,
-                    Tempo = diario.TempoDeConclusao,
-                    PontuacaoTotal = diario.PontuacaoTotal
-                });
+                .OrderByDescending(quiz => quiz.DataIniciado)
+                .FiltrarPorData(minDate, maxDate)
+                .FiltrarPorStatus(status)
+                .QuizDiarioHistorico()
+                .ToListAsync();
+        }
+        
+        public async Task<List<RushRecordeBatido>> ObterHistoricoRush(DateTime? minDate = null, DateTime? maxDate = null)
+        {
+            using var contexto = new QuizAppContexto();
 
-            var rush = contexto.QuizzesRush
+            int usuarioId = UsuarioAtual.Id;
+
+            return await contexto.RushHistoricos
                 .Where(quiz => quiz.UsuarioId == usuarioId)
-                .Select(diario => new QuizGenerico
-                {
-                    Id = diario.Id,
-                    TipoId = QuizTipo.Rush,
-                    Tipo = "Rush",
-                    DataIniciado = diario.DataIniciado,
-                    Concluido = null,
-                    DataConcluido = diario.DataConcluido,
-                    Tempo = diario.Tempo,
-                    PontuacaoTotal = diario.PontuacaoTotal
-                });
+                .OrderByDescending(quiz => quiz.DataRecordeBatido)
+                .FiltrarPorData(minDate, maxDate)
+                .QuizRushEntrada()
+                .ToListAsync();
+        }
+        
+        public async Task<IEnumerable<RushRecordeBatido>> ObterTodos(DateTime? minDate = null, DateTime? maxDate = null)
+        {
+            using var contexto = new QuizAppContexto();
 
-            switch (tipo)
-            {
-                case QuizTipo.Diario:
-                    return await contexto.QuizzesDiarios
-                        .OrderByDescending(quiz => quiz.DataIniciado)
-                        .FiltrarPorData(minDate, maxDate)
-                        .FiltrarPorStatus(status)
-                        .QuizDiarioHistorico()
-                        .ToListAsync();
-                case QuizTipo.Rush:
-                    return await contexto.QuizzesRush
-                        .OrderByDescending(quiz => quiz.DataIniciado)
-                        .FiltrarPorData(minDate, maxDate)
-                        .QuizRushEntrada()
-                        .ToListAsync();
-                default:
-                    return await diarios
-                        .Concat(rush)
-                        .OrderByDescending(quiz => quiz.DataIniciado)
-                        .FiltrarPorData(minDate, maxDate)
-                        .FiltrarPorStatus(status)
-                        .ToListAsync();
-            }
+            int usuarioId = UsuarioAtual.Id;
+
+            return await contexto.RushHistoricos
+                .OrderByDescending(quiz => quiz.DataRecordeBatido)
+                .FiltrarPorData(minDate, maxDate)
+                .QuizRushEntrada()
+                .ToListAsync();
         }
     }
 
@@ -120,12 +86,13 @@ namespace SenacQuizApp.Services
                 .Select(quiz => new QuizDiarioHistorico
                 {
                     Id = quiz.Id,
+                    TipoId = QuizTipo.Diario,
                     Tipo = "Diário",
                     DataExibido = quiz.DataExibido,
                     DataIniciado = quiz.DataIniciado,
                     Concluido = quiz.Concluido,
                     DataConcluido = quiz.DataConcluido,
-                    TempoDeConclusao = quiz.TempoDeConclusao,
+                    Tempo = quiz.TempoDeConclusao,
 
                     TotalQuestoes = quiz.Questoes
                         .Count(),
@@ -137,59 +104,40 @@ namespace SenacQuizApp.Services
                 });
         }
 
-        public static IQueryable<QuizRushEntrada> QuizRushEntrada(this IQueryable<QuizRush> query)
+        public static IQueryable<RushRecordeBatido> QuizRushEntrada(this IQueryable<Modelos.RushHistorico> query)
         {
             return query
-                .Select(quiz => new QuizRushEntrada
+                .Select(quiz => new RushRecordeBatido
                 {
-                    Id = quiz.Id,
+                    TipoId = QuizTipo.Rush,
                     Tipo = "Rush",
-                    DataIniciado = quiz.DataIniciado,
-                    DataConcluido = quiz.DataConcluido,
-                    Tempo = quiz.Tempo,
-                    MotivoEncerrado = quiz.MotivoEncerrado,
-                    Streak = quiz.Streak,
-                    PontuacaoTotal = quiz.PontuacaoTotal,
+                    RecordeAntigo = quiz.RecordeAntigo,
+                    RecordeNovo = quiz.RecordeNovo,
+                    DataRecordeBatido = quiz.DataRecordeBatido
                 });
         }
 
-        public static IQueryable<QuizGenerico> FiltrarPorStatus(this IQueryable<QuizGenerico> query, QuizStatus? status)
+        public static IQueryable<QuizDiario> FiltrarPorStatus(this IQueryable<QuizDiario> query, QuizDiarioStatus? status)
         {
-            if (status == null || status == QuizStatus.Todos) return query;
+            if (status == null || status == QuizDiarioStatus.Todos) return query;
 
-            bool Concluido = status == QuizStatus.Concluido;
+            bool Concluido = status == QuizDiarioStatus.Concluido;
 
             return query.Where(quiz => quiz.Concluido == Concluido);
-        }
-
-        public static IQueryable<QuizDiario> FiltrarPorStatus(this IQueryable<QuizDiario> query, QuizStatus? status)
-        {
-            if (status == null || status == QuizStatus.Todos) return query;
-
-            bool Concluido = status == QuizStatus.Concluido;
-
-            return query.Where(quiz => quiz.Concluido == Concluido);
-        }
-
-        public static IQueryable<QuizGenerico> FiltrarPorData(this IQueryable<QuizGenerico> query, DateTime? minDate, DateTime? maxDate)
-        {
-            if (minDate == null || maxDate == null) return query;
-
-            return query.Where(quiz => quiz.DataIniciado >= minDate && quiz.DataIniciado <= maxDate);
         }
 
         public static IQueryable<QuizDiario> FiltrarPorData(this IQueryable<QuizDiario> query, DateTime? minDate, DateTime? maxDate)
         {
             if (minDate == null || maxDate == null) return query;
 
-            return query.Where(quiz => quiz.DataIniciado >= minDate && quiz.DataIniciado <= maxDate);
+            return query.Where(quiz => quiz.DataIniciado.DateTime >= minDate && quiz.DataIniciado.DateTime <= maxDate);
         }
 
-        public static IQueryable<QuizRush> FiltrarPorData(this IQueryable<QuizRush> query, DateTime? minDate, DateTime? maxDate)
+        public static IQueryable<RushHistorico> FiltrarPorData(this IQueryable<RushHistorico> query, DateTime? minDate, DateTime? maxDate)
         {
             if (minDate == null || maxDate == null) return query;
 
-            return query.Where(quiz => quiz.DataIniciado >= minDate && quiz.DataIniciado <= maxDate);
+            return query.Where(quiz => quiz.DataRecordeBatido.DateTime >= minDate && quiz.DataRecordeBatido.DateTime <= maxDate);
         }
     }
 }

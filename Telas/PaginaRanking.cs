@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using SenacQuizApp.Services;
 using SenacQuizApp.Enums;
-using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Dtos.Ranking;
 
 namespace SenacQuizApp.Telas
 {
@@ -12,49 +12,71 @@ namespace SenacQuizApp.Telas
 
         public event EventHandler<int>? AbrirPerfil;
 
+        private RankTipo _rankAtual;
+
         public PaginaRanking(RankingService rankingService)
         {
             _rankingService = rankingService;
 
             InitializeComponent();
-
-            TableUsuariosRank.Columns = new AntdUI.ColumnCollection
-            {
-                new AntdUI.Column(nameof(UsuarioRank.Nickname), "Usuário") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRank.PontuacaoTotal), "Pontuação") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRank.Nivel), "Nível") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRank.TotalAcertos), "Acertos") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRank.TotalRespondidos), "Respondidos") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRank.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRank.TemaMaisAcertadoNome), "Tema Mestre") { SortOrder = true },
-                new AntdUI.Column(nameof(UsuarioRank.TemaMaisAcertadoAcertos), "Mestre Acertos") { SortOrder = true },
-            };
         }
 
         private async void PaginaRanking_Load(object sender, EventArgs e)
         {
+            SelectRankTipo.Items.Add(new AntdUI.SelectItem("Geral", RankTipo.Geral));
+            SelectRankTipo.Items.Add(new AntdUI.SelectItem("Diário", RankTipo.Diario));
+            SelectRankTipo.Items.Add(new AntdUI.SelectItem("Rush", RankTipo.Rush));
+
+            SelectRankTipo.SelectedValue = RankTipo.Geral;
+            _rankAtual = RankTipo.Geral;
+
             await AtualizarTabelaRanks();
         }
 
         private async Task AtualizarTabelaRanks(string? nickname = null)
         {
-            TableUsuariosRank.PauseLayout = true;
-            try
+            switch (_rankAtual)
             {
-                TableUsuariosRank.DataSource = false;
+                case RankTipo.Geral:
+                    TableUsuariosRank.Columns = new AntdUI.ColumnCollection
+                    {
+                        new AntdUI.Column(nameof(UsuarioRankGeral.Nickname), "Usuário") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankGeral.PontuacaoTotal), "Pontuação") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankGeral.Nivel), "Nível") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankGeral.TotalAcertos), "Acertos") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankGeral.TotalRespondidos), "Respondidos") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankGeral.TemaMaisAcertadoNome), "Tema Mestre") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankGeral.TemaMaisAcertadoAcertos), "Mestre Acertos") { SortOrder = true },
+                    };
 
-                List<UsuarioRank> usuarios = await _rankingService.ObterUsuariosRank(nickname);
-                if (usuarios == null) return;
+                    TableUsuariosRank.DataSource = await _rankingService.ObterRankingGeral();
+                    break;
 
-                TableUsuariosRank.DataSource = usuarios;
-            }
-            finally
-            {
-                TableUsuariosRank.PauseLayout = false;
+                case RankTipo.Diario:
+                    TableUsuariosRank.Columns = new AntdUI.ColumnCollection
+                    {
+                        new AntdUI.Column(nameof(UsuarioRankDiario.Nickname), "Usuário") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankDiario.TotalAcertosDiarios), "Acertos") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankDiario.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
+                    };
+
+                    TableUsuariosRank.DataSource = await _rankingService.ObterRankingDiario();
+                    break;
+
+                case RankTipo.Rush:
+                    TableUsuariosRank.Columns = new AntdUI.ColumnCollection
+                    {
+                        new AntdUI.Column(nameof(UsuarioRankRush.Nickname), "Usuário") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankRush.Recorde), "Recorde") { SortOrder = true },
+                        new AntdUI.Column(nameof(UsuarioRankRush.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff"  },
+                    };
+
+                    TableUsuariosRank.DataSource = await _rankingService.ObterRankingRush();
+                    break;
             }
         }
 
-        private void MostrarMenuUsuario(UsuarioRank usuario)
+        private void MostrarMenuUsuario(UsuarioRankGeral usuario)
         {
             var menuItems = new AntdUI.IContextMenuStripItem[]
             {
@@ -85,14 +107,14 @@ namespace SenacQuizApp.Telas
 
         private void TableUsuariosRank_CellClick(object sender, AntdUI.TableClickEventArgs e)
         {
-            if (e.Button != MouseButtons.Right || e.Record is not UsuarioRank usuario) return;
+            if (e.Button != MouseButtons.Right || e.Record is not UsuarioRankGeral usuario) return;
 
             MostrarMenuUsuario(usuario);
         }
 
         private void TableUsuariosRank_CellDoubleClick(object sender, AntdUI.TableClickEventArgs e)
         {
-            if (e.Button == MouseButtons.Right || e.Record is not UsuarioRank usuario) return;
+            if (e.Button == MouseButtons.Right || e.Record is not UsuarioRankGeral usuario) return;
 
             AbrirPerfil?.Invoke(this, usuario.Id);
         }
@@ -125,6 +147,14 @@ namespace SenacQuizApp.Telas
         private void InputBuscarUsuario_SuffixClick(object sender, MouseEventArgs e)
         {
             InputBuscarUsuario.Text = "";
+        }
+
+        private async void SelectRankTipo_SelectedValueChanged(object sender, ObjectNEventArgs e)
+        {
+            if (e.Value is not RankTipo rank) return;
+
+            _rankAtual = rank;
+            await AtualizarTabelaRanks();
         }
     }
 }

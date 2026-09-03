@@ -18,8 +18,6 @@ namespace SenacQuizApp.Modelos.Usuarios
         public int PontuacaoTotal { get; set; } = 0;
         public int TotalRespondidos { get; set; } = 0;
         public int TotalAcertos { get; set; } = 0;
-        public int AtualAcertosSeguidos { get; set; } = 0;
-        public int MaxAcertosSeguidos { get; set; } = 0;
 
         public void AdicionarPontos(int pontos)
         {
@@ -41,25 +39,6 @@ namespace SenacQuizApp.Modelos.Usuarios
             {
                 NivelId = UsuarioNivelId.Avancado;
             }
-        }
-
-        public void AtualizarAcertos(int acertos)
-        {
-            TotalRespondidos += acertos;
-
-            TotalAcertos += acertos;
-
-            AtualAcertosSeguidos += acertos;
-            if (AtualAcertosSeguidos > MaxAcertosSeguidos) { MaxAcertosSeguidos = AtualAcertosSeguidos; }
-        }
-
-        public void LimparAcertosSeguidos()
-        {
-            TotalRespondidos++;
-
-            if (AtualAcertosSeguidos > MaxAcertosSeguidos) { MaxAcertosSeguidos = AtualAcertosSeguidos; }
-
-            AtualAcertosSeguidos = 0;
         }
     }
 }

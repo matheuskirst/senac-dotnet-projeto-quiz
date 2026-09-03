@@ -19,7 +19,7 @@ INSERT INTO "QuestaoTemas"
     ("Id", "Nome")
 VALUES
 (1, 'Hardware'),
-(2, 'Programacao'),
+(2, 'Programação'),
 (3, 'Redes'),
 (4, 'Segurança Digital'),
 (5, 'Sistemas Operacionais'),

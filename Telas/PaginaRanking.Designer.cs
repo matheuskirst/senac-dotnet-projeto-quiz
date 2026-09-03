@@ -32,6 +32,8 @@
             PanelRanking = new AntdUI.Panel();
             TableUsuariosRank = new AntdUI.Table();
             Header = new AntdUI.Panel();
+            LabelQuizTipo = new AntdUI.Label();
+            SelectRankTipo = new AntdUI.Select();
             ButtonBuscarUsuario = new AntdUI.Button();
             InputBuscarUsuario = new AntdUI.Input();
             LabelTitulo = new AntdUI.Label();
@@ -76,6 +78,8 @@
             // Header
             // 
             Header.Back = Color.FromArgb(33, 33, 33);
+            Header.Controls.Add(LabelQuizTipo);
+            Header.Controls.Add(SelectRankTipo);
             Header.Controls.Add(ButtonBuscarUsuario);
             Header.Controls.Add(InputBuscarUsuario);
             Header.Dock = DockStyle.Top;
@@ -85,6 +89,31 @@
             Header.Size = new Size(798, 35);
             Header.TabIndex = 4;
             Header.Text = "panel1";
+            // 
+            // LabelQuizTipo
+            // 
+            LabelQuizTipo.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelQuizTipo.BackColor = Color.FromArgb(33, 33, 33);
+            LabelQuizTipo.ColorScheme = AntdUI.TAMode.Dark;
+            LabelQuizTipo.Dock = DockStyle.Right;
+            LabelQuizTipo.Location = new Point(671, 0);
+            LabelQuizTipo.Name = "LabelQuizTipo";
+            LabelQuizTipo.Size = new Size(27, 35);
+            LabelQuizTipo.TabIndex = 10;
+            LabelQuizTipo.Text = "Quiz:";
+            // 
+            // SelectRankTipo
+            // 
+            SelectRankTipo.BackColor = Color.FromArgb(66, 66, 66);
+            SelectRankTipo.BorderColor = Color.FromArgb(20, 20, 20);
+            SelectRankTipo.ColorScheme = AntdUI.TAMode.Dark;
+            SelectRankTipo.Dock = DockStyle.Right;
+            SelectRankTipo.List = true;
+            SelectRankTipo.Location = new Point(698, 0);
+            SelectRankTipo.Name = "SelectRankTipo";
+            SelectRankTipo.Size = new Size(100, 35);
+            SelectRankTipo.TabIndex = 9;
+            SelectRankTipo.SelectedValueChanged += SelectRankTipo_SelectedValueChanged;
             // 
             // ButtonBuscarUsuario
             // 
@@ -142,6 +171,7 @@
             Load += PaginaRanking_Load;
             PanelRanking.ResumeLayout(false);
             Header.ResumeLayout(false);
+            Header.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -153,5 +183,7 @@
         private AntdUI.Panel Header;
         private AntdUI.Input InputBuscarUsuario;
         private AntdUI.Button ButtonBuscarUsuario;
+        private AntdUI.Label LabelQuizTipo;
+        private AntdUI.Select SelectRankTipo;
     }
 }

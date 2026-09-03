@@ -12,8 +12,10 @@ namespace SenacQuizApp.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<UsuarioAcesso> Acessos { get; set; }
         public DbSet<UsuarioStats> UsuarioStats { get; set; }
+        public DbSet<UsuarioDiarioRecorde> UsuarioDiarioRecordes { get; set; }
+        public DbSet<UsuarioRushRecorde> UsuarioRushRecordes { get; set; }
         public DbSet<UsuarioNivel> UsuarioNiveis { get; set; }
-        public DbSet<UsuarioResposta> UsuarioRespostas { get; set; }
+        public DbSet<UsuarioDiarioResposta> UsuarioRespostas { get; set; }
         public DbSet<UsuarioTemasProgresso> UsuarioTemasProgressos { get; set; }
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
 
@@ -23,7 +25,7 @@ namespace SenacQuizApp.Data
         public DbSet<Alternativa> Alternativas { get; set; }
 
         public DbSet<QuizDiario> QuizzesDiarios { get; set; }
-        public DbSet<QuizRush> QuizzesRush { get; set; }
+        public DbSet<RushHistorico> RushHistoricos { get; set; }
 
         public DbSet<Conquista> Conquistas { get; set; }
 
@@ -87,6 +89,18 @@ namespace SenacQuizApp.Data
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);
 
+                entity.HasOne(u => u.DiarioRecorde)
+                    .WithOne(dr => dr.Usuario)
+                    .HasForeignKey<UsuarioDiarioRecorde>(dr => dr.UsuarioId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(u => u.RushRecorde)
+                    .WithOne(rr => rr.Usuario)
+                    .HasForeignKey<UsuarioRushRecorde>(rr => rr.UsuarioId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 entity.Property(u => u.DataDeNascimento)
                     .HasColumnType("date");
 
@@ -106,6 +120,12 @@ namespace SenacQuizApp.Data
 
 
             modelBuilder.Entity<UsuarioStats>()
+                .HasKey(s => s.UsuarioId);
+
+            modelBuilder.Entity<UsuarioDiarioRecorde>()
+                .HasKey(s => s.UsuarioId);
+
+            modelBuilder.Entity<UsuarioRushRecorde>()
                 .HasKey(s => s.UsuarioId);
 
 
@@ -135,7 +155,7 @@ namespace SenacQuizApp.Data
             });
 
 
-            modelBuilder.Entity<UsuarioResposta>(entity =>
+            modelBuilder.Entity<UsuarioDiarioResposta>(entity =>
             {
                 entity.HasKey(ur => new { ur.UsuarioId, ur.QuizId, ur.QuestaoId });
                 entity.ToTable("UsuarioRespostas");
@@ -224,21 +244,6 @@ namespace SenacQuizApp.Data
                 entity.Property(q => q.DataExibido)
                     .HasColumnType("date")
                     .HasDefaultValueSql("CURRENT_DATE");
-
-                entity.Property(q => q.DataIniciado)
-                    .HasColumnType("timestamptz")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                entity.Property(q => q.DataConcluido)
-                    .HasColumnType("timestamptz");
-            });
-
-            modelBuilder.HasPostgresEnum<RushMotivoEncerrado>(name: "Motivo Encerrado");
-            
-            modelBuilder.Entity<QuizRush>(entity =>
-            {
-                entity.HasIndex(ud => new { ud.UsuarioId, ud.DataIniciado })
-                    .IsUnique();
 
                 entity.Property(q => q.DataIniciado)
                     .HasColumnType("timestamptz")

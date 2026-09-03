@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
+using SenacQuizApp.Dtos.Ranking;
 using SenacQuizApp.Dtos.Usuario;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Modelos.Usuarios;
 
 namespace SenacQuizApp.Services
 {
     public class RankingService
     {
-        public async Task<List<UsuarioRank>> ObterUsuariosRank(string? nickname=null)
+        public async Task<List<UsuarioRankGeral>> ObterRankingGeral(string? nickname = null)
         {
             using var contexto = new QuizAppContexto();
 
@@ -19,7 +21,7 @@ namespace SenacQuizApp.Services
             }
 
             return await query
-                .Select(usuario => new UsuarioRank
+                .Select(usuario => new UsuarioRankGeral
                 {
                     Id = usuario.Id,
                     Nickname = usuario.Nickname,
@@ -27,7 +29,6 @@ namespace SenacQuizApp.Services
                     Nivel = usuario.Stats.Nivel.Nome,
                     TotalAcertos = usuario.Stats.TotalAcertos,
                     TotalRespondidos = usuario.Stats.TotalRespondidos,
-                    MaxAcertosConsecutivos = usuario.Stats.MaxAcertosSeguidos,
                     TemaMaisAcertado = usuario.TemaProgressos
                         .OrderByDescending(tp => tp.RespostasCorretas)
                         .Select(tp => new TemaDestaque
@@ -38,6 +39,56 @@ namespace SenacQuizApp.Services
                         .FirstOrDefault(),
                 })
                 .OrderByDescending(rank => rank.PontuacaoTotal)
+                .ToListAsync();
+        }
+
+        public async Task<List<UsuarioRankDiario>> ObterRankingDiario(string? nickname = null)
+        {
+            using var contexto = new QuizAppContexto();
+
+            IQueryable<UsuarioDiarioRecorde> query = contexto.UsuarioDiarioRecordes;
+
+            if (nickname != null)
+            {
+                query = query.Where(dr => dr.Usuario.Nickname.ToLower().StartsWith(nickname.ToLower()));
+            }
+
+            return await query
+                .OrderByDescending(dr => dr.PontosDiarios)
+                .ThenByDescending(dr => dr.TotalAcertosDiarios)
+                .ThenByDescending(dr => dr.MaxAcertosSeguidos)
+                .Select(dr => new UsuarioRankDiario
+                {
+                    Id = dr.UsuarioId,
+                    Nickname = dr.Usuario.Nickname,
+                    TotalAcertosDiarios = dr.TotalAcertosDiarios,
+                    MaxAcertosConsecutivos = dr.MaxAcertosSeguidos,
+                })
+         
+                .ToListAsync();
+        }
+
+        public async Task<List<UsuarioRankRush>> ObterRankingRush(string? nickname = null)
+        {
+            using var contexto = new QuizAppContexto();
+
+            IQueryable<UsuarioRushRecorde> query = contexto.UsuarioRushRecordes;
+
+            if (nickname != null)
+            {
+                query = query.Where(rr => rr.Usuario.Nickname.ToLower().StartsWith(nickname.ToLower()));
+            }
+
+            return await query
+                .OrderByDescending(rr => rr.MaxStreak)
+                .ThenByDescending(rr => rr.Tempo)
+                .Select(dr => new UsuarioRankRush
+                {
+                    Id = dr.UsuarioId,
+                    Nickname = dr.Usuario.Nickname,
+                    Recorde = dr.MaxStreak,
+                    Tempo = dr.Tempo
+                })
                 .ToListAsync();
         }
     }

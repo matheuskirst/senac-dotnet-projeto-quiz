@@ -107,10 +107,11 @@ namespace SenacQuizApp.Services
 
             int usuarioId = UsuarioAtual.Id;
 
-            UsuarioStats? usuarioStats = await contexto.Usuarios
-                .Where(usuario => usuario.Id == usuarioId)
-                .Select(usuario => usuario.Stats)
-                .FirstOrDefaultAsync();
+            var usuarioStats = await contexto.UsuarioStats
+                .FirstOrDefaultAsync(stats => stats.UsuarioId == usuarioId);
+
+            UsuarioDiarioRecorde? recordeAtual = await contexto.UsuarioDiarioRecordes
+                .FirstOrDefaultAsync(stats => stats.UsuarioId == usuarioId);
 
             if (usuarioStats == null) throw new Exception();
 
@@ -143,7 +144,7 @@ namespace SenacQuizApp.Services
 
             if (sequenciaAcertos > quizSequenciaAcertos) quizSequenciaAcertos = sequenciaAcertos;
 
-            var resposta = new UsuarioResposta
+            var resposta = new UsuarioDiarioResposta
             {
                 QuizId = quizId,
                 UsuarioId = usuarioId,
@@ -157,9 +158,19 @@ namespace SenacQuizApp.Services
 
             contexto.UsuarioRespostas.Add(resposta);
 
+            if (recordeAtual == null)
+            {
+                recordeAtual = new UsuarioDiarioRecorde
+                {
+                    UsuarioId = usuarioId
+                };
+                contexto.UsuarioDiarioRecordes.Add(recordeAtual);
+            }
+
             if (ehCorreta)
             {
-                usuarioStats.AtualizarAcertos(1);
+                recordeAtual.AtualizarAcertos(1, pontuacaoFinal);
+                usuarioStats.TotalAcertos++;
                 usuarioStats.AdicionarPontos(pontuacaoFinal);
 
                 var temaProgresso = await contexto.UsuarioTemasProgressos
@@ -183,8 +194,10 @@ namespace SenacQuizApp.Services
             }
             else
             {
-                usuarioStats.LimparAcertosSeguidos();
+                recordeAtual.LimparAcertosSeguidos();
             }
+
+            usuarioStats.TotalRespondidos++;
 
             await contexto.SaveChangesAsync();
             await _conquistaService.ChecarQuizConquistas();

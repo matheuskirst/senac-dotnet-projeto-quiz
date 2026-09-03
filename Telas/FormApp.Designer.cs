@@ -36,11 +36,13 @@
             ButtonHeaderPerfil = new AntdUI.Button();
             ButtonHeaderConquista = new AntdUI.Button();
             PanelAppFooter = new AntdUI.Panel();
+            ButtonGerenciarQuestoes = new AntdUI.Button();
             PanelHeaderDivider = new AntdUI.Panel();
             PanelFooterDivider = new AntdUI.Panel();
             PanelAppBody = new AntdUI.Panel();
             PageHeader.SuspendLayout();
             PanelAppHeader.SuspendLayout();
+            PanelAppFooter.SuspendLayout();
             SuspendLayout();
             // 
             // PageHeader
@@ -162,13 +164,32 @@
             // PanelAppFooter
             // 
             PanelAppFooter.Back = Color.FromArgb(18, 18, 18);
+            PanelAppFooter.Controls.Add(ButtonGerenciarQuestoes);
             PanelAppFooter.Dock = DockStyle.Bottom;
-            PanelAppFooter.Location = new Point(0, 680);
+            PanelAppFooter.Location = new Point(0, 670);
             PanelAppFooter.Name = "PanelAppFooter";
             PanelAppFooter.Radius = 0;
-            PanelAppFooter.Size = new Size(1024, 40);
+            PanelAppFooter.Size = new Size(1024, 50);
             PanelAppFooter.TabIndex = 10;
             PanelAppFooter.Text = "panel1";
+            // 
+            // ButtonGerenciarQuestoes
+            // 
+            ButtonGerenciarQuestoes.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ButtonGerenciarQuestoes.BorderWidth = 1F;
+            ButtonGerenciarQuestoes.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonGerenciarQuestoes.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+            ButtonGerenciarQuestoes.Font = new Font("Microsoft Sans Serif", 12F);
+            ButtonGerenciarQuestoes.ForeHover = Color.White;
+            ButtonGerenciarQuestoes.Ghost = true;
+            ButtonGerenciarQuestoes.Location = new Point(12, 2);
+            ButtonGerenciarQuestoes.Name = "ButtonGerenciarQuestoes";
+            ButtonGerenciarQuestoes.Size = new Size(120, 45);
+            ButtonGerenciarQuestoes.TabIndex = 11;
+            ButtonGerenciarQuestoes.Text = "Questões";
+            ButtonGerenciarQuestoes.ToggleFore = Color.FromArgb(66, 160, 245);
+            ButtonGerenciarQuestoes.Visible = false;
+            ButtonGerenciarQuestoes.Click += ButtonGerenciarQuestoes_Click;
             // 
             // PanelHeaderDivider
             // 
@@ -186,7 +207,7 @@
             PanelFooterDivider.Back = Color.Black;
             PanelFooterDivider.BackColor = SystemColors.ControlDarkDark;
             PanelFooterDivider.Dock = DockStyle.Bottom;
-            PanelFooterDivider.Location = new Point(0, 679);
+            PanelFooterDivider.Location = new Point(0, 669);
             PanelFooterDivider.Name = "PanelFooterDivider";
             PanelFooterDivider.Size = new Size(1024, 1);
             PanelFooterDivider.TabIndex = 1;
@@ -199,7 +220,7 @@
             PanelAppBody.Location = new Point(0, 86);
             PanelAppBody.Name = "PanelAppBody";
             PanelAppBody.Radius = 0;
-            PanelAppBody.Size = new Size(1024, 593);
+            PanelAppBody.Size = new Size(1024, 583);
             PanelAppBody.TabIndex = 11;
             PanelAppBody.Text = " ";
             // 
@@ -224,6 +245,7 @@
             PageHeader.ResumeLayout(false);
             PageHeader.PerformLayout();
             PanelAppHeader.ResumeLayout(false);
+            PanelAppFooter.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -239,5 +261,6 @@
         private AntdUI.Dropdown DropdownUsuarioMenu;
         private AntdUI.Panel PanelAppBody;
         private AntdUI.Button ButtonHeaderPerfil;
+        private AntdUI.Button ButtonGerenciarQuestoes;
     }
 }

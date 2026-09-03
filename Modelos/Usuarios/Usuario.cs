@@ -28,8 +28,10 @@ namespace SenacQuizApp.Modelos.Usuarios
         public DateTimeOffset DataDeCadastro { get; set; } = DateTimeOffset.UtcNow;
 
         public UsuarioStats Stats { get; set; } = null!;
+        public UsuarioDiarioRecorde DiarioRecorde = null!;
+        public UsuarioRushRecorde RushRecorde = null!;
 
-        public ICollection<UsuarioResposta> Respostas { get; set; } = new List<UsuarioResposta>();
+        public ICollection<UsuarioDiarioResposta> Respostas { get; set; } = new List<UsuarioDiarioResposta>();
         public ICollection<UsuarioTemasProgresso> TemaProgressos { get; set; } = new List<UsuarioTemasProgresso>();
         public ICollection<UsuarioAcesso> Acessos { get; set; } = new List<UsuarioAcesso>();
         public ICollection<UsuarioConquista> Conquistas { get; set; } = new List<UsuarioConquista>();

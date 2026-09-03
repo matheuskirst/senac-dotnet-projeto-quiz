@@ -1,15 +1,63 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SenacQuizApp.Data;
-using SenacQuizApp.Dtos.Historico;
+using SenacQuizApp.Dtos;
+using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
 using SenacQuizApp.Modelos.Usuarios;
-using SenacQuizApp.Enums;
+using System.Data;
+using static SenacQuizApp.Global.ModelosConstantes;
 
 namespace SenacQuizApp.Services
 {
     public class QuizRushService
     {
+        public async Task<RushUltimoRecorde?> ObterUltimoRecorde()
+        {
+            using var contexto = new QuizAppContexto();
+
+            int usuarioId = UsuarioAtual.Id;
+
+            return await contexto.UsuarioRushRecordes
+                .Where(r => r.UsuarioId == usuarioId)
+                .OrderByDescending(r => r.DataRecorde)
+                .Select(r => new RushUltimoRecorde
+                {
+                    Streak = r.MaxStreak,
+                    Tempo = r.Tempo,
+                    DataRecorde = r.DataRecorde
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<QuestaoExibicao?> ObterQuestaoAleatoria()
+        {
+            using var contexto = new QuizAppContexto();
+
+            return await contexto.Questoes
+                .Select(questao => new QuestaoExibicao
+                {
+                    Id = questao.Id,
+                    TemaId = questao.TemaId,
+                    Tema = questao.Tema.Nome,
+                    NivelId = questao.NivelId,
+                    Nivel = questao.Nivel.Nome,
+                    Tipo = questao.Tipo,
+                    Enunciado = questao.Enunciado,
+                    Respondida = false,
+                    Pontos = questao.Nivel.Valor,
+                    Alternativas = questao.Alternativas.Select(alternativa => new AlternativaExibicao
+                    {
+                        Id = alternativa.Id,
+                        Texto = alternativa.Texto
+                    })
+                    .OrderBy(q => EF.Functions.Random())
+                    .ToList()
+                })
+                .OrderBy(q => EF.Functions.Random())
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<bool?> VerificarRespostaAlternativa(int alternativaId)
         {
             using var contexto = new QuizAppContexto();
@@ -30,66 +78,71 @@ namespace SenacQuizApp.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<QuizRushEntrada?> ObterResultadoPorId(int quizId)
-        {
-            using var contexto = new QuizAppContexto();
-
-            return await contexto.QuizzesRush
-                .Where(quiz => quiz.Id == quizId)
-                .Select(quiz => new QuizRushEntrada
-                {
-                    Id = quiz.Id,
-                    DataIniciado = quiz.DataIniciado,
-                    DataConcluido = quiz.DataConcluido,
-                    Tempo = quiz.Tempo,
-                    MotivoEncerrado = quiz.MotivoEncerrado,
-                    Streak = quiz.Streak,
-                    PontuacaoTotal = quiz.PontuacaoTotal
-                })
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<int?> SalvarQuizRush(RushMotivoEncerrado motivo, DateTimeOffset dataIniciado, int streak, int pontuacaoTotal)
+        public async Task<bool> FinalizarPartidaRush(DateTimeOffset dataIniciado, int streakFinal, int pontuacaoTotal)
         {
             using var contexto = new QuizAppContexto();
 
             int usuarioId = UsuarioAtual.Id;
 
-            UsuarioStats? usuarioStats = await contexto.Usuarios
-                .Where(usuario => usuario.Id == usuarioId)
-                .Select(usuario => usuario.Stats)
-                .FirstOrDefaultAsync();
+            var usuarioStats = await contexto.UsuarioStats
+                .FirstOrDefaultAsync(stats => stats.UsuarioId == usuarioId);
+
+            UsuarioRushRecorde? recordeAtual = await contexto.UsuarioRushRecordes
+                .FirstOrDefaultAsync(stats => stats.UsuarioId == usuarioId);
 
             if (usuarioStats == null) throw new Exception();
 
-            DateTimeOffset dataConcluido = DateTimeOffset.UtcNow;
-
-            TimeSpan tempo = dataConcluido - dataIniciado;
-
-            var quiz = new QuizRush
+            if (pontuacaoTotal > 0)
             {
-                UsuarioId = usuarioId,
-                DataIniciado = dataIniciado,
-                DataConcluido = dataConcluido,
-                MotivoEncerrado = motivo,
-                Tempo = tempo,
-                Streak = streak,
-                PontuacaoTotal = pontuacaoTotal
-            };
-
-            contexto.QuizzesRush.Add(quiz);
-            usuarioStats.AdicionarPontos(pontuacaoTotal);
-            usuarioStats.AtualizarAcertos(streak);
-            if (motivo == RushMotivoEncerrado.RespostaErrada)
-            {
-                usuarioStats.LimparAcertosSeguidos();
+                usuarioStats.AdicionarPontos(pontuacaoTotal);
             }
+
+            DateTimeOffset dataFinalizado = DateTimeOffset.UtcNow;
+            TimeSpan tempo = dataFinalizado - dataIniciado;
+
+            bool recordeBatido = false;
+            int streakAtual = 0;
+
+            if (recordeAtual == null)
+            {
+                recordeAtual = new UsuarioRushRecorde
+                {
+                    UsuarioId = usuarioId,
+                    MaxStreak = streakFinal,
+                    Tempo = tempo,
+                    DataRecorde = DateTimeOffset.UtcNow
+                };
+
+                contexto.UsuarioRushRecordes.Add(recordeAtual);
+                recordeBatido = true;
+            }
+            else if (streakFinal > recordeAtual.MaxStreak)
+            {
+                streakAtual = recordeAtual.MaxStreak;
+
+                recordeAtual.MaxStreak = streakFinal;
+                recordeAtual.Tempo = tempo;
+                recordeAtual.DataRecorde = dataFinalizado;
+
+                recordeBatido = true;
+            }
+
+            if (recordeBatido)
+            {
+                var historico = new RushHistorico
+                {
+                    UsuarioId = usuarioId,
+                    RecordeAntigo = streakAtual,
+                    RecordeNovo = streakFinal,
+                    DataRecordeBatido = dataFinalizado
+                };
+
+                contexto.RushHistoricos.Add(historico);
+            }
+
             await contexto.SaveChangesAsync();
 
-            return await contexto.QuizzesRush
-                .Where(r => r.UsuarioId == usuarioId && r.DataIniciado == dataIniciado)
-                .Select(r => r.Id)
-                .FirstOrDefaultAsync();
+            return recordeBatido;
         }
     }
 }

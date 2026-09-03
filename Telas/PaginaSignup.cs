@@ -1,7 +1,7 @@
 ﻿using AntdUI;
 using SenacQuizApp.Global;
 using SenacQuizApp.Services;
-using SenacQuizApp.Telas.Utils;
+using SenacQuizApp.Utils;
 
 namespace SenacQuizApp.Telas
 {
@@ -218,8 +218,7 @@ namespace SenacQuizApp.Telas
             }
             else if (!string.IsNullOrWhiteSpace(confirmarSenha) && senha != confirmarSenha)
             {
-                PintarErros.ErroNoCampo(InputSignupSenha, mensagem: "As senhas são diferentes!");
-                PintarErros.ErroNoCampo(InputSignupConfirmarSenha, mensagem: "As senhas são diferentes!");
+                PintarErros.ErroNoCampo(InputSignupConfirmarSenha, mensagem: "As senhas não coincidem!");
                 validado = false;
             }
             else
