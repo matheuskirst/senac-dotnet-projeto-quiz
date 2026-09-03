@@ -12,6 +12,10 @@ namespace SenacQuizApp.Telas
     public partial class PaginaCriarQuestoes : UserControl
     {
         private readonly QuestaoService _questaoService;
+
+        private int? _questaoTemaId;
+        private QuestaoNivelId? _questaoNivelId;
+
         public PaginaCriarQuestoes(QuestaoService questaoService)
         {
             _questaoService = questaoService;
@@ -19,8 +23,6 @@ namespace SenacQuizApp.Telas
             InitializeComponent();
             ConfigurarEventosAbas();
             ConfigurarInterfaceEAbas();
-
-            this.Resize += PaginaCriarQuestoes_Resize;
         }
 
         protected async override void OnLoad(EventArgs e)
@@ -31,7 +33,7 @@ namespace SenacQuizApp.Telas
 
             if (temas == null) return;
 
-            foreach(var tema in temas)
+            foreach (var tema in temas)
             {
                 selectTema.Items.Add(new AntdUI.SelectItem(tema.Nome, tema.Id));
             }
@@ -62,6 +64,18 @@ namespace SenacQuizApp.Telas
         private async void btnSalvarVF_Click(object? sender, EventArgs e)
         {
             string enunciado = InputQuestaoEnunciado.Text.Trim();
+
+            if (_questaoNivelId == null)
+            {
+                PintarErros.ErroNoCampo(selectNivel, titulo: "Aviso", mensagem: "Selecione um nível!");
+                return;
+            }
+
+            if (_questaoTemaId == null)
+            {
+                PintarErros.ErroNoCampo(selectTema, titulo: "Aviso", mensagem: "Selecione um tema!");
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(enunciado))
             {
@@ -118,16 +132,28 @@ namespace SenacQuizApp.Telas
         {
             string enunciado = InputQuestaoEnunciado.Text.Trim();
 
+            if (_questaoNivelId == null)
+            {
+                PintarErros.ErroNoCampo(selectNivel, titulo: "Aviso", mensagem: "Selecione um nível!");
+                return;
+            }
+
+            if (_questaoTemaId == null)
+            {
+                PintarErros.ErroNoCampo(selectTema, titulo: "Aviso", mensagem: "Selecione um tema!");
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(enunciado))
             {
-                MessageBox.Show("Informe o enunciado da questão!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                PintarErros.ErroNoCampo(InputQuestaoEnunciado, titulo: "Aviso", mensagem: "Informe o enunciado da questão!");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtAlt1.Text) || string.IsNullOrWhiteSpace(txtAlt2.Text) ||
                 string.IsNullOrWhiteSpace(txtAlt3.Text) || string.IsNullOrWhiteSpace(txtAlt4.Text))
             {
-                PintarErros.ErroNoCampo(InputQuestaoEnunciado, titulo: "Aviso", mensagem: "Informe o enunciado da questão!");
+                PintarErros.ErroNoCampo(InputQuestaoEnunciado, titulo: "Aviso", mensagem: "Informe as alternativas da questão!");
                 return;
             }
 
@@ -135,15 +161,12 @@ namespace SenacQuizApp.Telas
             {
                 using var contexto = new QuizAppContexto();
 
-                int temaId = selectTema.SelectedValue != null ? Convert.ToInt32(selectTema.SelectedValue) : 1;
-                int nivelId = selectNivel.SelectedValue != null ? Convert.ToInt32(selectNivel.SelectedValue) : 1;
-
                 var novaQuestao = new Questao
                 {
                     Enunciado = enunciado,
                     Tipo = QuestaoTipo.Alternativas,
-                    TemaId = temaId,
-                    NivelId = (QuestaoNivelId)nivelId
+                    TemaId = _questaoTemaId.Value,
+                    NivelId = _questaoNivelId.Value
                 };
 
                 contexto.Questoes.Add(novaQuestao);
@@ -166,6 +189,20 @@ namespace SenacQuizApp.Telas
             {
                 MessageBox.Show($"Erro ao salvar questão: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void selectTema_SelectedValueChanged(object sender, ObjectNEventArgs e)
+        {
+            if (e.Value is not int temaId) return;
+
+            _questaoTemaId = temaId;
+        }
+
+        private void selectNivel_SelectedValueChanged(object sender, ObjectNEventArgs e)
+        {
+            if (e.Value is not QuestaoNivelId nivelId) return;
+
+            _questaoNivelId = nivelId;
         }
     }
 }

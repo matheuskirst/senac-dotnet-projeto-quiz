@@ -288,6 +288,7 @@
             selectTema.PlaceholderText = "Selecione o Tema";
             selectTema.Size = new Size(440, 40);
             selectTema.TabIndex = 1;
+            selectTema.SelectedValueChanged += selectTema_SelectedValueChanged;
             // 
             // selectNivel
             // 
@@ -299,6 +300,7 @@
             selectNivel.PlaceholderText = "Selecione o Nível";
             selectNivel.Size = new Size(440, 40);
             selectNivel.TabIndex = 2;
+            selectNivel.SelectedValueChanged += selectNivel_SelectedValueChanged;
             // 
             // PaginaCriarQuestoes
             // 

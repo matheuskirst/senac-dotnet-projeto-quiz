@@ -35,6 +35,14 @@ namespace SenacQuizApp.Telas
             }
         }
 
+        private void PaginaPerfil_SizeChanged(object sender, EventArgs e)
+        {
+            if (PanelPerfil.Height < PanelCentral.Height)
+            {
+                PanelPerfil.Height = PanelCentral.Height;
+            }
+        }
+
         private void AtualizarPerfil(UsuarioPerfil perfil)
         {
             LabelUsuario.Text = perfil.Nickname;
@@ -74,7 +82,9 @@ namespace SenacQuizApp.Telas
                 LabelInsertTaxaAcertos.Text = $"{(double)perfil.TotalAcertos / perfil.TotalRespondidos:P0}";
             }
 
-            foreach(var conquista in perfil.Conquistas)
+            LabelInsertTemaMestre.Text = perfil.TemaMaisAcertado?.Nome != null ? perfil.TemaMaisAcertado?.Nome : "Nenhum";
+
+            foreach (var conquista in perfil.Conquistas)
             {
                 var card = new CardConquista(conquista, mostrarData: true);
                 card.Dock = DockStyle.Top;

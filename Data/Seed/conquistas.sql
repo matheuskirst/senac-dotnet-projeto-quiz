@@ -7,7 +7,7 @@ INSERT INTO "Conquistas"
 VALUES
 (1, 'Primeiro Quiz Diário Concluído', 'Complete seu primeiro quiz diário', 1, 1, NULL, FALSE, 'Assets\Icons\primeiro-quiz-diario.png'),
 
-(2, '10 Acertos Seguidos', 'Atinja 10 respostas corretas em consecução no quiz diário', 2, 10, NULL, FALSE, 'Assets\Icons\10-acertos-consecutivos.pngpng'),
+(2, '10 Acertos Seguidos', 'Atinja 10 respostas corretas em consecução no quiz diário', 2, 10, NULL, FALSE, 'Assets\Icons\10-acertos-consecutivos.png'),
 
 (3, 'Mestre em Hardware', 'Atinja 100 acertos no tema Hardware', 3, 100, 1, FALSE, 'Assets\Icons\100-acertos-hardware.png'),
 

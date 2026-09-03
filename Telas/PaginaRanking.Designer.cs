@@ -49,10 +49,10 @@
             PanelRanking.BorderWidth = 1F;
             PanelRanking.Controls.Add(TableUsuariosRank);
             PanelRanking.Controls.Add(Header);
-            PanelRanking.Location = new Point(240, 76);
+            PanelRanking.Location = new Point(240, 56);
             PanelRanking.Name = "PanelRanking";
             PanelRanking.Radius = 0;
-            PanelRanking.Size = new Size(800, 644);
+            PanelRanking.Size = new Size(800, 664);
             PanelRanking.TabIndex = 0;
             // 
             // TableUsuariosRank
@@ -67,10 +67,10 @@
             TableUsuariosRank.EnableHeaderResizing = true;
             TableUsuariosRank.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TableUsuariosRank.Gap = 12;
-            TableUsuariosRank.Location = new Point(1, 36);
+            TableUsuariosRank.Location = new Point(1, 46);
             TableUsuariosRank.LostFocusClearSelection = true;
             TableUsuariosRank.Name = "TableUsuariosRank";
-            TableUsuariosRank.Size = new Size(798, 607);
+            TableUsuariosRank.Size = new Size(798, 617);
             TableUsuariosRank.TabIndex = 3;
             TableUsuariosRank.CellClick += TableUsuariosRank_CellClick;
             TableUsuariosRank.CellDoubleClick += TableUsuariosRank_CellDoubleClick;
@@ -86,7 +86,7 @@
             Header.Location = new Point(1, 1);
             Header.Name = "Header";
             Header.Radius = 0;
-            Header.Size = new Size(798, 35);
+            Header.Size = new Size(798, 45);
             Header.TabIndex = 4;
             Header.Text = "panel1";
             // 
@@ -96,11 +96,12 @@
             LabelQuizTipo.BackColor = Color.FromArgb(33, 33, 33);
             LabelQuizTipo.ColorScheme = AntdUI.TAMode.Dark;
             LabelQuizTipo.Dock = DockStyle.Right;
-            LabelQuizTipo.Location = new Point(671, 0);
+            LabelQuizTipo.Font = new Font("Segoe UI", 12F);
+            LabelQuizTipo.Location = new Point(623, 0);
             LabelQuizTipo.Name = "LabelQuizTipo";
-            LabelQuizTipo.Size = new Size(27, 35);
+            LabelQuizTipo.Size = new Size(35, 45);
             LabelQuizTipo.TabIndex = 10;
-            LabelQuizTipo.Text = "Quiz:";
+            LabelQuizTipo.Text = "Tipo:";
             // 
             // SelectRankTipo
             // 
@@ -108,10 +109,11 @@
             SelectRankTipo.BorderColor = Color.FromArgb(20, 20, 20);
             SelectRankTipo.ColorScheme = AntdUI.TAMode.Dark;
             SelectRankTipo.Dock = DockStyle.Right;
+            SelectRankTipo.Font = new Font("Segoe UI", 12F);
             SelectRankTipo.List = true;
-            SelectRankTipo.Location = new Point(698, 0);
+            SelectRankTipo.Location = new Point(658, 0);
             SelectRankTipo.Name = "SelectRankTipo";
-            SelectRankTipo.Size = new Size(100, 35);
+            SelectRankTipo.Size = new Size(140, 45);
             SelectRankTipo.TabIndex = 9;
             SelectRankTipo.SelectedValueChanged += SelectRankTipo_SelectedValueChanged;
             // 
@@ -120,12 +122,13 @@
             ButtonBuscarUsuario.BorderWidth = 2F;
             ButtonBuscarUsuario.ColorScheme = AntdUI.TAMode.Dark;
             ButtonBuscarUsuario.Dock = DockStyle.Left;
+            ButtonBuscarUsuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ButtonBuscarUsuario.Ghost = true;
-            ButtonBuscarUsuario.Location = new Point(200, 0);
+            ButtonBuscarUsuario.Location = new Point(250, 0);
             ButtonBuscarUsuario.Margin = new Padding(6);
             ButtonBuscarUsuario.Name = "ButtonBuscarUsuario";
             ButtonBuscarUsuario.Radius = 2;
-            ButtonBuscarUsuario.Size = new Size(75, 35);
+            ButtonBuscarUsuario.Size = new Size(75, 45);
             ButtonBuscarUsuario.TabIndex = 8;
             ButtonBuscarUsuario.Text = "Buscar";
             ButtonBuscarUsuario.Click += ButtonBuscarUsuario_Click;
@@ -135,15 +138,17 @@
             InputBuscarUsuario.BackColor = Color.FromArgb(66, 66, 66);
             InputBuscarUsuario.ColorScheme = AntdUI.TAMode.Dark;
             InputBuscarUsuario.Dock = DockStyle.Left;
+            InputBuscarUsuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputBuscarUsuario.Location = new Point(0, 0);
             InputBuscarUsuario.Name = "InputBuscarUsuario";
-            InputBuscarUsuario.PlaceholderText = "Buscar...";
+            InputBuscarUsuario.PlaceholderText = "Buscar usuário...";
             InputBuscarUsuario.PrefixFore = Color.White;
             InputBuscarUsuario.PrefixSvg = resources.GetString("InputBuscarUsuario.PrefixSvg");
-            InputBuscarUsuario.Size = new Size(200, 35);
+            InputBuscarUsuario.Size = new Size(250, 45);
             InputBuscarUsuario.SuffixSvg = resources.GetString("InputBuscarUsuario.SuffixSvg");
             InputBuscarUsuario.TabIndex = 0;
             InputBuscarUsuario.SuffixClick += InputBuscarUsuario_SuffixClick;
+            InputBuscarUsuario.TextChanged += InputBuscarUsuario_TextChanged;
             InputBuscarUsuario.KeyDown += InputBuscarUsuario_KeyDown;
             // 
             // LabelTitulo
@@ -154,7 +159,7 @@
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelTitulo.Location = new Point(240, 0);
             LabelTitulo.Name = "LabelTitulo";
-            LabelTitulo.Size = new Size(800, 70);
+            LabelTitulo.Size = new Size(800, 50);
             LabelTitulo.TabIndex = 1;
             LabelTitulo.Text = "Ranking";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;

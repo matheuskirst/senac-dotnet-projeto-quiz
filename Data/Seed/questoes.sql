@@ -23,7 +23,7 @@ VALUES
 (3, 'Redes'),
 (4, 'Segurança Digital'),
 (5, 'Sistemas Operacionais'),
-(6, 'Ferramentas De Produtividade');
+(6, 'Ferramentas de Produtividade');
 
 
 -- ============================================================

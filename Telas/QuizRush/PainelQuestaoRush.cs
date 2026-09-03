@@ -20,7 +20,7 @@ namespace SenacQuizApp.Telas.QuizRush
             this.SuspendLayout();
             try
             {
-                InputQuestaoEnunciado.Clear();
+                LabelEnunciado.Text = "";
 
                 while (GridPanelAlternativas.Controls.Count > 0)
                 {
@@ -28,7 +28,7 @@ namespace SenacQuizApp.Telas.QuizRush
                     controle.Dispose();
                 }
 
-                InputQuestaoEnunciado.Text = _questao.Enunciado;
+                LabelEnunciado.Text = _questao.Enunciado;
 
                 if (_questao.Tipo == QuestaoTipo.Alternativas)
                 {

@@ -13,6 +13,7 @@ namespace SenacQuizApp.Telas
         public event EventHandler<int>? AbrirPerfil;
 
         private RankTipo _rankAtual;
+        private string? _filtroUsuario = null;
 
         public PaginaRanking(RankingService rankingService)
         {
@@ -33,12 +34,14 @@ namespace SenacQuizApp.Telas
             await AtualizarTabelaRanks();
         }
 
-        private async Task AtualizarTabelaRanks(string? nickname = null)
+        private async Task AtualizarTabelaRanks()
         {
-            switch (_rankAtual)
+            try
             {
-                case RankTipo.Geral:
-                    TableUsuariosRank.Columns = new AntdUI.ColumnCollection
+                switch (_rankAtual)
+                {
+                    case RankTipo.Geral:
+                        TableUsuariosRank.Columns = new AntdUI.ColumnCollection
                     {
                         new AntdUI.Column(nameof(UsuarioRankGeral.Nickname), "Usuário") { SortOrder = true },
                         new AntdUI.Column(nameof(UsuarioRankGeral.PontuacaoTotal), "Pontuação") { SortOrder = true },
@@ -49,30 +52,35 @@ namespace SenacQuizApp.Telas
                         new AntdUI.Column(nameof(UsuarioRankGeral.TemaMaisAcertadoAcertos), "Mestre Acertos") { SortOrder = true },
                     };
 
-                    TableUsuariosRank.DataSource = await _rankingService.ObterRankingGeral();
-                    break;
+                        TableUsuariosRank.DataSource = await _rankingService.ObterRankingGeral(_filtroUsuario);
+                        break;
 
-                case RankTipo.Diario:
-                    TableUsuariosRank.Columns = new AntdUI.ColumnCollection
+                    case RankTipo.Diario:
+                        TableUsuariosRank.Columns = new AntdUI.ColumnCollection
                     {
                         new AntdUI.Column(nameof(UsuarioRankDiario.Nickname), "Usuário") { SortOrder = true },
                         new AntdUI.Column(nameof(UsuarioRankDiario.TotalAcertosDiarios), "Acertos") { SortOrder = true },
                         new AntdUI.Column(nameof(UsuarioRankDiario.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
                     };
 
-                    TableUsuariosRank.DataSource = await _rankingService.ObterRankingDiario();
-                    break;
+                        TableUsuariosRank.DataSource = await _rankingService.ObterRankingDiario(_filtroUsuario);
+                        break;
 
-                case RankTipo.Rush:
-                    TableUsuariosRank.Columns = new AntdUI.ColumnCollection
+                    case RankTipo.Rush:
+                        TableUsuariosRank.Columns = new AntdUI.ColumnCollection
                     {
                         new AntdUI.Column(nameof(UsuarioRankRush.Nickname), "Usuário") { SortOrder = true },
                         new AntdUI.Column(nameof(UsuarioRankRush.Recorde), "Recorde") { SortOrder = true },
                         new AntdUI.Column(nameof(UsuarioRankRush.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff"  },
                     };
 
-                    TableUsuariosRank.DataSource = await _rankingService.ObterRankingRush();
-                    break;
+                        TableUsuariosRank.DataSource = await _rankingService.ObterRankingRush(_filtroUsuario);
+                        break;
+                }
+            }
+            catch
+            {
+
             }
         }
 
@@ -121,14 +129,7 @@ namespace SenacQuizApp.Telas
 
         private async Task BuscarUsuario()
         {
-            string? nickname = InputBuscarUsuario.Text;
-
-            if (string.IsNullOrWhiteSpace(nickname))
-            {
-                nickname = null;
-            }
-
-            await AtualizarTabelaRanks(nickname);
+            await AtualizarTabelaRanks();
         }
 
         private async void ButtonBuscarUsuario_Click(object sender, EventArgs e)
@@ -144,9 +145,11 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private void InputBuscarUsuario_SuffixClick(object sender, MouseEventArgs e)
+        private async void InputBuscarUsuario_SuffixClick(object sender, MouseEventArgs e)
         {
             InputBuscarUsuario.Text = "";
+            _filtroUsuario = null;
+            await AtualizarTabelaRanks();
         }
 
         private async void SelectRankTipo_SelectedValueChanged(object sender, ObjectNEventArgs e)
@@ -155,6 +158,11 @@ namespace SenacQuizApp.Telas
 
             _rankAtual = rank;
             await AtualizarTabelaRanks();
+        }
+
+        private void InputBuscarUsuario_TextChanged(object sender, EventArgs e)
+        {
+            _filtroUsuario = InputBuscarUsuario.Text;
         }
     }
 }
