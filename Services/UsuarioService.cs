@@ -12,6 +12,9 @@ namespace SenacQuizApp.Services
         {
             using var contexto = new QuizAppContexto();
 
+            int totalUsuarios = await contexto.Usuarios.CountAsync();
+            if (totalUsuarios == 0) totalUsuarios = 1;
+
             return await contexto.Usuarios
                 .AsNoTracking()
                 .Where(usuario => usuario.Id == usuarioId)
@@ -25,8 +28,8 @@ namespace SenacQuizApp.Services
                     PontuacaoTotal = usuario.Stats.PontuacaoTotal,
                     TotalAcertos = usuario.Stats.TotalAcertos,
                     TotalRespondidos = usuario.Stats.TotalRespondidos,
-                    AtualAcertosSeguidos = usuario.Stats.MaxAcertosSeguidos,
-                    MaxAcertosSeguidos = usuario.Stats.AtualAcertosSeguidos,
+                    AtualAcertosSeguidos = usuario.Stats.AtualAcertosSeguidos,
+                    MaxAcertosSeguidos = usuario.Stats.MaxAcertosSeguidos,
 
                     TemaMaisAcertado = usuario.TemaProgressos
                     .OrderByDescending(tp => tp.RespostasCorretas)
@@ -37,12 +40,23 @@ namespace SenacQuizApp.Services
                     })
                     .FirstOrDefault(),
 
-                    Conquistas = usuario.Conquistas.Select(uc => new ConquistaResumo
-                    {
-                        Nome = uc.Conquista.Nome,
-                        Descricao = uc.Conquista.Descricao,
-                        DataDesbloqueio = uc.DataDesbloqueio
-                    }).ToList()
+                    Conquistas = contexto.Conquistas
+                        .Select(c => new ConquistaDetalhes
+                        {
+                            Nome = c.Nome,
+                            Descricao = c.Descricao,
+                            Desbloqueada = c.UsuarioConquistas.Any(uc => uc.UsuarioId == usuarioId),
+
+                            DataDesbloqueio = c.UsuarioConquistas
+                            .Where(uc => uc.UsuarioId == usuarioId)
+                            .Select(uc => (DateTimeOffset?)uc.DataDesbloqueio)
+                            .FirstOrDefault(),
+
+                            PorcentagemDesbloqueioGlobal = Math.Round((c.UsuarioConquistas.Count() * 100.0) / totalUsuarios, 2),
+                            Secreta = c.Secreta,
+                            Icone = c.IconePath
+                        })
+                        .ToList()
                 })
                 .FirstOrDefaultAsync();
         }

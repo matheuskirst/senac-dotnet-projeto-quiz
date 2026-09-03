@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaginaRanking));
             PanelRanking = new AntdUI.Panel();
             TableUsuariosRank = new AntdUI.Table();
-            panel1 = new AntdUI.Panel();
+            Header = new AntdUI.Panel();
             ButtonBuscarUsuario = new AntdUI.Button();
             InputBuscarUsuario = new AntdUI.Input();
             LabelTitulo = new AntdUI.Label();
             PanelRanking.SuspendLayout();
-            panel1.SuspendLayout();
+            Header.SuspendLayout();
             SuspendLayout();
             // 
             // PanelRanking
@@ -46,11 +46,11 @@
             PanelRanking.BorderColor = Color.Black;
             PanelRanking.BorderWidth = 1F;
             PanelRanking.Controls.Add(TableUsuariosRank);
-            PanelRanking.Controls.Add(panel1);
-            PanelRanking.Location = new Point(240, 90);
+            PanelRanking.Controls.Add(Header);
+            PanelRanking.Location = new Point(240, 76);
             PanelRanking.Name = "PanelRanking";
             PanelRanking.Radius = 0;
-            PanelRanking.Size = new Size(800, 620);
+            PanelRanking.Size = new Size(800, 644);
             PanelRanking.TabIndex = 0;
             // 
             // TableUsuariosRank
@@ -68,23 +68,23 @@
             TableUsuariosRank.Location = new Point(1, 36);
             TableUsuariosRank.LostFocusClearSelection = true;
             TableUsuariosRank.Name = "TableUsuariosRank";
-            TableUsuariosRank.Size = new Size(798, 583);
+            TableUsuariosRank.Size = new Size(798, 607);
             TableUsuariosRank.TabIndex = 3;
             TableUsuariosRank.CellClick += TableUsuariosRank_CellClick;
             TableUsuariosRank.CellDoubleClick += TableUsuariosRank_CellDoubleClick;
             // 
-            // panel1
+            // Header
             // 
-            panel1.Back = Color.FromArgb(33, 33, 33);
-            panel1.Controls.Add(ButtonBuscarUsuario);
-            panel1.Controls.Add(InputBuscarUsuario);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(1, 1);
-            panel1.Name = "panel1";
-            panel1.Radius = 0;
-            panel1.Size = new Size(798, 35);
-            panel1.TabIndex = 4;
-            panel1.Text = "panel1";
+            Header.Back = Color.FromArgb(33, 33, 33);
+            Header.Controls.Add(ButtonBuscarUsuario);
+            Header.Controls.Add(InputBuscarUsuario);
+            Header.Dock = DockStyle.Top;
+            Header.Location = new Point(1, 1);
+            Header.Name = "Header";
+            Header.Radius = 0;
+            Header.Size = new Size(798, 35);
+            Header.TabIndex = 4;
+            Header.Text = "panel1";
             // 
             // ButtonBuscarUsuario
             // 
@@ -119,13 +119,13 @@
             // 
             // LabelTitulo
             // 
-            LabelTitulo.BackColor = Color.Transparent;
+            LabelTitulo.Anchor = AnchorStyles.Top;
+            LabelTitulo.BackColor = Color.FromArgb(33, 33, 33);
             LabelTitulo.ColorScheme = AntdUI.TAMode.Dark;
-            LabelTitulo.Dock = DockStyle.Top;
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelTitulo.Location = new Point(0, 0);
+            LabelTitulo.Location = new Point(240, 0);
             LabelTitulo.Name = "LabelTitulo";
-            LabelTitulo.Size = new Size(1280, 85);
+            LabelTitulo.Size = new Size(800, 70);
             LabelTitulo.TabIndex = 1;
             LabelTitulo.Text = "Ranking";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -141,7 +141,7 @@
             Size = new Size(1280, 720);
             Load += PaginaRanking_Load;
             PanelRanking.ResumeLayout(false);
-            panel1.ResumeLayout(false);
+            Header.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -150,7 +150,7 @@
         private AntdUI.Panel PanelRanking;
         private AntdUI.Table TableUsuariosRank;
         private AntdUI.Label LabelTitulo;
-        private AntdUI.Panel panel1;
+        private AntdUI.Panel Header;
         private AntdUI.Input InputBuscarUsuario;
         private AntdUI.Button ButtonBuscarUsuario;
     }

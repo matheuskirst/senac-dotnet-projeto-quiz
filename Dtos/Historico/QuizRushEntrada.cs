@@ -12,5 +12,6 @@ namespace SenacQuizApp.Dtos.Historico
     {
         public RushMotivoEncerrado MotivoEncerrado { get; set; }
         public int Streak { get; set; }
+        public string MotivoEncerradoDisplay => MotivoEncerrado == RushMotivoEncerrado.RespostaErrada ? "Resposta Errada" : "Tempo Esgotado";
     }
 }

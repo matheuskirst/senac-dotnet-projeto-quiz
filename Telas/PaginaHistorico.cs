@@ -110,15 +110,15 @@ namespace SenacQuizApp.Telas
                             new AntdUI.Column(nameof(QuizRushEntrada.DataIniciado), "Data Iniciado") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
                             new AntdUI.Column(nameof(QuizRushEntrada.DataConcluido), "Data Concluído") { SortOrder = true, DisplayFormat = @"dd/MM/yyyy - HH\:mm\:ss" },
                             new AntdUI.Column(nameof(QuizRushEntrada.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff" },
-                            new AntdUI.Column(nameof(QuizRushEntrada.MotivoEncerrado), "Motivo Encerrado") { SortOrder = true },
+                            new AntdUI.Column(nameof(QuizRushEntrada.MotivoEncerradoDisplay), "Motivo Encerrado") { SortOrder = true },
                             new AntdUI.Column(nameof(QuizRushEntrada.Streak), "Streak") { SortOrder = true },
                             new AntdUI.Column(nameof(QuizRushEntrada.PontuacaoTotal), "Pontuação Total") { SortOrder = true }
                         };
                         break;
 
                     default:
-                        LabelStatus.Visible = false;
-                        SelectStatus.Visible = false;
+                        LabelStatus.Visible = true;
+                        SelectStatus.Visible = true;
                         TableHistorico.Columns = new AntdUI.ColumnCollection
                         {
                             new AntdUI.Column(nameof(QuizGenerico.Tipo), "Tipo") { SortOrder = true },

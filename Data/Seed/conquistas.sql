@@ -11,7 +11,7 @@ VALUES
 
 (3, 'Mestre em Hardware', 'Atinja 100 acertos no tema Hardware', 3, 100, 1, FALSE),
 
-(4, 'Mestre em Programacao', 'Atinja 100 acertos no tema Programacao', 3, 100, 2, FALSE),
+(4, 'Mestre em Programação', 'Atinja 100 acertos no tema Programação', 3, 100, 2, FALSE),
 
 (5, 'Mestre em Redes', 'Atinja 100 acertos no tema Redes', 3, 100, 3, FALSE),
 
@@ -21,6 +21,6 @@ VALUES
 
 (8, 'Mestre em Ferramentas de Produtividade', 'Atinja 100 acertos no tema Ferramentas de Produtividade', 3, 100, 6, FALSE),
 
-(9, 'Acessou por 3 Dias Seguidos', 'Faça login por três dias consecutivos', 4, 3, NULL, FALSE),
+(9, 'Acessou por 3 Dias Seguidos', 'Realize um login todo dia por três dias consecutivos', 4, 3, NULL, FALSE),
 
-(10, 'Acessou por 7 Dias Seguidos', 'Faça login a cada dia por uma semana', 4, 7, NULL, FALSE);
+(10, 'Acessou por 7 Dias Seguidos', 'Realize um login todo dia por uma semana', 4, 7, NULL, FALSE);

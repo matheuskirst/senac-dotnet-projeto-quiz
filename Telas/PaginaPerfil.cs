@@ -41,21 +41,17 @@ namespace SenacQuizApp.Telas
             LabelNivel.Text = perfil.Nivel;
 
             int pontosAtuais = perfil.PontuacaoTotal;
-            int pontosMinimosNivelAtual = 0;
             int pontosMaximosProximoNivel = 0;
 
             switch (perfil.NivelId)
             {
                 case UsuarioNivelId.Iniciante:
-                    pontosMinimosNivelAtual = 0;
                     pontosMaximosProximoNivel = 500;
                     break;
                 case UsuarioNivelId.Aprendiz:
-                    pontosMinimosNivelAtual = 501;
                     pontosMaximosProximoNivel = 2000;
                     break;
                 case UsuarioNivelId.Intermediario:
-                    pontosMinimosNivelAtual = 20001;
                     pontosMaximosProximoNivel = 10000;
                     break;
                 case UsuarioNivelId.Avancado:
@@ -64,12 +60,7 @@ namespace SenacQuizApp.Telas
                     return;
             }
 
-            int progressoNivel = pontosAtuais - pontosMinimosNivelAtual;
-            int totalNecessarioNoNivel = pontosMaximosProximoNivel - pontosMinimosNivelAtual;
-
-            if (progressoNivel < 0) progressoNivel = 0;
-
-            ProgressUsuarioNivel.Value = (float)progressoNivel / totalNecessarioNoNivel;
+            ProgressUsuarioNivel.Value = (float)pontosAtuais / pontosMaximosProximoNivel;
 
             LabelProgressoPontos.Text = $"{pontosAtuais} / {pontosMaximosProximoNivel} Pontos";
             LabelPontosProximoNivel.Text = $"{pontosMaximosProximoNivel - pontosAtuais} pontos para o próximo nível";
@@ -83,13 +74,12 @@ namespace SenacQuizApp.Telas
                 LabelInsertTaxaAcertos.Text = $"{(double)perfil.TotalAcertos / perfil.TotalRespondidos:P0}";
             }
 
-            //foreach (var conquista in perfil.Conquistas)
-            //{
-            //    CardConquista card = new CardConquista(conquista);
-
-            //    card.Dock = DockStyle.Top;
-            //    PanelConquistas.Controls.Add(card);
-            //}
+            foreach(var conquista in perfil.Conquistas)
+            {
+                var card = new CardConquista(conquista, mostrarData: true);
+                card.Dock = DockStyle.Top;
+                PanelDesbloqueadas.Controls.Add(card);
+            }
         }
     }
 }

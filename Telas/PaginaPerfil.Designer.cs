@@ -49,10 +49,12 @@
             LabelConquistas = new AntdUI.Label();
             PanelUsuario = new AntdUI.Panel();
             PanelConquistas = new AntdUI.Panel();
+            PanelDesbloqueadas = new FlowLayoutPanel();
             PanelNivel = new AntdUI.Panel();
             PanelStats.SuspendLayout();
             PanelCentral.SuspendLayout();
             PanelUsuario.SuspendLayout();
+            PanelConquistas.SuspendLayout();
             PanelNivel.SuspendLayout();
             SuspendLayout();
             // 
@@ -340,12 +342,26 @@
             PanelConquistas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             PanelConquistas.AutoScroll = true;
             PanelConquistas.Back = Color.FromArgb(33, 30, 30);
+            PanelConquistas.Controls.Add(PanelDesbloqueadas);
             PanelConquistas.Location = new Point(12, 238);
             PanelConquistas.Name = "PanelConquistas";
             PanelConquistas.Padding = new Padding(10);
             PanelConquistas.Radius = 0;
             PanelConquistas.Size = new Size(595, 479);
             PanelConquistas.TabIndex = 9;
+            // 
+            // PanelDesbloqueadas
+            // 
+            PanelDesbloqueadas.AutoSize = true;
+            PanelDesbloqueadas.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PanelDesbloqueadas.BackColor = Color.Transparent;
+            PanelDesbloqueadas.Dock = DockStyle.Top;
+            PanelDesbloqueadas.FlowDirection = FlowDirection.TopDown;
+            PanelDesbloqueadas.Location = new Point(10, 10);
+            PanelDesbloqueadas.Name = "PanelDesbloqueadas";
+            PanelDesbloqueadas.Size = new Size(575, 0);
+            PanelDesbloqueadas.TabIndex = 0;
+            PanelDesbloqueadas.WrapContents = false;
             // 
             // PanelNivel
             // 
@@ -375,6 +391,8 @@
             PanelStats.ResumeLayout(false);
             PanelCentral.ResumeLayout(false);
             PanelUsuario.ResumeLayout(false);
+            PanelConquistas.ResumeLayout(false);
+            PanelConquistas.PerformLayout();
             PanelNivel.ResumeLayout(false);
             PanelNivel.PerformLayout();
             ResumeLayout(false);
@@ -404,5 +422,6 @@
         private AntdUI.Panel PanelConquistas;
         private AntdUI.Panel PanelUsuario;
         private AntdUI.Label LabelConquistas;
+        private FlowLayoutPanel PanelDesbloqueadas;
     }
 }

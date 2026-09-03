@@ -30,10 +30,10 @@
         {
             LabelTitulo = new AntdUI.Label();
             PanelCentral = new AntdUI.Panel();
+            PanelConquistas = new AntdUI.Panel();
             PanelBloqueadas = new FlowLayoutPanel();
             label1 = new AntdUI.Label();
             PanelDesbloqueadas = new FlowLayoutPanel();
-            PanelConquistas = new AntdUI.Panel();
             PanelCentral.SuspendLayout();
             PanelConquistas.SuspendLayout();
             SuspendLayout();
@@ -62,6 +62,21 @@
             PanelCentral.Size = new Size(850, 720);
             PanelCentral.TabIndex = 8;
             PanelCentral.Text = "panel1";
+            // 
+            // PanelConquistas
+            // 
+            PanelConquistas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            PanelConquistas.AutoScroll = true;
+            PanelConquistas.Back = Color.FromArgb(33, 33, 33);
+            PanelConquistas.Controls.Add(PanelBloqueadas);
+            PanelConquistas.Controls.Add(label1);
+            PanelConquistas.Controls.Add(PanelDesbloqueadas);
+            PanelConquistas.Location = new Point(0, 76);
+            PanelConquistas.Name = "PanelConquistas";
+            PanelConquistas.Padding = new Padding(10);
+            PanelConquistas.Radius = 0;
+            PanelConquistas.Size = new Size(850, 641);
+            PanelConquistas.TabIndex = 8;
             // 
             // PanelBloqueadas
             // 
@@ -99,20 +114,6 @@
             PanelDesbloqueadas.Size = new Size(830, 0);
             PanelDesbloqueadas.TabIndex = 1;
             PanelDesbloqueadas.WrapContents = false;
-            // 
-            // PanelConquistas
-            // 
-            PanelConquistas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            PanelConquistas.AutoScroll = true;
-            PanelConquistas.Back = Color.FromArgb(33, 33, 33);
-            PanelConquistas.Controls.Add(PanelBloqueadas);
-            PanelConquistas.Controls.Add(label1);
-            PanelConquistas.Controls.Add(PanelDesbloqueadas);
-            PanelConquistas.Location = new Point(0, 76);
-            PanelConquistas.Name = "PanelConquistas";
-            PanelConquistas.Padding = new Padding(10);
-            PanelConquistas.Size = new Size(850, 641);
-            PanelConquistas.TabIndex = 8;
             // 
             // PaginaConquistas
             // 

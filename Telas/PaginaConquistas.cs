@@ -29,10 +29,8 @@ namespace SenacQuizApp.Telas
         {
             var conquistas = await _conquistaService.ObterTodos();
 
-            for (int i = conquistas.Count - 1; i >= 0; i--)
+            foreach(var conquista in conquistas)
             {
-                ConquistaDetalhes conquista = conquistas[i];
-
                 var card = new CardConquista(conquista);
                 card.Dock = DockStyle.Top;
 

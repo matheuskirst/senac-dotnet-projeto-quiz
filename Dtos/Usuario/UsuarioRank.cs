@@ -13,5 +13,8 @@ namespace SenacQuizApp.Dtos.Usuario
         public int TotalRespondidos { get; set; }
         public int MaxAcertosConsecutivos { get; set; }
         public TemaDestaque? TemaMaisAcertado { get; set; }
+
+        public string TemaMaisAcertadoNome => TemaMaisAcertado?.Nome ?? "Nenhum";
+        public int TemaMaisAcertadoAcertos => TemaMaisAcertado?.RespostasCorretas ?? 0;
     }
 }

@@ -5,22 +5,27 @@ namespace SenacQuizApp.Telas
 {
     public partial class CardConquista : UserControl
     {
-        public CardConquista(ConquistaDetalhes conquista)
+        public CardConquista(ConquistaDetalhes conquista, bool mostrarData = false, bool mostrarPorcentagemGlobal = false)
         {
             InitializeComponent();
+            LabelData.Visible = false;
+            LabelPorcentagemGlobal.Visible = false;
 
             LabelNome.Text = conquista.Nome;
             LabelDescricao.Text = conquista.Descricao;
-            LabelPorcentagemJogadores.Text = $"{conquista.PorcentagemDesbloqueioGlobal}%";
-            LabelAquisicao.Text = conquista.DataDesbloqueio?.ToString("dd/MM/yyyy - HH\\:mm\\:ss");
 
-            if (conquista.Desbloqueada)
+            if (conquista.Desbloqueada && mostrarData)
             {
+                LabelData.Visible = true;
+                LabelData.Text = conquista.DataDesbloqueio?.ToString("dd/MM/yyyy - HH\\:mm\\:ss");
+
                 PanelIcone.BackColor = Color.Yellow;
             }
-            else
+
+            if (mostrarPorcentagemGlobal)
             {
-                LabelPorcentagemJogadores.Visible = false;
+                LabelPorcentagemGlobal.Text = $"{conquista.PorcentagemDesbloqueioGlobal}%";
+                LabelPorcentagemGlobal.Visible = true;
             }
         }
     }

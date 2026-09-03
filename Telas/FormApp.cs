@@ -185,7 +185,7 @@ namespace SenacQuizApp.Telas
         {
             var paginaPerfil = new PaginaPerfil(usuarioId, _usuarioPerfilService);
 
-            AlternarBotaoHeader(ButtonHeaderConquista);
+            AlternarBotaoHeader(ButtonHeaderPerfil);
 
             MudarPagina(paginaPerfil);
 
@@ -325,6 +325,9 @@ namespace SenacQuizApp.Telas
             ButtonHeaderRanking.DefaultBorderColor = Color.FromArgb(40, 40, 40);
 
             ButtonHeaderConquista.Toggle = false;
+            ButtonHeaderConquista.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+
+            ButtonHeaderPerfil.Toggle = false;
             ButtonHeaderConquista.DefaultBorderColor = Color.FromArgb(40, 40, 40);
 
             if (sender is AntdUI.Button button)

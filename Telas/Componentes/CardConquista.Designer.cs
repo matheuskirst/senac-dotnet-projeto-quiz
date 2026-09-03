@@ -31,8 +31,8 @@
             LabelNome = new AntdUI.Label();
             LabelDescricao = new AntdUI.Label();
             PanelIcone = new AntdUI.Panel();
-            LabelPorcentagemJogadores = new AntdUI.Label();
-            LabelAquisicao = new AntdUI.Label();
+            LabelPorcentagemGlobal = new AntdUI.Label();
+            LabelData = new AntdUI.Label();
             SuspendLayout();
             // 
             // LabelNome
@@ -68,32 +68,32 @@
             PanelIcone.Size = new Size(60, 60);
             PanelIcone.TabIndex = 3;
             // 
-            // LabelPorcentagemJogadores
+            // LabelPorcentagemGlobal
             // 
-            LabelPorcentagemJogadores.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            LabelPorcentagemJogadores.BackColor = Color.Transparent;
-            LabelPorcentagemJogadores.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelPorcentagemJogadores.ForeColor = Color.FromArgb(150, 150, 150);
-            LabelPorcentagemJogadores.Location = new Point(80, 63);
-            LabelPorcentagemJogadores.Name = "LabelPorcentagemJogadores";
-            LabelPorcentagemJogadores.Size = new Size(454, 20);
-            LabelPorcentagemJogadores.Suffix = " dos jogadores tem essa conquista";
-            LabelPorcentagemJogadores.TabIndex = 5;
-            LabelPorcentagemJogadores.Text = "00.0%";
+            LabelPorcentagemGlobal.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LabelPorcentagemGlobal.BackColor = Color.Transparent;
+            LabelPorcentagemGlobal.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelPorcentagemGlobal.ForeColor = Color.FromArgb(150, 150, 150);
+            LabelPorcentagemGlobal.Location = new Point(80, 63);
+            LabelPorcentagemGlobal.Name = "LabelPorcentagemGlobal";
+            LabelPorcentagemGlobal.Size = new Size(454, 20);
+            LabelPorcentagemGlobal.Suffix = " dos jogadores tem essa conquista";
+            LabelPorcentagemGlobal.TabIndex = 5;
+            LabelPorcentagemGlobal.Text = "00.0%";
             // 
-            // LabelAquisicao
+            // LabelData
             // 
-            LabelAquisicao.Anchor = AnchorStyles.Right;
-            LabelAquisicao.BackColor = Color.Transparent;
-            LabelAquisicao.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelAquisicao.ForeColor = SystemColors.ScrollBar;
-            LabelAquisicao.Location = new Point(540, 32);
-            LabelAquisicao.Name = "LabelAquisicao";
-            LabelAquisicao.Prefix = "Desbloqueou em: ";
-            LabelAquisicao.Size = new Size(250, 27);
-            LabelAquisicao.TabIndex = 6;
-            LabelAquisicao.Text = "DD/MM/AAAA - hh:mm:ss";
-            LabelAquisicao.TextAlign = ContentAlignment.MiddleRight;
+            LabelData.Anchor = AnchorStyles.Right;
+            LabelData.BackColor = Color.Transparent;
+            LabelData.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelData.ForeColor = SystemColors.ScrollBar;
+            LabelData.Location = new Point(540, 32);
+            LabelData.Name = "LabelData";
+            LabelData.Prefix = "Desbloqueou em: ";
+            LabelData.Size = new Size(250, 27);
+            LabelData.TabIndex = 6;
+            LabelData.Text = "DD/MM/AAAA - hh:mm:ss";
+            LabelData.TextAlign = ContentAlignment.MiddleRight;
             // 
             // CardConquista
             // 
@@ -101,8 +101,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             BackColor = Color.FromArgb(64, 64, 64);
-            Controls.Add(LabelAquisicao);
-            Controls.Add(LabelPorcentagemJogadores);
+            Controls.Add(LabelData);
+            Controls.Add(LabelPorcentagemGlobal);
             Controls.Add(LabelDescricao);
             Controls.Add(LabelNome);
             Controls.Add(PanelIcone);
@@ -117,7 +117,7 @@
         private AntdUI.Label LabelNome;
         private AntdUI.Label LabelDescricao;
         private AntdUI.Panel PanelIcone;
-        private AntdUI.Label LabelPorcentagemJogadores;
-        private AntdUI.Label LabelAquisicao;
+        private AntdUI.Label LabelPorcentagemGlobal;
+        private AntdUI.Label LabelData;
     }
 }

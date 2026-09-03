@@ -26,6 +26,8 @@ namespace SenacQuizApp.Telas
                 new AntdUI.Column(nameof(UsuarioRank.TotalAcertos), "Acertos") { SortOrder = true },
                 new AntdUI.Column(nameof(UsuarioRank.TotalRespondidos), "Respondidos") { SortOrder = true },
                 new AntdUI.Column(nameof(UsuarioRank.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRank.TemaMaisAcertadoNome), "Tema Mestre") { SortOrder = true },
+                new AntdUI.Column(nameof(UsuarioRank.TemaMaisAcertadoAcertos), "Mestre Acertos") { SortOrder = true },
             };
         }
 

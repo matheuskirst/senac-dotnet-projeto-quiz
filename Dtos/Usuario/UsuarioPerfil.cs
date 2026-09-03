@@ -18,6 +18,6 @@ namespace SenacQuizApp.Dtos.Usuario
         public int AtualAcertosSeguidos { get; set; }
         public int MaxAcertosSeguidos { get; set; }
         public TemaDestaque? TemaMaisAcertado { get; set; }
-        public List<ConquistaResumo> Conquistas { get; set; } = null!;
+        public List<ConquistaDetalhes> Conquistas { get; set; } = null!;
     }
 }
