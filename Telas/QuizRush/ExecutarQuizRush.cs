@@ -1,5 +1,4 @@
 ﻿using AntdUI;
-using Microsoft.EntityFrameworkCore.Design;
 using SenacQuizApp.Dtos;
 using SenacQuizApp.Dtos.Usuario;
 using SenacQuizApp.Enums;
@@ -13,7 +12,6 @@ namespace SenacQuizApp.Telas.QuizRush
     {
         private readonly UsuarioService _usuarioService;
         private readonly QuizRushService _quizRushService;
-        private readonly QuestaoService _questaoService;
 
         public event EventHandler? VerResultado;
 
@@ -24,11 +22,10 @@ namespace SenacQuizApp.Telas.QuizRush
         private Stopwatch _cronometro = new Stopwatch();
         private System.Windows.Forms.Timer _timerAtualizarLabel = new();
 
-        public ExecutarQuizRush(UsuarioService usuarioService, QuizRushService quizRushService, QuestaoService questaoService)
+        public ExecutarQuizRush(UsuarioService usuarioService, QuizRushService quizRushService, ContainerControl? parente = null)
         {
             _usuarioService = usuarioService;
             _quizRushService = quizRushService;
-            _questaoService = questaoService;
 
             _painelQuestao = new PainelQuestaoRush
             {
@@ -42,6 +39,11 @@ namespace SenacQuizApp.Telas.QuizRush
             _timerAtualizarLabel.Interval = 16;
 
             _timerAtualizarLabel.Tick += AoAcabarTempo;
+
+            if (parente is FormApp formApp)
+            {
+                formApp.MudouPagina += AoFecharPagina; 
+            }
         }
 
         private async void ExecutarQuizRush_Load(object sender, EventArgs e)
@@ -79,7 +81,7 @@ namespace SenacQuizApp.Telas.QuizRush
             _rushSessao.QuestaoAtual = null;
 
 
-            QuestaoExibicao? questao = await _questaoService.ObterAleatorio();
+            QuestaoExibicao? questao = await _quizRushService.ObterQuestaoAleatoria();
 
             if (questao == null) return;
             
@@ -104,7 +106,7 @@ namespace SenacQuizApp.Telas.QuizRush
             {
                 _timerAtualizarLabel.Stop();
 
-                await Encerrar();
+                await EncerrarEMostrarResultado();
                 return;
             }
 
@@ -112,17 +114,21 @@ namespace SenacQuizApp.Telas.QuizRush
             LabelTempo.Text = restante.ToString(@"s\s\:ff\m\s");
         }
 
-        private async Task Encerrar()
+        private async Task<bool> Encerrar()
         {
             _timerAtualizarLabel.Stop();
             _cronometro.Stop();
-            if (_rushSessao == null || _timerAtualizarLabel == null) return;
+            if (_rushSessao == null || _timerAtualizarLabel == null) return false;
             var dataIniciado = _rushSessao.DataIniciado;
             var streak = _rushSessao.Streak;
             var pontos = _rushSessao.Pontos;
 
-            bool quizId = await _quizRushService.FinalizarPartidaRush(dataIniciado, streak, pontos);
+            return await _quizRushService.FinalizarPartidaRush(dataIniciado, streak, pontos);
+        }
 
+        private async Task EncerrarEMostrarResultado()
+        {
+            bool quizId = await Encerrar();
 
             VerResultado?.Invoke(this, EventArgs.Empty);
         }
@@ -143,7 +149,7 @@ namespace SenacQuizApp.Telas.QuizRush
                 LabelPontuacaoTotal.Text = _rushSessao.Pontos.ToString();
                 await ProximaQuestao();
             }
-            else await Encerrar();
+            else await EncerrarEMostrarResultado();
         }
 
         private async void AoResponderVerdadeiroFalso(bool verdadeiroFalso)
@@ -161,7 +167,12 @@ namespace SenacQuizApp.Telas.QuizRush
                 LabelPontuacaoTotal.Text = _rushSessao.Pontos.ToString();
                 await ProximaQuestao();
             }
-            else await Encerrar();
+            else await EncerrarEMostrarResultado();
+        }
+
+        private async void AoFecharPagina(object? sender, EventArgs e)
+        {
+            await Encerrar();
         }
     }
 

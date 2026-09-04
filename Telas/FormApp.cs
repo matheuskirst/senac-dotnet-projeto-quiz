@@ -21,6 +21,8 @@ namespace SenacQuizApp.Telas
 
         private PaginaAtual? _paginaAtual;
 
+        public event EventHandler? MudouPagina;
+
         public FormApp(
             AutenticacaoService autenticacaoService,
             QuizDiarioService quizDiarioService,
@@ -95,6 +97,8 @@ namespace SenacQuizApp.Telas
             pagina.Dock = DockStyle.Fill;
             PanelAppBody.Controls.Add(pagina);
             PanelAppBody.ResumeLayout();
+
+            MudouPagina?.Invoke(this, EventArgs.Empty);
         }
 
         public void AbrirPaginaInicial(object? sender, EventArgs e)
@@ -222,6 +226,9 @@ namespace SenacQuizApp.Telas
                 case QuizTipo.Diario:
                     AbrirResultadoQuizDiario(quizId);
                     break;
+                case QuizTipo.Rush:
+                    AbrirIniciarQuizRush(this, EventArgs.Empty);
+                    break;
             }
         }
 
@@ -320,7 +327,7 @@ namespace SenacQuizApp.Telas
         {
             AlternarBotaoHeader();
 
-            var executarQuizDiario = new ExecutarQuizRush(_usuarioPerfilService, _quizRushService, _questaoService);
+            var executarQuizDiario = new ExecutarQuizRush(_usuarioPerfilService, _quizRushService, this);
 
             executarQuizDiario.VerResultado += AbrirIniciarQuizRush;
 

@@ -55,6 +55,9 @@
             PanelDesbloqueadas = new FlowLayoutPanel();
             PanelNivel = new AntdUI.Panel();
             PanelCentral = new AntdUI.Panel();
+            LabelInsertAcertosTemaMestre = new AntdUI.Label();
+            LabelAcertosTemaMestre = new AntdUI.Label();
+            divider5 = new AntdUI.Divider();
             PanelStats.SuspendLayout();
             PanelPerfil.SuspendLayout();
             PanelUsuario.SuspendLayout();
@@ -130,6 +133,9 @@
             PanelStats.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             PanelStats.Back = Color.FromArgb(33, 30, 30);
             PanelStats.BackColor = Color.DimGray;
+            PanelStats.Controls.Add(LabelInsertAcertosTemaMestre);
+            PanelStats.Controls.Add(LabelAcertosTemaMestre);
+            PanelStats.Controls.Add(divider5);
             PanelStats.Controls.Add(LabelInsertTemaMestre);
             PanelStats.Controls.Add(LabelTemaMestre);
             PanelStats.Controls.Add(divider4);
@@ -450,6 +456,50 @@
             PanelCentral.Size = new Size(1280, 860);
             PanelCentral.TabIndex = 4;
             // 
+            // LabelInsertAcertosTemaMestre
+            // 
+            LabelInsertAcertosTemaMestre.AutoSizeMode = AntdUI.TAutoSize.Height;
+            LabelInsertAcertosTemaMestre.BackColor = Color.FromArgb(61, 61, 61);
+            LabelInsertAcertosTemaMestre.Dock = DockStyle.Top;
+            LabelInsertAcertosTemaMestre.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelInsertAcertosTemaMestre.ForeColor = Color.White;
+            LabelInsertAcertosTemaMestre.Location = new Point(10, 565);
+            LabelInsertAcertosTemaMestre.Name = "LabelInsertAcertosTemaMestre";
+            LabelInsertAcertosTemaMestre.Padding = new Padding(5);
+            LabelInsertAcertosTemaMestre.Prefix = "";
+            LabelInsertAcertosTemaMestre.Size = new Size(204, 49);
+            LabelInsertAcertosTemaMestre.TabIndex = 20;
+            LabelInsertAcertosTemaMestre.Text = "0";
+            LabelInsertAcertosTemaMestre.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LabelAcertosTemaMestre
+            // 
+            LabelAcertosTemaMestre.BackColor = Color.Transparent;
+            LabelAcertosTemaMestre.Dock = DockStyle.Top;
+            LabelAcertosTemaMestre.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelAcertosTemaMestre.ForeColor = Color.White;
+            LabelAcertosTemaMestre.Location = new Point(10, 530);
+            LabelAcertosTemaMestre.Name = "LabelAcertosTemaMestre";
+            LabelAcertosTemaMestre.Prefix = "";
+            LabelAcertosTemaMestre.Size = new Size(204, 35);
+            LabelAcertosTemaMestre.TabIndex = 19;
+            LabelAcertosTemaMestre.Text = "Acertos Tema Mestre:";
+            // 
+            // divider5
+            // 
+            divider5.BackColor = Color.Transparent;
+            divider5.ColorSplit = Color.Transparent;
+            divider5.Dock = DockStyle.Top;
+            divider5.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            divider5.Location = new Point(10, 510);
+            divider5.Name = "divider5";
+            divider5.OrientationMargin = 0F;
+            divider5.Size = new Size(204, 20);
+            divider5.TabIndex = 21;
+            divider5.Text = "";
+            divider5.TextPadding = 0F;
+            divider5.Thickness = 1F;
+            // 
             // PaginaPerfil
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -502,5 +552,8 @@
         private AntdUI.Label LabelTemaMestre;
         private AntdUI.Divider divider4;
         private AntdUI.Panel PanelCentral;
+        private AntdUI.Label LabelInsertAcertosTemaMestre;
+        private AntdUI.Label LabelAcertosTemaMestre;
+        private AntdUI.Divider divider5;
     }
 }

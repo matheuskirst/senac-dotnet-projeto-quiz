@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IniciarQuizRush));
             LabelQuizDiarioTitulo = new AntdUI.Label();
             PanelQuizDiario = new AntdUI.Panel();
             LabelTempo = new AntdUI.Label();
             LabelRecordeAcertos = new AntdUI.Label();
             LabelDataPartida = new AntdUI.Label();
-            ButtonQuizRush = new AntdUI.Button();
-            LabelDescricao = new AntdUI.Label();
             divider1 = new AntdUI.Divider();
+            LabelDescricao = new AntdUI.Label();
+            ButtonQuizRush = new AntdUI.Button();
             PanelQuizDiario.SuspendLayout();
             SuspendLayout();
             // 
@@ -47,7 +48,7 @@
             LabelQuizDiarioTitulo.Font = new Font("Segoe UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelQuizDiarioTitulo.Location = new Point(10, 10);
             LabelQuizDiarioTitulo.Name = "LabelQuizDiarioTitulo";
-            LabelQuizDiarioTitulo.Size = new Size(580, 64);
+            LabelQuizDiarioTitulo.Size = new Size(630, 64);
             LabelQuizDiarioTitulo.TabIndex = 2;
             LabelQuizDiarioTitulo.Text = "Quiz Rush";
             LabelQuizDiarioTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -63,10 +64,10 @@
             PanelQuizDiario.Controls.Add(LabelDescricao);
             PanelQuizDiario.Controls.Add(ButtonQuizRush);
             PanelQuizDiario.Controls.Add(LabelQuizDiarioTitulo);
-            PanelQuizDiario.Location = new Point(212, 10);
+            PanelQuizDiario.Location = new Point(187, 10);
             PanelQuizDiario.Name = "PanelQuizDiario";
             PanelQuizDiario.Padding = new Padding(10);
-            PanelQuizDiario.Size = new Size(600, 700);
+            PanelQuizDiario.Size = new Size(650, 700);
             PanelQuizDiario.TabIndex = 4;
             PanelQuizDiario.Text = "panel1";
             // 
@@ -79,7 +80,7 @@
             LabelTempo.Location = new Point(10, 384);
             LabelTempo.Name = "LabelTempo";
             LabelTempo.Prefix = "Tempo: ";
-            LabelTempo.Size = new Size(580, 38);
+            LabelTempo.Size = new Size(630, 38);
             LabelTempo.TabIndex = 17;
             LabelTempo.Text = "---";
             // 
@@ -92,7 +93,7 @@
             LabelRecordeAcertos.Location = new Point(10, 346);
             LabelRecordeAcertos.Name = "LabelRecordeAcertos";
             LabelRecordeAcertos.Prefix = "Recorde: ";
-            LabelRecordeAcertos.Size = new Size(580, 38);
+            LabelRecordeAcertos.Size = new Size(630, 38);
             LabelRecordeAcertos.TabIndex = 16;
             LabelRecordeAcertos.Text = "---";
             // 
@@ -105,33 +106,9 @@
             LabelDataPartida.Location = new Point(10, 308);
             LabelDataPartida.Name = "LabelDataPartida";
             LabelDataPartida.Prefix = "Última Partida: ";
-            LabelDataPartida.Size = new Size(580, 38);
+            LabelDataPartida.Size = new Size(630, 38);
             LabelDataPartida.TabIndex = 15;
             LabelDataPartida.Text = "---";
-            // 
-            // ButtonQuizRush
-            // 
-            ButtonQuizRush.BorderWidth = 1F;
-            ButtonQuizRush.ColorScheme = AntdUI.TAMode.Dark;
-            ButtonQuizRush.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonQuizRush.Location = new Point(196, 629);
-            ButtonQuizRush.Name = "ButtonQuizRush";
-            ButtonQuizRush.Size = new Size(158, 58);
-            ButtonQuizRush.TabIndex = 5;
-            ButtonQuizRush.Text = "Iniciar";
-            ButtonQuizRush.Click += ButtonQuizRush_Click;
-            // 
-            // LabelDescricao
-            // 
-            LabelDescricao.BackColor = Color.Transparent;
-            LabelDescricao.ColorScheme = AntdUI.TAMode.Dark;
-            LabelDescricao.Dock = DockStyle.Top;
-            LabelDescricao.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabelDescricao.Location = new Point(10, 74);
-            LabelDescricao.Name = "LabelDescricao";
-            LabelDescricao.Size = new Size(580, 183);
-            LabelDescricao.TabIndex = 18;
-            LabelDescricao.Text = "Descrição:\r\nModo de jogo frenético.\r\n• 15 segundos para responder a questão;\r\n• Erro ou tempo esgotado resulta no encerramento da run;\r\n• Pontuação definida por streaks (Acertos consecutivos).\r\n";
             // 
             // divider1
             // 
@@ -140,11 +117,35 @@
             divider1.Dock = DockStyle.Top;
             divider1.Location = new Point(10, 257);
             divider1.Name = "divider1";
-            divider1.Size = new Size(580, 51);
+            divider1.Size = new Size(630, 51);
             divider1.TabIndex = 19;
             divider1.Text = "";
             divider1.TextPadding = 0F;
             divider1.Thickness = 1F;
+            // 
+            // LabelDescricao
+            // 
+            LabelDescricao.BackColor = Color.Transparent;
+            LabelDescricao.ColorScheme = AntdUI.TAMode.Dark;
+            LabelDescricao.Dock = DockStyle.Top;
+            LabelDescricao.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelDescricao.Location = new Point(10, 74);
+            LabelDescricao.Name = "LabelDescricao";
+            LabelDescricao.Size = new Size(630, 183);
+            LabelDescricao.TabIndex = 18;
+            LabelDescricao.Text = resources.GetString("LabelDescricao.Text");
+            // 
+            // ButtonQuizRush
+            // 
+            ButtonQuizRush.BorderWidth = 1F;
+            ButtonQuizRush.ColorScheme = AntdUI.TAMode.Dark;
+            ButtonQuizRush.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ButtonQuizRush.Location = new Point(221, 629);
+            ButtonQuizRush.Name = "ButtonQuizRush";
+            ButtonQuizRush.Size = new Size(158, 58);
+            ButtonQuizRush.TabIndex = 5;
+            ButtonQuizRush.Text = "Iniciar";
+            ButtonQuizRush.Click += ButtonQuizRush_Click;
             // 
             // IniciarQuizRush
             // 

@@ -83,6 +83,7 @@ namespace SenacQuizApp.Telas
             }
 
             LabelInsertTemaMestre.Text = perfil.TemaMaisAcertado?.Nome != null ? perfil.TemaMaisAcertado?.Nome : "Nenhum";
+            LabelInsertAcertosTemaMestre.Text = perfil.TemaMaisAcertado?.RespostasCorretas != null ? perfil.TemaMaisAcertado?.RespostasCorretas.ToString() : "0";
 
             foreach (var conquista in perfil.Conquistas)
             {

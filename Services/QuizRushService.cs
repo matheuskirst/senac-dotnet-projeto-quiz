@@ -92,6 +92,9 @@ namespace SenacQuizApp.Services
 
             if (usuarioStats == null) throw new Exception();
 
+            usuarioStats.TotalRespondidos += streakFinal;
+            usuarioStats.TotalAcertos += streakFinal;
+
             if (pontuacaoTotal > 0)
             {
                 usuarioStats.AdicionarPontos(pontuacaoTotal);

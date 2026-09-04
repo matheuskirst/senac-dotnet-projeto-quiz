@@ -145,12 +145,6 @@ namespace SenacQuizApp.Telas
                 _resultadoItem.Enabled = true;
             }
 
-            if (quiz.TipoId == QuizTipo.Rush)
-            {
-                _continuarItem.Enabled = false;
-                _resultadoItem.Enabled = true;
-            }
-
             var contextMenu = new AntdUI.ContextMenuStrip.Config(
                 this,
                 item =>
@@ -166,6 +160,34 @@ namespace SenacQuizApp.Telas
                         case "Copiar":
                             Clipboard.SetText(
                                 $"Tipo: {quiz.Tipo}\nData Iniciado: {quiz.DataIniciado}\nFinalizado: {quiz.Concluido}\nData Finalizado: {quiz.DataConcluido}\nTempo: {quiz.Tempo}\nPontuação Total: {quiz.PontuacaoTotal}");
+                            break;
+                    }
+                },
+                _menuItems)
+            {
+                ColorScheme = TAMode.Dark
+            };
+
+            contextMenu.open();
+        }
+
+        private void MostrarMenuTodos(RushRecordeBatido quiz)
+        {
+            _continuarItem.Enabled = false;
+            _resultadoItem.Enabled = true;
+
+            var contextMenu = new AntdUI.ContextMenuStrip.Config(
+                this,
+                item =>
+                {
+                    switch (item.Tag)
+                    {
+                        case "Resultado":
+                            VerResultado?.Invoke(0, quiz.TipoId);
+                            break;
+                        case "Copiar":
+                            Clipboard.SetText(
+                                $"Tipo: {quiz.Tipo}\nData Recorde: {quiz.DataRecordeBatido}\nRecorde antigo: {quiz.RecordeAntigo}\nRecorde novo: {quiz.RecordeNovo}");
                             break;
                     }
                 },

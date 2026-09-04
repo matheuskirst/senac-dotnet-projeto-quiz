@@ -117,4 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LabelDescricao.Text" xml:space="preserve">
+    <value>Descrição:
+Modo de jogo frenético.
+• 15 segundos para responder a questão;
+• Resposta errada ou tempo esgotado resulta no encerramento da run;
+• Pontuação definida por streaks (Acertos consecutivos).
+</value>
+  </data>
 </root>
