@@ -4,6 +4,7 @@ using SenacQuizApp.Dtos;
 using SenacQuizApp.Enums;
 using SenacQuizApp.Global;
 using SenacQuizApp.Modelos;
+using SenacQuizApp.Modelos.Questoes;
 using SenacQuizApp.Modelos.Usuarios;
 using System.Data;
 using static SenacQuizApp.Global.ModelosConstantes;
@@ -58,24 +59,76 @@ namespace SenacQuizApp.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<bool?> VerificarRespostaAlternativa(int alternativaId)
+        public async Task<bool?> VerificarRespostaAlternativa(int alternativaId, int temaId)
         {
             using var contexto = new QuizAppContexto();
 
-            return await contexto.Alternativas
+            int usuarioId = UsuarioAtual.Id;
+
+            bool? acertou = await contexto.Alternativas
                 .Where(alternativa => alternativa.Id == alternativaId)
                 .Select(alternativa => alternativa.EhCorreta)
                 .FirstOrDefaultAsync();
+
+            var temaProgresso = await contexto.UsuarioTemasProgressos
+                .SingleOrDefaultAsync(p => p.UsuarioId == usuarioId && p.TemaId == temaId);
+
+            if (acertou.Value == true)
+            {
+                if (temaProgresso == null)
+                {
+                    temaProgresso = new UsuarioTemasProgresso
+                    {
+                        UsuarioId = usuarioId,
+                        TemaId = temaId,
+                        RespostasCorretas = 1
+                    };
+
+                    contexto.UsuarioTemasProgressos.Add(temaProgresso);
+                }
+                else
+                {
+                    temaProgresso.RespostasCorretas++;
+                }
+            }
+
+            return acertou;
         }
 
-        public async Task<bool?> VerificarRespostaVerdadeiroFalso(int questaoId, bool verdadeiroFalso)
+        public async Task<bool?> VerificarRespostaVerdadeiroFalso(int questaoId, bool verdadeiroFalso, int temaId)
         {
             using var contexto = new QuizAppContexto();
 
-            return await contexto.Questoes
+            int usuarioId = UsuarioAtual.Id;
+
+            bool? acertou = await contexto.Questoes
                 .Where(questao => questao.Id == questaoId)
                 .Select(questao => questao.VerdadeiroFalso == verdadeiroFalso)
                 .FirstOrDefaultAsync();
+
+            var temaProgresso = await contexto.UsuarioTemasProgressos
+                .SingleOrDefaultAsync(p => p.UsuarioId == usuarioId && p.TemaId == temaId);
+
+            if (acertou.Value == true)
+            {
+                if (temaProgresso == null)
+                {
+                    temaProgresso = new UsuarioTemasProgresso
+                    {
+                        UsuarioId = usuarioId,
+                        TemaId = temaId,
+                        RespostasCorretas = 1
+                    };
+
+                    contexto.UsuarioTemasProgressos.Add(temaProgresso);
+                }
+                else
+                {
+                    temaProgresso.RespostasCorretas++;
+                }
+            }
+
+            return acertou;
         }
 
         public async Task<bool> FinalizarPartidaRush(DateTimeOffset dataIniciado, int streakFinal, int pontuacaoTotal)

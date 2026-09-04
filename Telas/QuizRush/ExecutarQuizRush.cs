@@ -125,6 +125,7 @@ namespace SenacQuizApp.Telas.QuizRush
             var streak = _rushSessao.Streak;
             var pontos = _rushSessao.Pontos;
 
+            _rushSessao = null;
             return await _quizRushService.FinalizarPartidaRush(dataIniciado, streak, pontos);
         }
 
@@ -141,7 +142,7 @@ namespace SenacQuizApp.Telas.QuizRush
             var questao = _rushSessao.QuestaoAtual;
             int streak = _rushSessao.Streak;
 
-            bool? ehCorreta = await _quizRushService.VerificarRespostaAlternativa(alternativaId);
+            bool? ehCorreta = await _quizRushService.VerificarRespostaAlternativa(alternativaId, questao.TemaId);
 
             if (ehCorreta != null && ehCorreta.Value)
             {
@@ -159,7 +160,7 @@ namespace SenacQuizApp.Telas.QuizRush
             if (_rushSessao == null || _rushSessao.QuestaoAtual == null) return;
             var questao = _rushSessao.QuestaoAtual;
 
-            bool? ehCorreta = await _quizRushService.VerificarRespostaVerdadeiroFalso(questao.Id, verdadeiroFalso);
+            bool? ehCorreta = await _quizRushService.VerificarRespostaVerdadeiroFalso(questao.Id, verdadeiroFalso, questao.TemaId);
 
             if (ehCorreta != null && ehCorreta.Value)
             {
