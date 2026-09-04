@@ -38,9 +38,11 @@
             LabelDataInicio = new AntdUI.Label();
             LabelSubTitulo = new AntdUI.Label();
             PanelQuizResultados = new AntdUI.Panel();
+            PanelQuestoes = new FlowLayoutPanel();
             button1 = new AntdUI.Button();
             button2 = new AntdUI.Button();
             PanelQuizConclusao.SuspendLayout();
+            PanelQuizResultados.SuspendLayout();
             SuspendLayout();
             // 
             // LabelTitulo
@@ -171,12 +173,26 @@
             // 
             PanelQuizResultados.AutoScroll = true;
             PanelQuizResultados.Back = Color.FromArgb(50, 50, 50);
+            PanelQuizResultados.Controls.Add(PanelQuestoes);
             PanelQuizResultados.Dock = DockStyle.Fill;
             PanelQuizResultados.Location = new Point(400, 45);
             PanelQuizResultados.Name = "PanelQuizResultados";
             PanelQuizResultados.Size = new Size(624, 675);
             PanelQuizResultados.TabIndex = 2;
-            PanelQuizResultados.Text = "panel1";
+            // 
+            // PanelQuestoes
+            // 
+            PanelQuestoes.AutoSize = true;
+            PanelQuestoes.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            PanelQuestoes.BackColor = Color.FromArgb(50, 50, 50);
+            PanelQuestoes.Dock = DockStyle.Top;
+            PanelQuestoes.FlowDirection = FlowDirection.TopDown;
+            PanelQuestoes.Location = new Point(0, 0);
+            PanelQuestoes.Name = "PanelQuestoes";
+            PanelQuestoes.RightToLeft = RightToLeft.No;
+            PanelQuestoes.Size = new Size(624, 0);
+            PanelQuestoes.TabIndex = 0;
+            PanelQuestoes.WrapContents = false;
             // 
             // button1
             // 
@@ -206,6 +222,8 @@
             Size = new Size(1024, 720);
             Load += PainelResultado_Load;
             PanelQuizConclusao.ResumeLayout(false);
+            PanelQuizResultados.ResumeLayout(false);
+            PanelQuizResultados.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -222,5 +240,6 @@
         private AntdUI.Panel PanelQuizResultados;
         private AntdUI.Button button1;
         private AntdUI.Button button2;
+        private FlowLayoutPanel PanelQuestoes;
     }
 }

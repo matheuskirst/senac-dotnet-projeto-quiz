@@ -12,6 +12,7 @@ namespace SenacQuizApp.Telas.QuizRush
     {
         private readonly UsuarioService _usuarioService;
         private readonly QuizRushService _quizRushService;
+        private readonly ContainerControl? _parente;
 
         public event EventHandler? VerResultado;
 
@@ -26,6 +27,7 @@ namespace SenacQuizApp.Telas.QuizRush
         {
             _usuarioService = usuarioService;
             _quizRushService = quizRushService;
+            _parente = parente;
 
             _painelQuestao = new PainelQuestaoRush
             {
@@ -40,7 +42,7 @@ namespace SenacQuizApp.Telas.QuizRush
 
             _timerAtualizarLabel.Tick += AoAcabarTempo;
 
-            if (parente is FormApp formApp)
+            if (_parente is FormApp formApp)
             {
                 formApp.MudouPagina += AoFecharPagina; 
             }

@@ -10,6 +10,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         private int _quizId;
         private readonly QuizDiarioService _quizService;
         private readonly UsuarioService _usuarioService;
+        private readonly ContainerControl? _parente;
 
         public event Action<int>? VerResultado;
 
@@ -17,13 +18,14 @@ namespace SenacQuizApp.Telas.QuizDiario
         private PainelQuestaoDiario _painelQuestao;
         private QuizSessao? _quizSessao;
 
-        public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioService usuarioService)
+        public ExecutarQuizDiario(int quizId, QuizDiarioService quizService, UsuarioService usuarioService, ContainerControl? parente=null)
         {
             _quizId = quizId;
             _quizService = quizService;
             _usuarioService = usuarioService;
+            _parente = parente;
 
-            _painelQuestao = new PainelQuestaoDiario()
+            _painelQuestao = new PainelQuestaoDiario(_parente)
             {
                 Dock = DockStyle.Fill
             };

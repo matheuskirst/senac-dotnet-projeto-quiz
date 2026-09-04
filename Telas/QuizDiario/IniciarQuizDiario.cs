@@ -3,7 +3,7 @@ using SenacQuizApp.Dtos;
 
 namespace SenacQuizApp.Telas.QuizDiario
 {
-    public partial class HubQuizDiario : UserControl
+    public partial class IniciarQuizDiario : UserControl
     {
         private readonly QuizDiarioService _quizDiarioService;
         private readonly UsuarioService _usuarioPerfilService;
@@ -13,7 +13,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         public event Action<int>? VerResultado;
         public event Action<int>? CarregarQuiz;
 
-        public HubQuizDiario(QuizDiarioService quizDiarioService, UsuarioService usuarioPerfilService)
+        public IniciarQuizDiario(QuizDiarioService quizDiarioService, UsuarioService usuarioPerfilService)
         {
             _quizDiarioService = quizDiarioService;
             _usuarioPerfilService = usuarioPerfilService;
@@ -56,7 +56,7 @@ namespace SenacQuizApp.Telas.QuizDiario
             }
         }
 
-        private async void IniciarQuizDiario()
+        private async void BuscarIniciarQuizDiario()
         {
             try
             {
@@ -91,7 +91,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
         private void IniciarQuiz_Click(object? sender, EventArgs e)
         {
-            IniciarQuizDiario();
+            BuscarIniciarQuizDiario();
         }
 
         private void VerResultadosQuiz_Click(object? sender, EventArgs e)

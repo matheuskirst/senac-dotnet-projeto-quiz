@@ -83,6 +83,7 @@
             LabelTempo.Size = new Size(630, 38);
             LabelTempo.TabIndex = 17;
             LabelTempo.Text = "---";
+            LabelTempo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LabelRecordeAcertos
             // 
@@ -96,6 +97,7 @@
             LabelRecordeAcertos.Size = new Size(630, 38);
             LabelRecordeAcertos.TabIndex = 16;
             LabelRecordeAcertos.Text = "---";
+            LabelRecordeAcertos.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LabelDataPartida
             // 
@@ -109,6 +111,7 @@
             LabelDataPartida.Size = new Size(630, 38);
             LabelDataPartida.TabIndex = 15;
             LabelDataPartida.Text = "---";
+            LabelDataPartida.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // divider1
             // 
@@ -140,7 +143,7 @@
             ButtonQuizRush.BorderWidth = 1F;
             ButtonQuizRush.ColorScheme = AntdUI.TAMode.Dark;
             ButtonQuizRush.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonQuizRush.Location = new Point(221, 629);
+            ButtonQuizRush.Location = new Point(246, 629);
             ButtonQuizRush.Name = "ButtonQuizRush";
             ButtonQuizRush.Size = new Size(158, 58);
             ButtonQuizRush.TabIndex = 5;

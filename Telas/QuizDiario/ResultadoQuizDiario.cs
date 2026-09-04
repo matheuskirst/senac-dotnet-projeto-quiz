@@ -1,4 +1,5 @@
-﻿using SenacQuizApp.Dtos;
+﻿using Microsoft.EntityFrameworkCore.Update;
+using SenacQuizApp.Dtos;
 using SenacQuizApp.Services;
 using SenacQuizApp.Telas.Componentes;
 using System.ComponentModel;
@@ -9,11 +10,13 @@ namespace SenacQuizApp.Telas.QuizDiario
     {
         private int _quizId;
         private readonly QuizDiarioService _quizDiarioService;
+        private readonly ContainerControl? _parente;
 
-        public ResultadoQuizDiario(int quizId, QuizDiarioService quizDiarioService)
+        public ResultadoQuizDiario(int quizId, QuizDiarioService quizDiarioService, ContainerControl? parente=null)
         {
             _quizId = quizId;
             _quizDiarioService = quizDiarioService;
+            _parente = parente;
 
             InitializeComponent();
         }
@@ -22,6 +25,8 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             try
             {
+                PanelQuestoes.SuspendLayout();
+
                 QuizDiarioCompleto? resultado = await _quizDiarioService.ObterResultadoPorId(_quizId);
 
                 if (resultado == null) return;
@@ -33,25 +38,33 @@ namespace SenacQuizApp.Telas.QuizDiario
                 LabelTotalAcertos.Text = resultado.TotalAcertos.ToString();
                 LabelPontuacaoTotal.Text = resultado.PontuacaoTotal.ToString();
 
-                for (int i = resultado.Questoes.Count - 1; i >= 0; i--)
+                int questaoNumero = 1;
+                foreach (var questao in resultado.Questoes)
                 {
-                    QuestaoRespondida questao = resultado.Questoes[i];
-
-                    int questaoNumero = i + 1;
                     string questaoEnunciado = questao.Enunciado;
 
                     var cardQuestao = new CardQuestao(questaoNumero.ToString(), questao);
                     cardQuestao.Dock = DockStyle.Top;
-                    PanelQuizResultados.Controls.Add(cardQuestao);
+                    PanelQuestoes.Controls.Add(cardQuestao);
+                    questaoNumero++;
                 }
             }
             catch
             {
+                if (_parente is not FormApp formApp) return;
 
+                AntdUI.Modal.open(new AntdUI.Modal.Config(formApp, "Erro de Conexão", "Ocorreu um erro ao se conectar com o servidor.")
+                {
+                    ColorScheme = AntdUI.TAMode.Dark,
+                    OkText = "Ok",
+                    Icon = AntdUI.TType.Error,
+                    CancelText = null
+                });
+                return;
             }
             finally
             {
-
+                PanelQuestoes.ResumeLayout();
             }
         }
     }

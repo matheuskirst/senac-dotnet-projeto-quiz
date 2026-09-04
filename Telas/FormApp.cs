@@ -159,7 +159,7 @@ namespace SenacQuizApp.Telas
             AlternarBotaoHeader(ButtonHeaderMenu);
 
             paginaPrincipal.RealizarLogout += AbrirPaginaInicial;
-            paginaPrincipal.AbrirHubQuizDiario += AbrirHubQuizDiario;
+            paginaPrincipal.AbrirHubQuizDiario += AbrirIniciarQuizDiario;
             paginaPrincipal.AbrirHubQuizRush += AbrirIniciarQuizRush;
 
             paginaPrincipal.ContinuarQuizDiario += AbrirExecutarQuizDiario;
@@ -267,11 +267,11 @@ namespace SenacQuizApp.Telas
         // Quiz Diário
         // ============================================================
 
-        public void AbrirHubQuizDiario(object? sender, EventArgs e)
+        public void AbrirIniciarQuizDiario(object? sender, EventArgs e)
         {
             AlternarBotaoHeader();
 
-            var hubQuizDiario = new HubQuizDiario(_quizDiarioService, _usuarioPerfilService);
+            var hubQuizDiario = new IniciarQuizDiario(_quizDiarioService, _usuarioPerfilService);
 
             hubQuizDiario.IniciarQuiz += AbrirExecutarQuizDiario;
             hubQuizDiario.VerResultado += AbrirResultadoQuizDiario;
@@ -286,7 +286,7 @@ namespace SenacQuizApp.Telas
         {
             AlternarBotaoHeader();
 
-            var executarQuizDiario = new ExecutarQuizDiario(quizId, _quizDiarioService, _usuarioPerfilService);
+            var executarQuizDiario = new ExecutarQuizDiario(quizId, _quizDiarioService, _usuarioPerfilService, this);
 
             executarQuizDiario.VerResultado += AbrirResultadoQuizDiario;
 
@@ -299,7 +299,7 @@ namespace SenacQuizApp.Telas
         {
             AlternarBotaoHeader();
 
-            var resultadoQuizDiario = new ResultadoQuizDiario(quizId, _quizDiarioService);
+            var resultadoQuizDiario = new ResultadoQuizDiario(quizId, _quizDiarioService, this);
 
             MudarPagina(resultadoQuizDiario);
 

@@ -6,13 +6,16 @@ namespace SenacQuizApp.Telas.QuizDiario
     public partial class PainelQuestaoDiario : UserControl
     {
         private QuestaoExibicao? _questao;
+        private readonly ContainerControl? _parente;
+
         public event Action<int>? EscolheuAlternativa;
         public event Action<bool>? EscolheuVerdadeiroFalso;
 
         private AntdUI.Button? _botaoSelecionado;
 
-        public PainelQuestaoDiario()
+        public PainelQuestaoDiario(ContainerControl? parente=null)
         {
+            _parente = parente;
             InitializeComponent();
 
             SetStyle(
@@ -115,10 +118,13 @@ namespace SenacQuizApp.Telas.QuizDiario
         {
             if (_botaoSelecionado == null)
             {
-                AntdUI.Modal.open(new AntdUI.Modal.Config(this.FindForm(), "Resposta inválida", "Selecione uma alternativa.")
+                if (_parente is not FormApp formApp) return;
+
+                AntdUI.Modal.open(new AntdUI.Modal.Config(formApp, "Resposta inválida", "Selecione uma alternativa.")
                 {
                     ColorScheme = AntdUI.TAMode.Dark,
                     OkText = "Ok",
+                    Icon = AntdUI.TType.Warn,
                     CancelText = null
                 });
                 return;
