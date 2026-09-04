@@ -39,12 +39,12 @@ namespace SenacQuizApp.Services
                     .FirstOrDefault(),
 
                     Conquistas = contexto.Conquistas
+                        .Where(c => c.UsuarioConquistas.Any(uc => uc.UsuarioId == usuarioId))
                         .Select(c => new ConquistaDetalhes
                         {
                             Nome = c.Nome,
                             Descricao = c.Descricao,
-                            Desbloqueada = c.UsuarioConquistas.Any(uc => uc.UsuarioId == usuarioId),
-
+                            Desbloqueada = true,
                             DataDesbloqueio = c.UsuarioConquistas
                             .Where(uc => uc.UsuarioId == usuarioId)
                             .Select(uc => (DateTimeOffset?)uc.DataDesbloqueio)

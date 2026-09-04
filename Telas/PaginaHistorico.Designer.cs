@@ -52,9 +52,9 @@
             PanelHistorico.Back = Color.FromArgb(33, 33, 33);
             PanelHistorico.Controls.Add(PanelInserirHistorico);
             PanelHistorico.Controls.Add(PanelHistoricoFiltros);
-            PanelHistorico.Location = new Point(215, 76);
+            PanelHistorico.Location = new Point(215, 66);
             PanelHistorico.Name = "PanelHistorico";
-            PanelHistorico.Size = new Size(850, 634);
+            PanelHistorico.Size = new Size(850, 644);
             PanelHistorico.TabIndex = 2;
             PanelHistorico.Text = "panel2";
             // 
@@ -63,7 +63,7 @@
             PanelInserirHistorico.Back = Color.FromArgb(33, 33, 33);
             PanelInserirHistorico.Controls.Add(TableHistorico);
             PanelInserirHistorico.Dock = DockStyle.Fill;
-            PanelInserirHistorico.Location = new Point(0, 35);
+            PanelInserirHistorico.Location = new Point(0, 45);
             PanelInserirHistorico.Name = "PanelInserirHistorico";
             PanelInserirHistorico.Radius = 0;
             PanelInserirHistorico.Size = new Size(850, 599);
@@ -103,21 +103,21 @@
             PanelHistoricoFiltros.Name = "PanelHistoricoFiltros";
             PanelHistoricoFiltros.Padding = new Padding(5, 0, 5, 0);
             PanelHistoricoFiltros.Radius = 0;
-            PanelHistoricoFiltros.Size = new Size(850, 35);
+            PanelHistoricoFiltros.Size = new Size(850, 45);
             PanelHistoricoFiltros.TabIndex = 4;
-            PanelHistoricoFiltros.Text = "panel1";
             // 
             // ButtonBuscarData
             // 
             ButtonBuscarData.BorderWidth = 2F;
             ButtonBuscarData.ColorScheme = AntdUI.TAMode.Dark;
             ButtonBuscarData.Dock = DockStyle.Left;
+            ButtonBuscarData.Font = new Font("Segoe UI", 12F);
             ButtonBuscarData.Ghost = true;
-            ButtonBuscarData.Location = new Point(237, 0);
+            ButtonBuscarData.Location = new Point(246, 0);
             ButtonBuscarData.Margin = new Padding(6);
             ButtonBuscarData.Name = "ButtonBuscarData";
             ButtonBuscarData.Radius = 2;
-            ButtonBuscarData.Size = new Size(75, 35);
+            ButtonBuscarData.Size = new Size(110, 45);
             ButtonBuscarData.TabIndex = 7;
             ButtonBuscarData.Text = "Buscar";
             ButtonBuscarData.Click += ButtonBuscarData_Click;
@@ -128,9 +128,10 @@
             LabelStatus.BackColor = Color.FromArgb(33, 33, 33);
             LabelStatus.ColorScheme = AntdUI.TAMode.Dark;
             LabelStatus.Dock = DockStyle.Right;
-            LabelStatus.Location = new Point(541, 0);
+            LabelStatus.Font = new Font("Segoe UI", 12F);
+            LabelStatus.Location = new Point(521, 0);
             LabelStatus.Name = "LabelStatus";
-            LabelStatus.Size = new Size(36, 35);
+            LabelStatus.Size = new Size(47, 45);
             LabelStatus.TabIndex = 5;
             LabelStatus.Text = "Status:";
             // 
@@ -140,10 +141,11 @@
             SelectStatus.BorderColor = Color.FromArgb(20, 20, 20);
             SelectStatus.ColorScheme = AntdUI.TAMode.Dark;
             SelectStatus.Dock = DockStyle.Right;
+            SelectStatus.Font = new Font("Segoe UI", 12F);
             SelectStatus.List = true;
-            SelectStatus.Location = new Point(577, 0);
+            SelectStatus.Location = new Point(568, 0);
             SelectStatus.Name = "SelectStatus";
-            SelectStatus.Size = new Size(125, 35);
+            SelectStatus.Size = new Size(125, 45);
             SelectStatus.TabIndex = 4;
             SelectStatus.SelectedValueChanged += SelectStatus_SelectedValueChanged;
             // 
@@ -153,9 +155,10 @@
             LabelTipoQuiz.BackColor = Color.FromArgb(33, 33, 33);
             LabelTipoQuiz.ColorScheme = AntdUI.TAMode.Dark;
             LabelTipoQuiz.Dock = DockStyle.Right;
-            LabelTipoQuiz.Location = new Point(702, 0);
+            LabelTipoQuiz.Font = new Font("Segoe UI", 12F);
+            LabelTipoQuiz.Location = new Point(693, 0);
             LabelTipoQuiz.Name = "LabelTipoQuiz";
-            LabelTipoQuiz.Size = new Size(26, 35);
+            LabelTipoQuiz.Size = new Size(35, 45);
             LabelTipoQuiz.TabIndex = 3;
             LabelTipoQuiz.Text = "Tipo:";
             // 
@@ -165,10 +168,11 @@
             SelectQuizTipo.BorderColor = Color.FromArgb(20, 20, 20);
             SelectQuizTipo.ColorScheme = AntdUI.TAMode.Dark;
             SelectQuizTipo.Dock = DockStyle.Right;
+            SelectQuizTipo.Font = new Font("Segoe UI", 12F);
             SelectQuizTipo.List = true;
             SelectQuizTipo.Location = new Point(728, 0);
             SelectQuizTipo.Name = "SelectQuizTipo";
-            SelectQuizTipo.Size = new Size(117, 35);
+            SelectQuizTipo.Size = new Size(117, 45);
             SelectQuizTipo.TabIndex = 0;
             SelectQuizTipo.SelectedValueChanged += SelectQuizTipo_SelectedValueChanged;
             // 
@@ -178,9 +182,10 @@
             DatePickerRangeQuiz.BorderColor = Color.FromArgb(20, 20, 20);
             DatePickerRangeQuiz.ColorScheme = AntdUI.TAMode.Dark;
             DatePickerRangeQuiz.Dock = DockStyle.Left;
-            DatePickerRangeQuiz.Location = new Point(33, 0);
+            DatePickerRangeQuiz.Font = new Font("Segoe UI", 12F);
+            DatePickerRangeQuiz.Location = new Point(42, 0);
             DatePickerRangeQuiz.Name = "DatePickerRangeQuiz";
-            DatePickerRangeQuiz.Size = new Size(204, 35);
+            DatePickerRangeQuiz.Size = new Size(204, 45);
             DatePickerRangeQuiz.TabIndex = 1;
             // 
             // LabelData
@@ -189,9 +194,10 @@
             LabelData.BackColor = Color.FromArgb(33, 33, 33);
             LabelData.ColorScheme = AntdUI.TAMode.Dark;
             LabelData.Dock = DockStyle.Left;
+            LabelData.Font = new Font("Segoe UI", 12F);
             LabelData.Location = new Point(5, 0);
             LabelData.Name = "LabelData";
-            LabelData.Size = new Size(28, 35);
+            LabelData.Size = new Size(37, 45);
             LabelData.TabIndex = 6;
             LabelData.Text = "Data:";
             // 
@@ -203,7 +209,7 @@
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelTitulo.Location = new Point(215, 0);
             LabelTitulo.Name = "LabelTitulo";
-            LabelTitulo.Size = new Size(850, 70);
+            LabelTitulo.Size = new Size(850, 60);
             LabelTitulo.TabIndex = 3;
             LabelTitulo.Text = "Histórico";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;

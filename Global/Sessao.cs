@@ -7,7 +7,7 @@ namespace SenacQuizApp.Global
         public static int Id { get; private set; }
         public static UsuarioTipoId? Tipo { get; private set; }
         public static string Username { get; private set; } = string.Empty;
-        public static string Nickname { get; private set; } = string.Empty;
+        public static string Nickname { get; set; } = string.Empty;
 
         public static void IniciarSessao(int id, UsuarioTipoId tipo, string username, string nickname)
         {

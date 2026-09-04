@@ -58,12 +58,12 @@ namespace SenacQuizApp.Telas
                 if (input.UseSystemPasswordChar == false)
                 {
                     input.UseSystemPasswordChar = true;
-                    input.SuffixSvg = SvgIcons.EyeIcon;
+                    input.SuffixSvg = SvgIcons.EyeCrossedIcon;
                 }
                 else
                 {
                     input.UseSystemPasswordChar = false;
-                    input.SuffixSvg = SvgIcons.EyeCrossedIcon;
+                    input.SuffixSvg = SvgIcons.EyeIcon;
                 }
             }
         }
@@ -169,7 +169,7 @@ namespace SenacQuizApp.Telas
 
         private bool ValidarNickname(string nickname)
         {
-            if (!string.IsNullOrEmpty(nickname) && (nickname.Length < 3 || nickname.Length > ModelosConstantes.Usuario.MaxNicknameLength))
+            if (string.IsNullOrEmpty(nickname) || (nickname.Length < 3 || nickname.Length > ModelosConstantes.Usuario.MaxNicknameLength))
             {
                 PintarErros.ErroNoCampo(InputSignupNick, mensagem: $"O Nickname deve ter entre 3 e {ModelosConstantes.Usuario.MaxNicknameLength} caracteres.");
                 return false;

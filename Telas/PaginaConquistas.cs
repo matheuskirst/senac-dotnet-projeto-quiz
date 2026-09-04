@@ -35,7 +35,6 @@ namespace SenacQuizApp.Telas
             foreach(var conquista in conquistas)
             {
                 var card = new CardConquista(conquista);
-                card.Dock = DockStyle.Top;
 
                 if (conquista.Secreta) continue;
 

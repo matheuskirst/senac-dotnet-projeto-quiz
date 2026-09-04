@@ -127,6 +127,8 @@ namespace SenacQuizApp.Telas
             LabelLoginSenha.Location = new Point(3, 178);
             LabelLoginSenha.Name = "LabelLoginSenha";
             LabelLoginSenha.Size = new Size(434, 23);
+            LabelLoginSenha.Suffix = " *";
+            LabelLoginSenha.SuffixColor = Color.Red;
             LabelLoginSenha.TabIndex = 19;
             LabelLoginSenha.Text = "Senha";
             // 
@@ -151,6 +153,8 @@ namespace SenacQuizApp.Telas
             LabelLoginUsername.Location = new Point(3, 99);
             LabelLoginUsername.Name = "LabelLoginUsername";
             LabelLoginUsername.Size = new Size(434, 23);
+            LabelLoginUsername.Suffix = " *";
+            LabelLoginUsername.SuffixColor = Color.Red;
             LabelLoginUsername.TabIndex = 2;
             LabelLoginUsername.Text = "Nome de Usuário";
             // 

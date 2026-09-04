@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SenacQuizApp.Telas
+namespace SenacQuizApp.Enums
 {
-    internal class test
+    public enum ConfigMenuOpcoes
     {
+        Conta = 0
     }
 }

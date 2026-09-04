@@ -12,7 +12,7 @@ namespace SenacQuizApp.Telas.QuizDiario
         private readonly QuizDiarioService _quizDiarioService;
         private readonly ContainerControl? _parente;
 
-        public ResultadoQuizDiario(int quizId, QuizDiarioService quizDiarioService, ContainerControl? parente=null)
+        public ResultadoQuizDiario(int quizId, QuizDiarioService quizDiarioService, ContainerControl? parente = null)
         {
             _quizId = quizId;
             _quizDiarioService = quizDiarioService;
@@ -43,8 +43,11 @@ namespace SenacQuizApp.Telas.QuizDiario
                 {
                     string questaoEnunciado = questao.Enunciado;
 
-                    var cardQuestao = new CardQuestao(questaoNumero.ToString(), questao);
-                    cardQuestao.Dock = DockStyle.Top;
+                    var cardQuestao = new CardQuestaoRespondida(questaoNumero.ToString(), questao)
+                    {
+                        Width = PanelQuestoes.Width + 1000
+                    };
+
                     PanelQuestoes.Controls.Add(cardQuestao);
                     questaoNumero++;
                 }

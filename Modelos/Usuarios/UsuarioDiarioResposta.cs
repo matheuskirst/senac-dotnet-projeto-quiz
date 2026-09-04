@@ -15,7 +15,6 @@ namespace SenacQuizApp.Modelos.Usuarios
 
         public int? AlternativaId { get; set; }
         public Alternativa? Alternativa { get; set; }
-
         public bool? VerdadeiroFalso { get; set; }
 
         public bool Acertou { get; set; }

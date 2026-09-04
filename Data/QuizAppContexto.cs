@@ -56,6 +56,14 @@ namespace SenacQuizApp.Data
                         var sqlContent = File.ReadAllText(filepath);
 
                         context.Database.ExecuteSqlRaw(sqlContent);
+
+                        context.Database.ExecuteSqlRaw(@"
+                            SELECT setval(pg_get_serial_sequence('""Questoes""', 'Id'), COALESCE(max(""Id""), 1)) FROM ""Questoes"";
+                        ");
+
+                        context.Database.ExecuteSqlRaw(@"
+                            SELECT setval(pg_get_serial_sequence('""Alternativas""', 'Id'), COALESCE(max(""Id""), 1)) FROM ""Alternativas"";
+                        ");
                     }
                 }
 

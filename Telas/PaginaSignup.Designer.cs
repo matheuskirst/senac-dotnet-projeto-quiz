@@ -109,7 +109,7 @@ namespace SenacQuizApp.Telas
             LabelSignupConfirmarSenha.Location = new Point(3, 415);
             LabelSignupConfirmarSenha.Name = "LabelSignupConfirmarSenha";
             LabelSignupConfirmarSenha.Size = new Size(434, 23);
-            LabelSignupConfirmarSenha.Suffix = "*";
+            LabelSignupConfirmarSenha.Suffix = " *";
             LabelSignupConfirmarSenha.SuffixColor = Color.Red;
             LabelSignupConfirmarSenha.TabIndex = 0;
             LabelSignupConfirmarSenha.TabStop = false;
@@ -139,7 +139,7 @@ namespace SenacQuizApp.Telas
             LabelSignupSenha.Location = new Point(3, 336);
             LabelSignupSenha.Name = "LabelSignupSenha";
             LabelSignupSenha.Size = new Size(434, 23);
-            LabelSignupSenha.Suffix = "*";
+            LabelSignupSenha.Suffix = " *";
             LabelSignupSenha.SuffixColor = Color.Red;
             LabelSignupSenha.TabIndex = 0;
             LabelSignupSenha.TabStop = false;
@@ -170,7 +170,7 @@ namespace SenacQuizApp.Telas
             LabelSignupDataNascimento.Location = new Point(3, 257);
             LabelSignupDataNascimento.Name = "LabelSignupDataNascimento";
             LabelSignupDataNascimento.Size = new Size(434, 23);
-            LabelSignupDataNascimento.Suffix = "*";
+            LabelSignupDataNascimento.Suffix = " *";
             LabelSignupDataNascimento.SuffixColor = Color.Red;
             LabelSignupDataNascimento.TabIndex = 0;
             LabelSignupDataNascimento.TabStop = false;
@@ -223,7 +223,7 @@ namespace SenacQuizApp.Telas
             LabelSignupUsername.Name = "LabelSignupUsername";
             LabelSignupUsername.Prefix = "";
             LabelSignupUsername.Size = new Size(434, 23);
-            LabelSignupUsername.Suffix = "*";
+            LabelSignupUsername.Suffix = " *";
             LabelSignupUsername.SuffixColor = Color.Red;
             LabelSignupUsername.TabIndex = 0;
             LabelSignupUsername.TabStop = false;

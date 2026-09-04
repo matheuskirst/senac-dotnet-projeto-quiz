@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SenacQuizApp.Dtos
 {
     // Objeto para exibir alternativas corretas de questões em um quiz diário concluído
-    public class AlternativaCorreta
+    public class AlternativaResposta
     {
         public int Id { get; set; }
         public string Texto { get; set; } = null!;

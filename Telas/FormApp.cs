@@ -53,10 +53,10 @@ namespace SenacQuizApp.Telas
         {
             var dropdownItems = new object[]
             {
-                new AntdUI.SelectItem("Ver Perfil") { Tag = MenuOpcoes.VerPerfil },
-                new AntdUI.SelectItem("Ver Histórico") { Tag = MenuOpcoes.VerHistorico },
-                new AntdUI.SelectItem("Configurações") { Tag = MenuOpcoes.Configuracoes },
-                new AntdUI.SelectItem("Sair...") { Tag = MenuOpcoes.Sair }
+                new AntdUI.SelectItem("Ver Perfil") { Tag = DropdownMenuOpcoes.VerPerfil },
+                new AntdUI.SelectItem("Ver Histórico") { Tag = DropdownMenuOpcoes.VerHistorico },
+                new AntdUI.SelectItem("Configurações") { Tag = DropdownMenuOpcoes.Configuracoes },
+                new AntdUI.SelectItem("Sair...") { Tag = DropdownMenuOpcoes.Sair }
             };
 
             DropdownUsuarioMenu.Items.AddRange(dropdownItems);
@@ -68,6 +68,11 @@ namespace SenacQuizApp.Telas
         public void MudarPagina(UserControl pagina)
         {
             PanelAppBody.SuspendLayout();
+
+            if (DropdownUsuarioMenu.Text != UsuarioAtual.Nickname)
+            {
+                DropdownUsuarioMenu.Text = UsuarioAtual.Nickname;
+            }
 
             if (pagina is PaginaInicial
                 || pagina is PaginaLogin
@@ -140,7 +145,7 @@ namespace SenacQuizApp.Telas
         private void AoConcluirLogin(object? sender, EventArgs e)
         {
             AbrirPaginaPrincipal(sender, EventArgs.Empty);
-            DropdownUsuarioMenu.Text = UsuarioAtual.Username;
+            DropdownUsuarioMenu.Text = UsuarioAtual.Nickname;
 
             if (UsuarioAtual.Tipo == UsuarioTipoId.Admin)
             {
@@ -256,11 +261,9 @@ namespace SenacQuizApp.Telas
 
         public void AbrirConfiguracoes()
         {
-            var formConfig = new PaginaConfig();
+            var formConfig = new PaginaConfiguracoes(parente: this);
 
-            formConfig.ShowDialog();
-
-            AlternarBotaoHeader();
+            formConfig.Show();
         }
 
         // ============================================================
@@ -327,7 +330,7 @@ namespace SenacQuizApp.Telas
         {
             AlternarBotaoHeader();
 
-            var executarQuizDiario = new ExecutarQuizRush(_usuarioPerfilService, _quizRushService, this);
+            var executarQuizDiario = new ExecutarQuizRush(_usuarioPerfilService, _quizRushService, parente: this);
 
             executarQuizDiario.VerResultado += AbrirIniciarQuizRush;
 
@@ -415,20 +418,20 @@ namespace SenacQuizApp.Telas
 
         private void DropdownUsuarioMenu_ItemClick(object sender, ObjectNEventArgs e)
         {
-            if (e.Value is not MenuOpcoes opcao) return;
+            if (e.Value is not DropdownMenuOpcoes opcao) return;
 
             switch (opcao)
             {
-                case MenuOpcoes.VerPerfil:
+                case DropdownMenuOpcoes.VerPerfil:
                     AbrirPaginaPerfil(null, UsuarioAtual.Id);
                     break;
-                case MenuOpcoes.VerHistorico:
+                case DropdownMenuOpcoes.VerHistorico:
                     AbrirPaginaHistorico();
                     break;
-                case MenuOpcoes.Configuracoes:
+                case DropdownMenuOpcoes.Configuracoes:
                     AbrirConfiguracoes();
                     break;
-                case MenuOpcoes.Sair:
+                case DropdownMenuOpcoes.Sair:
                     AbrirPaginaInicial(null, EventArgs.Empty);
                     break;
             }

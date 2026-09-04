@@ -49,10 +49,10 @@
             PanelRanking.BorderWidth = 1F;
             PanelRanking.Controls.Add(TableUsuariosRank);
             PanelRanking.Controls.Add(Header);
-            PanelRanking.Location = new Point(240, 56);
+            PanelRanking.Location = new Point(240, 66);
             PanelRanking.Name = "PanelRanking";
             PanelRanking.Radius = 0;
-            PanelRanking.Size = new Size(800, 664);
+            PanelRanking.Size = new Size(800, 654);
             PanelRanking.TabIndex = 0;
             // 
             // TableUsuariosRank
@@ -70,7 +70,7 @@
             TableUsuariosRank.Location = new Point(1, 46);
             TableUsuariosRank.LostFocusClearSelection = true;
             TableUsuariosRank.Name = "TableUsuariosRank";
-            TableUsuariosRank.Size = new Size(798, 617);
+            TableUsuariosRank.Size = new Size(798, 607);
             TableUsuariosRank.TabIndex = 3;
             TableUsuariosRank.CellClick += TableUsuariosRank_CellClick;
             TableUsuariosRank.CellDoubleClick += TableUsuariosRank_CellDoubleClick;
@@ -88,7 +88,6 @@
             Header.Radius = 0;
             Header.Size = new Size(798, 45);
             Header.TabIndex = 4;
-            Header.Text = "panel1";
             // 
             // LabelQuizTipo
             // 
@@ -128,7 +127,7 @@
             ButtonBuscarUsuario.Margin = new Padding(6);
             ButtonBuscarUsuario.Name = "ButtonBuscarUsuario";
             ButtonBuscarUsuario.Radius = 2;
-            ButtonBuscarUsuario.Size = new Size(75, 45);
+            ButtonBuscarUsuario.Size = new Size(110, 45);
             ButtonBuscarUsuario.TabIndex = 8;
             ButtonBuscarUsuario.Text = "Buscar";
             ButtonBuscarUsuario.Click += ButtonBuscarUsuario_Click;
@@ -159,7 +158,7 @@
             LabelTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LabelTitulo.Location = new Point(240, 0);
             LabelTitulo.Name = "LabelTitulo";
-            LabelTitulo.Size = new Size(800, 50);
+            LabelTitulo.Size = new Size(800, 60);
             LabelTitulo.TabIndex = 1;
             LabelTitulo.Text = "Ranking";
             LabelTitulo.TextAlign = ContentAlignment.MiddleCenter;

@@ -25,6 +25,7 @@ namespace SenacQuizApp.Utils
             {
                 var popover = new Popover.Config(control:control, title:titulo, content:mensagem)
                 {
+                    ColorScheme = TAMode.Dark,
                     ArrowAlign = alinhamento
                 };
                 Popover.open(popover);

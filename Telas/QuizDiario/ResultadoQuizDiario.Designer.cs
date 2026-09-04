@@ -37,10 +37,8 @@
             LabelDataConcluido = new AntdUI.Label();
             LabelDataInicio = new AntdUI.Label();
             LabelSubTitulo = new AntdUI.Label();
-            PanelQuizResultados = new AntdUI.Panel();
             PanelQuestoes = new FlowLayoutPanel();
-            button1 = new AntdUI.Button();
-            button2 = new AntdUI.Button();
+            PanelQuizResultados = new AntdUI.Panel();
             PanelQuizConclusao.SuspendLayout();
             PanelQuizResultados.SuspendLayout();
             SuspendLayout();
@@ -169,17 +167,6 @@
             LabelSubTitulo.Text = "Estátisticas";
             LabelSubTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // PanelQuizResultados
-            // 
-            PanelQuizResultados.AutoScroll = true;
-            PanelQuizResultados.Back = Color.FromArgb(50, 50, 50);
-            PanelQuizResultados.Controls.Add(PanelQuestoes);
-            PanelQuizResultados.Dock = DockStyle.Fill;
-            PanelQuizResultados.Location = new Point(400, 45);
-            PanelQuizResultados.Name = "PanelQuizResultados";
-            PanelQuizResultados.Size = new Size(624, 675);
-            PanelQuizResultados.TabIndex = 2;
-            // 
             // PanelQuestoes
             // 
             PanelQuestoes.AutoSize = true;
@@ -194,21 +181,16 @@
             PanelQuestoes.TabIndex = 0;
             PanelQuestoes.WrapContents = false;
             // 
-            // button1
+            // PanelQuizResultados
             // 
-            button1.Location = new Point(126, 109);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "button1";
-            // 
-            // button2
-            // 
-            button2.Location = new Point(152, 89);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
+            PanelQuizResultados.AutoScroll = true;
+            PanelQuizResultados.Back = Color.FromArgb(50, 50, 50);
+            PanelQuizResultados.Controls.Add(PanelQuestoes);
+            PanelQuizResultados.Dock = DockStyle.Fill;
+            PanelQuizResultados.Location = new Point(400, 45);
+            PanelQuizResultados.Name = "PanelQuizResultados";
+            PanelQuizResultados.Size = new Size(624, 675);
+            PanelQuizResultados.TabIndex = 2;
             // 
             // ResultadoQuizDiario
             // 
@@ -237,9 +219,7 @@
         private AntdUI.Label LabelDataConcluido;
         private AntdUI.Label LabelDataInicio;
         private AntdUI.Label LabelSubTitulo;
-        private AntdUI.Panel PanelQuizResultados;
-        private AntdUI.Button button1;
-        private AntdUI.Button button2;
         private FlowLayoutPanel PanelQuestoes;
+        private AntdUI.Panel PanelQuizResultados;
     }
 }

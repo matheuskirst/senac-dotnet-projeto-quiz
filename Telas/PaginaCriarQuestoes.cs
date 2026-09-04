@@ -21,7 +21,6 @@ namespace SenacQuizApp.Telas
             _questaoService = questaoService;
 
             InitializeComponent();
-            ConfigurarEventosAbas();
             ConfigurarInterfaceEAbas();
         }
 
@@ -47,11 +46,6 @@ namespace SenacQuizApp.Telas
             {
                 InputQuestaoEnunciado.Multiline = true;
             }
-        }
-
-        private void ConfigurarEventosAbas()
-        {
-            tabs1.SelectedIndexChanged += (s, e) => { };
         }
 
         private void ConfigurarInterfaceEAbas()
@@ -87,37 +81,16 @@ namespace SenacQuizApp.Telas
             {
                 using var contexto = new QuizAppContexto();
 
-                int temaId = selectTema.SelectedValue != null ? Convert.ToInt32(selectTema.SelectedValue) : 1;
-                int nivelIdNumerico = selectNivel.SelectedValue != null ? Convert.ToInt32(selectNivel.SelectedValue) : 1;
-
                 var questao = new Questao
                 {
                     Enunciado = enunciado,
                     Tipo = QuestaoTipo.VerdadeiroOuFalso,
-                    TemaId = temaId,
-                    NivelId = (QuestaoNivelId)nivelIdNumerico,
+                    TemaId = _questaoTemaId.Value,
+                    NivelId = _questaoNivelId.Value,
                     VerdadeiroFalso = radioVerdadeiro.Checked
                 };
 
                 contexto.Questoes.Add(questao);
-                await contexto.SaveChangesAsync();
-
-                bool respostaEhVerdadeira = radioVerdadeiro.Checked;
-
-                var altVerdadeiro = new Alternativa
-                {
-                    Texto = "Verdadeiro",
-                    EhCorreta = respostaEhVerdadeira,
-                    QuestaoId = questao.Id
-                };
-                var altFalso = new Alternativa
-                {
-                    Texto = "Falso",
-                    EhCorreta = !respostaEhVerdadeira,
-                    QuestaoId = questao.Id
-                };
-
-                contexto.Alternativas.AddRange(altVerdadeiro, altFalso);
                 await contexto.SaveChangesAsync();
 
                 MessageBox.Show("Questão Verdadeiro/Falso salva com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -187,7 +160,7 @@ namespace SenacQuizApp.Telas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao salvar questão: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Erro ao salvar questão: {ex.ToString()}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

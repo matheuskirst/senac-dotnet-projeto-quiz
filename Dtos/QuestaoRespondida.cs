@@ -20,13 +20,15 @@ namespace SenacQuizApp.Dtos
         public string Nivel { get; set; } = null!;
 
         public QuestaoTipo Tipo { get; set; }
-
+        
+        public string? AlternativaEscolhida { get; set; }
+        public bool? VerdadeiroFalsoEscolhido { get; set; }
 
         public string Enunciado { get; set; } = null!;
-        public int Pontos { get; set; }
         public bool Acertou { get; set; }
+        public int Pontos { get; set; }
 
-        public List<AlternativaCorreta>? Alternativas { get; set; } = null!;
+        public List<AlternativaResposta>? Alternativas { get; set; } = null!;
         public bool? VerdadeiroFalso { get; set; }
     }
 }

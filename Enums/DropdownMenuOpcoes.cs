@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SenacQuizApp.Enums
 {
-    public enum MenuOpcoes
+    public enum DropdownMenuOpcoes
     {
         VerPerfil = 1,
         VerHistorico = 2,

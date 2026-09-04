@@ -32,7 +32,7 @@
             PanelCentral = new AntdUI.Panel();
             PanelConquistas = new AntdUI.Panel();
             PanelBloqueadas = new FlowLayoutPanel();
-            label1 = new AntdUI.Label();
+            LabelBloqueadas = new AntdUI.Label();
             PanelDesbloqueadas = new FlowLayoutPanel();
             PanelCentral.SuspendLayout();
             PanelConquistas.SuspendLayout();
@@ -69,7 +69,7 @@
             PanelConquistas.AutoScroll = true;
             PanelConquistas.Back = Color.FromArgb(33, 33, 33);
             PanelConquistas.Controls.Add(PanelBloqueadas);
-            PanelConquistas.Controls.Add(label1);
+            PanelConquistas.Controls.Add(LabelBloqueadas);
             PanelConquistas.Controls.Add(PanelDesbloqueadas);
             PanelConquistas.Location = new Point(0, 76);
             PanelConquistas.Name = "PanelConquistas";
@@ -90,18 +90,18 @@
             PanelBloqueadas.TabIndex = 7;
             PanelBloqueadas.WrapContents = false;
             // 
-            // label1
+            // LabelBloqueadas
             // 
-            label1.BackColor = Color.FromArgb(33, 33, 33);
-            label1.ColorScheme = AntdUI.TAMode.Dark;
-            label1.Dock = DockStyle.Top;
-            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(10, 10);
-            label1.Name = "label1";
-            label1.Size = new Size(830, 70);
-            label1.TabIndex = 6;
-            label1.Text = "Conquistas Bloqueadas";
-            label1.TextAlign = ContentAlignment.BottomLeft;
+            LabelBloqueadas.BackColor = Color.FromArgb(33, 33, 33);
+            LabelBloqueadas.ColorScheme = AntdUI.TAMode.Dark;
+            LabelBloqueadas.Dock = DockStyle.Top;
+            LabelBloqueadas.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LabelBloqueadas.Location = new Point(10, 10);
+            LabelBloqueadas.Name = "LabelBloqueadas";
+            LabelBloqueadas.Size = new Size(830, 70);
+            LabelBloqueadas.TabIndex = 6;
+            LabelBloqueadas.Text = "Conquistas Bloqueadas";
+            LabelBloqueadas.TextAlign = ContentAlignment.BottomLeft;
             // 
             // PanelDesbloqueadas
             // 
@@ -135,7 +135,7 @@
         private AntdUI.Label LabelTitulo;
         private AntdUI.Panel PanelCentral;
         private FlowLayoutPanel PanelDesbloqueadas;
-        private AntdUI.Label label1;
+        private AntdUI.Label LabelBloqueadas;
         private FlowLayoutPanel PanelBloqueadas;
         private AntdUI.Panel PanelConquistas;
     }

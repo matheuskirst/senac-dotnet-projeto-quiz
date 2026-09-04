@@ -325,12 +325,22 @@ namespace SenacQuizApp.Services
                             Tipo = questao.Tipo,
 
                             Enunciado = questao.Enunciado,
+                            AlternativaEscolhida = quiz.UsuarioRespostas
+                            .Where(resposta => resposta.UsuarioId == quiz.UsuarioId && resposta.QuestaoId == questao.Id)
+                            .Select(resposta => resposta.Alternativa != null ? resposta.Alternativa.Texto : null)
+                            .FirstOrDefault(),
+
+                            VerdadeiroFalsoEscolhido = quiz.UsuarioRespostas
+                            .Where(resposta => resposta.UsuarioId == quiz.UsuarioId && resposta.QuestaoId == questao.Id)
+                            .Select(resposta => resposta.VerdadeiroFalso)
+                            .FirstOrDefault(),
+
                             Pontos = questao.Nivel.Valor,
                             Acertou = quiz.UsuarioRespostas
                                 .Any(resposta => resposta.UsuarioId == quiz.UsuarioId && resposta.QuestaoId == questao.Id && resposta.Acertou),
 
                             Alternativas = questao.Alternativas
-                            .Select(alternativa => new AlternativaCorreta
+                            .Select(alternativa => new AlternativaResposta
                             {
                                 Id = alternativa.Id,
                                 Texto = alternativa.Texto,
