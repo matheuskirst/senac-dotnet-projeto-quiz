@@ -22,6 +22,11 @@ namespace SenacQuizApp.Telas
         {
             _conquistaService = conquistaService;
 
+            SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
+            UpdateStyles();
+
             InitializeComponent();
         }
 
@@ -29,12 +34,14 @@ namespace SenacQuizApp.Telas
         {
             var conquistas = await _conquistaService.ObterTodos();
 
+            PanelConquistas.SuspendLayout();
             PanelDesbloqueadas.SuspendLayout();
             PanelBloqueadas.SuspendLayout();
 
             foreach(var conquista in conquistas)
             {
                 var card = new CardConquista(conquista);
+                card.SuspendLayout();
 
                 if (conquista.Secreta) continue;
 
@@ -46,10 +53,12 @@ namespace SenacQuizApp.Telas
                 {
                     PanelBloqueadas.Controls.Add(card);
                 }
+                card.ResumeLayout();
             }
 
-            PanelDesbloqueadas.ResumeLayout();
             PanelBloqueadas.ResumeLayout();
+            PanelDesbloqueadas.ResumeLayout();
+            PanelConquistas.ResumeLayout();
         }
     }
 }

@@ -8,6 +8,12 @@ namespace SenacQuizApp.Telas
     {
         public CardConquista(ConquistaDetalhes conquista, bool mostrarData = false, bool mostrarPorcentagemGlobal = false)
         {
+            SetStyle(
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.AllPaintingInWmPaint,
+                true);
+            UpdateStyles();
+
             InitializeComponent();
 
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;

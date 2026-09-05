@@ -81,7 +81,7 @@ namespace SenacQuizApp.Services
 
             return await query
                 .OrderByDescending(rr => rr.MaxStreak)
-                .ThenByDescending(rr => rr.Tempo)
+                .ThenBy(rr => rr.Tempo)
                 .Select(dr => new UsuarioRankRush
                 {
                     Id = dr.UsuarioId,

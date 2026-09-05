@@ -16,6 +16,11 @@ namespace SenacQuizApp.Telas
             _usuarioId = usuarioId;
             _usuarioPerfilService = usuarioPerfilService;
 
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
+
             InitializeComponent();
         }
 
@@ -85,12 +90,14 @@ namespace SenacQuizApp.Telas
             LabelInsertTemaMestre.Text = perfil.TemaMaisAcertado?.Nome != null ? perfil.TemaMaisAcertado?.Nome : "Nenhum";
             LabelInsertAcertosTemaMestre.Text = perfil.TemaMaisAcertado?.RespostasCorretas != null ? perfil.TemaMaisAcertado?.RespostasCorretas.ToString() : "0";
 
+            PanelDesbloqueadas.SuspendLayout();
             foreach (var conquista in perfil.Conquistas)
             {
                 var card = new CardConquista(conquista, mostrarData: true);
                 card.Dock = DockStyle.Top;
                 PanelDesbloqueadas.Controls.Add(card);
             }
+            PanelDesbloqueadas.ResumeLayout();
         }
     }
 }

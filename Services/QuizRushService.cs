@@ -90,6 +90,7 @@ namespace SenacQuizApp.Services
                 {
                     temaProgresso.RespostasCorretas++;
                 }
+                await contexto.SaveChangesAsync();
             }
 
             return acertou;
@@ -126,6 +127,7 @@ namespace SenacQuizApp.Services
                 {
                     temaProgresso.RespostasCorretas++;
                 }
+                await contexto.SaveChangesAsync();
             }
 
             return acertou;
