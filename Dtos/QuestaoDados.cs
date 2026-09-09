@@ -25,5 +25,9 @@ namespace SenacQuizApp.Dtos
 
         public List<AlternativaResposta>? Alternativas { get; set; }
         public bool? VerdadeiroFalso { get; set; }
+
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public string? VerdadeiroFalsoDisplay => VerdadeiroFalso == true ? "Sim" : VerdadeiroFalso == false ? "Não" : "---";
     }
 }

@@ -38,41 +38,43 @@ namespace SenacQuizApp.Telas
         {
             try
             {
+                TableUsuariosRank.PauseLayout = true;
+
                 switch (_rankAtual)
                 {
                     case RankTipo.Geral:
                         TableUsuariosRank.Columns = new AntdUI.ColumnCollection
-                    {
-                        new AntdUI.Column(nameof(UsuarioRankGeral.Nickname), "Usuário") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankGeral.PontuacaoTotal), "Pontuação") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankGeral.Nivel), "Nível") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankGeral.TotalAcertos), "Acertos") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankGeral.TotalRespondidos), "Respondidos") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankGeral.TemaMaisAcertadoNome), "Tema Mestre") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankGeral.TemaMaisAcertadoAcertos), "Mestre Acertos") { SortOrder = true },
-                    };
+                        {
+                            new AntdUI.Column(nameof(UsuarioRankGeral.Nickname), "Usuário") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankGeral.PontuacaoTotal), "Pontuação") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankGeral.Nivel), "Nível") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankGeral.TotalAcertos), "Acertos") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankGeral.TotalRespondidos), "Respondidos") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankGeral.TemaMaisAcertadoNome), "Tema Mestre") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankGeral.TemaMaisAcertadoAcertos), "Mestre Acertos") { SortOrder = true },
+                        };
 
                         TableUsuariosRank.DataSource = await _rankingService.ObterRankingGeral(_filtroUsuario);
                         break;
 
                     case RankTipo.Diario:
                         TableUsuariosRank.Columns = new AntdUI.ColumnCollection
-                    {
-                        new AntdUI.Column(nameof(UsuarioRankDiario.Nickname), "Usuário") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankDiario.TotalAcertosDiarios), "Acertos") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankDiario.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
-                    };
+                        {
+                            new AntdUI.Column(nameof(UsuarioRankDiario.Nickname), "Usuário") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankDiario.TotalAcertosDiarios), "Acertos") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankDiario.MaxAcertosConsecutivos), "Máx. Sequência") { SortOrder = true },
+                        };
 
                         TableUsuariosRank.DataSource = await _rankingService.ObterRankingDiario(_filtroUsuario);
                         break;
 
                     case RankTipo.Rush:
                         TableUsuariosRank.Columns = new AntdUI.ColumnCollection
-                    {
-                        new AntdUI.Column(nameof(UsuarioRankRush.Nickname), "Usuário") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankRush.Recorde), "Recorde") { SortOrder = true },
-                        new AntdUI.Column(nameof(UsuarioRankRush.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff"  },
-                    };
+                        {
+                            new AntdUI.Column(nameof(UsuarioRankRush.Nickname), "Usuário") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankRush.Recorde), "Recorde") { SortOrder = true },
+                            new AntdUI.Column(nameof(UsuarioRankRush.Tempo), "Tempo") { SortOrder = true, DisplayFormat = @"hh\:mm\:ss\.fff"  },
+                        };
 
                         TableUsuariosRank.DataSource = await _rankingService.ObterRankingRush(_filtroUsuario);
                         break;
@@ -81,6 +83,10 @@ namespace SenacQuizApp.Telas
             catch
             {
 
+            }
+            finally
+            {
+                TableUsuariosRank.PauseLayout = false;
             }
         }
 

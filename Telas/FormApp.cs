@@ -237,18 +237,20 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        public void AbrirGerenciarQuestoes()
+        public void AbrirGerenciarQuestoes(object? sender, EventArgs e)
         {
-            AlternarBotaoHeader();
+            AlternarBotaoHeader(sender);
 
             var paginaQuestoes = new PaginaGerenciarQuestoes(_questaoService);
+
+            paginaQuestoes.CriarQuestao += AbrirCriarQuestoes;
 
             MudarPagina(paginaQuestoes);
 
             _paginaAtual = new PaginaAtual { Pagina = paginaQuestoes, Propriedade = null };
         }
 
-        public void AbrirCriarQuestoes()
+        public void AbrirCriarQuestoes(object? sender, EventArgs e)
         {
             AlternarBotaoHeader();
 
@@ -357,6 +359,9 @@ namespace SenacQuizApp.Telas
             ButtonHeaderPerfil.Toggle = false;
             ButtonHeaderPerfil.DefaultBorderColor = Color.FromArgb(40, 40, 40);
 
+            ButtonGerenciarQuestoes.Toggle = false;
+            ButtonGerenciarQuestoes.DefaultBorderColor = Color.FromArgb(40, 40, 40);
+
             if (sender is AntdUI.Button button)
             {
                 button.DefaultBorderColor = Color.FromArgb(66, 160, 245);
@@ -398,9 +403,9 @@ namespace SenacQuizApp.Telas
 
         private void ButtonGerenciarQuestoes_Click(object sender, EventArgs e)
         {
-            if (_paginaAtual?.Pagina is not PaginaCriarQuestoes)
+            if (_paginaAtual?.Pagina is not PaginaGerenciarQuestoes)
             {
-                AbrirCriarQuestoes();
+                AbrirGerenciarQuestoes(sender, EventArgs.Empty);
             }
         }
 

@@ -44,7 +44,7 @@ namespace SenacQuizApp.Services
 
             if (!string.IsNullOrWhiteSpace(enunciado))
             {
-                query = query.Where(q => q.Enunciado.ToLower() == enunciado.ToLower());
+                query = query.Where(q => q.Enunciado.ToLower().Contains(enunciado.ToLower()));
             }
 
             if (tipo != null && tipo is QuestaoTipoId)
@@ -62,7 +62,7 @@ namespace SenacQuizApp.Services
                 query = query.Where(q => q.TemaId == tema);
             }
 
-            return await contexto.Questoes
+            return await query
                 .Select(q => new QuestaoDados
                 {
                     Id = q.Id,

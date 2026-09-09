@@ -20,8 +20,9 @@ namespace SenacQuizApp.Data
         public DbSet<UsuarioConquista> UsuarioConquistas { get; set; }
 
         public DbSet<Questao> Questoes { get; set; }
-        public DbSet<QuestaoTema> QuestaoTemas { get; set; }
+        public DbSet<QuestaoTipo> QuestaoTipos { get; set; }
         public DbSet<QuestaoNivel> QuestaoNiveis { get; set; }
+        public DbSet<QuestaoTema> QuestaoTemas { get; set; }
         public DbSet<Alternativa> Alternativas { get; set; }
 
         public DbSet<QuizDiario> QuizzesDiarios { get; set; }

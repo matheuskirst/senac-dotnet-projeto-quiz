@@ -201,9 +201,20 @@ namespace SenacQuizApp.Telas
 
         private void TableHistorico_CellClick(object sender, TableClickEventArgs e)
         {
-            if (e.Button != MouseButtons.Right || e.Record is not QuizDiarioHistorico quiz) return;
+            if (e.Button != MouseButtons.Right || e.Record is null) return;
 
-            MostrarMenuTodos(quiz);
+            if (e.Record is QuizDiarioHistorico quizDiario)
+            {
+                MostrarMenuTodos(quizDiario);
+            }
+            else if (e.Record is RushRecordeBatido quizRush)
+            {
+                MostrarMenuTodos(quizRush);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private async void SelectQuizTipo_SelectedValueChanged(object sender, ObjectNEventArgs e)
