@@ -30,7 +30,7 @@ namespace SenacQuizApp.Telas.QuizRush
 
                 LabelEnunciado.Text = _questao.Enunciado;
 
-                if (_questao.Tipo == QuestaoTipo.Alternativas)
+                if (_questao.TipoId == QuestaoTipoId.Alternativas)
                 {
                     GridPanelAlternativas.Height = 300;
                     GridPanelAlternativas.Span = "50% 50%; 50% 50%";
@@ -92,11 +92,11 @@ namespace SenacQuizApp.Telas.QuizRush
         {
             if (sender is not AntdUI.Button botaoClicado || botaoClicado.Tag is null) return;
 
-            if (_questao?.Tipo == QuestaoTipo.Alternativas && botaoClicado.Tag is int alternativaId)
+            if (_questao?.TipoId == QuestaoTipoId.Alternativas && botaoClicado.Tag is int alternativaId)
             {
                 EscolheuAlternativa?.Invoke(alternativaId);
             }
-            else if (_questao?.Tipo == QuestaoTipo.VerdadeiroOuFalso && botaoClicado.Tag is bool opcao)
+            else if (_questao?.TipoId == QuestaoTipoId.VerdadeiroOuFalso && botaoClicado.Tag is bool opcao)
             {
                 EscolheuVerdadeiroFalso?.Invoke(opcao);
             }

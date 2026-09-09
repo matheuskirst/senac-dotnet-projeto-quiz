@@ -81,6 +81,7 @@ namespace SenacQuizApp.Telas
             LabelInsertPontuacaoTotal.Text = perfil.PontuacaoTotal.ToString();
             LabelInsertAcertos.Text = perfil.TotalAcertos.ToString();
             LabelInsertTotalRespostas.Text = perfil.TotalRespondidos.ToString();
+
             if (perfil.TotalAcertos == 0 || perfil.TotalRespondidos == 0) { LabelInsertTaxaAcertos.Text = "0%"; }
             else
             {

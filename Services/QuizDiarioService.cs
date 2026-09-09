@@ -271,7 +271,8 @@ namespace SenacQuizApp.Services
                             Tema = questao.Tema.Nome,
                             NivelId = questao.NivelId,
                             Nivel = questao.Nivel.Nome,
-                            Tipo = questao.Tipo,
+                            TipoId = questao.TipoId,
+                            Tipo = questao.Tipo.Nome,
                             Pontos = questao.Nivel.Valor,
 
                             Respondida = quiz.UsuarioRespostas
@@ -322,7 +323,8 @@ namespace SenacQuizApp.Services
                             NivelId = questao.NivelId,
                             Nivel = questao.Nivel.Nome,
 
-                            Tipo = questao.Tipo,
+                            TipoId = questao.TipoId,
+                            Tipo = questao.Tipo.Nome,
 
                             Enunciado = questao.Enunciado,
                             AlternativaEscolhida = quiz.UsuarioRespostas

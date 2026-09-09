@@ -42,7 +42,7 @@ namespace SenacQuizApp.Telas.QuizDiario
 
                 LabelEnunciado.Text = _questao.Enunciado;
 
-                if (_questao.Tipo == QuestaoTipo.Alternativas)
+                if (_questao.TipoId == QuestaoTipoId.Alternativas)
                 {
                     GridPanelAlternativas.Height = 300;
                     GridPanelAlternativas.Span = "50% 50%; 50% 50%";
@@ -130,7 +130,7 @@ namespace SenacQuizApp.Telas.QuizDiario
                 return;
             }
 
-            if (_questao?.Tipo == QuestaoTipo.Alternativas && _botaoSelecionado.Tag is int alternativaId)
+            if (_questao?.TipoId == QuestaoTipoId.Alternativas && _botaoSelecionado.Tag is int alternativaId)
             {
                 EscolheuAlternativa?.Invoke(alternativaId);
             }

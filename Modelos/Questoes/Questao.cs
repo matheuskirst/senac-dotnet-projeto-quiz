@@ -7,13 +7,14 @@ namespace SenacQuizApp.Modelos.Questoes
     {
         public int Id { get; set; }
 
-        public int TemaId { get; set; }
-        public QuestaoTema Tema { get; set; } = null!;
+        public QuestaoTipoId TipoId { get; set; }
+        public QuestaoTipo Tipo { get; set; } = null!;
 
         public QuestaoNivelId NivelId { get; set; }
         public QuestaoNivel Nivel { get; set; } = null!;
 
-        public QuestaoTipo Tipo { get; set; }
+        public int TemaId { get; set; }
+        public QuestaoTema Tema { get; set; } = null!;
 
         public string Enunciado { get; set; } = null!;
         public bool? VerdadeiroFalso { get; set; }

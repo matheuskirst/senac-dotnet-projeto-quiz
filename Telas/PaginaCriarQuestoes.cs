@@ -84,9 +84,9 @@ namespace SenacQuizApp.Telas
                 var questao = new Questao
                 {
                     Enunciado = enunciado,
-                    Tipo = QuestaoTipo.VerdadeiroOuFalso,
                     TemaId = _questaoTemaId.Value,
                     NivelId = _questaoNivelId.Value,
+                    TipoId = QuestaoTipoId.VerdadeiroOuFalso,
                     VerdadeiroFalso = radioVerdadeiro.Checked
                 };
 
@@ -137,9 +137,9 @@ namespace SenacQuizApp.Telas
                 var novaQuestao = new Questao
                 {
                     Enunciado = enunciado,
-                    Tipo = QuestaoTipo.Alternativas,
                     TemaId = _questaoTemaId.Value,
-                    NivelId = _questaoNivelId.Value
+                    NivelId = _questaoNivelId.Value,
+                    TipoId = QuestaoTipoId.Alternativas,
                 };
 
                 contexto.Questoes.Add(novaQuestao);

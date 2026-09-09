@@ -30,16 +30,16 @@
         {
             PanelHistorico = new AntdUI.Panel();
             PanelInserirHistorico = new AntdUI.Panel();
-            TableHistorico = new AntdUI.Table();
+            TableQuestoes = new AntdUI.Table();
             PanelHistoricoFiltros = new AntdUI.Panel();
+            LabelTipo = new AntdUI.Label();
+            SelectTipo = new AntdUI.Select();
             LabelNivel = new AntdUI.Label();
             SelectNivel = new AntdUI.Select();
             LabelTema = new AntdUI.Label();
             SelectTema = new AntdUI.Select();
             InputEnunciado = new AntdUI.Input();
             ButtonBuscarData = new AntdUI.Button();
-            LabelTipoQuiz = new AntdUI.Label();
-            SelectQuizTipo = new AntdUI.Select();
             LabelData = new AntdUI.Label();
             PanelHistorico.SuspendLayout();
             PanelInserirHistorico.SuspendLayout();
@@ -62,7 +62,7 @@
             // PanelInserirHistorico
             // 
             PanelInserirHistorico.Back = Color.FromArgb(33, 33, 33);
-            PanelInserirHistorico.Controls.Add(TableHistorico);
+            PanelInserirHistorico.Controls.Add(TableQuestoes);
             PanelInserirHistorico.Dock = DockStyle.Fill;
             PanelInserirHistorico.Location = new Point(0, 35);
             PanelInserirHistorico.Name = "PanelInserirHistorico";
@@ -71,34 +71,34 @@
             PanelInserirHistorico.TabIndex = 5;
             PanelInserirHistorico.Text = "panel1";
             // 
-            // TableHistorico
+            // TableQuestoes
             // 
-            TableHistorico.AutoSizeColumnsMode = AntdUI.ColumnsMode.Fill;
-            TableHistorico.BackColor = Color.FromArgb(33, 33, 33);
-            TableHistorico.ColorScheme = AntdUI.TAMode.Dark;
-            TableHistorico.ColumnDragSort = true;
-            TableHistorico.Dock = DockStyle.Fill;
-            TableHistorico.EmptyText = "Nenhuma pergunta encontrada";
-            TableHistorico.EnableHeaderResizing = true;
-            TableHistorico.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            TableHistorico.Gap = 12;
-            TableHistorico.Location = new Point(0, 0);
-            TableHistorico.Name = "TableHistorico";
-            TableHistorico.Size = new Size(850, 585);
-            TableHistorico.TabIndex = 0;
+            TableQuestoes.AutoSizeColumnsMode = AntdUI.ColumnsMode.Fill;
+            TableQuestoes.BackColor = Color.FromArgb(33, 33, 33);
+            TableQuestoes.ColorScheme = AntdUI.TAMode.Dark;
+            TableQuestoes.ColumnDragSort = true;
+            TableQuestoes.Dock = DockStyle.Fill;
+            TableQuestoes.EmptyText = "Nenhuma pergunta encontrada";
+            TableQuestoes.EnableHeaderResizing = true;
+            TableQuestoes.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TableQuestoes.Gap = 12;
+            TableQuestoes.Location = new Point(0, 0);
+            TableQuestoes.Name = "TableQuestoes";
+            TableQuestoes.Size = new Size(850, 585);
+            TableQuestoes.TabIndex = 0;
             // 
             // PanelHistoricoFiltros
             // 
             PanelHistoricoFiltros.Back = Color.FromArgb(33, 33, 33);
             PanelHistoricoFiltros.ColorScheme = AntdUI.TAMode.Dark;
+            PanelHistoricoFiltros.Controls.Add(LabelTipo);
+            PanelHistoricoFiltros.Controls.Add(SelectTipo);
             PanelHistoricoFiltros.Controls.Add(LabelNivel);
             PanelHistoricoFiltros.Controls.Add(SelectNivel);
             PanelHistoricoFiltros.Controls.Add(LabelTema);
             PanelHistoricoFiltros.Controls.Add(SelectTema);
             PanelHistoricoFiltros.Controls.Add(InputEnunciado);
             PanelHistoricoFiltros.Controls.Add(ButtonBuscarData);
-            PanelHistoricoFiltros.Controls.Add(LabelTipoQuiz);
-            PanelHistoricoFiltros.Controls.Add(SelectQuizTipo);
             PanelHistoricoFiltros.Controls.Add(LabelData);
             PanelHistoricoFiltros.Dock = DockStyle.Top;
             PanelHistoricoFiltros.Location = new Point(0, 0);
@@ -109,13 +109,37 @@
             PanelHistoricoFiltros.TabIndex = 4;
             PanelHistoricoFiltros.Text = "panel1";
             // 
+            // LabelTipo
+            // 
+            LabelTipo.AutoSizeMode = AntdUI.TAutoSize.Width;
+            LabelTipo.BackColor = Color.FromArgb(33, 33, 33);
+            LabelTipo.ColorScheme = AntdUI.TAMode.Dark;
+            LabelTipo.Dock = DockStyle.Right;
+            LabelTipo.Location = new Point(390, 0);
+            LabelTipo.Name = "LabelTipo";
+            LabelTipo.Size = new Size(26, 35);
+            LabelTipo.TabIndex = 3;
+            LabelTipo.Text = "Tipo:";
+            // 
+            // SelectTipo
+            // 
+            SelectTipo.BackColor = Color.FromArgb(66, 66, 66);
+            SelectTipo.BorderColor = Color.FromArgb(20, 20, 20);
+            SelectTipo.ColorScheme = AntdUI.TAMode.Dark;
+            SelectTipo.Dock = DockStyle.Right;
+            SelectTipo.List = true;
+            SelectTipo.Location = new Point(416, 0);
+            SelectTipo.Name = "SelectTipo";
+            SelectTipo.Size = new Size(117, 35);
+            SelectTipo.TabIndex = 0;
+            // 
             // LabelNivel
             // 
             LabelNivel.AutoSizeMode = AntdUI.TAutoSize.Width;
             LabelNivel.BackColor = Color.FromArgb(33, 33, 33);
             LabelNivel.ColorScheme = AntdUI.TAMode.Dark;
             LabelNivel.Dock = DockStyle.Right;
-            LabelNivel.Location = new Point(390, 0);
+            LabelNivel.Location = new Point(533, 0);
             LabelNivel.Name = "LabelNivel";
             LabelNivel.Size = new Size(30, 35);
             LabelNivel.TabIndex = 5;
@@ -128,7 +152,7 @@
             SelectNivel.ColorScheme = AntdUI.TAMode.Dark;
             SelectNivel.Dock = DockStyle.Right;
             SelectNivel.List = true;
-            SelectNivel.Location = new Point(420, 0);
+            SelectNivel.Location = new Point(563, 0);
             SelectNivel.Name = "SelectNivel";
             SelectNivel.Size = new Size(125, 35);
             SelectNivel.TabIndex = 4;
@@ -139,7 +163,7 @@
             LabelTema.BackColor = Color.FromArgb(33, 33, 33);
             LabelTema.ColorScheme = AntdUI.TAMode.Dark;
             LabelTema.Dock = DockStyle.Right;
-            LabelTema.Location = new Point(545, 0);
+            LabelTema.Location = new Point(688, 0);
             LabelTema.Name = "LabelTema";
             LabelTema.Size = new Size(32, 35);
             LabelTema.TabIndex = 10;
@@ -152,7 +176,7 @@
             SelectTema.ColorScheme = AntdUI.TAMode.Dark;
             SelectTema.Dock = DockStyle.Right;
             SelectTema.List = true;
-            SelectTema.Location = new Point(577, 0);
+            SelectTema.Location = new Point(720, 0);
             SelectTema.Name = "SelectTema";
             SelectTema.Size = new Size(125, 35);
             SelectTema.TabIndex = 9;
@@ -179,30 +203,6 @@
             ButtonBuscarData.Size = new Size(75, 35);
             ButtonBuscarData.TabIndex = 7;
             ButtonBuscarData.Text = "Buscar";
-            // 
-            // LabelTipoQuiz
-            // 
-            LabelTipoQuiz.AutoSizeMode = AntdUI.TAutoSize.Width;
-            LabelTipoQuiz.BackColor = Color.FromArgb(33, 33, 33);
-            LabelTipoQuiz.ColorScheme = AntdUI.TAMode.Dark;
-            LabelTipoQuiz.Dock = DockStyle.Right;
-            LabelTipoQuiz.Location = new Point(702, 0);
-            LabelTipoQuiz.Name = "LabelTipoQuiz";
-            LabelTipoQuiz.Size = new Size(26, 35);
-            LabelTipoQuiz.TabIndex = 3;
-            LabelTipoQuiz.Text = "Tipo:";
-            // 
-            // SelectQuizTipo
-            // 
-            SelectQuizTipo.BackColor = Color.FromArgb(66, 66, 66);
-            SelectQuizTipo.BorderColor = Color.FromArgb(20, 20, 20);
-            SelectQuizTipo.ColorScheme = AntdUI.TAMode.Dark;
-            SelectQuizTipo.Dock = DockStyle.Right;
-            SelectQuizTipo.List = true;
-            SelectQuizTipo.Location = new Point(728, 0);
-            SelectQuizTipo.Name = "SelectQuizTipo";
-            SelectQuizTipo.Size = new Size(117, 35);
-            SelectQuizTipo.TabIndex = 0;
             // 
             // LabelData
             // 
@@ -236,12 +236,12 @@
 
         private AntdUI.Panel PanelHistorico;
         private AntdUI.Panel PanelInserirHistorico;
-        private AntdUI.Table TableHistorico;
+        private AntdUI.Table TableQuestoes;
         private AntdUI.Panel PanelHistoricoFiltros;
         private AntdUI.Label LabelNivel;
         private AntdUI.Select SelectNivel;
-        private AntdUI.Label LabelTipoQuiz;
-        private AntdUI.Select SelectQuizTipo;
+        private AntdUI.Label LabelTipo;
+        private AntdUI.Select SelectTipo;
         private AntdUI.Label LabelData;
         private AntdUI.Input InputEnunciado;
         private AntdUI.Button ButtonBuscarData;

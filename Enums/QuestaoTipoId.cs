@@ -1,6 +1,6 @@
 ﻿namespace SenacQuizApp.Enums
 {
-    public enum QuestaoTipo
+    public enum QuestaoTipoId
     {
         Alternativas = 1,
         VerdadeiroOuFalso = 2

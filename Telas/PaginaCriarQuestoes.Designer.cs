@@ -50,6 +50,7 @@
             InputQuestaoEnunciado.Anchor = AnchorStyles.Top;
             InputQuestaoEnunciado.AutoScroll = true;
             InputQuestaoEnunciado.BackColor = Color.FromArgb(66, 66, 66);
+            InputQuestaoEnunciado.BorderColor = Color.FromArgb(20, 20, 20);
             InputQuestaoEnunciado.ColorScheme = AntdUI.TAMode.Dark;
             InputQuestaoEnunciado.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point, 0);
             InputQuestaoEnunciado.LineHeight = 2;
@@ -69,16 +70,16 @@
             tabs1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             tabs1.BackColor = Color.FromArgb(33, 33, 33);
             tabs1.ColorScheme = AntdUI.TAMode.Dark;
-            tabs1.Controls.Add(TabPageVerdadeiroOuFalso);
             tabs1.Controls.Add(TabPageAlternativas);
+            tabs1.Controls.Add(TabPageVerdadeiroOuFalso);
             tabs1.Location = new Point(190, 205);
             tabs1.Name = "tabs1";
-            tabs1.Pages.Add(TabPageVerdadeiroOuFalso);
             tabs1.Pages.Add(TabPageAlternativas);
+            tabs1.Pages.Add(TabPageVerdadeiroOuFalso);
+            tabs1.SelectedIndex = 1;
             tabs1.Size = new Size(900, 480);
             tabs1.Style = styleLine1;
             tabs1.TabIndex = 3;
-            tabs1.Text = "Abas";
             // 
             // TabPageVerdadeiroOuFalso
             // 
@@ -100,7 +101,7 @@
             btnSalvarVF.Name = "btnSalvarVF";
             btnSalvarVF.Size = new Size(200, 45);
             btnSalvarVF.TabIndex = 2;
-            btnSalvarVF.Text = "Salvar Questão (V/F)";
+            btnSalvarVF.Text = "Salvar";
             btnSalvarVF.Type = AntdUI.TTypeMini.Primary;
             btnSalvarVF.Click += btnSalvarVF_Click;
             // 
@@ -148,16 +149,16 @@
             TabPageAlternativas.Name = "TabPageAlternativas";
             TabPageAlternativas.Size = new Size(900, 450);
             TabPageAlternativas.TabIndex = 1;
-            TabPageAlternativas.Text = "Múltipla Escolha";
+            TabPageAlternativas.Text = "Alternativas";
             // 
             // btnSalvarAlternativas
             // 
             btnSalvarAlternativas.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            btnSalvarAlternativas.Location = new Point(30, 230);
+            btnSalvarAlternativas.Location = new Point(350, 234);
             btnSalvarAlternativas.Name = "btnSalvarAlternativas";
-            btnSalvarAlternativas.Size = new Size(240, 45);
+            btnSalvarAlternativas.Size = new Size(200, 45);
             btnSalvarAlternativas.TabIndex = 8;
-            btnSalvarAlternativas.Text = "Salvar Múltipla Escolha";
+            btnSalvarAlternativas.Text = "Salvar";
             btnSalvarAlternativas.Type = AntdUI.TTypeMini.Primary;
             btnSalvarAlternativas.Click += btnSalvarAlternativas_Click;
             // 
@@ -282,6 +283,7 @@
             // 
             selectTema.Anchor = AnchorStyles.Top;
             selectTema.BackColor = Color.FromArgb(66, 66, 66);
+            selectTema.BorderColor = Color.FromArgb(20, 20, 20);
             selectTema.ColorScheme = AntdUI.TAMode.Dark;
             selectTema.Location = new Point(190, 150);
             selectTema.Name = "selectTema";
@@ -294,6 +296,7 @@
             // 
             selectNivel.Anchor = AnchorStyles.Top;
             selectNivel.BackColor = Color.FromArgb(66, 66, 66);
+            selectNivel.BorderColor = Color.FromArgb(20, 20, 20);
             selectNivel.ColorScheme = AntdUI.TAMode.Dark;
             selectNivel.Location = new Point(650, 150);
             selectNivel.Name = "selectNivel";

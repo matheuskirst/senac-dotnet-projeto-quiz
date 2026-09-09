@@ -29,7 +29,7 @@ namespace SenacQuizApp.Telas.Componentes
                     BackColor = Color.FromArgb(74, 64, 64);
                 }
 
-                if (questao.Tipo == QuestaoTipo.Alternativas && questao.Alternativas != null)
+                if (questao.TipoId == QuestaoTipoId.Alternativas && questao.Alternativas != null)
                 {
                     LabelUsuarioResposta.Text = questao.AlternativaEscolhida != null ? questao.AlternativaEscolhida : "---";
 
@@ -54,7 +54,7 @@ namespace SenacQuizApp.Telas.Componentes
                     }
                 }
 
-                else if (questao.Tipo == QuestaoTipo.VerdadeiroOuFalso)
+                else if (questao.TipoId == QuestaoTipoId.VerdadeiroOuFalso)
                 {
                     LabelRespostaCorreta.Text = questao.VerdadeiroFalso == true ? "Verdadeiro" : "Falso";
                     LabelUsuarioResposta.Text = questao.VerdadeiroFalsoEscolhido == true ? "Verdadeiro" : "Falso";

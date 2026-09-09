@@ -31,7 +31,7 @@ VALUES
 -- ============================================================
 
 INSERT INTO "Questoes"
-    ("Id", "Enunciado", "TemaId", "NivelId", "Tipo", "VerdadeiroFalso")
+    ("Id", "Enunciado", "TemaId", "NivelId", "TipoId", "VerdadeiroFalso")
 VALUES
 
 -- ============================================================

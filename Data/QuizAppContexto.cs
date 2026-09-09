@@ -194,7 +194,19 @@ namespace SenacQuizApp.Data
                 .HasMaxLength(ModelosConstantes.QuestaoTema.MaxNomeLength);
 
 
-            modelBuilder.HasPostgresEnum<QuestaoTipo>(name: "Tipo");
+            modelBuilder.Entity<QuestaoTipo>(entity =>
+            {
+                entity.HasKey(qt => qt.Id);
+
+                entity.Property(qt => qt.Nome)
+                    .HasMaxLength(ModelosConstantes.QuestaoTipo.MaxNomeLength)
+                    .IsRequired();
+
+                entity.HasData(
+                    new QuestaoTipo { Id = QuestaoTipoId.Alternativas, Nome = "Alternativas" },
+                    new QuestaoTipo { Id = QuestaoTipoId.VerdadeiroOuFalso, Nome = "Verdadeira ou Falso" }
+                    );
+            });
 
 
             modelBuilder.Entity<QuestaoNivel>()
@@ -216,8 +228,11 @@ namespace SenacQuizApp.Data
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.Property(q => q.Tipo)
-                    .HasConversion<string>();
+                entity.HasOne(qt => qt.Tipo)
+                    .WithMany()
+                    .HasForeignKey(qt => qt.TipoId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
 
                 entity.HasMany(q => q.Alternativas)
                     .WithOne(a => a.Questao)
