@@ -205,7 +205,7 @@ namespace SenacQuizApp.Data
 
                 entity.HasData(
                     new QuestaoTipo { Id = QuestaoTipoId.Alternativas, Nome = "Alternativas" },
-                    new QuestaoTipo { Id = QuestaoTipoId.VerdadeiroOuFalso, Nome = "Verdadeira ou Falso" }
+                    new QuestaoTipo { Id = QuestaoTipoId.VerdadeiroOuFalso, Nome = "Verdadeiro ou Falso" }
                     );
             });
 

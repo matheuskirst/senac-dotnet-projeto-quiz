@@ -31,7 +31,7 @@ namespace SenacQuizApp.Telas.QuizRush
             if (ultimoRecorde == null) return;
 
             LabelDataPartida.Text = ultimoRecorde.DataRecorde.ToString(@"dd/MM/yyyy HH\:mm\:ss");
-            LabelRecordeAcertos.Text = ultimoRecorde.Streak.ToString();
+            LabelStreaks.Text = ultimoRecorde.Streak.ToString();
             LabelTempo.Text = ultimoRecorde.Tempo.ToString(@"hh\:mm\:ss\.fff");
         }
 

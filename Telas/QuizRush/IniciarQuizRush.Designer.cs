@@ -32,11 +32,12 @@
             LabelQuizDiarioTitulo = new AntdUI.Label();
             PanelQuizDiario = new AntdUI.Panel();
             LabelTempo = new AntdUI.Label();
-            LabelRecordeAcertos = new AntdUI.Label();
+            LabelStreaks = new AntdUI.Label();
             LabelDataPartida = new AntdUI.Label();
             divider1 = new AntdUI.Divider();
             LabelDescricao = new AntdUI.Label();
             ButtonQuizRush = new AntdUI.Button();
+            LabelRecorde = new AntdUI.Label();
             PanelQuizDiario.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,9 +58,10 @@
             // 
             PanelQuizDiario.Anchor = AnchorStyles.None;
             PanelQuizDiario.Back = Color.FromArgb(33, 33, 33);
-            PanelQuizDiario.Controls.Add(LabelTempo);
-            PanelQuizDiario.Controls.Add(LabelRecordeAcertos);
             PanelQuizDiario.Controls.Add(LabelDataPartida);
+            PanelQuizDiario.Controls.Add(LabelTempo);
+            PanelQuizDiario.Controls.Add(LabelStreaks);
+            PanelQuizDiario.Controls.Add(LabelRecorde);
             PanelQuizDiario.Controls.Add(divider1);
             PanelQuizDiario.Controls.Add(LabelDescricao);
             PanelQuizDiario.Controls.Add(ButtonQuizRush);
@@ -85,19 +87,19 @@
             LabelTempo.Text = "---";
             LabelTempo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // LabelRecordeAcertos
+            // LabelStreaks
             // 
-            LabelRecordeAcertos.BackColor = Color.Transparent;
-            LabelRecordeAcertos.ColorScheme = AntdUI.TAMode.Dark;
-            LabelRecordeAcertos.Dock = DockStyle.Top;
-            LabelRecordeAcertos.Font = new Font("Segoe UI", 15.75F);
-            LabelRecordeAcertos.Location = new Point(10, 346);
-            LabelRecordeAcertos.Name = "LabelRecordeAcertos";
-            LabelRecordeAcertos.Prefix = "Recorde: ";
-            LabelRecordeAcertos.Size = new Size(630, 38);
-            LabelRecordeAcertos.TabIndex = 16;
-            LabelRecordeAcertos.Text = "---";
-            LabelRecordeAcertos.TextAlign = ContentAlignment.MiddleCenter;
+            LabelStreaks.BackColor = Color.Transparent;
+            LabelStreaks.ColorScheme = AntdUI.TAMode.Dark;
+            LabelStreaks.Dock = DockStyle.Top;
+            LabelStreaks.Font = new Font("Segoe UI", 15.75F);
+            LabelStreaks.Location = new Point(10, 346);
+            LabelStreaks.Name = "LabelStreaks";
+            LabelStreaks.Prefix = "Streak: ";
+            LabelStreaks.Size = new Size(630, 38);
+            LabelStreaks.TabIndex = 16;
+            LabelStreaks.Text = "---";
+            LabelStreaks.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LabelDataPartida
             // 
@@ -105,9 +107,9 @@
             LabelDataPartida.ColorScheme = AntdUI.TAMode.Dark;
             LabelDataPartida.Dock = DockStyle.Top;
             LabelDataPartida.Font = new Font("Segoe UI", 15.75F);
-            LabelDataPartida.Location = new Point(10, 308);
+            LabelDataPartida.Location = new Point(10, 422);
             LabelDataPartida.Name = "LabelDataPartida";
-            LabelDataPartida.Prefix = "Última Partida: ";
+            LabelDataPartida.Prefix = "Data: ";
             LabelDataPartida.Size = new Size(630, 38);
             LabelDataPartida.TabIndex = 15;
             LabelDataPartida.Text = "---";
@@ -150,6 +152,20 @@
             ButtonQuizRush.Text = "Iniciar";
             ButtonQuizRush.Click += ButtonQuizRush_Click;
             // 
+            // LabelRecorde
+            // 
+            LabelRecorde.BackColor = Color.Transparent;
+            LabelRecorde.ColorScheme = AntdUI.TAMode.Dark;
+            LabelRecorde.Dock = DockStyle.Top;
+            LabelRecorde.Font = new Font("Segoe UI", 15.75F);
+            LabelRecorde.Location = new Point(10, 308);
+            LabelRecorde.Name = "LabelRecorde";
+            LabelRecorde.Prefix = "";
+            LabelRecorde.Size = new Size(630, 38);
+            LabelRecorde.TabIndex = 20;
+            LabelRecorde.Text = "Recorde";
+            LabelRecorde.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // IniciarQuizRush
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -169,9 +185,10 @@
         private AntdUI.Panel PanelQuizDiario;
         private AntdUI.Button ButtonQuizRush;
         private AntdUI.Label LabelTempo;
-        private AntdUI.Label LabelRecordeAcertos;
+        private AntdUI.Label LabelStreaks;
         private AntdUI.Label LabelDataPartida;
         private AntdUI.Label LabelDescricao;
         private AntdUI.Divider divider1;
+        private AntdUI.Label LabelRecorde;
     }
 }

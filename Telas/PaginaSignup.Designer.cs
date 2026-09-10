@@ -101,6 +101,8 @@ namespace SenacQuizApp.Telas
             InputSignupConfirmarSenha.UseSystemPasswordChar = true;
             InputSignupConfirmarSenha.SuffixClick += AlternatVisibilidadeSenha_SuffixClick;
             InputSignupConfirmarSenha.TextChanged += LimparBorda_TextChanged;
+            InputSignupConfirmarSenha.Enter += SelecionarTextoAoFocar;
+            InputSignupConfirmarSenha.KeyDown += InputSignupConfirmarSenha_KeyDown;
             // 
             // LabelSignupConfirmarSenha
             // 
@@ -131,6 +133,8 @@ namespace SenacQuizApp.Telas
             InputSignupSenha.UseSystemPasswordChar = true;
             InputSignupSenha.SuffixClick += AlternatVisibilidadeSenha_SuffixClick;
             InputSignupSenha.TextChanged += LimparBorda_TextChanged;
+            InputSignupSenha.Enter += SelecionarTextoAoFocar;
+            InputSignupSenha.KeyDown += InputSignupSenha_KeyDown;
             // 
             // LabelSignupSenha
             // 
@@ -161,6 +165,7 @@ namespace SenacQuizApp.Telas
             DatePickerSignupDataNascimento.SuffixSvg = resources.GetString("DatePickerSignupDataNascimento.SuffixSvg");
             DatePickerSignupDataNascimento.TabIndex = 2;
             DatePickerSignupDataNascimento.TextChanged += LimparBorda_TextChanged;
+            DatePickerSignupDataNascimento.Enter += SelecionarTextoAoFocar;
             DatePickerSignupDataNascimento.KeyDown += DatePickerSignupDataNascimento_KeyDown;
             // 
             // LabelSignupDataNascimento
@@ -189,6 +194,8 @@ namespace SenacQuizApp.Telas
             InputSignupNick.Size = new Size(440, 50);
             InputSignupNick.TabIndex = 1;
             InputSignupNick.TextChanged += LimparBorda_TextChanged;
+            InputSignupNick.Enter += SelecionarTextoAoFocar;
+            InputSignupNick.KeyDown += InputSignupNick_KeyDown;
             // 
             // LabelSignupNick
             // 
@@ -214,6 +221,8 @@ namespace SenacQuizApp.Telas
             InputSignupUsername.Size = new Size(440, 50);
             InputSignupUsername.TabIndex = 0;
             InputSignupUsername.TextChanged += LimparBorda_TextChanged;
+            InputSignupUsername.Enter += SelecionarTextoAoFocar;
+            InputSignupUsername.KeyDown += InputSignupUsername_KeyDown;
             // 
             // LabelSignupUsername
             // 

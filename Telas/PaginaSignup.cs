@@ -32,25 +32,6 @@ namespace SenacQuizApp.Telas
             EscolheuVoltar?.Invoke(this, EventArgs.Empty);
         }
 
-        private void DatePickerSignupDataNascimento_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right ||
-                e.KeyCode == Keys.Up || e.KeyCode == Keys.Down ||
-                e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete ||
-                e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter)
-            {
-                return;
-            }
-
-            bool numeroSuperior = (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) && !e.Modifiers.HasFlag(Keys.Shift);
-            bool numeroLateral = (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9);
-
-            if (!numeroSuperior && !numeroLateral)
-            {
-                e.SuppressKeyPress = true;
-            }
-        }
-
         private void AlternatVisibilidadeSenha_SuffixClick(object sender, MouseEventArgs e)
         {
             if (sender is AntdUI.Input input)
@@ -76,9 +57,9 @@ namespace SenacQuizApp.Telas
             }
         }
 
-        private void ButtonSignupRegistrar_Click(object sender, EventArgs e)
+        private async void ButtonSignupRegistrar_Click(object sender, EventArgs e)
         {
-            ValidarRegistro();
+            await ValidarRegistro();
         }
 
         private void NomeIndisponivel()
@@ -109,7 +90,7 @@ namespace SenacQuizApp.Telas
             ButtonSignupRegistrar.Loading = false;
         }
 
-        private void ValidarRegistro()
+        private async Task ValidarRegistro()
         {
             LimparBordas();
 
@@ -137,7 +118,7 @@ namespace SenacQuizApp.Telas
 
             if (usernameValido && nickValido && dataNascimentoValido && senhaValida)
             {
-                RequisitarSignup(username, nick, dataNascimento!.Value, senha);
+                await RequisitarSignup(username, nick, dataNascimento!.Value, senha);
                 ButtonSignupRegistrar.Enabled = false;
                 ButtonSignupRegistrar.Loading = true;
             }
@@ -169,7 +150,7 @@ namespace SenacQuizApp.Telas
 
         private bool ValidarNickname(string nickname)
         {
-            if (string.IsNullOrEmpty(nickname) || (nickname.Length < 3 || nickname.Length > ModelosConstantes.Usuario.MaxNicknameLength))
+            if (!string.IsNullOrEmpty(nickname) && (nickname.Length < 3 || nickname.Length > ModelosConstantes.Usuario.MaxNicknameLength))
             {
                 PintarErros.ErroNoCampo(InputSignupNick, mensagem: $"O Nickname deve ter entre 3 e {ModelosConstantes.Usuario.MaxNicknameLength} caracteres.");
                 return false;
@@ -236,7 +217,7 @@ namespace SenacQuizApp.Telas
                 && senha.Any(ch => !char.IsLetterOrDigit(ch));
         }
 
-        private async void RequisitarSignup(string username, string nickname, DateOnly dataNascimento, string senha)
+        private async Task RequisitarSignup(string username, string nickname, DateOnly dataNascimento, string senha)
         {
             try
             {
@@ -258,6 +239,70 @@ namespace SenacQuizApp.Telas
             catch
             {
                 ErroDeConexao();
+            }
+        }
+
+        private void InputSignupUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                InputSignupNick.Focus();
+            }
+        }
+
+        private void InputSignupNick_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                DatePickerSignupDataNascimento.Focus();
+            }
+        }
+
+        private void DatePickerSignupDataNascimento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right ||
+                e.KeyCode == Keys.Up || e.KeyCode == Keys.Down ||
+                e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete ||
+                e.KeyCode == Keys.Tab)
+            {
+                return;
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                InputSignupSenha.Focus();
+            }
+
+            bool numeroSuperior = (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) && !e.Modifiers.HasFlag(Keys.Shift);
+            bool numeroLateral = (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9);
+
+            if (!numeroSuperior && !numeroLateral)
+            {
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void InputSignupSenha_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                InputSignupConfirmarSenha.Focus();
+            }
+        }
+
+        private async void InputSignupConfirmarSenha_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                await ValidarRegistro();
+            }
+        }
+
+        private void SelecionarTextoAoFocar(object sender, EventArgs e)
+        {
+            if (sender is AntdUI.Input input)
+            {
+                input.SelectAll();
             }
         }
     }

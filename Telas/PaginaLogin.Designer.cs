@@ -119,6 +119,8 @@ namespace SenacQuizApp.Telas
             InputLoginSenha.UseSystemPasswordChar = true;
             InputLoginSenha.SuffixClick += InputLoginSenha_SuffixClick;
             InputLoginSenha.TextChanged += LimparBorda_TextChanged;
+            InputLoginSenha.Enter += SelecionarTextoAoFocar;
+            InputLoginSenha.KeyDown += InputLoginSenha_KeyDown;
             // 
             // LabelLoginSenha
             // 
@@ -145,6 +147,8 @@ namespace SenacQuizApp.Telas
             InputLoginUsername.Size = new Size(440, 50);
             InputLoginUsername.TabIndex = 0;
             InputLoginUsername.TextChanged += LimparBorda_TextChanged;
+            InputLoginUsername.Enter += SelecionarTextoAoFocar;
+            InputLoginUsername.KeyDown += InputLoginUsername_KeyDown;
             // 
             // LabelLoginUsername
             // 

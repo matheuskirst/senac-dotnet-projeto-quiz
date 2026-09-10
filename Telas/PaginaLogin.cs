@@ -56,6 +56,11 @@ namespace SenacQuizApp.Telas
 
         private async void ButtonLoginEntrar_Click(object sender, EventArgs e)
         {
+            await ValidarLogin();
+        }
+
+        private async Task ValidarLogin()
+        {
             LimparBordas();
             StackPanelLoginErro.Visible = false;
 
@@ -169,6 +174,30 @@ namespace SenacQuizApp.Telas
             int y = Math.Max(0, (this.ClientSize.Height - StackPanelLogin.Height) / 2);
 
             StackPanelLogin.Location = new Point(x, y);
+        }
+
+        private void InputLoginUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                InputLoginSenha.Focus();
+            }
+        }
+
+        private async void InputLoginSenha_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                await ValidarLogin();
+            }
+        }
+
+        private void SelecionarTextoAoFocar(object sender, EventArgs e)
+        {
+            if (sender is AntdUI.Input input)
+            {
+                input.SelectAll();
+            }
         }
     }
 }
