@@ -84,9 +84,6 @@ namespace SenacQuizApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
-
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasIndex(u => u.Username)
@@ -229,9 +226,9 @@ namespace SenacQuizApp.Data
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(qt => qt.Tipo)
+                entity.HasOne(q => q.Tipo)
                     .WithMany()
-                    .HasForeignKey(qt => qt.TipoId)
+                    .HasForeignKey(q => q.TipoId)
                     .OnDelete(DeleteBehavior.Restrict);
 
 
